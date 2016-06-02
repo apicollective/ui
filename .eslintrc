@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "mocha": true
+  },
+  "plugins": ["react"],
+  "parser": "babel-eslint",
+  "rules": {
+    "no-confusing-arrow": "off",
+    "no-else-return": "off",
+    "max-len": ["error", 120],
+    "no-unused-vars": ["error", {"args": "none"}],
+    "react/jsx-boolean-value": ["error", "always"]
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  }
+}
