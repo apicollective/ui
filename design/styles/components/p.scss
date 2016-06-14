@@ -1,0 +1,26 @@
+// Component styles
+p {
+  font-size: 14px;
+  max-width: 500px;
+}
+
+// Component relations
+h1 + p {
+  margin-top: 20px;
+}
+
+h2 + p {
+  margin-top: 5px;
+}
+
+h3 + p {
+  margin-top: 5px;
+}
+
+p + p {
+  margin-top: 20px;
+}
+
+.button + p {
+  margin-top: 20px;
+}

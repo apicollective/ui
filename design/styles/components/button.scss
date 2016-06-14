@@ -1,0 +1,56 @@
+// Component styles
+.button {
+  display: inline-block;
+  background: $color-primary;
+  color: white;
+  font-family: $font-din;
+  line-height: 32px;
+  font-size: 14px;
+  padding: 0 12px;
+  border-radius: $border-radius;
+  text-decoration: none;
+  transition: all .3s;
+  outline: none;
+  cursor: pointer;
+  &:not(.disabled):hover,
+  &:not(.disabled):focus {
+    background: $color-primary-light;
+  }
+  &.disabled {
+    cursor: default;
+    background: $color-very-light-gray;
+    color: $color-light-gray;
+  }
+}
+
+// Variations
+.button.secondary {
+  background: $color-primary-light;
+  &:hover {
+    background: $color-colombia-blue;
+  }
+}
+
+.navbar .button {
+  line-height: 40px;
+  &:hover {
+    background: $color-primary-dark;
+  }
+}
+
+// Component relations
+h1 + .button {
+  margin-top: 30px;
+}
+
+h2 + .button {
+  margin-top: 20px;
+}
+
+p + .button {
+  margin-top: 20px;
+}
+
+.button + .button {
+  margin-left: 10px;
+}

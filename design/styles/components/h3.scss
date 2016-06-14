@@ -1,0 +1,22 @@
+// Component styles
+h3 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+// Component relations
+h1 + h3 {
+  margin-top: 0px;
+}
+
+h2 + h3 {
+  margin-top: 10px;
+}
+
+p + h3 {
+  margin-top: 20px;
+}
+
+.button + h3 {
+  margin-top: 30px;
+}

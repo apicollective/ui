@@ -1,0 +1,85 @@
+// Component styles
+.dropdown {
+  position: relative;
+  display: inline-block;
+  .arrow.button {
+    position: relative;
+    padding-right: 34px;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 17px;
+      width: 6px;
+      height: 2px;
+      background: white;
+      transform-origin: left center;
+      transition: all .2s;
+    }
+    &::before {
+      right: 10px;
+      transform: rotate(-135deg);
+    }
+    &::after {
+      right: 11px;
+      transform: rotate(-45deg);
+    }
+  }
+  .list {
+    position: absolute;
+    top: 34px;
+    left: 0;
+    min-width: 100%;
+    opacity: 0;
+    background: $color-primary;
+    color: white;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 26px;
+    border-radius: 0 0 $border-radius $border-radius;
+    cursor: pointer;
+    pointer-events: none;
+    text-align: left;
+    z-index: 9;
+    transition: all .3s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    .item {
+      padding: 0 12px;
+      white-space: nowrap;
+      line-height: 34px;
+      font-family: $font-din;
+      &:hover {
+        color: $color-armadillo;
+        background: white;
+      }
+    }
+  }
+  &.active {
+    .button {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: none;
+      &.arrow {
+        &::before,
+        &::after {
+          top: 13px;
+        }
+        &::before {
+          transform: rotate(-225deg);
+        }
+        &::after {
+          transform: rotate(45deg);
+        }
+      }
+      &:hover {
+        background: $color-primary;
+      }
+    }
+    .list {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+// Component relations

@@ -1,0 +1,13 @@
+// Component styles
+label {
+  display: block;
+  font-size: 13px;
+  font-family: $font-din;
+}
+
+// Component relations
+.checkbox + label,
+.switch + label,
+input[type="text"] + label {
+  margin-top: 20px;
+}

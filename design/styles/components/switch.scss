@@ -1,0 +1,46 @@
+// Component styles
+.switch {
+  position: relative;
+  display: inline-block;
+  font-size: 13px;
+  padding-left: 34px;
+  line-height: 26px;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-family: $font-din;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    transition: all .2s;
+  }
+  &::before {
+    top: 6px;
+    left: 0;
+    width: 24px;
+    height: 14px;
+    border-radius: 7px;
+    background: $color-armadillo;
+  }
+  &::after {
+    top: 8px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: white;
+  }
+  &.active {
+    &::before {
+      background: $color-primary;
+    }
+    &::after {
+      left: 12px;
+    }
+  }
+}
+
+// Component relations
+.switch + .switch {
+  margin-left: 20px;
+}
