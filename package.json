@@ -9,13 +9,11 @@
     "test:watch": "karma start --auto-watch",
     "lint": "eslint src test",
     "format": "eslint src test --fix; exit 0",
-    "check": "npm run lint && npm run test",
-    "ui:start": "node ./node_modules/ui-harness/start",
-    "ui:build": "node ./node_modules/ui-harness/build"
+    "check": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/movio/apidoc-u"
+    "url": "https://github.com/movio/apidoc-ui"
   },
   "keywords": [
     "movio",
@@ -53,7 +51,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.5.3",
     "phantomjs-prebuilt": "^2.1.7",
-    "ui-harness": "^3.9.4",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.10.0"

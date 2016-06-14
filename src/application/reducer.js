@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 
-import { actionTypes as t } from './constants';
+// import { actionTypes as t } from './constants';
 // import * as applicationAp from '../generated/application/';
 
 const initialState = new OrderedMap();
@@ -25,5 +25,4 @@ const reducers = {
 
 export {
   reducers,
-  first,
 };

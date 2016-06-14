@@ -2,7 +2,7 @@ module.exports = {
   context: __dirname + '/src',
   entry: {
     jsx: './index.js',
-    css: './main.css',
+    // css: './general.css',
     html: './index.html',
   },
   debug: true,
@@ -19,7 +19,8 @@ module.exports = {
     ],
     loaders: [
       { test: /\.html$/, loader: 'file?name=[name].[ext]' },
-      { test: /\.css$/, loader: 'file?name=[name].[ext]' },
+      // { test: /\.css$/, loader: 'file?name=[name].[ext]' },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

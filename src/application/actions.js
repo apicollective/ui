@@ -5,5 +5,5 @@ function fixme(text) {
 }
 
 export {
-  fixme
+  fixme,
 };

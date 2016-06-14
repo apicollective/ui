@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-class Resource extends Component {
-  render() {
-    return (
-      <div>
-        Resource
-      </div>
-    );
-  }
-}
+const Resource = (props) => {
+  return (
+    <div>
+      Resource
+    </div>
+  );
+};
 
 Resource.propTypes = {
 };

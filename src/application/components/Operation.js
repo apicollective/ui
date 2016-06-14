@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-class Operation extends Component {
-  render() {
-    return (
-        <div>
-        Operation
-      </div>
-    );
-  }
-}
+const Operation = (props) => {
+  return (
+      <div>
+      Operation
+    </div>
+  );
+};
 
 Operation.propTypes = {
 };

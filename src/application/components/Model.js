@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-class Model extends Component {
-  render() {
-    return (
-      <div>
-        Model {this.props.spec.name}
-      </div>
-    );
-  }
-}
+const Model = (props) => {
+  return (
+    <div>
+      Model {props.spec.name}
+    </div>
+  );
+};
 
 Model.propTypes = {
   spec: PropTypes.object.isRequired,
