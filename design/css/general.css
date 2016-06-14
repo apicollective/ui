@@ -223,12 +223,13 @@ input[type="text"] + label {
   margin-top: 20px; }
 
 .navbar {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   height: 40px;
   background: #0696F9;
   padding: 5px 20px;
-  z-index: 99; }
+  z-index: 99;
+  }
 
 p {
   font-size: 14px;
@@ -352,3 +353,72 @@ label + input[type="text"] {
 .section {
   padding: 80px 20px;
   border-top: 2px solid #cecece; }
+
+
+
+/* ADDED KAL */
+
+.all {
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.leftnav {
+  border: 1px solid;
+  padding: 5px;
+}
+
+.box {border: 1px solid;}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #bdbdbd;
+  padding: 15px;
+  width: 100%;
+}
+
+.left {
+  
+}
+
+.right {
+  
+}
+
+.bodySection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.model {
+  width: 100%;
+}
+
+.example {
+  width: 100%;
+}
+
+.table {
+  
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  
+}
+
+.tableHeader {
+  background-color: #a7a7a7;
+}

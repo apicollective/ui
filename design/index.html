@@ -9,51 +9,175 @@
   <link rel="stylesheet" type="text/css" href="./css/general.css" />
   <script type="text/javascript" src="./js/jquery.js"></script>
   <script type="text/javascript" src="./js/general.js"></script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
-  <div class="navbar">
-    <a class="button" href="#introduction">Introduction</a>
-    <a class="button" href="#components">Components</a>
+  <div class="navbar topnav">
+    <a class="button" href="">Home</a>
+    <a class="button" href="">Movio</a>
+    <a class="button" href="">Item Service</a>
   </div>
-  <div class="section" id="introduction">
-    <h1>Component Library</h1>
-    <p>This application shows all the components currently residing in this library. Some components are interactive, play around and see for yourself.</p>
-  </div>
-  <div class="section" id="components">
-    <h1>H1 - Main Heading</h1>
-    <h2>H2 - Subheading</h2>
-    <h3>H3 - Small heading</h3>
-    <p>Paragraph - At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-    <a class="button">Button</a>
-    <a class="button secondary">Secondary</a>
-    <a class="button disabled">Disabled</a>
-    <br>
-    <br>
-    <div class="dropdown js-toggle">
-      <div class="button arrow">Dropdown</div>
-      <div class="list">
-        <div class="item">Dropdown</div>
-        <div class="item">Item 2</div>
-        <div class="item">Item 3</div>
+  <div class="all">
+    <div class="leftnav">
+      <ul>
+        <li>Item one</li>
+        <li>Item two</li>
+        <li>Item three</li>
+      </ul>
+    </div>
+    <div class="main">
+      <div class="section">
+        <h1>apidoc api 0.11.26</h1>
+        <p>Host API documentation for applications providing REST APIs, facilitating the design of good resource first APIs.</p>
+      </div>
+      <div class="section">
+        <h1>application</h1>
+        <p>This is an application</p>
+        <div class="box">
+          <div class="header">
+            <div class="left">GET   /:orgKey</div>
+            <div class="right">Search all applications. Results are always paginated.</div>
+          </div>
+          <div class="section">
+            <p>Search all applications. Results are always paginated.</p>
+            <h3>Request</h3>
+            <h4>Parameters</h4>
+            <div class="table">
+              <div class="row tableHeader">
+                <div class="col">Name</div>
+                <div class="col">Type</div>
+                <div class="col">Location</div>
+                <div class="col">Description</div>
+              </div>
+              <div class="row">
+                <div class="col">orgKey</div>
+                <div class="col">string</div>
+                <div class="col">Path</div>
+                <div class="col">The organization key for which to search applications</div>
+              </div>
+              <div class="row">
+                <div class="col">name</div>
+                <div class="col">string</div>
+                <div class="col">Query</div>
+                <div class="col">The name of an application. Case in-sensitive. Exact match</div>
+              </div>
+              <div class="row">
+                <div class="col">guid</div>
+                <div class="col">uuid</div>
+                <div class="col">Query</div>
+                <div class="col">The guid of an application. Exact match</div>
+              </div>
+              <div class="row">
+                <div class="col">key</div>
+                <div class="col">string</div>
+                <div class="col">Query</div>
+                <div class="col">The key of an application. Case in-sensitive. Exact match</div>
+              </div>
+              <div class="row">
+                <div class="col">limit</div>
+                <div class="col">long</div>
+                <div class="col">Query</div>
+                <div class="col">The number of records to return</div>
+              </div>
+            </div>
+            <h3>Response</h3>
+            <h4>HTTP 200 - OK</h4>
+            <h4>Body</h4>
+            <div class="bodySection">
+              <div class="model">
+                <h5>Model</h5>
+                <pre><code class="json"><a href="">application</a> {
+  guid (required, uuid),
+  organization (required, <a href="">reference</a>):
+    <a href="">reference</a> {
+      guid (required, uuid),
+      key (required, string)
+    },
+  name (required, string),
+  key (required, string),
+  visibility (required, <a href="">visibility</a>): 
+    <a href="">visibility</a>: ['user', 'organization', 'public'],
+  description (optional, string),
+  audit (required, <a href="">audit</a>):
+    <a href="">audit</a> {
+      created_at (required, date-time),
+      created_by (required, string),
+      updated_at (required, date-time),
+      updated_at (required, string),
+    }
+}
+</code></pre>
+              </div>
+              <div class="example">
+                <h5>Example</h5>
+<pre><code class="json">{
+  "guid": "abcefg",
+  "organization": {
+    "guid": "abcdefg",
+    "key": "key"
+  },
+  "name": "name",
+  "visibility": "user",
+  "description": "description",
+  "audit": {
+    "created_at": "2012-13-01",
+    "created_by": "created_by",
+    "updated_at": "2012-13-01",
+    "updated_by": "updated_by"
+  }
+}
+</code></pre>
+              </div>
+            </div>
+            <h4>HTTP 408 - Error</h4>
+            <p>Error processing audit section</p>
+            <h4>Body</h4>
+            <div class="bodySection">
+              <div class="model">
+                <h5>Model</h5>
+                <pre><code class="json"><a href="">error</a> {
+  code (required, string),
+  message (required, string)
+}
+</code></pre>
+              </div>
+              <div class="example">
+                <h5>Example</h5>
+<pre><code class="json">{
+  "code": "code",
+  "message": "message"
+}
+</code></pre>
+              </div>
+            </div>
+            <h4>HTTP 404 - Error</h4>
+            <p>Asset not found</p>
+            <h4>Body</h4>
+            <div class="bodySection">
+              <div class="model">
+                <h5>Model</h5>
+                <pre><code class="json"><a href="">error</a> {
+  code (required, string),
+  message (required, string)
+}
+</code></pre>
+              </div>
+              <div class="example">
+                <h5>Example</h5>
+<pre><code class="json">{
+  "code": "code",
+  "message": "message"
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <br>
-    <br>
-    <div class="switch js-toggle">Switch</div>
-    <div class="switch js-toggle active">Switch</div>
-    <br>
-    <br>
-    <div class="checkbox js-toggle">Checkbox</div>
-    <div class="checkbox js-toggle active">Checkbox</div>
-    <label>Label - Textfield</label>
-    <input type="text" placeholder="Placeholder" value="" />
-    <input type="text" placeholder="Placeholder" value="Textfield" />
-    <input type="text" placeholder="Placeholder" value="Disabled" disabled="disabled" />
-    <label>Label - Textarea</label>
-    <textarea placeholder="Placeholder"></textarea>
-    <textarea placeholder="Placeholder">Textfield</textarea>
-    <textarea placeholder="Placeholder" disabled="disabled">Disabled</textarea>
   </div>
 </body>
 
