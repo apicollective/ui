@@ -1,9 +1,16 @@
-import { actionTypes as t } from './constants';
+const actionTypes = {
+  // fixme: 'applciation/fixme',
+};
 
-function fixme(text) {
-  return { type: 'fixme', text };
-}
+// function fixme(text) {
+//   return { type: 'fixme', text };
+// }
+
+const actions = {
+  // fixme
+};
 
 export {
-  fixme,
+  actionTypes,
+  actions,
 };

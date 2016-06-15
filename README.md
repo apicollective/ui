@@ -3,9 +3,10 @@ Work in progress
 
 ## Running
 
-UI Harness
+UI Dev
 
-    npm run ui:start
+    npm start
+    http://localhost:8080/carte-blanche
     
 App
 

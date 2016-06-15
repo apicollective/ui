@@ -1,9 +1,7 @@
-import { name, actionTypes } from './constants';
-import * as actions from './actions';
+import { actions, actionTypes } from './actions';
 import { reducers } from './reducer';
 
-// re-select
-// import * as selectors from './selectors'
+export const name = 'application';
 
 import Application from './components/Application';
 
