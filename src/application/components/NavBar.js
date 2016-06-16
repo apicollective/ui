@@ -1,15 +1,10 @@
 import React, { PropTypes } from 'react';
 
+import Button from './Button';
 import styles from './navbar.css';
-import btnStyle from './button.css';
 
 
-const Button = (props) => {
-  const className = props.className ? `${props.className} ${btnStyle.button}` : styles.button;
-  return(
-    <a className={className}>{props.children}</a>
-  );
-}
+
 
 const NavBar = (props) =>  {
   return (

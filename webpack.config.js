@@ -21,7 +21,7 @@ module.exports = {
     path: path.resolve(ROOT_PATH, 'build.dev'),
     filename: 'bundle.js',
   },
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     loaders: [
       {

@@ -6,10 +6,10 @@
 }
 
 .sidebar {
-    position: absolute;
+    flex: 0 0 270px;
     padding: 70px 0 20px 20px;
-    width: 260px;
-    height: 100%;
+    width: 270px;
+    height: 100vh;
     background: var(--color-tuatara);
     color: white;
     overflow-y: scroll;

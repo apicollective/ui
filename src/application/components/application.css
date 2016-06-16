@@ -1,0 +1,7 @@
+@import "variables.css";
+@import "cssrecipes-defaults";
+@import "cssrecipes-reset";
+
+.main {
+  display: flex;
+}

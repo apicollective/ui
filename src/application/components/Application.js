@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import SideBar from './SideBar';
 import Content from './Content';
 
-import '../../general.css';
+import styles from './application.css';
 
 const menuItems = [
   {name: 'Movio Cinema', href: ''},
@@ -34,8 +34,10 @@ class Application extends Component {
     return (
       <div>
         <NavBar items={menuItems}/>
-        <SideBar items={sideItems}/>
-        <Content />
+        <div className={styles.main}>
+          <SideBar items={sideItems}/>
+          <Content />
+        </div>
       </div>
     );
   }

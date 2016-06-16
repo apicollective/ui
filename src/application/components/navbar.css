@@ -8,7 +8,7 @@
 .navbar {
   position: fixed;
   width: 100%;
-  height: 40px;
+  height: 50px;
   background: var(--color-primary);
   padding: 5px 20px;
   padding-left: 280px;
@@ -16,6 +16,13 @@
 }
 
 .button {
+  display: inline-block;
   line-height: 40px;
-  &:hover { background: var(--color-primary-dark); }
+  padding-left: 10px;
+
+  @nest &::before {
+    content: '/';
+    color: color(var(--bg-color) b(+ 30%));
+    position: relative 0 auto auto -10px;
+  }
 }
