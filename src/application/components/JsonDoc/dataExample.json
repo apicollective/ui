@@ -1,0 +1,153 @@
+{
+  "enums": [
+    {
+      "name": "Gender",
+      "description": "Gender",
+      "plural": "Genders",
+      "values": [
+        {"name": "male"},
+        {"name": "female"}
+      ]
+    },
+    {
+      "name": "MemberStatus",
+      "description": "Valid status",
+      "plural": "MemberStatuses",
+      "values": [
+        {"name": "issued"},
+        {"name": "activated"},
+        {"name": "expired"},
+        {"name": "deleted"},
+        {"name": "none"}
+      ]
+    }
+  ],
+  "models": [
+    {
+      "name": "KafkaMember",
+      "plural": "KafkaMembers",
+      "fields": [
+        {
+          "name": "v1",
+          "type": "Member",
+          "required": true,
+          "attributes": []
+
+        },
+        {
+          "name": "utcGeneratedTime",
+          "type": "date-iso8601",
+          "required": true,
+          "attributes": [
+            {
+              "name": "scala_field_props",
+              "value": {
+                "class": "org.joda.time.LocalDateTime",
+                "default": "org.joda.time.LocalDateTime.now(org.joda.time.DateTimeZone.UTC)"
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "kafka_props",
+          "value": {
+            "data_type": "Member",
+            "message_generate_key": "v1.exhibitorId",
+            "topic": "s\"mc.data.member.core.${tenant}\""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Member",
+      "plural": "Members",
+      "fields": [
+        {
+          "name": "exhibitorId",
+          "type": "string",
+          "required": true,
+          "maximum": 45
+        },
+        {
+          "name": "gender",
+          "type": "Gender",
+          "required": false
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "required": false,
+          "maximum": 255
+
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "required": false,
+          "maximum": 255
+
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "maximum": 255
+
+        },
+        {
+          "name": "dateOfBirth",
+          "type": "date-iso8601",
+          "required": false,
+          "attributes": [
+            {
+              "name": "scala_field_props",
+              "value": {
+                "class": "org.joda.time.LocalDate"
+              }
+            }
+          ]
+        },
+        {
+          "name": "mobilePhone",
+          "type": "string",
+          "required": false,
+          "maximum": 40
+        },
+        {
+          "name": "homePhone",
+          "type": "string",
+          "required": false,
+          "maximum": 40
+        },
+        {
+          "name": "status",
+          "type": "MemberStatus",
+          "required": false
+        },
+        {
+          "name": "favouriteCinema",
+          "type": "string",
+          "required": false,
+          "maximum": 45
+        },
+        {
+          "name": "loyaltyCardNumbers",
+          "type": "[string]",
+          "required": true,
+          "attributes": [
+            {
+              "name": "field_validation",
+              "value": {
+                "maximum": 255
+              }
+            }
+          ]
+        }
+      ],
+      "attributes": [],
+      "description": "Member"
+    }
+  ]
+}

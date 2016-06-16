@@ -1,0 +1,20 @@
+
+.json-doc {
+  font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
+  font-size: 20px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.name {
+    color: blue;
+}
+
+.value {
+    color: red;
+}

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import styles from './content.css';
+import JsonDoc from './JsonDoc'
 
 class Content extends Component {
 
@@ -8,6 +9,8 @@ class Content extends Component {
     return (
         <div className={styles.content}>
           Some more Content
+          Content
+          <JsonDoc />
         </div>
     );
   }
