@@ -4,8 +4,6 @@ import NavBar from './NavBar';
 import SideBar from './SideBar';
 import Content from './Content';
 
-import '../../general.css';
-
 const menuItems = [
   {name: 'Movio Cinema', href: ''},
   {name: 'Member Service', href: ''},
