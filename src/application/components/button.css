@@ -1,0 +1,72 @@
+@import 'variables.css';
+
+:root {
+  --spacing: 10px 10px;
+  --bg-color: var(--color-primary);
+  --color-primary: blue;
+}
+
+.button {
+  display: inline-block;
+  background: var(--color-primary);
+  color: white;
+  line-height: 32px;
+  font-size: 14px;
+  padding: 0 12px;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: all .3s;
+  outline: none;
+  cursor: pointer;
+
+  &:not(.disabled):hover, &:not(.disabled):focus {
+      background: var(--color-primary-light);
+  }
+  
+  &.disabled {
+      cursor: default;
+      background: var(--color-very-light-gray);
+      color: var(--color-light-gray);
+  }
+}
+
+
+/* // Variations */
+
+.button.secondary {
+  background: var(--color-primary-light);
+  &:hover { background: var(--color-colombia-blue); }
+}
+
+.button.loading {
+  position: relative;
+  padding-left: 42px;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 12px;
+    vertical-align: middle;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid white;
+    border-bottom-color: rgba(0,0,0,0);
+    animation: rotate 1s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+/* // Component relations */
+
+h1 + .button { margin-top: 30px; }
+h2 + .button { margin-top: 20px; }
+p + .button { margin-top: 20px; }
+.button + .button { margin-left: 10px; }

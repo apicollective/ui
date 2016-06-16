@@ -1,0 +1,43 @@
+/**
+ *  Top level variables
+ */
+:root {
+  --color-concrete: #F3F3F3;
+  --color-very-light-gray: #CECECE;
+  --color-light-gray: #AAA;
+  --color-aluminium: #9B9B9B;
+  --color-monsoon: #777;
+  --color-steel: #666;
+  --color-armadillo: #494949;
+  --color-montana: #3A3A3A;
+  --color-tuatara: #343434;
+  --color-dark: #222;
+
+  --color-solitude: #E8F4FF;
+  --color-hawkes-blue: #D1EAFE;
+  --color-sail: #BAE0FD;
+  --color-colombia-blue: #9BD5FD;
+  --color-light-sky-blue: #82CAFC;
+  --color-maya-blue: #5DBBFB;
+  --color-dodger-blue: #2BA6FA;
+  --color-cool-blue: #0696F9;
+  --color-rich-electric-blue: #0688E1;
+  --color-lochmara: #0578C8;
+  --color-medium-persian-blue: #056AAF;
+  --color-bahama-blue: #045A96;
+  --color-dark-cerulean: #044C7D;
+  --color-astronaut-blue: #033C64;
+  --color-blue-whale: #022E4C;
+  --color-midnight: #021E32;
+
+  --color-primary: var(--color-cool-blue);
+  --color-primary-light: var(--color-maya-blue);
+  --color-primary-dark: var(--color-lochmara);
+  --color-secondary: #27DBCF;
+  --color-secondary-light: #98ECE6;
+  --color-secondary-dark: #1FAFA6;
+  --border-radius: 3px;
+  --font-avenir: avenir, helvetica, arial, sans-serif;
+  --font-din: "DIN17 EF";
+  --font-brandon: "Brandon grotesque";
+}
