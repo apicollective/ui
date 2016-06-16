@@ -15,7 +15,7 @@ const ROOT_PATH = path.resolve(__dirname);
 
 module.exports = {
   debug: true,
-  entry: ['webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/only-dev-server', path.resolve(ROOT_PATH, 'src')],
+  entry: [path.resolve(ROOT_PATH, 'src')],
   output: {
     publicPath: '/',
     path: path.resolve(ROOT_PATH, 'build.dev'),
@@ -65,7 +65,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
