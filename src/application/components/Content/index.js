@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import styles from './content.css';
-import JsonDoc from './JsonDoc'
+import JsonDoc from './../JsonDoc';
 
 class Content extends Component {
 
