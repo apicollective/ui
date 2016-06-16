@@ -5,7 +5,7 @@ import styles from './sidebar.css';
 
 const Item = ({item}) => {
   return (
-      <a href={item.href}>{item.name}</a>
+      <a className={styles.a} href={item.href}>{item.name}</a>
   );
 };
 
@@ -13,8 +13,8 @@ const Groups = ({ group }) => {
     //
   // ))}
   return (
-    <div>
-      <h2>{group.name}</h2>
+    <div className={styles.group}>
+      <h2 className={styles.h2}>{group.name}</h2>
         {group.items.map( (item, id) => (
           <Item key={id} item={item} />
         ))}
@@ -24,8 +24,8 @@ const Groups = ({ group }) => {
 
 const Section = ({ section }) => {
   return (
-    <div>
-      <label>{section.name}</label>
+    <div className={styles.section}>
+      <label className={styles.label}>{section.name}</label>
       {section.items.map( (group, id) => (
           <Groups key={id} group={group} />
       ))}
@@ -48,3 +48,7 @@ SideBar.propTypes = {
 };
 
 export default SideBar;
+
+export {
+  styles,
+}

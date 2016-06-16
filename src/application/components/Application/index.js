@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import NavBar from './NavBar';
-import SideBar from './SideBar';
-import Content from './Content';
+import NavBar from '../NavBar';
+import SideBar from '../SideBar';
+import Content from '../Content';
 
 import styles from './application.css';
 
@@ -24,7 +24,13 @@ const sideItems = [
           {'name': 'POST /members', href: ''},
           {'name': 'GET /member/:id', href: ''},
         ]
-      }
+      },
+      {
+        name: 'Healthcheck',
+        items: [
+          {'name': 'GET /', href: ''},
+        ]
+      },
     ]
   }
 ];
@@ -49,3 +55,7 @@ Application.propTypes = {
 };
 
 export default Application;
+
+export {
+  styles,
+}

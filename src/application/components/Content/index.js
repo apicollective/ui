@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './content.css';
 
-// import styles from './navbar.css';
+import styles from './content.css';
 
 class Content extends Component {
 
   render() {
     return (
         <div className={styles.content}>
-          Content
+          Some more Content
         </div>
     );
   }
@@ -19,3 +18,7 @@ Content.propTypes = {
 };
 
 export default Content;
+
+export {
+  styles,
+}

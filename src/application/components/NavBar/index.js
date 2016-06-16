@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import Button from './Button';
+import Button from '../Button';
 import styles from './navbar.css';
-
-
-
 
 const NavBar = (props) =>  {
   return (
@@ -14,10 +11,14 @@ const NavBar = (props) =>  {
       )}
     </div>
   );
-}
+};
 
 NavBar.propTypes = {
   items: PropTypes.array.isRequired,
 };
 
 export default NavBar;
+
+export {
+  styles,
+}

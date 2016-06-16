@@ -11,3 +11,7 @@ const Button = (props) => {
 };
 
 export default Button;
+
+export {
+  styles,
+}
