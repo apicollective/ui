@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _ from 'lodash/fp';
 
 import styles from './jsonDoc.css';
@@ -42,23 +42,24 @@ const data = {
         example: undefined,
         type: 'Gender',
       },
-      // {
-      //   name: 'tags',
-      //   description: 'Tags attributed to this person',
-      //   required: false,
-      //   default: [],
-      //   example: ['funny', 'cool'],
-      //   type: '[string]'
-      // }
       {
-        name: 'addresses-fixme',
+        name: 'tags',
+        description: 'Tags attributed to this person',
+        required: false,
+        default: [],
+        example: ['funny', 'cool'],
+        type: '[string]',
+      },
+      {
+        name: 'addresses',
         description: 'Person Address',
         required: false,
         default: undefined,
         example: undefined,
-        type: 'Address', // fixme [Address]
+        type: '[Address]', // fixme [Address]
+        // type: 'Address', // fixme [Address]
       },
-    ]
+    ],
   },
   Gender: {
     description: undefined,
@@ -69,20 +70,12 @@ const data = {
       {
         name: 'male',
         description: 'Male',
-        required: true,
-        default: undefined,
-        example: undefined,
-        type: 'string',
       },
       {
         name: 'female',
         description: 'Female',
-        required: true,
-        default: undefined,
-        example: undefined,
-        type: 'string',
       },
-    ]
+    ],
   },
   Address: {
     description: 'Lorem ipsum dolor sit amet, has vitae liberavisse no, brute vituperata ne his, ne sapientem quaerendum nam. An everti ponderum nec, ius no mentitum theophrastus. Deserunt adversarium ut sit, viris vivendum pri et. Vim at viris disputationi. Vivendum abhorreant cum cu, petentium expetendis efficiantur qui in, evertitur voluptatum sit et. Vim cu dicunt imperdiet. Cu duo nullam reformidans, an enim sint antiopam mea',
@@ -107,64 +100,189 @@ const data = {
         example: 'CA',
         type: 'string',
       },
-    ]
+    ],
   },
 };
 
 const numSpaces = 4;
 
-const Line = ({id, indent, name, value}) => {
-  const spaces = Array(parseInt(indent) * numSpaces).join(' ');
-  return (
-    <a href={'#'+id} className={styles.link}>
-      <span className={styles.name}>{spaces}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
-    </a>
-  );
-};
+const spaces = (indent) => Array(parseInt(indent) * numSpaces).join(' ');
 
-const ObjectLine = ({id, indent, name}) => {
-  const spaces = Array(parseInt(indent) * numSpaces).join(' ');
-  return (
-    <a href={'#'+id} className={styles.link}>
-      <span className={styles.name}>{spaces}"{name}"</span>: {`{\n`}
-    </a>
-  );
-};
-
-function renderObject(obj, indent = 0, path = '', objectName = '', objectType = '') {
-  const spaces = Array(parseInt(indent) * numSpaces).join(' ');
-
-  const header = (objectName === '') ?
-          spaces + `{\n` :
-          <ObjectLine id={objectType} name={objectName} indent={indent} />;
-
-  return(
-      <div>
-      {header}
-      {obj.fields.map((field, id) => {
-        const value = field.example
-        if (field.type == 'string') {
-          return <Line key={id} id={path + field.name} name={field.name} indent={indent + 1} value={value}/>
-        } else {
-          return renderObject(data[field.type], indent + 1, field.type + '.', field.name, field.type);
-        }
-      })}
-      {spaces + `}`}
-    </div>
-  );
+function getType(type) {
+  const ex = /[\[]?([^\]]+)/i;
+  return type.match(ex)[1];
 }
 
+function isModel(type, spec) {
+  return spec.hasOwnProperty(getType(type));
+}
+
+function isEnum(type, spec) {
+  return isModel(type, spec) ?
+    spec[getType(type)].type === 'enum' :
+    false;
+}
+
+function isArray(type) {
+  return type.startsWith('[');
+}
+
+// --    "name": "value",
+const FieldValue = ({ name, value, fullType, indent, mouseOver }) => {
+  return (
+      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+      <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
+    </a>
+  );
+};
+
+// --    "name":
+const FieldEmpty = ({ name, fullType, indent, mouseOver }) => {
+  return (
+      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+      <span className={styles.name}>{spaces(indent)}"{name}"</span>:
+    </a>
+  );
+};
+
+// --   "value",
+const StringValue = ({ value, fullType, indent, mouseOver }) => {
+  return (
+      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+      <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
+    </a>
+  );
+};
+
+const ArrayValue = ({ name, fullType, spec, indent, mouseOver }) => {
+  return (
+    <div>
+      <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
+      <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+      {spaces(indent) + '],'}
+    </div>
+  );
+};
+
+const ModelInner = ({ name, type, fullType, spec, indent, mouseOver }) => {
+  if (isEnum(type, spec)) {
+    const enumModel = spec[getType(type)];
+    return (
+      <div>
+        <StringValue value={enumModel.fields[0].name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {spec[getType(type)].fields.map((field, id) => {
+          const value = field.example;
+          if (isModel(field.type, spec)) {
+            return renderModel(field.name, field.type, type + '.' + field.name, spec, indent + 1, mouseOver);
+          } else if (isArray(field.type)) {
+            return (<ArrayValue
+              key={id}
+              name={field.name}
+              value={value}
+              fullType={type + '.' + field.name}
+              indent={indent + 1}
+              mouseOver={mouseOver}
+            />);
+          } else {
+            return (<FieldValue
+              key={id}
+              name={field.name}
+              value={value}
+              fullType={type + '.' + field.name}
+              indent={indent + 1}
+              mouseOver={mouseOver}
+            />);
+          }
+        })}
+      </div>
+    );
+  }
+};
+
+const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) => {
+  return (
+    <div>
+      <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
+      <ModelInner type={getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
+      {spaces(indent) + close + ','}
+    </div>
+  );
+};
+
+const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
+  let open = '{';
+  let close = '}';
+  if (isArray(type)) {
+    open = '[{';
+    close = '}]';
+  } else if (isEnum(type, spec)) {
+    open = '[';
+    close = ']';
+  }
+  return (<Model
+    name={name}
+    type={type}
+    fullType={fullType}
+    spec={spec}
+    indent={indent}
+    mouseOver={mouseOver}
+    open={open}
+    close={close}
+  />);
+};
+
+const Documentation = ({ fullType, spec }) => {
+  const [modelName, fieldName] = fullType.split('.');
+  const model = spec[modelName];
+  const field = _.find({ name: fieldName }, model.fields);
+
+  return (
+    <div className={styles.documentation}>
+      <h2>{modelName}</h2>
+      <p>{model.description}</p>
+      <h3>{field.name}</h3>
+      {field.description ? <p>Description: {field.description}</p> : ''}
+      <p>Type: {field.type}</p>
+      <p><i>{field.required ? 'Required' : 'Optional'}</i></p>
+      {field.example ? <p>Example: {field.example}</p> : ''}
+      {field.default ? <p>Default: {field.default}</p> : ''}
+    </div>
+  );
+};
 
 // TODO
 // Support for markdown descriptions
-const JsonDoc = ({dataFIXME, rootElement}) => {
-  return (
+class JsonDoc extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      documentationFullType: 'Person.' + data.Person.fields[0].name,
+    };
+
+    this.mouseOver = (event) => {
+      const documentationFullType = event.currentTarget.dataset.fulltype;
+      this.setState({ documentationFullType });
+    };
+  }
+
+  render() {
+    const documentation = this.state.documentation;
+    return (
       <div className={styles.jsonDoc}>
-      <pre>
-      {renderObject(data.Person)}
-      </pre>
+        <pre className={styles.code}>
+        {'{'}
+        <ModelInner type="Person" spec={data} indent={0} mouseOver={this.mouseOver} />
+        {'}'}
+        </pre>
+        <Documentation fullType={this.state.documentationFullType} spec={data} />
       </div>
-  );
+    );
+  }
 }
 
 export default JsonDoc;

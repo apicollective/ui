@@ -5,6 +5,12 @@
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
+
+  display: flex;
+}
+
+.code {
+  
 }
 
 .link {
@@ -17,4 +23,12 @@
 
 .value {
     color: red;
+}
+
+.default {
+    color: black;
+}
+
+.documentation {
+  
 }
