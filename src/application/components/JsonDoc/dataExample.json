@@ -26,6 +26,12 @@
     {
       "name": "KafkaMember",
       "plural": "KafkaMembers",
+      "test": {
+        "id": "abc"
+      },
+      "test": [
+        "id"
+      ],
       "fields": [
         {
           "name": "v1",

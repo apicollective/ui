@@ -106,7 +106,7 @@ const data = {
 
 const numSpaces = 4;
 
-const spaces = (indent) => Array(parseInt(indent) * numSpaces).join(' ');
+const spaces = (indent) => Array(parseInt(indent, 10) * numSpaces).join(' ');
 
 function getType(type) {
   const ex = /[\[]?([^\]]+)/i;
@@ -128,39 +128,81 @@ function isArray(type) {
 }
 
 // --    "name": "value",
-const FieldValue = ({ name, value, fullType, indent, mouseOver }) => {
-  return (
-      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
-      <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
-    </a>
-  );
+const FieldValue = ({ name, value, fullType, indent, mouseOver }) => (
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
+  </a>
+);
+FieldValue.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
 };
 
 // --    "name":
-const FieldEmpty = ({ name, fullType, indent, mouseOver }) => {
-  return (
-      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
-      <span className={styles.name}>{spaces(indent)}"{name}"</span>:
-    </a>
-  );
+const FieldEmpty = ({ name, fullType, indent, mouseOver }) => (
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+    <span className={styles.name}>{spaces(indent)}"{name}"</span>:
+  </a>
+);
+FieldEmpty.propTypes = {
+  name: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
 };
 
 // --   "value",
-const StringValue = ({ value, fullType, indent, mouseOver }) => {
-  return (
-      <a href={'#' + fullType} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
-      <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
-    </a>
-  );
+const StringValue = ({ value, fullType, indent, mouseOver }) => (
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+    <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
+  </a>
+);
+StringValue.propTypes = {
+  value: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
 };
 
-const ArrayValue = ({ name, fullType, spec, indent, mouseOver }) => {
+const ArrayValue = ({ name, fullType, spec, indent, mouseOver }) => (
+  <div>
+    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
+    <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+    {`${spaces(indent)}],`}
+  </div>
+);
+ArrayValue.propTypes = {
+  name: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  spec: PropTypes.object.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
+};
+
+const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
+  let open = '{';
+  let close = '}';
+  if (isArray(type)) {
+    open = '[{';
+    close = '}]';
+  } else if (isEnum(type, spec)) {
+    open = '[';
+    close = ']';
+  }
   return (
-    <div>
-      <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
-      <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
-      {spaces(indent) + '],'}
-    </div>
+    <Model
+      name={name}
+      type={type}
+      fullType={fullType}
+      spec={spec}
+      indent={indent}
+      mouseOver={mouseOver}
+      open={open}
+      close={close}
+    />
   );
 };
 
@@ -178,63 +220,60 @@ const ModelInner = ({ name, type, fullType, spec, indent, mouseOver }) => {
         {spec[getType(type)].fields.map((field, id) => {
           const value = field.example;
           if (isModel(field.type, spec)) {
-            return renderModel(field.name, field.type, type + '.' + field.name, spec, indent + 1, mouseOver);
+            return renderModel(field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
           } else if (isArray(field.type)) {
-            return (<ArrayValue
-              key={id}
-              name={field.name}
-              value={value}
-              fullType={type + '.' + field.name}
-              indent={indent + 1}
-              mouseOver={mouseOver}
-            />);
+            return (
+              <ArrayValue
+                key={id}
+                name={field.name}
+                value={value}
+                fullType={`${type}.${field.name}`}
+                indent={indent + 1}
+                mouseOver={mouseOver}
+              />);
           } else {
-            return (<FieldValue
-              key={id}
-              name={field.name}
-              value={value}
-              fullType={type + '.' + field.name}
-              indent={indent + 1}
-              mouseOver={mouseOver}
-            />);
+            return (
+              <FieldValue
+                key={id}
+                name={field.name}
+                value={value}
+                fullType={`${type}.${field.name}`}
+                indent={indent + 1}
+                mouseOver={mouseOver}
+              />);
           }
         })}
       </div>
     );
   }
 };
-
-const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) => {
-  return (
-    <div>
-      <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
-      <ModelInner type={getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
-      {spaces(indent) + close + ','}
-    </div>
-  );
+ModelInner.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  spec: PropTypes.object.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
 };
 
-const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
-  let open = '{';
-  let close = '}';
-  if (isArray(type)) {
-    open = '[{';
-    close = '}]';
-  } else if (isEnum(type, spec)) {
-    open = '[';
-    close = ']';
-  }
-  return (<Model
-    name={name}
-    type={type}
-    fullType={fullType}
-    spec={spec}
-    indent={indent}
-    mouseOver={mouseOver}
-    open={open}
-    close={close}
-  />);
+const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) => (
+  <div>
+    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
+    <ModelInner type={getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
+    {`${spaces(indent)}${close},`}
+  </div>
+);
+Model.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  fullType: PropTypes.string.isRequired,
+  spec: PropTypes.object.isRequired,
+  indent: PropTypes.object.isRequired,
+  mouseOver: PropTypes.func.isRequired,
+  open: PropTypes.string.isRequired,
+  close: PropTypes.string.isRequired,
 };
+
 
 const Documentation = ({ fullType, spec }) => {
   const [modelName, fieldName] = fullType.split('.');
@@ -254,6 +293,10 @@ const Documentation = ({ fullType, spec }) => {
     </div>
   );
 };
+Documentation.propTypes = {
+  fullType: PropTypes.string.isRequired,
+  spec: PropTypes.object.isRequired,
+};
 
 // TODO
 // Support for markdown descriptions
@@ -261,7 +304,7 @@ class JsonDoc extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      documentationFullType: 'Person.' + data.Person.fields[0].name,
+      documentationFullType: `Person.${data.Person.fields[0].name}`,
     };
 
     this.mouseOver = (event) => {
@@ -271,12 +314,11 @@ class JsonDoc extends Component {
   }
 
   render() {
-    const documentation = this.state.documentation;
     return (
       <div className={styles.jsonDoc}>
         <pre className={styles.code}>
         {'{'}
-        <ModelInner type="Person" spec={data} indent={0} mouseOver={this.mouseOver} />
+          <ModelInner type="Person" spec={data} indent={0} mouseOver={this.mouseOver} />
         {'}'}
         </pre>
         <Documentation fullType={this.state.documentationFullType} spec={data} />
@@ -284,5 +326,7 @@ class JsonDoc extends Component {
     );
   }
 }
+JsonDoc.propTypes = {
+};
 
 export default JsonDoc;

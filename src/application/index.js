@@ -1,9 +1,9 @@
 import { actions, actionTypes } from './actions';
 import { reducers } from './reducer';
 
-export const name = 'application';
-
 import Application from './components/Application';
+
+const name = 'application';
 
 export {
   name,

@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styles from './button.css';
 import classnames from 'classnames';
 
-const Button = (props) => {
-  return(
-    <div className={classnames(props.className, styles.button)}>
-      <button className={classnames(props.classNameInner, styles.buttonInner)}>{props.children}</button>
-    </div>
-  );
+const Button = (props) => (
+  <div className={classnames(props.className, styles.button)}>
+    <button className={classnames(props.classNameInner, styles.buttonInner)}>{props.children}</button>
+  </div>
+);
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
+  classNameInner: PropTypes.string.isRequired,
 };
 
 export default Button;
 
 export {
   styles,
-}
+};

@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 
-const App = (props) => {
-  return (
-    <div>
-      {props.children}
-    </div>
-  );
-};
+const App = (props) => (
+  <div>
+    {props.children}
+  </div>
+);
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
