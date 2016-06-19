@@ -1,6 +1,7 @@
 /**
  *  Top level variables
  */
+
 :root {
   --color-concrete: #F3F3F3;
   --color-very-light-gray: #CECECE;
@@ -40,4 +41,5 @@
   --font-avenir: avenir, helvetica, arial, sans-serif;
   --font-din: "DIN17 EF";
   --font-brandon: "Brandon grotesque";
+  --font-mono: 'Droid Sans Mono', monospace;
 }

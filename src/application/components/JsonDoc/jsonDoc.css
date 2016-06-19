@@ -1,6 +1,6 @@
+@import "variables.css";
 
 .json-doc {
-  font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
   font-size: 20px;
   font-style: normal;
   font-variant: normal;
@@ -9,12 +9,15 @@
 
 .link {
   text-decoration: none;
+  font-family: var(--font-mono);
 }
 
 .name {
-    color: blue;
+  color: blue;
+  font-family: var(--font-mono);
 }
 
 .value {
-    color: red;
+  color: red;
+  font-family: var(--font-mono);
 }
