@@ -5,6 +5,12 @@
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
+
+  display: flex;
+}
+
+.code {
+  
 }
 
 .link {
@@ -20,4 +26,12 @@
 .value {
   color: red;
   font-family: var(--font-mono);
+}
+
+.default {
+  color: black;
+}
+
+.documentation {
+  
 }
