@@ -1,6 +1,6 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import App from './layout/App';
+import App from './app/App';
 
 import * as application from './application';
 
