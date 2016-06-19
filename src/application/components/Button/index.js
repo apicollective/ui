@@ -9,8 +9,8 @@ const Button = (props) => (
 );
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string.isRequired,
-  classNameInner: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  classNameInner: PropTypes.string,
 };
 
 export default Button;

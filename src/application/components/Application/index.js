@@ -32,6 +32,21 @@ const sideItems = [
         ],
       },
     ],
+    name: 'Models',
+    items: [
+      {
+        items: [
+          { name: 'Person - Model', href: '' },
+          { name: 'Address - Model', href: '' },
+          { name: 'Gender - Enum', href: '' },
+        ],
+      },
+      {
+        items: [
+          { name: 'GET /', href: '' },
+        ],
+      },
+    ],
   },
 ];
 

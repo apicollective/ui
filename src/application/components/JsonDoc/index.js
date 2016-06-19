@@ -106,7 +106,7 @@ const data = {
 
 const numSpaces = 4;
 
-const spaces = (indent) => Array(parseInt(indent, 10) * numSpaces).join(' ');
+const spaces = (indent) => Array(indent * numSpaces).join(' ');
 
 function getType(type) {
   const ex = /[\[]?([^\]]+)/i;
@@ -137,7 +137,7 @@ FieldValue.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
-  indent: PropTypes.object.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
@@ -150,7 +150,7 @@ const FieldEmpty = ({ name, fullType, indent, mouseOver }) => (
 FieldEmpty.propTypes = {
   name: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
-  indent: PropTypes.object.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
@@ -163,11 +163,11 @@ const StringValue = ({ value, fullType, indent, mouseOver }) => (
 StringValue.propTypes = {
   value: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
-  indent: PropTypes.object.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
-const ArrayValue = ({ name, fullType, spec, indent, mouseOver }) => (
+const ArrayValue = ({ name, fullType, indent, mouseOver }) => (
   <div>
     <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
     <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
@@ -177,12 +177,11 @@ const ArrayValue = ({ name, fullType, spec, indent, mouseOver }) => (
 ArrayValue.propTypes = {
   name: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
-  spec: PropTypes.object.isRequired,
-  indent: PropTypes.object.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
-const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
+const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
   let open = '{';
   let close = '}';
   if (isArray(type)) {
@@ -194,6 +193,7 @@ const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
   }
   return (
     <Model
+      key={key}
       name={name}
       type={type}
       fullType={fullType}
@@ -206,7 +206,7 @@ const renderModel = (name, type, fullType, spec, indent, mouseOver) => {
   );
 };
 
-const ModelInner = ({ name, type, fullType, spec, indent, mouseOver }) => {
+const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
   if (isEnum(type, spec)) {
     const enumModel = spec[getType(type)];
     return (
@@ -220,7 +220,7 @@ const ModelInner = ({ name, type, fullType, spec, indent, mouseOver }) => {
         {spec[getType(type)].fields.map((field, id) => {
           const value = field.example;
           if (isModel(field.type, spec)) {
-            return renderModel(field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
+            return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
           } else if (isArray(field.type)) {
             return (
               <ArrayValue
@@ -248,9 +248,8 @@ const ModelInner = ({ name, type, fullType, spec, indent, mouseOver }) => {
   }
 };
 ModelInner.propTypes = {
-  name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  fullType: PropTypes.string.isRequired,
+  fullType: PropTypes.string,
   spec: PropTypes.object.isRequired,
   indent: PropTypes.object.isRequired,
   mouseOver: PropTypes.func.isRequired,
@@ -314,11 +313,12 @@ class JsonDoc extends Component {
   }
 
   render() {
+    const indent = new Number(0);
     return (
       <div className={styles.jsonDoc}>
         <pre className={styles.code}>
         {'{'}
-          <ModelInner type="Person" spec={data} indent={0} mouseOver={this.mouseOver} />
+          <ModelInner type="Person" spec={data} indent={indent} mouseOver={this.mouseOver} />
         {'}'}
         </pre>
         <Documentation fullType={this.state.documentationFullType} spec={data} />
