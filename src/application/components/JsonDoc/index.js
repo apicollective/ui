@@ -3,8 +3,9 @@ import _ from 'lodash/fp';
 
 import styles from './jsonDoc.css';
 
-const data = {
-  Person: {
+const data = [
+  {
+    name: 'Person',
     description: 'A person that buys stuff',
     example: 'abcd',
     default: '123',
@@ -61,7 +62,8 @@ const data = {
       },
     ],
   },
-  Gender: {
+  {
+    name: 'Gender',
     description: undefined,
     example: 'male',
     default: '123',
@@ -77,7 +79,8 @@ const data = {
       },
     ],
   },
-  Address: {
+  {
+    name: 'Address',
     description: 'Lorem ipsum dolor sit amet, has vitae liberavisse no, brute vituperata ne his, ne sapientem quaerendum nam. An everti ponderum nec, ius no mentitum theophrastus. Deserunt adversarium ut sit, viris vivendum pri et. Vim at viris disputationi. Vivendum abhorreant cum cu, petentium expetendis efficiantur qui in, evertitur voluptatum sit et. Vim cu dicunt imperdiet. Cu duo nullam reformidans, an enim sint antiopam mea',
     example: undefined,
     default: undefined,
@@ -102,30 +105,31 @@ const data = {
       },
     ],
   },
-};
+];
 
 const numSpaces = 4;
 
 const spaces = (indent) => Array(indent * numSpaces).join(' ');
 
-function getType(type) {
+const getType = (type) => {
   const ex = /[\[]?([^\]]+)/i;
   return type.match(ex)[1];
 }
 
-function isModel(type, spec) {
-  return spec.hasOwnProperty(getType(type));
-}
+const getModel = (name, spec) => _.find({ name: getType(name) }, spec);
 
-function isEnum(type, spec) {
+const isModel = (type, spec) => _.some({name: getType(type)}, spec);
+
+const isEnum = (type, spec) => {
+  console.log(getModel(type, spec))
+
   return isModel(type, spec) ?
-    spec[getType(type)].type === 'enum' :
-    false;
+    getModel(type, spec).type === 'enum' :
+    false
 }
 
-function isArray(type) {
-  return type.startsWith('[');
-}
+const isArray = (type) => type.startsWith('[');
+
 
 // --    "name": "value",
 const FieldValue = ({ name, value, fullType, indent, mouseOver }) => (
@@ -208,7 +212,7 @@ const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
 
 const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
   if (isEnum(type, spec)) {
-    const enumModel = spec[getType(type)];
+    const enumModel = getModel(type, spec);
     return (
       <div>
         <StringValue value={enumModel.fields[0].name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
@@ -217,7 +221,7 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
   } else {
     return (
       <div>
-        {spec[getType(type)].fields.map((field, id) => {
+        {getModel(type, spec).fields.map((field, id) => {
           const value = field.example;
           if (isModel(field.type, spec)) {
             return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
@@ -250,8 +254,8 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
 ModelInner.propTypes = {
   type: PropTypes.string.isRequired,
   fullType: PropTypes.string,
-  spec: PropTypes.object.isRequired,
-  indent: PropTypes.object.isRequired,
+  spec: PropTypes.array.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
@@ -266,8 +270,8 @@ Model.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
-  spec: PropTypes.object.isRequired,
-  indent: PropTypes.object.isRequired,
+  spec: PropTypes.array.isRequired,
+  indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
   open: PropTypes.string.isRequired,
   close: PropTypes.string.isRequired,
@@ -276,7 +280,7 @@ Model.propTypes = {
 
 const Documentation = ({ fullType, spec }) => {
   const [modelName, fieldName] = fullType.split('.');
-  const model = spec[modelName];
+  const model = getModel(modelName, spec);
   const field = _.find({ name: fieldName }, model.fields);
 
   return (
@@ -294,7 +298,7 @@ const Documentation = ({ fullType, spec }) => {
 };
 Documentation.propTypes = {
   fullType: PropTypes.string.isRequired,
-  spec: PropTypes.object.isRequired,
+  spec: PropTypes.array.isRequired,
 };
 
 // TODO
@@ -303,7 +307,7 @@ class JsonDoc extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      documentationFullType: `Person.${data.Person.fields[0].name}`,
+      documentationFullType: `Person.${data[0].fields[0].name}`,
     };
 
     this.mouseOver = (event) => {
@@ -313,12 +317,11 @@ class JsonDoc extends Component {
   }
 
   render() {
-    const indent = new Number(0);
     return (
       <div className={styles.jsonDoc}>
         <pre className={styles.code}>
         {'{'}
-          <ModelInner type="Person" spec={data} indent={indent} mouseOver={this.mouseOver} />
+          <ModelInner type="Person" spec={data} indent={0} mouseOver={this.mouseOver} />
         {'}'}
         </pre>
         <Documentation fullType={this.state.documentationFullType} spec={data} />
