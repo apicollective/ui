@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router'
 
 import NavBar from '../../../components/NavBar';
 import SideBar from '../../../components/SideBar';
-import Content from '../Content';
+import Content from '../../../components/Content';
+import JsonDoc from './../JsonDoc';
 
 import styles from './application.css';
 
@@ -52,7 +54,12 @@ const Application = (props) => (
     <NavBar items={menuItems} />
     <div className={styles.main}>
       <SideBar items={sideItems} />
-      <Content />
+      <Content>
+        Some more Content
+        Content
+        <JsonDoc />
+        <Link to="/">Home</Link>
+      </Content>
     </div>
   </div>
 );

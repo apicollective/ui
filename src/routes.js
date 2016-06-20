@@ -9,8 +9,12 @@ import { Home } from './home';
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Application} />
-    <Route path="home" component={Home} />
+    <Route path="app" component={Application}/>
   </Route>
 );
+  // <Route path="/" component={App}>
+  // <IndexRoute component={Home} />
+  // <Route path="app" component={Application}/>
+  // </Route>
 
 export default routes;
