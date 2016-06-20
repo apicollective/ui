@@ -285,14 +285,20 @@ const Documentation = ({ fullType, spec }) => {
 
   return (
     <div className={styles.documentation}>
-      <h2>{modelName}</h2>
-      <p>{model.description}</p>
-      <h3>{field.name}</h3>
-      {field.description ? <p>Description: {field.description}</p> : ''}
-      <p>Type: {field.type}</p>
-      <p><i>{field.required ? 'Required' : 'Optional'}</i></p>
-      {field.example ? <p>Example: {field.example}</p> : ''}
-      {field.default ? <p>Default: {field.default}</p> : ''}
+      <h2 className={styles.modelName}>{modelName}</h2>
+      <p className={styles.modelDescription}>{model.description}</p>
+      <div className={styles.fieldContainer}>
+        <div className={styles.fieldLeft}>
+          <h3>{field.name}</h3>
+          <p>Type: {field.type}</p>
+          <p><i>{field.required ? 'Required' : 'Optional'}</i></p>
+        </div>
+        <div className={styles.fieldRight}>
+          {field.description ? <p className={styles.fieldDescription}>{field.description}</p> : ''}
+          {field.example ? <p className={styles.fieldExample}>Example: {field.example}</p> : ''}
+          {field.default ? <p className={styles.fieldDefault}>Default: {field.default}</p> : ''}
+        </div>
+      </div>
     </div>
   );
 };

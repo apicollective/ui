@@ -1,7 +1,7 @@
 @import "variables.css";
 
 .json-doc {
-  font-size: 20px;
+  font-size: 1rem;
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
@@ -10,21 +10,26 @@
 }
 
 .code {
-  
+  padding: 1rem;
+  background: var(--color-tuatara);
+  color: white;
+  margin: 0 1rem;
+  border-radius: var(--border-radius);
 }
 
 .link {
   text-decoration: none;
+  color: var(--color-aluminium);
   font-family: var(--font-mono);
 }
 
 .name {
-  color: blue;
+  color: var(--color-maya-blue);
   font-family: var(--font-mono);
 }
 
 .value {
-  color: red;
+  color: var(--color-secondary-light);
   font-family: var(--font-mono);
 }
 
@@ -33,5 +38,36 @@
 }
 
 .documentation {
-  
+  flex: 0 1 100%;
+  font-family: var(--font-avenir);
 }
+
+.field-container {
+  display: flex;
+}
+
+.field-left {
+  flex: 0 1 30%;
+}
+
+field-right {
+  flex: 0 1 65%;
+  margin-left: 5%;
+}
+
+.model-name {
+  font-weight: 400;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.model-description {
+  margin: 0;
+  margin-bottom: 0.67rem;
+}
+
+.model-description + .field-container {
+  border-top: 1px solid var(--color-very-light-gray);
+}
+
