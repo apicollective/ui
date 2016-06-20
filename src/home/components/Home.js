@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import NavBar from '../../application/components/NavBar';
-import SideBar from '../../application/components/SideBar';
+import NavBar from '../../components/NavBar';
+import SideBar from '../../components/SideBar';
 
 import styles from './home.css';
 
@@ -25,16 +25,16 @@ const sideItems = [
 ];
 
 const oranizations = {
-  
-}
 
-const Organizations = ({organizations}) => (
+};
+
+const Organizations = ({ organizations }) => (
     <div>
     {organizations.map((section, id) => (
         <Section key={id} section={section} />
     ))}
     </div>
-)
+);
 
 const Home = (props) => (
   <div>

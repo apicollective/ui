@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import NavBar from '../NavBar';
-import SideBar from '../SideBar';
+import NavBar from '../../../components/NavBar';
+import SideBar from '../../../components/SideBar';
 import Content from '../Content';
 
 import styles from './application.css';
@@ -32,6 +32,8 @@ const sideItems = [
         ],
       },
     ],
+  },
+  {
     name: 'Models',
     items: [
       {
@@ -39,11 +41,6 @@ const sideItems = [
           { name: 'Person - Model', href: '' },
           { name: 'Address - Model', href: '' },
           { name: 'Gender - Enum', href: '' },
-        ],
-      },
-      {
-        items: [
-          { name: 'GET /', href: '' },
         ],
       },
     ],

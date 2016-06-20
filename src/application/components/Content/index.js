@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import styles from './content.css';
 import JsonDoc from './../JsonDoc';
 
-const Content = () => (
+const Content = (props) => (
   <div className={styles.content}>
     Some more Content
     Content
