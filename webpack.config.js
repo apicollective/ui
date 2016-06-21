@@ -15,7 +15,7 @@ const ROOT_PATH = path.resolve(__dirname);
 
 module.exports = {
   debug: true,
-  entry: [path.resolve(ROOT_PATH, 'src')],
+  entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'src')],
   output: {
     publicPath: '/',
     path: path.resolve(ROOT_PATH, 'build.dev'),
@@ -27,7 +27,10 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel'],
+        loaders: [
+          'react-hot', 
+          'babel?cacheDirectory'
+        ]
       },{
         test: /\.css$/,
         exclude: /node_modules/,
@@ -68,12 +71,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
-    }),
-    new CarteBlanche({
-      componentRoot: 'src',
-      plugins: [
-        new ReactPlugin(),
-      ]
     })
+    // new CarteBlanche({
+    //   componentRoot: 'src',
+    //   plugins: [
+    //     new ReactPlugin(),
+    //   ]
+    // })
   ],
 };

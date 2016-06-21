@@ -1,8 +1,9 @@
-// import * as applicationApi from '../generated/application/';
+import { sagas as orgSagas } from '../generated/organization';
+import { takeLatestSaga as orgTakeLatestSaga } from '../organization';
 
 const allSagas = [].concat(
-  // applicationApi.sagas
-  // others ...
+  orgSagas.getOrganizationsTakeEverySaga,
+  orgTakeLatestSaga
 );
 
 export default allSagas;

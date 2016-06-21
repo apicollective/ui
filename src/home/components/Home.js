@@ -1,69 +1,63 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router'
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import NavBar from '../../components/NavBar';
-import SideBar from '../../components/SideBar';
-import Content from '../../components/Content';
+import { actions as orgActions } from '../../generated/organization';
+import { actions } from '../actions'; // FIXME needed?
 
 import styles from './home.css';
 
-const menuItems = [
-];
+const allActions = Object.assign({}, actions, orgActions);
 
-const sideItems = [
-  {
-    name: '',
-    items: [
-      {
-        name: 'Organizations',
-        items: [
-          { name: 'Movio Cinema', href: '' },
-          { name: 'Movio Media', href: '' },
-          { name: 'Numero', href: '' },
-        ],
-      },
-    ],
-  },
-];
-
-const organizations = [
-  {name: 'Movio Cinema'},
-  {name: 'Movio Media'},
-  {name: 'Numero'},
-];
-
-const Org = ({organization}) => (
-  <div>{organization.name}</div>
+const Org = ({ organization }) => (
+  <Link to={`org/${organization.key}`}>{organization.name}</Link>
 );
+Org.propTypes = {
+  organization: PropTypes.object.isRequired,
+};
 
 const Organizations = ({ organizations }) => (
   <div>
   {organizations.map((organization, id) => (
-      <Org key={id} organization={organization}/>
+    <Org key={id} organization={organization} />
   ))}
   </div>
 );
-
-const Home = (props) => (
-  <div>
-    <NavBar items={menuItems} />
-    <div className={styles.main}>
-      <SideBar items={sideItems} />
-      <Content>
-        <h1>Organizations</h1>
-        <Organizations organizations={organizations}/>
-        <Link to="/app">App</Link>
-      </Content>
-    </div>
-  </div>
-);
-
-Home.propTypes = {
-  // service: PropTypes.object.isRequired,
-  // description: PropTypes.string,
+Organizations.propTypes = {
+  organizations: PropTypes.array.isRequired,
 };
 
-export default Home;
+class Home extends Component {
+  componentDidMount() {
+    this.props.actions.getOrganizations_get({ limit: 20, offset: 0 });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Organizations</h1>
+        <Organizations organizations={this.props.organizations} />
+      </div>
+    );
+  }
+}
+Home.propTypes = {
+  organizations: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => (
+  { organizations: state.app.get('organizations') }
+);
+
+const mapDispatchToProps = (dispatch) => (
+  { actions: bindActionCreators(allActions, dispatch) }
+);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
 
 export {
   styles,

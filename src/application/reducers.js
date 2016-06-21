@@ -1,11 +1,12 @@
-import { OrderedMap } from 'immutable';
+import { Map } from 'immutable';
 
 // import { actionTypes } from './actions';
-// import * as applicationAp from '../generated/application/';
 
-const initialState = new OrderedMap();
+const initialState = new Map({
+  spec: {},
+});
 
-function first(state = initialState, action) {
+function application(state = initialState, action) {
   switch (action.type) {
     // case actionTypes.add: {
     //   return state.set(uuid(), {
@@ -20,7 +21,7 @@ function first(state = initialState, action) {
 }
 
 const reducers = {
-  first,
+  application,
 };
 
 export {

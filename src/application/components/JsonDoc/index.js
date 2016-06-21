@@ -114,19 +114,17 @@ const spaces = (indent) => Array(indent * numSpaces).join(' ');
 const getType = (type) => {
   const ex = /[\[]?([^\]]+)/i;
   return type.match(ex)[1];
-}
+};
 
 const getModel = (name, spec) => _.find({ name: getType(name) }, spec);
 
-const isModel = (type, spec) => _.some({name: getType(type)}, spec);
+const isModel = (type, spec) => _.some({ name: getType(type) }, spec);
 
 const isEnum = (type, spec) => {
-  console.log(getModel(type, spec))
-
   return isModel(type, spec) ?
     getModel(type, spec).type === 'enum' :
-    false
-}
+    false;
+};
 
 const isArray = (type) => type.startsWith('[');
 
@@ -336,6 +334,7 @@ class JsonDoc extends Component {
   }
 }
 JsonDoc.propTypes = {
+  spec: PropTypes.object.isRequired,
 };
 
 export default JsonDoc;

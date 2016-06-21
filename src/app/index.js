@@ -1,14 +1,14 @@
 import { actions, actionTypes } from './actions';
 import { reducers } from './reducers';
 
-import Application from './components/Application';
+import App from './components/App';
 
-const name = 'application';
+const name = 'app';
 
 export {
   name,
   actionTypes,
   actions,
   reducers,
-  Application,
+  App,
 };
