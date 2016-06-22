@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { actions as orgActions } from '../../generated/organization';
-import { actions } from '../actions'; // FIXME needed?
 
 import styles from './home.css';
 
-const allActions = Object.assign({}, actions, orgActions);
+const allActions = Object.assign({}, orgActions);
 
 const Org = ({ organization }) => (
   <Link to={`org/${organization.key}`}>{organization.name}</Link>
