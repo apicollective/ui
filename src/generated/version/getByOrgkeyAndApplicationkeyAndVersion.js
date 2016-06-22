@@ -48,8 +48,6 @@ const actions = {
 };
 
 function* saga(action) {
-  console.log('starteg')
-
   try {
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_doing());
     const response = yield call(api, action.payload);

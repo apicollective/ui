@@ -38,7 +38,7 @@ const getSideNavModel = (orgKey, apps) => (
       {
         name: 'Applications',
         items: apps.map((app) => (
-          { name: app.name, href: `${orgKey}/app/${app.key}` }
+          { name: app.name, href: `/org/${orgKey}/app/${app.key}` }
         )),
       },
     ],
