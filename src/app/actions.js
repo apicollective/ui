@@ -3,12 +3,12 @@ const actionTypes = {
   updateSideBar: 'app/updateSideBar',
 };
 
-function updateNavBar(model) {
-  return { type: actionTypes.updateNavBar, payload: model };
-}
-function updateSideBar(model) {
-  return { type: actionTypes.updateSideBar, payload: model };
-}
+const updateNavBar = (model) => (
+  { type: actionTypes.updateNavBar, payload: model }
+);
+const updateSideBar = (model) => (
+  { type: actionTypes.updateSideBar, payload: model }
+);
 
 const actions = {
   updateNavBar,

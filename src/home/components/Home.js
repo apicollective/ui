@@ -9,20 +9,20 @@ import styles from './home.css';
 
 const allActions = Object.assign({}, orgActions);
 
-const Org = ({ organization }) => (
-  <Link to={`org/${organization.key}`}>{organization.name}</Link>
-);
+const Org = ({ organization }) =>
+  <Link to={`org/${organization.key}`}>{organization.name}</Link>;
+
 Org.propTypes = {
   organization: PropTypes.object.isRequired,
 };
 
-const Organizations = ({ organizations }) => (
+const Organizations = ({ organizations }) =>
   <div>
   {organizations.map((organization, id) => (
     <Org key={id} organization={organization} />
   ))}
-  </div>
-);
+  </div>;
+
 Organizations.propTypes = {
   organizations: PropTypes.array.isRequired,
 };

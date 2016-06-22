@@ -2,11 +2,10 @@ import React, { PropTypes } from 'react';
 
 import styles from './content.css';
 
-const Content = (props) => (
+const Content = (props) =>
   <div className={styles.content}>
     {props.children}
-  </div>
-);
+  </div>;
 
 Content.propTypes = {
   // spec: PropTypes.object.isRequired,

@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../app/rootReducer';
 import allSagas from '../app/allSagas';
 
-export default function configureStore() {
+const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, compose(
     applyMiddleware(sagaMiddleware),
@@ -22,4 +22,6 @@ export default function configureStore() {
   allSagas.map((_) => sagaMiddleware.run(_));
 
   return store;
-}
+};
+
+export default configureStore;

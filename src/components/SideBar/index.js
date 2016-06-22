@@ -3,43 +3,43 @@ import { Link } from 'react-router';
 
 import styles from './sidebar.css';
 
-const Item = ({ item }) => (
-    <Link className={styles.a} to={item.href}>{item.name}</Link>
-);
+const Item = ({ item }) =>
+    <Link className={styles.a} to={item.href}>{item.name}</Link>;
+
 Item.propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-const Groups = ({ group }) => (
+const Groups = ({ group }) =>
   <div className={styles.group}>
     <h2 className={styles.h2}>{group.name}</h2>
       {group.items.map((item, id) => (
         <Item key={id} item={item} />
       ))}
-  </div>
-);
+  </div>;
+
 Groups.propTypes = {
   group: PropTypes.object.isRequired,
 };
 
-const Section = ({ section }) => (
+const Section = ({ section }) =>
   <div className={styles.section}>
     <label className={styles.label}>{section.name}</label>
     {section.items.map((group, id) => (
       <Groups key={id} group={group} />
     ))}
-  </div>
-);
+  </div>;
+
 Section.propTypes = {
   section: PropTypes.object.isRequired,
 };
 
-const SideBar = ({ items }) => 
+const SideBar = ({ items }) =>
   <div className={styles.sidebar}>
     {items.map((section, id) => (
       <Section key={id} section={section} />
     ))}
-  </div>
+  </div>;
 
 SideBar.propTypes = {
   items: PropTypes.array.isRequired,

@@ -15,7 +15,7 @@ const initialState = new Map({
   },
 });
 
-function application(state = initialState, action) {
+const application = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
       return state
@@ -26,7 +26,7 @@ function application(state = initialState, action) {
       return state;
     }
   }
-}
+};
 
 const reducers = {
   application,

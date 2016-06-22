@@ -9,7 +9,7 @@ const initialState = new Map(
   }
 );
 
-function organization(state = initialState, action) {
+const organization = (state = initialState, action) => {
   switch (action.type) {
     // Get Applications
     case actionTypes.getOrganizationDetails_success: {
@@ -21,7 +21,7 @@ function organization(state = initialState, action) {
       return state;
     }
   }
-}
+};
 
 const reducers = {
   organization,

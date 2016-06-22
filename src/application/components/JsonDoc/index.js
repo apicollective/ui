@@ -2,110 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import styles from './jsonDoc.css';
 
-// const data = [
-//   {
-//     name: 'Person',
-//     description: 'A person that buys stuff',
-//     example: 'abcd',
-//     default: '123',
-//     type: 'object',
-//     fields: [
-//       {
-//         name: 'id',
-//         description: 'Person ID',
-//         required: true,
-//         default: undefined,
-//         example: 'abcd',
-//         type: 'string',
-//       },
-//       {
-//         name: 'firstName',
-//         description: 'A person First Name',
-//         required: true,
-//         default: undefined,
-//         example: 'Kal',
-//         type: 'string',
-//       },
-//       {
-//         name: 'lastName',
-//         description: 'A person Last Name',
-//         required: true,
-//         default: undefined,
-//         example: 'Smith',
-//         type: 'string',
-//       },
-//       {
-//         name: 'gender',
-//         description: 'The person gender',
-//         required: false,
-//         default: undefined,
-//         example: undefined,
-//         type: 'Gender',
-//       },
-//       {
-//         name: 'tags',
-//         description: 'Tags attributed to this person',
-//         required: false,
-//         default: [],
-//         example: ['funny', 'cool'],
-//         type: '[string]',
-//       },
-//       {
-//         name: 'addresses',
-//         description: 'Person Address',
-//         required: false,
-//         default: undefined,
-//         example: undefined,
-//         type: '[Address]', // fixme [Address]
-//         // type: 'Address', // fixme [Address]
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Gender',
-//     description: undefined,
-//     example: 'male',
-//     default: '123',
-//     type: 'enum',
-//     fields: [
-//       {
-//         name: 'male',
-//         description: 'Male',
-//       },
-//       {
-//         name: 'female',
-//         description: 'Female',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Address',
-//     description: 'Lorem ipsum dolor sit amet, has vitae liberavisse no, brute vituperata ne his, ne sapientem quaerendum nam. An everti ponderum nec, ius no mentitum theophrastus. Deserunt adversarium ut sit, viris vivendum pri et. Vim at viris disputationi. Vivendum abhorreant cum cu, petentium expetendis efficiantur qui in, evertitur voluptatum sit et. Vim cu dicunt imperdiet. Cu duo nullam reformidans, an enim sint antiopam mea',
-//     example: undefined,
-//     default: undefined,
-//     required: undefined,
-//     type: 'object',
-//     fields: [
-//       {
-//         name: 'street',
-//         description: 'Street Address',
-//         required: true,
-//         default: undefined,
-//         example: '123 Abc St',
-//         type: 'string',
-//       },
-//       {
-//         name: 'State',
-//         description: 'State',
-//         required: true,
-//         default: undefined,
-//         example: 'CA',
-//         type: 'string',
-//       },
-//     ],
-//   },
-// ];
-
 const numSpaces = 4;
 
 const spaces = (indent) => Array(indent * numSpaces).join(' ');
@@ -125,11 +21,11 @@ const isArray = (type) => type.startsWith('[');
 
 
 // --    "name": "value",
-const FieldValue = ({ name, value, fullType, indent, mouseOver }) => (
+const FieldValue = ({ name, value, fullType, indent, mouseOver }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
     <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
-  </a>
-);
+  </a>;
+
 FieldValue.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -139,11 +35,11 @@ FieldValue.propTypes = {
 };
 
 // --    "name":
-const FieldEmpty = ({ name, fullType, indent, mouseOver }) => (
+const FieldEmpty = ({ name, fullType, indent, mouseOver }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
     <span className={styles.name}>{spaces(indent)}"{name}"</span>:
-  </a>
-);
+  </a>;
+
 FieldEmpty.propTypes = {
   name: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
@@ -152,11 +48,11 @@ FieldEmpty.propTypes = {
 };
 
 // --   "value",
-const StringValue = ({ value, fullType, indent, mouseOver }) => (
+const StringValue = ({ value, fullType, indent, mouseOver }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
     <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
-  </a>
-);
+  </a>;
+
 StringValue.propTypes = {
   value: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
@@ -164,13 +60,13 @@ StringValue.propTypes = {
   mouseOver: PropTypes.func.isRequired,
 };
 
-const ArrayValue = ({ name, fullType, indent, mouseOver }) => (
+const ArrayValue = ({ name, fullType, indent, mouseOver }) =>
   <div>
     <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
     <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
     {`${spaces(indent)}],`}
-  </div>
-);
+  </div>;
+
 ArrayValue.propTypes = {
   name: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
@@ -252,13 +148,13 @@ ModelInner.propTypes = {
   mouseOver: PropTypes.func.isRequired,
 };
 
-const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) => (
+const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) =>
   <div>
     <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
     <ModelInner type={getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
     {`${spaces(indent)}${close},`}
-  </div>
-);
+  </div>;
+
 Model.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

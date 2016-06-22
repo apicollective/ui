@@ -25,7 +25,7 @@ const getSideBarModel = (payload) => (
   }]
 );
 
-function app(state = initialState, action) {
+const app = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.updateNavBar: {
       return state.set(actionTypes.updateNavBar, action.payload);
@@ -42,7 +42,7 @@ function app(state = initialState, action) {
       return state;
     }
   }
-}
+};
 
 const reducers = {
   app,

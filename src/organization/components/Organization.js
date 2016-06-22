@@ -7,22 +7,22 @@ import styles from './organization.css';
 
 import { actions } from '../sagas';
 
-const App = ({ orgKey, application }) => (
-  <Link to={`/org/${orgKey}/app/${application.key}`}>{application.name}</Link>
-);
+const App = ({ orgKey, application }) =>
+  <Link to={`/org/${orgKey}/app/${application.key}`}>{application.name}</Link>;
+
 App.propTypes = {
   orgKey: PropTypes.string.isRequired,
   application: PropTypes.object.isRequired,
 };
 
 // Roll into Org FIXME
-const Applications = ({ orgKey, applications }) => (
+const Applications = ({ orgKey, applications }) =>
   <div>
   {applications.map((application, id) => (
     <App key={id} orgKey={orgKey} application={application} />
   ))}
-  </div>
-);
+  </div>;
+
 Applications.propTypes = {
   orgKey: PropTypes.string.isRequired,
   applications: PropTypes.array.isRequired,
@@ -38,7 +38,10 @@ class Organization extends Component {
     return (
       <div>
         <h1>{this.props.organization.name}</h1>
-        <Applications orgKey={this.props.params.organizationKey} applications={this.props.applications} />
+        <Applications
+          orgKey={this.props.params.organizationKey}
+          applications={this.props.applications}
+        />
       </div>
     );
   }
