@@ -8,7 +8,7 @@ const initialState = new Map({
     enums: [],
     models: [
       {
-        'name': 'default',
+        name: 'default',
         fields: [],
       },
     ],

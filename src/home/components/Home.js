@@ -42,6 +42,7 @@ class Home extends Component {
   }
 }
 Home.propTypes = {
+  actions: PropTypes.object.isRequired,
   organizations: PropTypes.array.isRequired,
 };
 

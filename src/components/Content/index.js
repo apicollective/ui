@@ -8,7 +8,7 @@ const Content = (props) =>
   </div>;
 
 Content.propTypes = {
-  // spec: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 export default Content;

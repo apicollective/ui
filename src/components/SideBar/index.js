@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import styles from './sidebar.css';
 
 const Item = ({ item }) =>
-    <Link className={styles.a} to={item.href}>{item.name}</Link>;
+  <Link className={styles.a} to={item.href}>{item.name}</Link>;
 
 Item.propTypes = {
   item: PropTypes.object.isRequired,
@@ -13,9 +13,9 @@ Item.propTypes = {
 const Groups = ({ group }) =>
   <div className={styles.group}>
     <h2 className={styles.h2}>{group.name}</h2>
-      {group.items.map((item, id) => (
-        <Item key={id} item={item} />
-      ))}
+    {group.items.map((item, id) => (
+      <Item key={id} item={item} />
+    ))}
   </div>;
 
 Groups.propTypes = {

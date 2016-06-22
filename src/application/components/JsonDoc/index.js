@@ -21,10 +21,12 @@ const isArray = (type) => type.startsWith('[');
 
 
 // --    "name": "value",
+/* eslint-disable max-len */
 const FieldValue = ({ name, value, fullType, indent, mouseOver }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
     <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
   </a>;
+/* eslint-enable */
 
 FieldValue.propTypes = {
   name: PropTypes.string.isRequired,

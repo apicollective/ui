@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import JsonDoc from './../JsonDoc';
 import { cleanPath } from '../../../utils';
@@ -21,7 +20,7 @@ const Request = ({ operation, spec }) => {
           <JsonDoc baseModel={baseModel} spec={spec} />
         </div>
       );
-    }
+    } else return null;
   };
 
   return (
@@ -49,7 +48,7 @@ const Response = ({ operation, spec }) => {
           <JsonDoc baseModel={baseModel} spec={spec} />
         </div>
       );
-    }
+    } else return null;
   };
 
   return (
@@ -113,7 +112,7 @@ class Application extends Component {
           {spec.description}
           <div>
             {spec.resources.map((resource, id) => (
-              resource.operations.map((operation, id) => (
+              resource.operations.map((operation, resourceId) => (
                 <div>{operation.method} {operation.path}</div>
               ))
             ))}
@@ -124,6 +123,8 @@ class Application extends Component {
   }
 }
 Application.propTypes = {
+  actions: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   loaded: PropTypes.bool.isRequired,
   spec: PropTypes.object.isRequired,
 };

@@ -47,6 +47,8 @@ class Organization extends Component {
   }
 }
 Organization.propTypes = {
+  params: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
   organization: PropTypes.object.isRequired,
   applications: PropTypes.array.isRequired,
 };

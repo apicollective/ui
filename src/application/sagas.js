@@ -8,6 +8,8 @@ import { cleanPath } from '../utils';
 const getSideBarModel = (spec) => {
   const orgKey = spec.organization.key;
   const appKey = spec.application.key;
+  const method = (operation) => operation.method.toLowerCase();
+  const path = (operation) => cleanPath(operation.path);
   return [{
     name: 'Resources',
     items: spec.resources.map((resource) => (
@@ -16,7 +18,7 @@ const getSideBarModel = (spec) => {
         items: resource.operations.map((operation) => (
           {
             name: `${operation.method} ${operation.path}`,
-            href: `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${operation.method.toLowerCase()}/p/${cleanPath(operation.path)}`,
+            href: `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${method(operation)}/p/${path(operation)}`,
           }
         )),
       }

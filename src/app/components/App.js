@@ -21,6 +21,7 @@ const App = (props) =>
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
+  navBarItems: PropTypes.array.isRequired,
   sideBarItems: PropTypes.array.isRequired,
 };
 
