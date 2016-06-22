@@ -3,7 +3,7 @@
 import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
-function api({orgKey, name, guid, key, has_version, limit, offset} = {}) {
+function api({ orgKey, name, guid, key, has_version, limit, offset } = {}) {
   return new Promise((resolve) => {
     const response = {
       name: 'Organization one',

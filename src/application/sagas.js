@@ -1,40 +1,49 @@
 import { takeLatest } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 import { actions as appActions } from '../app';
-import { api as specApi } from '../generated/version/getByOrgkeyAndApplicationkeyAndVersion';
+import { actionTypes as specActionTypes } from '../generated/version/';
+import { cleanPath } from '../utils';
 
-const getSideNavModel = (appKey, resources, models) => (
-  [{
+const getSideNavModel = (spec) => {
+  const orgKey = spec.organization.key;
+  const appKey = spec.application.key;
+  return [{
     name: 'Resources',
-    items: resources.map((resource) => (
+    items: spec.resources.map((resource) => (
       {
-        name: resource.name,
+        name: resource.type,
         items: resource.operations.map((operation) => (
-          { name: operation.name, href: `${appKey}/op/${operation.key}` }
+          {
+            name: `${operation.method} ${operation.path}`,
+            href: `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${operation.method.toLowerCase()}/p/${cleanPath(operation.path)}`,
+          }
         )),
-      },
+      }
     )),
   },
-  {
-    name: 'Models',
-    items: [{
-      name: ''
-      items: models.map((model) => (
-        { name: `${model.name} - ${model.type}`, href: `${appKey}/model/${model.key}` }
-      )),
-    }],
-  }]
-);
+    {
+      name: 'Models',
+      items: [{
+        name: '',
+        items: spec.models.map((model) => (
+        { name: `${model.name} - Model`, href: `${appKey}/model/${model.name}` }
+      )).concat(
+        spec.enums.map((enumValue) => (
+          { name: `${enumValue.name} - Enum`, href: `${appKey}/model/${enumValue.name}` }
+      ))),
+      }],
+    }];
+};
 
 function* saga(action) {
   const spec = action.payload;
-  const sideBarItems = getSideNavModel(orgKey, applications);
+  const sideBarItems = getSideNavModel(spec);
   yield put(appActions.updateSideNav(sideBarItems));
 }
 
 function* takeLatestSaga() {
-  yield* takeLatest(actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success, saga);
+  yield* takeLatest(specActionTypes.getByOrgkeyAndApplicationkeyAndVersion_success, saga);
 }
 
 export {

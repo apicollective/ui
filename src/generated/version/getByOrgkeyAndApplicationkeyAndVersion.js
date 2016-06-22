@@ -21,8 +21,8 @@ const actionTypes = {
 const actions = {
   /**
    * Retrieve a specific version of an application.
-   * @param {string} orgKey - 
-   * @param {string} applicationKey - 
+   * @param {string} orgKey -
+   * @param {string} applicationKey -
    * @param {string} version - The version of tthis application to download, or the keyword latest to get the latest version
    */
   getByOrgkeyAndApplicationkeyAndVersion_get: ({ orgKey, applicationKey, version } = {}) => ({
@@ -30,7 +30,7 @@ const actions = {
     payload: {
       orgKey,
       applicationKey,
-      version
+      version,
     },
   }),
   getByOrgkeyAndApplicationkeyAndVersion_doing: () => ({

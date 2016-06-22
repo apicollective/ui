@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import JsonDoc from './../JsonDoc';
+import { cleanPath } from '../../../utils';
 
 import styles from './application.css';
 
@@ -11,7 +11,66 @@ import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
 
 
+const Request = ({ operation, spec }) => {
+  const body = () => {
+    if (operation.body) {
+      const baseModel = operation.body.type;
+      return (
+        <div>
+          <h3>Body</h3>
+          <JsonDoc baseModel={baseModel} spec={spec} />
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div>
+      <h2>Request</h2>
+      {operation.parameters.map((param, id) => (
+        <div key={id}>{param.name}</div>
+      ))}
+    {body()}
+    </div>
+  );
+};
+Request.propTypes = {
+  operation: PropTypes.object.isRequired,
+  spec: PropTypes.object.isRequired,
+};
+
+const Response = ({ operation, spec }) => {
+  const body = (response) => {
+    if (response.type) {
+      const baseModel = response.type;
+      return (
+        <div>
+          <h3>Body</h3>
+          <JsonDoc baseModel={baseModel} spec={spec} />
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div>
+      <h2>Response</h2>
+      {operation.responses.map((response, id) => (
+        <div key={id}>
+          <div>{response.code.integer.value}</div>
+          {body(response)}
+        </div>
+      ))}
+    </div>
+  );
+};
+Response.propTypes = {
+  operation: PropTypes.object.isRequired,
+  spec: PropTypes.object.isRequired,
+};
+
 class Application extends Component {
+
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     const applicationKey = this.props.params.applicationKey;
@@ -20,24 +79,47 @@ class Application extends Component {
     );
   }
 
-  render() {
-    return (
-      <div>
-        Some more Content
-        Content
-        <JsonDoc spec={this.props.spec}/>
-      </div>
-    );
-  }
-};
+  getOperation(type, method, path, spec) {
+    console.log(spec)
 
+    const resource = spec.resources.find(r => r.type === type);
+    const operation = resource.operations.find((o) => (
+      o.method.toLowerCase() === method && cleanPath(o.path) === path
+    ));
+    return operation;
+  }
+
+  render() {
+    const { spec } = this.props;
+    if (this.props.loaded) {
+      const { resource, method, path } = this.props.params;
+      const operation = this.getOperation(resource, method, path, spec);
+      return (
+        <div>
+          <h1>{operation.method} {operation.path}</h1>
+          <Request operation={operation} spec={spec} />
+          <Response operation={operation} spec={spec} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>{spec.name}</h1>
+          Think about listing resources here
+        </div>
+      );
+    }
+  }
+}
 Application.propTypes = {
+  loaded: PropTypes.bool.isRequired,
   spec: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => (
   {
-    spec: state.application.get('spec'),
+    loaded: state.application.get('loaded'),
+    spec: state.application.get('spec')
   }
 );
 
@@ -53,13 +135,6 @@ export default connect(
 export {
   styles,
 };
-
-// const menuItems = [
-//   { name: 'Movio Cinema', href: '' },
-//   { name: 'Member Service', href: '' },
-//   { name: 'Member', href: '' },
-//   { name: 'POST /members', href: '' },
-// ];
 
 // const sideItems = [
 //   {

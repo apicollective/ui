@@ -6,10 +6,10 @@ import { call, put } from 'redux-saga/effects';
 function api({ key }) {
   return new Promise((resolve) => {
     const response = [
-        {
-          name: 'Application One',
-          key: 'one',
-        },
+      {
+        name: 'Application One',
+        key: 'one',
+      },
       {
         name: 'Application Two',
         key: 'two',
@@ -29,12 +29,12 @@ const actionTypes = {
 const actions = {
   /**
    * Returns the organization with this key.
-   * @param {string} key - 
+   * @param {string} key -
    */
   getOrganizationsByKey_get: (key) => ({
     type: actionTypes.getOrganizationsByKey_get,
     payload: {
-      key
+      key,
     },
   }),
   getOrganizationsByKey_doing: () => ({

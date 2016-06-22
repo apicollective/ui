@@ -7,21 +7,8 @@ import styles from './organization.css';
 
 import { actions } from '../sagas';
 
-
-// Get from API
-// const org = {
-//   key: 'cinema',
-//   name: 'Movio Cinema',
-// };
-
-// Get from API
-// const applications = [
-//   { name: 'Member Service', key: '1' },
-//   { name: 'Cinema Service', key: '2' },
-// ];
-
 const App = ({ orgKey, application }) => (
-  <Link to={`org/${orgKey}/app/${application.key}`}>{application.name}</Link>
+  <Link to={`/org/${orgKey}/app/${application.key}`}>{application.name}</Link>
 );
 App.propTypes = {
   orgKey: PropTypes.string.isRequired,

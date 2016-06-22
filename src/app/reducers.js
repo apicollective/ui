@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-import { actions, actionTypes } from './actions';
+import { actionTypes } from './actions';
 import { actionTypes as orgActionTypes } from '../generated/organization';
 
 const initialState = new Map(

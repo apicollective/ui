@@ -1,4 +1,5 @@
 import { actions, actionTypes } from './actions';
+import { takeLatestSaga } from './sagas';
 import { reducers } from './reducers';
 
 import Application from './components/Application';
@@ -10,5 +11,6 @@ export {
   actionTypes,
   actions,
   reducers,
+  takeLatestSaga,
   Application,
 };
