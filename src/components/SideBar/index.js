@@ -34,13 +34,13 @@ Section.propTypes = {
   section: PropTypes.object.isRequired,
 };
 
-const SideBar = ({ items }) => (
+const SideBar = ({ items }) => 
   <div className={styles.sidebar}>
     {items.map((section, id) => (
       <Section key={id} section={section} />
     ))}
   </div>
-);
+
 SideBar.propTypes = {
   items: PropTypes.array.isRequired,
 };

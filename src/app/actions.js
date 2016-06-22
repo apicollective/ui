@@ -1,18 +1,18 @@
 const actionTypes = {
   updateNavBar: 'app/updateNavBar',
-  updateSideNav: 'app/updateNavBar',
+  updateSideBar: 'app/updateSideBar',
 };
 
 function updateNavBar(model) {
   return { type: actionTypes.updateNavBar, payload: model };
 }
-function updateSideNav(model) {
-  return { type: actionTypes.updateSideNav, payload: model };
+function updateSideBar(model) {
+  return { type: actionTypes.updateSideBar, payload: model };
 }
 
 const actions = {
   updateNavBar,
-  updateSideNav,
+  updateSideBar,
 };
 
 export {

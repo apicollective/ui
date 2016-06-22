@@ -5,7 +5,7 @@ import { actions as appActions } from '../app';
 import { actionTypes as specActionTypes } from '../generated/version/';
 import { cleanPath } from '../utils';
 
-const getSideNavModel = (spec) => {
+const getSideBarModel = (spec) => {
   const orgKey = spec.organization.key;
   const appKey = spec.application.key;
   return [{
@@ -36,10 +36,19 @@ const getSideNavModel = (spec) => {
     }];
 };
 
+const getNavBarItems = (spec) => (
+  [
+    { name: spec.organization.key },
+    { name: spec.application.key },
+  ]
+);
+
 function* saga(action) {
   const spec = action.payload;
-  const sideBarItems = getSideNavModel(spec);
-  yield put(appActions.updateSideNav(sideBarItems));
+  const navBarItems = getNavBarItems(spec);
+  yield put(appActions.updateNavBar(navBarItems));
+  const sideBarItems = getSideBarModel(spec);
+  yield put(appActions.updateSideBar(sideBarItems));
 }
 
 function* takeLatestSaga() {

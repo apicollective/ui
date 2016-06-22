@@ -31,7 +31,7 @@ const actions = {
   }),
 };
 
-const getSideNavModel = (orgKey, apps) => (
+const getSideBarModel = (orgKey, apps) => (
   [{
     name: '',
     items: [
@@ -43,6 +43,12 @@ const getSideNavModel = (orgKey, apps) => (
       },
     ],
   }]
+);
+
+const getNavBarItems = (orgKey) => (
+  [
+    { name: orgKey },
+  ]
 );
 
 function* saga(action) {
@@ -57,8 +63,10 @@ function* saga(action) {
       organization,
       applications,
     }));
-    const sideBarItems = getSideNavModel(orgKey, applications);
-    yield put(appActions.updateSideNav(sideBarItems));
+    const navBarItems = getNavBarItems(orgKey);
+    yield put(appActions.updateNavBar(navBarItems));
+    const sideBarItems = getSideBarModel(orgKey, applications);
+    yield put(appActions.updateSideBar(sideBarItems));
   } catch (error) {
     yield put(actions.getOrganizationDetails_failure(error));
   }

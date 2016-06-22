@@ -11,14 +11,14 @@ const initialState = new Map(
   }
 );
 
-const getSideNavModel = (payload) => (
+const getSideBarModel = (payload) => (
   [{
     name: '',
     items: [
       {
         name: 'Organizations',
         items: payload.map((org) => (
-          { name: org.name, href: `org/${org.key}` }
+          { name: org.name, href: `/org/${org.key}` }
         )),
       },
     ],
@@ -31,11 +31,11 @@ function app(state = initialState, action) {
       return state.set(actionTypes.updateNavBar, action.payload);
     }
     case actionTypes.updateSideBar: {
-      return state.set(actionTypes.updateSideNav, action.payload);
+      return state.set(actionTypes.updateSideBar, action.payload);
     }
     case orgActionTypes.getOrganizations_success: {
       return state
-        .set(actionTypes.updateSideNav, getSideNavModel(action.payload))
+        .set(actionTypes.updateSideBar, getSideBarModel(action.payload))
         .set('organizations', action.payload);
     }
     default: {

@@ -131,7 +131,7 @@ Application.propTypes = {
 const mapStateToProps = (state) => (
   {
     loaded: state.application.get('loaded'),
-    spec: state.application.get('spec')
+    spec: state.application.get('spec'),
   }
 );
 

@@ -8,7 +8,7 @@ import { actionTypes as appActionTypes } from '../actions';
 
 import styles from './app.css';
 
-const App = (props) => (
+const App = (props) =>
   <div>
     <NavBar items={props.navBarItems} />
     <div className={styles.main}>
@@ -17,18 +17,17 @@ const App = (props) => (
         {props.children}
       </Content>
     </div>
-  </div>
-);
+  </div>;
+
 App.propTypes = {
   children: PropTypes.object.isRequired,
   sideBarItems: PropTypes.array.isRequired,
 };
 
-// TODO - use reselect here for perf
 const mapStateToProps = (state) => (
   {
     navBarItems: state.app.get(appActionTypes.updateNavBar),
-    sideBarItems: state.app.get(appActionTypes.updateSideNav),
+    sideBarItems: state.app.get(appActionTypes.updateSideBar),
   }
 );
 
