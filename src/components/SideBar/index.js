@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 
 import styles from './sidebar.css';
 
-
-  // <a className={styles.a} href={item.href}>{item.name}</a>
 const Item = ({ item }) => (
     <Link className={styles.a} to={item.href}>{item.name}</Link>
 );
