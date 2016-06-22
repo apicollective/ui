@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import JsonDoc from './../JsonDoc';
 import { cleanPath } from '../../../utils';
@@ -9,7 +10,6 @@ import styles from './application.css';
 
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
-
 
 const Request = ({ operation, spec }) => {
   const body = () => {
@@ -80,8 +80,6 @@ class Application extends Component {
   }
 
   getOperation(type, method, path, spec) {
-    console.log(spec)
-
     const resource = spec.resources.find(r => r.type === type);
     const operation = resource.operations.find((o) => (
       o.method.toLowerCase() === method && cleanPath(o.path) === path
@@ -91,21 +89,35 @@ class Application extends Component {
 
   render() {
     const { spec } = this.props;
-    if (this.props.loaded) {
+    if (!this.props.loaded) {
+      // First Load
+      return (<div></div>);
+    } else if (this.props.params.resource) {
+      // Load Operation
       const { resource, method, path } = this.props.params;
       const operation = this.getOperation(resource, method, path, spec);
       return (
         <div>
-          <h1>{operation.method} {operation.path}</h1>
+          <h1>{spec.name}</h1>
+          {spec.description}
+          <h2>{operation.method} {operation.path}</h2>
           <Request operation={operation} spec={spec} />
           <Response operation={operation} spec={spec} />
         </div>
       );
     } else {
+      // No Operation
       return (
         <div>
-          <h1>{spec.name}</h1>
-          Think about listing resources here
+          <h1>{spec.name} Testing</h1>
+          {spec.description}
+          <div>
+            {spec.resources.map((resource, id) => (
+              resource.operations.map((operation, id) => (
+                <div>{operation.method} {operation.path}</div>
+              ))
+            ))}
+          </div>
         </div>
       );
     }
@@ -135,37 +147,3 @@ export default connect(
 export {
   styles,
 };
-
-// const sideItems = [
-//   {
-//     name: 'Resources',
-//     items: [
-//       {
-//         name: 'Generator',
-//         items: [
-//           { name: 'POST /member', href: '' },
-//           { name: 'POST /members', href: '' },
-//           { name: 'GET /member/:id', href: '' },
-//         ],
-//       },
-//       {
-//         name: 'Healthcheck',
-//         items: [
-//           { name: 'GET /', href: '' },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Models',
-//     items: [
-//       {
-//         items: [
-//           { name: 'Person - Model', href: '' },
-//           { name: 'Address - Model', href: '' },
-//           { name: 'Gender - Enum', href: '' },
-//         ],
-//       },
-//     ],
-//   },
-// ];
