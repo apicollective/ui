@@ -1,0 +1,16 @@
+@import 'variables.css';
+
+:root {
+  --spacing: 10px 10px;
+  --bg-color: var(--color-primary);
+}
+
+.h1 {
+  font-size: 30px;
+  color: var(--color-primary);
+  font-weight: normal;
+  font-family: @font-brandon;
+  font-family: var(--font-brandon);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}

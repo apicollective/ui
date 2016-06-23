@@ -13,6 +13,7 @@ const routes = (
     <Route path="org/:organizationKey" component={Organization} />
     <Route path="org/:organizationKey/app/:applicationKey" component={Application} />
     <Route path="org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path" component={Application} />
+    <Route path="org/:organizationKey/app/:applicationKey/m/:model" component={Application} />
   </Route>
 );
 

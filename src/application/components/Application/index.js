@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import JsonDoc from './../JsonDoc';
+import H1 from '../../../components/H1';
 import { cleanPath } from '../../../utils';
 
 import styles from './application.css';
@@ -68,6 +69,42 @@ Response.propTypes = {
   spec: PropTypes.object.isRequired,
 };
 
+
+const Model = ({ model, spec }) =>
+  <div>
+    <h2>{model.name}</h2>
+    <JsonDoc baseModel={model.name} spec={spec} />
+  </div>;
+
+const Models = ({ modelName, spec }) =>
+  <div>
+      {(() => {
+        if (spec.models.length > 0) {
+          return (
+            <div>
+              <H1>Models</H1>
+              {spec.models.map((model, id) => (
+                  <Model model={model} spec={spec} />
+              ))}
+            </div>
+          );
+        }
+      })()}
+    {(() => {
+      if (spec.enums.length > 0) {
+        return (
+            <div>
+            <H1>Enums</H1>
+            {spec.enums.map((e, id) => (
+                <Model model={e} spec={spec} />
+            ))}
+          </div>
+        );
+      }
+    })()}
+  </div>;
+
+
 class Application extends Component {
 
   componentDidMount() {
@@ -97,18 +134,20 @@ class Application extends Component {
       const operation = this.getOperation(resource, method, path, spec);
       return (
         <div>
-          <h1>{spec.name}</h1>
+          <H1>{spec.name}</H1>
           {spec.description}
           <h2>{operation.method} {operation.path}</h2>
           <Request operation={operation} spec={spec} />
           <Response operation={operation} spec={spec} />
         </div>
       );
+    } else if (this.props.params.model) {
+      return <Models modelName={this.props.params.model} spec={spec} />;
     } else {
       // No Operation
       return (
         <div>
-          <h1>{spec.name} Testing</h1>
+          <H1>{spec.name}</H1>
           {spec.description}
           <div>
             {spec.resources.map((resource, id) => (

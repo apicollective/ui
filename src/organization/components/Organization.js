@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import styles from './organization.css';
+import H1 from './../../components/H1';
 
+import styles from './organization.css';
 import { actions } from '../sagas';
 
 const App = ({ orgKey, application }) =>
@@ -37,7 +38,7 @@ class Organization extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.organization.name}</h1>
+        <H1>{this.props.organization.name}</H1>
         <Applications
           orgKey={this.props.params.organizationKey}
           applications={this.props.applications}

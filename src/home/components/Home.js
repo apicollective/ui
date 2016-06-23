@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { actions as orgActions } from '../../generated/organization';
+import H1 from './../../components/H1';
 
 import styles from './home.css';
 
@@ -35,7 +36,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Organizations</h1>
+        <H1>Organizations</H1>
         <Organizations organizations={this.props.organizations} />
       </div>
     );
