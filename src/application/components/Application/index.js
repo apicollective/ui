@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
+import H2 from '../../../components/H2';
 import { cleanPath } from '../../../utils';
 
 import styles from './application.css';
@@ -26,7 +27,7 @@ const Request = ({ operation, spec }) => {
 
   return (
     <div>
-      <h2>Request</h2>
+      <H2>Request</H2>
       {operation.parameters.map((param, id) => (
         <div key={id}>{param.name}</div>
       ))}
@@ -54,7 +55,7 @@ const Response = ({ operation, spec }) => {
 
   return (
     <div>
-      <h2>Response</h2>
+      <H2>Response</H2>
       {operation.responses.map((response, id) => (
         <div key={id}>
           <div>{response.code.integer.value}</div>
@@ -72,9 +73,14 @@ Response.propTypes = {
 
 const Model = ({ model, spec }) =>
   <div>
-    <h2>{model.name}</h2>
+    <H2>{model.name}</H2>
     <JsonDoc baseModel={model.name} spec={spec} />
   </div>;
+
+Model.propTypes = {
+  model: PropTypes.object.isRequired,
+  spec: PropTypes.object.isRequired,
+};
 
 const Models = ({ modelName, spec }) =>
   <div>
@@ -84,25 +90,30 @@ const Models = ({ modelName, spec }) =>
             <div>
               <H1>Models</H1>
               {spec.models.map((model, id) => (
-                  <Model model={model} spec={spec} />
+                <Model model={model} spec={spec} />
               ))}
             </div>
           );
-        }
+        } else return null;
       })()}
     {(() => {
       if (spec.enums.length > 0) {
         return (
-            <div>
+          <div>
             <H1>Enums</H1>
             {spec.enums.map((e, id) => (
-                <Model model={e} spec={spec} />
+              <Model model={e} spec={spec} />
             ))}
           </div>
         );
-      }
+      } else return null;
     })()}
   </div>;
+
+Models.propTypes = {
+  modelName: PropTypes.string,
+  spec: PropTypes.object.isRequired,
+};
 
 
 class Application extends Component {
@@ -136,7 +147,7 @@ class Application extends Component {
         <div>
           <H1>{spec.name}</H1>
           {spec.description}
-          <h2>{operation.method} {operation.path}</h2>
+          <H2>{operation.method} {operation.path}</H2>
           <Request operation={operation} spec={spec} />
           <Response operation={operation} spec={spec} />
         </div>

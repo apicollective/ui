@@ -1,0 +1,10 @@
+@import 'variables.css';
+
+:root {
+  --bg-color: var(--color-primary);
+}
+
+.h2 {
+  font-size: 24px;
+  font-weight: normal;
+}

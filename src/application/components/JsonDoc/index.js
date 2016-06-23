@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import styles from './jsonDoc.css';
+import H2 from '../../../components/H2';
 
 const numSpaces = 4;
 
@@ -177,7 +178,7 @@ const Documentation = ({ fullType, spec }) => {
 
     return (
       <div className={styles.documentation}>
-        <h2 className={styles.modelName}>{modelName}</h2>
+        <H2 className={styles.modelName}>{modelName}</H2>
         <p className={styles.modelDescription}>{model.description}</p>
         <div className={styles.fieldContainer}>
           <div className={styles.fieldLeft}>
