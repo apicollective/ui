@@ -29,10 +29,10 @@ const getSideBarModel = (spec) => {
       items: [{
         name: '',
         items: spec.models.map((model) => (
-        { name: `${model.name} - Model`, href: `${appKey}/model/${model.name}` }
+        { name: `${model.name} - Model`, href: `/org/${orgKey}/app/${appKey}/m/${model.name}` }
       )).concat(
         spec.enums.map((enumValue) => (
-          { name: `${enumValue.name} - Enum`, href: `${appKey}/model/${enumValue.name}` }
+          { name: `${enumValue.name} - Enum`, href: `/org/${orgKey}/app/${appKey}/m/${enumValue.name}` }
       ))),
       }],
     }];
