@@ -19,7 +19,7 @@ const application = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
       return state
-        .set('spec', action.payload)
+        .set('spec', action.payload.service)
         .set('loaded', true);
     }
     default: {

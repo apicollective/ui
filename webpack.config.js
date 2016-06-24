@@ -22,6 +22,17 @@ module.exports = {
     filename: 'bundle.js',
   },
   devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    proxy: {
+      '/api/*': {
+        changeOrigin: true,
+        target: 'http://apidoc.movio.co:9001/',
+        rewrite: function(req) {
+          req.url = req.url.replace(/^\/api/, '');
+        }
+      }
+    }
+  },
   module: {
     loaders: [
       {

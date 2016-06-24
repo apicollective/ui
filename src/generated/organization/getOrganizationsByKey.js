@@ -2,21 +2,10 @@
 
 import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
+import * as request from 'superagent';
 
-function api({ key }) {
-  return new Promise((resolve) => {
-    const response = [
-      {
-        name: 'Application One',
-        key: 'one',
-      },
-      {
-        name: 'Application Two',
-        key: 'two',
-      },
-    ];
-    resolve(response);
-  });
+function api({ key } = {}) {
+  return request.get(`/api/organizations/${key}`);
 }
 
 const actionTypes = {
@@ -54,8 +43,8 @@ const actions = {
 function* saga(action) {
   try {
     yield put(actions.getOrganizationsByKey_doing());
-    const response = yield call(api, action.payload);
-    yield put(actions.getOrganizationsByKey_success(response));
+    const { body } = yield call(api, action.payload);
+    yield put(actions.getOrganizationsByKey_success(body));
   } catch (error) {
     yield put(actions.getOrganizationsByKey_failure(error));
   }

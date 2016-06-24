@@ -56,10 +56,13 @@ function* saga(action) {
   const { orgKey } = action.payload;
   try {
     yield put(actions.getOrganizationDetails_doing());
-    const [organization, applications] = yield [
-      call(orgsApi, { key: orgKey }),
-      call(appsApi, { orgKey }),
+    const [appResult, orgResult] = yield [
+      call(orgsApi, { orgKey }),
+      call(appsApi, { key: orgKey }),
     ];
+    const organization = orgResult.body;
+    const applications = appResult.body;
+
     yield put(actions.getOrganizationDetails_success({
       organization,
       applications,
