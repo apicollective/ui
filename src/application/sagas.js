@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 
 import { actions as appActions } from '../app';
 import { actionTypes as specActionTypes } from '../generated/version/';
-import { cleanPath } from '../utils';
+import { cleanPath, onClickHref } from '../utils';
 
 const getSideBarModel = (spec) => {
   const orgKey = spec.organization.key;
@@ -18,10 +18,9 @@ const getSideBarModel = (spec) => {
         items: resource.operations.map((operation) => (
           {
             name: `${operation.method} ${operation.path}`,
-            data: {
-              'data-href':
-                `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${method(operation)}/p/${path(operation)}`,
-            },
+            onClick: onClickHref(
+              `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${method(operation)}/p/${path(operation)}`
+            ),
           }
         )),
       }
@@ -32,13 +31,15 @@ const getSideBarModel = (spec) => {
       items: [{
         name: '',
         items: spec.models.map((model) => (
-          { name: `${model.name}`,
-            data: { 'data-href': `/org/${orgKey}/app/${appKey}/m/${model.name}` } }
+          {
+            name: `${model.name}`,
+            onClick: onClickHref(`/org/${orgKey}/app/${appKey}/m/${model.name}`),
+          }
       )).concat(
         spec.enums.map((enumValue) => (
           {
             name: `${enumValue.name}`,
-            data: { 'data-href': `/org/${orgKey}/app/${appKey}/m/${enumValue.name}` },
+            onClick: onClickHref(`/org/${orgKey}/app/${appKey}/m/${enumValue.name}`),
           }
       ))),
       }],
@@ -47,8 +48,8 @@ const getSideBarModel = (spec) => {
 
 const getNavBarItems = (spec) => (
   [
-    { name: spec.organization.key, data: { 'data-href': `/org/${spec.organization.key}` } },
-    { name: spec.application.key, data: { 'data-href': `/org/${spec.organization.key}/app/${spec.application.key}` } },
+    { name: spec.organization.key, onClick: onClickHref(`/org/${spec.organization.key}`) },
+    { name: spec.application.key, onClick: onClickHref(`/org/${spec.organization.key}/app/${spec.application.key}`) },
   ]
 );
 

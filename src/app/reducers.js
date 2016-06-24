@@ -2,6 +2,7 @@ import { Map } from 'immutable';
 
 import { actionTypes } from './actions';
 import { actionTypes as orgActionTypes } from '../generated/organization';
+import { onClickHref } from '../utils';
 
 const initialState = new Map(
   {
@@ -18,7 +19,7 @@ const getSideBarModel = (payload) => (
       {
         name: 'Organizations',
         items: payload.map((org) => (
-          { name: org.name, data: { 'data-href': `/org/${org.key}` } }
+          { name: org.name, onClick: onClickHref(`/org/${org.key}`) }
         )),
       },
     ],
