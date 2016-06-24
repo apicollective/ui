@@ -18,7 +18,10 @@ const getSideBarModel = (spec) => {
         items: resource.operations.map((operation) => (
           {
             name: `${operation.method} ${operation.path}`,
-            href: `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${method(operation)}/p/${path(operation)}`,
+            data: {
+              'data-href':
+                `/org/${orgKey}/app/${appKey}/r/${resource.type}/m/${method(operation)}/p/${path(operation)}`,
+            },
           }
         )),
       }
@@ -29,10 +32,14 @@ const getSideBarModel = (spec) => {
       items: [{
         name: '',
         items: spec.models.map((model) => (
-        { name: `${model.name} - Model`, href: `/org/${orgKey}/app/${appKey}/m/${model.name}` }
+          { name: `${model.name} - Model`,
+            data: { 'data-href': `/org/${orgKey}/app/${appKey}/m/${model.name}` } }
       )).concat(
         spec.enums.map((enumValue) => (
-          { name: `${enumValue.name} - Enum`, href: `/org/${orgKey}/app/${appKey}/m/${enumValue.name}` }
+          {
+            name: `${enumValue.name} - Enum`,
+            data: { 'data-href': `/org/${orgKey}/app/${appKey}/m/${enumValue.name}` },
+          }
       ))),
       }],
     }];
@@ -40,8 +47,8 @@ const getSideBarModel = (spec) => {
 
 const getNavBarItems = (spec) => (
   [
-    { name: spec.organization.key },
-    { name: spec.application.key },
+    { name: spec.organization.key, data: { 'data-href': `/org/${spec.organization.key}` } },
+    { name: spec.application.key, data: { 'data-href': `/org/${spec.organization.key}/app/${spec.application.key}` } },
   ]
 );
 
