@@ -9,7 +9,7 @@ import styles from './organization.css';
 import { actions } from '../sagas';
 
 const App = ({ orgKey, application }) =>
-  <Link to={`/org/${orgKey}/app/${application.key}`}>{application.name}</Link>;
+  <Link className={styles.link} to={`/org/${orgKey}/app/${application.key}`}>{application.name}</Link>;
 
 App.propTypes = {
   orgKey: PropTypes.string.isRequired,

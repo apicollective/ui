@@ -5,3 +5,15 @@
 .main {
   display: flex;
 }
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: var(--color-cool-blue);
+  line-height: 2;
+  cursor: pointer;
+
+  @nest &:hover {
+    color: color(var(--color-cool-blue) b(+15%));
+  }
+}

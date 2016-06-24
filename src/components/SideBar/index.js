@@ -38,9 +38,11 @@ Section.propTypes = {
 
 const SideBar = ({ items, onClick }) =>
   <div className={styles.sidebar}>
-    {items.map((section, id) => (
-      <Section key={id} section={section} onClick={onClick} />
-    ))}
+    <div className={styles.sidebarInner}>
+      {items.map((section, id) => (
+        <Section key={id} section={section} onClick={onClick} />
+      ))}  
+    </div>
   </div>;
 
 SideBar.propTypes = {

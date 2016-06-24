@@ -3,5 +3,12 @@
 @import "cssrecipes-reset";
 
 .main {
-  display: flex;
+
+}
+
+.description {
+  padding: 0 0 1.25rem 0;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--color-very-light-gray);
 }

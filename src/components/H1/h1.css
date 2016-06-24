@@ -13,4 +13,5 @@
   font-family: var(--font-brandon);
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  margin: 0;
 }

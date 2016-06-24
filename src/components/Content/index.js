@@ -4,7 +4,9 @@ import styles from './content.css';
 
 const Content = (props) =>
   <div className={styles.content}>
-    {props.children}
+    <div className={styles.contentInner}>
+      {props.children}
+    </div>
   </div>;
 
 Content.propTypes = {

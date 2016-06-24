@@ -10,10 +10,11 @@
 }
 
 .code {
+  flex: 0 1 48%;
   padding: 1rem;
   background: var(--color-tuatara);
   color: white;
-  margin: 0 1rem;
+  margin: 0 2% 0 0;
   border-radius: var(--border-radius);
 }
 
@@ -38,7 +39,7 @@
 }
 
 .documentation {
-  flex: 0 1 100%;
+  flex: 0 1 50%;
   font-family: var(--font-avenir);
 }
 
@@ -65,6 +66,8 @@ field-right {
 .model-description {
   margin: 0;
   margin-bottom: 0.67rem;
+  font-weight: 300;
+  line-height: 1.5;
 }
 
 .model-description + .field-container {

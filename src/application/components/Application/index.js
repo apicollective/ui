@@ -146,7 +146,7 @@ class Application extends Component {
       return (
         <div>
           <H1>{spec.name}</H1>
-          {spec.description}
+          <p className={styles.description}>{spec.description}</p>
           <H2>{operation.method} {operation.path}</H2>
           <Request operation={operation} spec={spec} />
           <Response operation={operation} spec={spec} />
@@ -159,7 +159,7 @@ class Application extends Component {
       return (
         <div>
           <H1>{spec.name}</H1>
-          {spec.description}
+          <p className={styles.description}>{spec.description}</p>
           <div>
             {spec.resources.map((resource, id) => (
               resource.operations.map((operation, resourceId) => (

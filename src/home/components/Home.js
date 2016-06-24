@@ -11,7 +11,7 @@ import styles from './home.css';
 const allActions = Object.assign({}, orgActions);
 
 const Org = ({ organization }) =>
-  <Link to={`org/${organization.key}`}>{organization.name}</Link>;
+  <Link className={styles.link} to={`org/${organization.key}`}>{organization.name}</Link>;
 
 Org.propTypes = {
   organization: PropTypes.object.isRequired,

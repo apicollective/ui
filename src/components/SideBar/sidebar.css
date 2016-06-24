@@ -6,18 +6,23 @@
 }
 
 .sidebar {
-    flex: 0 0 270px;
-    padding: 70px 0 20px 20px;
-    width: 270px;
-    height: 100vh;
+    position: fixed 50px auto 0 0;
+    width: 16.875rem;
+    height: 100%;
     background: var(--color-tuatara);
     color: white;
-    overflow-y: scroll;
+    padding: 1.25rem;
+    overflow-y: auto;
 
     @nest &::-webkit-scrollbar {
       width: 0px;
       background: transparent;
     }
+}
+
+.sidebar-inner {
+  padding-bottom: 1.25rem;
+  min-height: calc(100% - 50px);
 }
 
 .a {
@@ -44,7 +49,11 @@
 }
 
 .group {
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
+
+  @nest &:last-of-type {
+    margin: 0;
+  }
 }
 
 .h2 {
@@ -61,7 +70,7 @@
 }
 
 .section {
-
+  margin: 0 0 2rem 0;
 }
 
 

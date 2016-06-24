@@ -1,8 +1,19 @@
 @import "variables.css";
 
 .content {
-  flex: 0 1 100%;
-  max-width: 100%;
-  height: auto;
-  padding: 50px 0 0 0;
+  position: fixed 50px 0 0 16.875em;
+  width: calc(100vw -  16.875rem);
+  padding: 1.25rem;
+  font-family: var(--font-avenir);
+  overflow-y: auto;
+
+  @nest &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+}
+
+.content-inner {
+  padding: 0 0 1.25rem 0;
+  min-height: calc(100% - 50px);
 }
