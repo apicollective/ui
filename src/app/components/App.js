@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import NavBar from '../../components/NavBar';
 import SideBar from '../../components/SideBar';
@@ -8,11 +9,17 @@ import { actionTypes as appActionTypes } from '../actions';
 
 import styles from './app.css';
 
+const onClick = (event) => {
+  browserHistory.push(event.currentTarget.dataset.href);
+};
+
+const navHomeData = { 'data-href': '/' };
+
 const App = (props) =>
   <div>
-    <NavBar items={props.navBarItems} />
+    <NavBar items={props.navBarItems} onClick={onClick} homeData={navHomeData} />
     <div className={styles.main}>
-      <SideBar items={props.sideBarItems} />
+      <SideBar items={props.sideBarItems} onClick={onClick} />
       <Content>
         {props.children}
       </Content>

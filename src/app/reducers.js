@@ -18,7 +18,7 @@ const getSideBarModel = (payload) => (
       {
         name: 'Organizations',
         items: payload.map((org) => (
-          { name: org.name, href: `/org/${org.key}` }
+          { name: org.name, data: { 'data-href': `/org/${org.key}` } }
         )),
       },
     ],
@@ -35,6 +35,7 @@ const app = (state = initialState, action) => {
     }
     case orgActionTypes.getOrganizations_success: {
       return state
+        .set(actionTypes.updateNavBar, [])
         .set(actionTypes.updateSideBar, getSideBarModel(action.payload))
         .set('organizations', action.payload);
     }

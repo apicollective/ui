@@ -38,7 +38,7 @@ const getSideBarModel = (orgKey, apps) => (
       {
         name: 'Applications',
         items: apps.map((app) => (
-          { name: app.name, href: `/org/${orgKey}/app/${app.key}` }
+          { name: app.name, data: { 'data-href': `/org/${orgKey}/app/${app.key}` } }
         )),
       },
     ],
@@ -47,7 +47,7 @@ const getSideBarModel = (orgKey, apps) => (
 
 const getNavBarItems = (orgKey) => (
   [
-    { name: orgKey },
+    { name: orgKey, data: { 'data-href': `/org/${orgKey}` } },
   ]
 );
 
