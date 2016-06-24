@@ -4,6 +4,7 @@ import { call, put } from 'redux-saga/effects';
 import { actions as appActions } from '../app';
 import { api as appsApi } from '../generated/organization/getOrganizationsByKey';
 import { api as orgsApi } from '../generated/application/getByOrgkey';
+import { onClickHref } from '../utils';
 
 const actionTypes = {
   getOrganizationDetails_get: 'getOrganizationDetails/get',
@@ -38,7 +39,7 @@ const getSideBarModel = (orgKey, apps) => (
       {
         name: 'Applications',
         items: apps.map((app) => (
-          { name: app.name, data: { 'data-href': `/org/${orgKey}/app/${app.key}` } }
+          { name: app.name, onClick: onClickHref(`/org/${orgKey}/app/${app.key}`) }
         )),
       },
     ],
@@ -47,7 +48,7 @@ const getSideBarModel = (orgKey, apps) => (
 
 const getNavBarItems = (orgKey) => (
   [
-    { name: orgKey, data: { 'data-href': `/org/${orgKey}` } },
+    { name: orgKey, onClick: onClickHref(`/org/${orgKey}`) },
   ]
 );
 
@@ -64,8 +65,8 @@ function* saga(action) {
       applications,
     }));
     const navBarItems = getNavBarItems(orgKey);
-    yield put(appActions.updateNavBar(navBarItems));
     const sideBarItems = getSideBarModel(orgKey, applications);
+    yield put(appActions.updateNavBar(navBarItems));
     yield put(appActions.updateSideBar(sideBarItems));
   } catch (error) {
     yield put(actions.getOrganizationDetails_failure(error));
