@@ -38,8 +38,13 @@
   --color-secondary-light: #98ECE6;
   --color-secondary-dark: #1FAFA6;
   --border-radius: 3px;
-  --font-avenir: 'Muli', avenir, helvetica, arial, sans-serif;
-  --font-din: "DIN17 EF";
+  --font-avenir: avenir, helvetica, arial, sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
   --font-brandon: "Brandon grotesque";
+  --font-lato: 'Lato', sans-serif;
   --font-mono: 'Droid Sans Mono', monospace;
+
+  --font-primary: var(--font-open-sans);
+  --font-secondary: var(--font-lato);
+  --font-code: var(--font-mono);
 }

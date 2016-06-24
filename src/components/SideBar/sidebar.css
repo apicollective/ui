@@ -7,17 +7,12 @@
 
 .sidebar {
     position: fixed 50px auto 0 0;
-    width: 16.875rem;
+    width: 400px;
     height: 100%;
     background: var(--color-tuatara);
     color: white;
     padding: 1.25rem;
     overflow-y: auto;
-
-    @nest &::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
-    }
 }
 
 .sidebar-inner {
@@ -29,10 +24,11 @@
   color: white;
   display: block;
   padding: 0.5rem 0 0.5rem 1rem;
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
   text-decoration: none;
   border-left: 2px solid white;
   position: relative;
+  cursor: pointer;
 
   @nest &:hover {
     background: var(--color-primary);
@@ -57,13 +53,14 @@
 }
 
 .h2 {
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
   margin: 0 0 0.5rem 0;
   font-weight: 400;
 }
 
 .label {
-  font-family: var(--font-brandon);
+  font-family: var(--font-secondary);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   color: var(--color-primary);

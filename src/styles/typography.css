@@ -1,7 +1,7 @@
 @import "variables.css";
 
 .h1 {
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
   font-weight: 400;
   font-size: 3.157rem;
   line-height: 1.2;
@@ -10,7 +10,7 @@
 }
 
 .h2 {
-  font-family: var(--font-din);
+  font-family: var(--font-secondary);
   font-size: 2.369rem;
   line-height: 1.2;
   margin: 0;
@@ -18,7 +18,7 @@
 }
 
 .h3 {
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
   font-size: 1.777rem;
   font-weight: 500;
   line-height: 1.2;
@@ -27,7 +27,7 @@
 }
 
 .p {
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
   line-height: 1.2;
   font-size: 1rem;
   color: var(--color-tuatara);

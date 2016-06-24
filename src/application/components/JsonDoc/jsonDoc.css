@@ -5,8 +5,8 @@
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
-
   display: flex;
+  align-items: flex-start;
 }
 
 .code {
@@ -40,7 +40,7 @@
 
 .documentation {
   flex: 0 1 50%;
-  font-family: var(--font-avenir);
+  font-family: var(--font-primary);
 }
 
 .field-container {

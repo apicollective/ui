@@ -1,0 +1,49 @@
+@import "variables.css";
+
+.container {
+  font-family: var(--font-primary);
+  font-weight: 300;
+  width: 750px;
+  display: flex;
+  align-items: stretch;
+  padding: 1.25rem 0;
+  border-bottom: 2px solid var(--color-concrete);
+
+  @nest &:last-of-type {
+    border-color: transparent;
+  }
+}
+
+.meta {
+  flex: 0 1 20%;
+  margin: 0 2% 0 0;
+}
+
+.name {
+  font-weight: 600;
+  margin: 0;
+}
+
+.type {
+  font-weight: 300;
+  margin: 0;
+  color: var(--color-steel);
+}
+
+.required {
+  line-height: 2;
+  font-weight: 400;
+  margin: 0;
+  text-decoration: underline;
+}
+
+.info {
+  flex: 0 1 100%;
+  margin: 0;
+}
+
+.description {
+  margin: 0;
+  line-height: 1.5;
+}
+

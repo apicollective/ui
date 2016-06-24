@@ -1,10 +1,10 @@
 @import "variables.css";
 
 .content {
-  position: fixed 50px 0 0 16.875em;
-  width: calc(100vw -  16.875rem);
-  padding: 1.25rem;
-  font-family: var(--font-avenir);
+  position: fixed 50px 0 0 400px;
+  width: 100%;
+  padding: 0;
+  font-family: var(--font-primary);
   overflow-y: auto;
 
   @nest &::-webkit-scrollbar {

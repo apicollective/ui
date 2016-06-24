@@ -5,10 +5,12 @@ import styles from './navbar.css';
 
 const NavBar = ({ items, homeOnClick }) =>
   <div className={styles.navbar}>
-    <a onClick={homeOnClick}>Home</a>
-    {items.map(
-      (item, id) => <Button key={id} className={styles.button} onClick={item.onClick}>{item.name}</Button>
-    )}
+    <div className={styles.breadcrumbs}>
+      <a onClick={homeOnClick}>Home</a>
+      {items.map(
+        (item, id) => <Button key={id} className={styles.button} onClick={item.onClick}>{item.name}</Button>
+      )}
+    </div>
   </div>;
 
 NavBar.propTypes = {

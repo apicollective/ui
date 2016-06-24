@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
+import paramStyles from '../Application/param.css';
 
 const numSpaces = 4;
 
@@ -180,16 +181,20 @@ const Documentation = ({ fullType, spec }) => {
       <div className={styles.documentation}>
         <H2 className={styles.modelName}>{modelName}</H2>
         <p className={styles.modelDescription}>{model.description}</p>
-        <div className={styles.fieldContainer}>
-          <div className={styles.fieldLeft}>
-            <h3>{field.name}</h3>
-            <p>Type: {field.type}</p>
-            <p><i>{field.required ? 'Required' : 'Optional'}</i></p>
+        <div className={paramStyles.container}>
+          <div className={paramStyles.meta}>
+            <p className={paramStyles.name}>{field.name}</p>
+            <p className={paramStyles.type}>{field.type}</p>
+            {(() => {
+              if (field.required) {
+                return <p className={paramStyles.required}>required</p>
+              }
+            })()}
           </div>
-          <div className={styles.fieldRight}>
-            {field.description ? <p className={styles.fieldDescription}>{field.description}</p> : ''}
-            {field.example ? <p className={styles.fieldExample}>Example: {field.example}</p> : ''}
-            {field.default ? <p className={styles.fieldDefault}>Default: {field.default}</p> : ''}
+          <div className={paramStyles.info}>
+            {field.description ? <p className={paramStyles.description}>{field.description}</p> : ''}
+            {field.example ? <p className={paramStyles.example}>Example: {field.example}</p> : ''}
+            {field.default ? <p className={paramStyles.default}>Default: {field.default}</p> : ''}
           </div>
         </div>
       </div>

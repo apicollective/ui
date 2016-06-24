@@ -6,9 +6,26 @@
 
 }
 
+.spec-header {
+  background: var(--color-tuatara);
+  padding: 1.25rem;
+}
+
 .description {
-  padding: 0 0 1.25rem 0;
-  margin: 0 0 1.25rem 0;
-  line-height: 1.5;
-  border-bottom: 1px solid var(--color-very-light-gray);
+  line-height: 2;
+  margin: 0;
+  color: white;
+}
+
+.section {
+  padding: 0.67rem 1.25rem;
+}
+
+.request {
+  background: #fafafa;
+}
+
+.section-header {
+  margin: 0;
+  font-weight: 600;
 }

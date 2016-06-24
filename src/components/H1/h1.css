@@ -6,11 +6,10 @@
 }
 
 .h1 {
-  font-size: 30px;
+  font-size: 2.5rem;
   color: var(--color-primary);
-  font-weight: normal;
-  font-family: @font-brandon;
-  font-family: var(--font-brandon);
+  font-weight: 700;
+  font-family: var(--font-secondary);
   text-transform: uppercase;
   letter-spacing: 0.025em;
   margin: 0;

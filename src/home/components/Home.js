@@ -35,8 +35,8 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <H1>Organizations</H1>
+      <div className={styles.container}>
+        <H1 className={styles.title}>Organizations</H1>
         <Organizations organizations={this.props.organizations} />
       </div>
     );

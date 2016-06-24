@@ -15,3 +15,11 @@
     color: color(var(--color-cool-blue) b(+15%));
   }
 }
+
+.title {
+  margin: 0 0 1rem 0;
+}
+
+.container {
+  padding: 2rem;
+}

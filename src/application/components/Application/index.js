@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -8,6 +9,7 @@ import H2 from '../../../components/H2';
 import { cleanPath } from '../../../utils';
 
 import styles from './application.css';
+import paramStyles from './param.css';
 
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
@@ -26,10 +28,23 @@ const Request = ({ operation, spec }) => {
   };
 
   return (
-    <div>
-      <H2>Request</H2>
+    <div className={classnames(styles.section, styles.request)}>
+      <H2 className={styles.sectionHeader}>Request</H2>
       {operation.parameters.map((param, id) => (
-        <div key={id}>{param.name}</div>
+        <div className={paramStyles.container} key={id}>
+          <div className={paramStyles.meta}>
+            <p className={paramStyles.name}>{param.name}</p>
+            <p className={paramStyles.type}>{param.type}</p>
+            {(() => {
+              if (param.required) {
+                return <p className={paramStyles.required}>required</p>
+              }
+            })()}
+          </div>
+          <div className={paramStyles.info}>
+            <p className={paramStyles.description}>{param.description}</p>
+          </div>
+        </div>
       ))}
     {body()}
     </div>
@@ -54,7 +69,7 @@ const Response = ({ operation, spec }) => {
   };
 
   return (
-    <div>
+    <div className={classnames(styles.section, styles.response)}>
       <H2>Response</H2>
       {operation.responses.map((response, id) => (
         <div key={id}>
@@ -145,8 +160,10 @@ class Application extends Component {
       const operation = this.getOperation(resource, method, path, spec);
       return (
         <div>
-          <H1>{spec.name}</H1>
-          <p className={styles.description}>{spec.description}</p>
+          <div className={styles.specHeader}>
+            <H1>{spec.name}</H1>
+            <p className={styles.description}>{spec.description}</p>  
+          </div>
           <H2>{operation.method} {operation.path}</H2>
           <Request operation={operation} spec={spec} />
           <Response operation={operation} spec={spec} />
@@ -158,8 +175,10 @@ class Application extends Component {
       // No Operation
       return (
         <div>
-          <H1>{spec.name}</H1>
-          <p className={styles.description}>{spec.description}</p>
+          <div className={styles.specHeader}>
+            <H1>{spec.name}</H1>
+            <p className={styles.description}>{spec.description}</p>  
+          </div>
           <div>
             {spec.resources.map((resource, id) => (
               resource.operations.map((operation, resourceId) => (
