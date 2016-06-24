@@ -54,7 +54,7 @@ const getNavBarItems = (spec) => (
 );
 
 function* saga(action) {
-  const spec = action.payload;
+  const spec = action.payload.service;
   const navBarItems = getNavBarItems(spec);
   yield put(appActions.updateNavBar(navBarItems));
   const sideBarItems = getSideBarModel(spec);
