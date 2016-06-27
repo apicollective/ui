@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import styles from './parameterList.css';
 
-const ParameterList = ({name, type, required, description, example, defaultValue}) => (
+const ParameterList = ({ name, type, required, description, example, defaultValue }) => (
   <div className={styles.container}>
     <div className={styles.meta}>
       <p className={styles.name}>{name}</p>
@@ -24,8 +24,6 @@ ParameterList.propTypes = {
   description: PropTypes.string,
   example: PropTypes.string,
   defaultValue: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
 };
 
 export default ParameterList;

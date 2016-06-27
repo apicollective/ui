@@ -50,7 +50,7 @@ const Response = ({ operation, spec }) => {
       return (
         <div>
           <h3>Body</h3>
-          <JsonDoc baseModel={baseModel} spec={spec} />
+          <JsonDoc baseModel={baseModel} spec={spec} includeModel={true} />
         </div>
       );
     } else return null;

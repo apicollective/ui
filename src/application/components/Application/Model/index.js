@@ -15,9 +15,9 @@ const Model = ({ modelName, spec }) => {
       {model.description ? <p className={styles.description}>{model.description}</p> : null}
       <H2>Fields</H2>
       {model.fields.map((field, id) => (
-          <ParameterList {...field} />
+        <ParameterList {...field} />
       ))}
-      <JsonDoc baseModel={model.name} spec={spec} />
+      <JsonDoc baseModel={model.name} spec={spec} includeModel={false} />
     </div>
   );
 };
