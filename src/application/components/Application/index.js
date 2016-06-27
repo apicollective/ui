@@ -6,10 +6,11 @@ import { connect } from 'react-redux';
 import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
+import ParameterList from '../ParameterList';
 import { cleanPath } from '../../../utils';
+import Model from './Model';
 
 import styles from './application.css';
-import paramStyles from './param.css';
 
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
@@ -31,16 +32,7 @@ const Request = ({ operation, spec }) => {
     <div className={classnames(styles.section, styles.request)}>
       <H2 className={styles.sectionHeader}>Request</H2>
       {operation.parameters.map((param, id) => (
-        <div className={paramStyles.container} key={id}>
-          <div className={paramStyles.meta}>
-            <p className={paramStyles.name}>{param.name}</p>
-            <p className={paramStyles.type}>{param.type}</p>
-            {param.required ? <p className={paramStyles.required}>required</p> : null}
-          </div>
-          <div className={paramStyles.info}>
-            <p className={paramStyles.description}>{param.description}</p>
-          </div>
-        </div>
+        <ParameterList {...param} />
       ))}
     {body()}
     </div>
@@ -78,51 +70,6 @@ const Response = ({ operation, spec }) => {
 };
 Response.propTypes = {
   operation: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
-};
-
-
-const Model = ({ model, spec }) =>
-  <div>
-    <H2>{model.name}</H2>
-    <JsonDoc baseModel={model.name} spec={spec} />
-  </div>;
-
-Model.propTypes = {
-  model: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
-};
-
-const Models = ({ modelName, spec }) =>
-  <div>
-      {(() => {
-        if (spec.models.length > 0) {
-          return (
-            <div>
-              <H1>Models</H1>
-              {spec.models.map((model, id) => (
-                <Model model={model} spec={spec} />
-              ))}
-            </div>
-          );
-        } else return null;
-      })()}
-    {(() => {
-      if (spec.enums.length > 0) {
-        return (
-          <div>
-            <H1>Enums</H1>
-            {spec.enums.map((e, id) => (
-              <Model model={e} spec={spec} />
-            ))}
-          </div>
-        );
-      } else return null;
-    })()}
-  </div>;
-
-Models.propTypes = {
-  modelName: PropTypes.string,
   spec: PropTypes.object.isRequired,
 };
 
@@ -166,7 +113,7 @@ class Application extends Component {
         </div>
       );
     } else if (this.props.params.model) {
-      return <Models modelName={this.props.params.model} spec={spec} />;
+      return <Model modelName={this.props.params.model} spec={spec} />;
     } else {
       // No Operation
       return (

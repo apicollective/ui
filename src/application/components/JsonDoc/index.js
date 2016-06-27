@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
-import paramStyles from '../Application/param.css';
+import ParameterList from '../ParameterList';
 
 const numSpaces = 4;
 
@@ -181,18 +181,7 @@ const Documentation = ({ fullType, spec }) => {
       <div className={styles.documentation}>
         <H2 className={styles.modelName}>{modelName}</H2>
         <p className={styles.modelDescription}>{model.description}</p>
-        <div className={paramStyles.container}>
-          <div className={paramStyles.meta}>
-            <p className={paramStyles.name}>{field.name}</p>
-            <p className={paramStyles.type}>{field.type}</p>
-            {field.required ? <p className={paramStyles.required}>required</p> : null}
-          </div>
-          <div className={paramStyles.info}>
-            {field.description ? <p className={paramStyles.description}>{field.description}</p> : null}
-            {field.example ? <p className={paramStyles.example}>Example: {field.example}</p> : null}
-            {field.default ? <p className={paramStyles.default}>Default: {field.default}</p> : null}
-          </div>
-        </div>
+        <ParameterList {...field} />
       </div>
     );
   } else {
