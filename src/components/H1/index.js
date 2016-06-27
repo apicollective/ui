@@ -9,7 +9,7 @@ const H1 = ({ className, children }) =>
   </h1>;
 
 H1.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 

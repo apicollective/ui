@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
-import paramStyles from '../Application/param.css';
+import ParameterList from '../ParameterList';
 
 const numSpaces = 4;
 
@@ -171,41 +171,13 @@ Model.propTypes = {
 };
 
 
-const Documentation = ({ fullType, spec }) => {
-  if (fullType) {
-    const [modelName, fieldName] = fullType.split('.');
-    const model = getModel(modelName, spec);
-    const field = model.fields.find(f => f.name === fieldName);
+const Documentation = ({ field }) =>
+  <div className={styles.documentation}>
+    <ParameterList {...field} />
+  </div>;
 
-    return (
-      <div className={styles.documentation}>
-        <H2 className={styles.modelName}>{modelName}</H2>
-        <p className={styles.modelDescription}>{model.description}</p>
-        <div className={paramStyles.container}>
-          <div className={paramStyles.meta}>
-            <p className={paramStyles.name}>{field.name}</p>
-            <p className={paramStyles.type}>{field.type}</p>
-            {(() => {
-              if (field.required) {
-                return <p className={paramStyles.required}>required</p>
-              }
-            })()}
-          </div>
-          <div className={paramStyles.info}>
-            {field.description ? <p className={paramStyles.description}>{field.description}</p> : ''}
-            {field.example ? <p className={paramStyles.example}>Example: {field.example}</p> : ''}
-            {field.default ? <p className={paramStyles.default}>Default: {field.default}</p> : ''}
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (<div></div>);
-  }
-};
 Documentation.propTypes = {
-  fullType: PropTypes.string.isRequired,
-  spec: PropTypes.object.isRequired,
+  field: PropTypes.object.isRequired,
 };
 
 // TODO
@@ -221,15 +193,47 @@ class JsonDoc extends Component {
     };
   }
 
+  getDocumentation(documentationFullType, spec) {
+    if (!documentationFullType) return '';
+
+    const [modelName, fieldName] = documentationFullType.split('.');
+    const model = getModel(modelName, spec);
+    const field = model.fields.find(f => f.name === fieldName);
+
+    return <Documentation field={field} />;
+  }
+
+  getModelDoc(baseModel, spec, includeModel) {
+    const docs = () => {
+      const model = getModel(baseModel, spec);
+      return (
+        <div>
+          <H2 className={styles.modelName}>{baseModel}</H2>
+          <p className={styles.modelDescription}>{model.description}</p>
+        </div>
+      );
+    };
+    return includeModel ? docs() : null;
+  }
+
   render() {
+    const { baseModel, spec, includeModel } = this.props;
     return (
       <div className={styles.jsonDoc}>
-        <pre className={styles.code}>
-        {'{'}
-          <ModelInner type={this.props.baseModel} spec={this.props.spec} indent={0} mouseOver={this.mouseOver} />
-        {'}'}
-        </pre>
-        <Documentation fullType={this.state.documentationFullType} spec={this.props.spec} />
+        {this.getModelDoc(baseModel, spec, includeModel)}
+        <div className={styles.container}>
+          <pre className={styles.code}>
+          {'{'}
+            <ModelInner
+              type={baseModel}
+              spec={spec}
+              indent={0}
+              mouseOver={this.mouseOver}
+            />
+          {'}'}
+          </pre>
+          {this.getDocumentation(this.state.documentationFullType, spec)}
+        </div>
       </div>
     );
   }
@@ -237,6 +241,7 @@ class JsonDoc extends Component {
 JsonDoc.propTypes = {
   spec: PropTypes.object.isRequired,
   baseModel: PropTypes.string.isRequired,
+  includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
 };
 
 export default JsonDoc;
