@@ -35,9 +35,13 @@ class Home extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
-        <H1 className={styles.title}>Organizations</H1>
-        <Organizations organizations={this.props.organizations} />
+      <div>
+        <div className={styles.header}>
+          <H1 className={styles.h1}>Organizations</H1>
+        </div>
+        <div className={styles.container}>
+          <Organizations organizations={this.props.organizations} />
+        </div>
       </div>
     );
   }

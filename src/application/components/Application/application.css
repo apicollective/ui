@@ -6,8 +6,12 @@
 
 }
 
-.spec-header {
-  background: var(--color-tuatara);
+.h1 {
+  color: white;
+}
+
+.header {
+  background: var(--color-cool-blue);
   padding: 1.25rem;
 }
 

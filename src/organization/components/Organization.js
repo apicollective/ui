@@ -37,12 +37,16 @@ class Organization extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
-        <H1 className={styles.title}>{this.props.organization.name}</H1>
-        <Applications
-          orgKey={this.props.params.organizationKey}
-          applications={this.props.applications}
-        />
+      <div>
+        <div className={styles.header}>
+          <H1 className={styles.h1}>{this.props.organization.name}</H1>
+        </div>
+        <div className={styles.container}>
+          <Applications
+            orgKey={this.props.params.organizationKey}
+            applications={this.props.applications}
+          />
+        </div>
       </div>
     );
   }

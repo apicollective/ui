@@ -7,6 +7,7 @@ import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
+import ResourceCard from '../ResourceCard';
 import { cleanPath } from '../../../utils';
 import Model from './Model';
 
@@ -103,8 +104,8 @@ class Application extends Component {
       const operation = this.getOperation(resource, method, path, spec);
       return (
         <div>
-          <div className={styles.specHeader}>
-            <H1>{spec.name}</H1>
+          <div className={styles.header}>
+            <H1 className={styles.h1}>{spec.name}</H1>
             <p className={styles.description}>{spec.description}</p>
           </div>
           <H2>{operation.method} {operation.path}</H2>
@@ -118,16 +119,22 @@ class Application extends Component {
       // No Operation
       return (
         <div>
-          <div className={styles.specHeader}>
-            <H1>{spec.name}</H1>
+          <div className={styles.header}>
+            <H1 className={styles.h1}>{spec.name}</H1>
             <p className={styles.description}>{spec.description}</p>
           </div>
           <div>
-            {spec.resources.map((resource, id) => (
-              resource.operations.map((operation, resourceId) => (
-                <div>{operation.method} {operation.path}</div>
-              ))
-            ))}
+            {spec.resources
+              .reduce((flat, r) => flat.concat(r.operations), [])
+              .map(({method, path}) => {
+                return (
+                  <ResourceCard
+                    method={method}
+                    path={path}
+                  />
+                )
+              })
+            }
           </div>
         </div>
       );

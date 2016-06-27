@@ -7,11 +7,17 @@
 }
 
 .container {
-  padding: 2rem;
+  padding: 1.25rem;
+  max-width: 60rem;
 }
 
-.title {
-  margin: 0 0 1rem 0;
+.header {
+  padding: 1.25rem;
+  background: var(--color-cool-blue);
+}
+
+.h1 {
+  color: white;
 }
 
 .link {

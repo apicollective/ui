@@ -5,8 +5,8 @@ import styles from './navbar.css';
 
 const NavBar = ({ items, homeOnClick }) =>
   <div className={styles.navbar}>
+    <a className={styles.home} onClick={homeOnClick}>Movio</a>
     <div className={styles.breadcrumbs}>
-      <a onClick={homeOnClick}>Home</a>
       {items.map(
         (item, id) => <Button key={id} className={styles.button} onClick={item.onClick}>{item.name}</Button>
       )}

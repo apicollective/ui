@@ -31,6 +31,11 @@
   --color-blue-whale: #022E4C;
   --color-midnight: #021E32;
 
+  --color-method-get: #27ae60;
+  --color-method-post: #f39c12;
+  --color-method-put: #8e44ad;
+  --color-method-delete: #e74c3c;
+
   --color-primary: var(--color-cool-blue);
   --color-primary-light: var(--color-maya-blue);
   --color-primary-dark: var(--color-lochmara);

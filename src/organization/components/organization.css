@@ -16,10 +16,16 @@
   }
 }
 
-.title {
-  margin: 0 0 1rem 0;
+.header {
+  background: var(--color-cool-blue);
+  padding: 1.25rem;
+}
+
+.h1 {
+  color: white;
 }
 
 .container {
-  padding: 2rem;
+  padding: 1.25rem;
+  max-width: 60rem;
 }

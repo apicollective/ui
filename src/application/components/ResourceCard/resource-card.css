@@ -1,0 +1,55 @@
+@import "variables.css";
+
+.container {
+  max-width: 60rem;
+  padding: 0 1.25rem;
+  margin: 0.75rem 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.left {
+  flex: 0 0 10%;
+  border-radius: var(--bor)
+}
+.method {
+  padding: 0.67rem 1rem;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  text-align: center;
+
+  @nest &.get {
+    background: var(--color-method-get);
+  }
+
+  @nest &.post {
+    background: var(--color-method-post);
+  }
+
+  @nest &.put {
+    background: var(--color-method-put);
+  }
+
+  @nest &.delete {
+    background: var(--color-method-delete);
+  }
+}
+
+.right {
+  flex: 0 0 90%;
+}
+.path {
+  display: block;
+  margin: 0;
+  background: var(--color-concrete);
+  font-family: var(--font-code);
+  padding: 0.67rem 1rem;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
