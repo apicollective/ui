@@ -185,16 +185,12 @@ const Documentation = ({ fullType, spec }) => {
           <div className={paramStyles.meta}>
             <p className={paramStyles.name}>{field.name}</p>
             <p className={paramStyles.type}>{field.type}</p>
-            {(() => {
-              if (field.required) {
-                return <p className={paramStyles.required}>required</p>
-              }
-            })()}
+            {field.required ? <p className={paramStyles.required}>required</p> : null}
           </div>
           <div className={paramStyles.info}>
-            {field.description ? <p className={paramStyles.description}>{field.description}</p> : ''}
-            {field.example ? <p className={paramStyles.example}>Example: {field.example}</p> : ''}
-            {field.default ? <p className={paramStyles.default}>Default: {field.default}</p> : ''}
+            {field.description ? <p className={paramStyles.description}>{field.description}</p> : null}
+            {field.example ? <p className={paramStyles.example}>Example: {field.example}</p> : null}
+            {field.default ? <p className={paramStyles.default}>Default: {field.default}</p> : null}
           </div>
         </div>
       </div>

@@ -35,11 +35,7 @@ const Request = ({ operation, spec }) => {
           <div className={paramStyles.meta}>
             <p className={paramStyles.name}>{param.name}</p>
             <p className={paramStyles.type}>{param.type}</p>
-            {(() => {
-              if (param.required) {
-                return <p className={paramStyles.required}>required</p>
-              }
-            })()}
+            {param.required ? <p className={paramStyles.required}>required</p> : null}
           </div>
           <div className={paramStyles.info}>
             <p className={paramStyles.description}>{param.description}</p>
@@ -162,7 +158,7 @@ class Application extends Component {
         <div>
           <div className={styles.specHeader}>
             <H1>{spec.name}</H1>
-            <p className={styles.description}>{spec.description}</p>  
+            <p className={styles.description}>{spec.description}</p>
           </div>
           <H2>{operation.method} {operation.path}</H2>
           <Request operation={operation} spec={spec} />
@@ -177,7 +173,7 @@ class Application extends Component {
         <div>
           <div className={styles.specHeader}>
             <H1>{spec.name}</H1>
-            <p className={styles.description}>{spec.description}</p>  
+            <p className={styles.description}>{spec.description}</p>
           </div>
           <div>
             {spec.resources.map((resource, id) => (
