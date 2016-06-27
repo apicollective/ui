@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
+import { onClickHref } from '../../../utils';
 
 const numSpaces = 4;
 
@@ -21,11 +22,10 @@ const isEnum = (type, spec) => Boolean(getEnum(type, spec));
 
 const isArray = (type) => type.startsWith('[');
 
-
 // --    "name": "value",
 /* eslint-disable max-len */
-const FieldValue = ({ name, value, fullType, indent, mouseOver }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+const FieldValue = ({ name, value, fullType, indent, mouseOver, click }) =>
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
     <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
   </a>;
 /* eslint-enable */
@@ -36,6 +36,7 @@ FieldValue.propTypes = {
   fullType: PropTypes.string.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 // --    "name":
@@ -137,6 +138,7 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
+                click={onClickHref(`${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`)}
               />);
           }
         })}
