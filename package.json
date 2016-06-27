@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Apidoc UI",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --history-api-fallback --host 0.0.0.0",
+    "start": "webpack-dev-server --hot --inline --history-api-fallback --output-public-path / --progress --colors --host 0.0.0.0",
     "test": "karma start --single-run; exit 0",
     "test:ci": "karma start --single-run",
     "test:watch": "karma start --auto-watch",

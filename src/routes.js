@@ -7,6 +7,7 @@ import { Home } from './home';
 import { Organization } from './organization';
 import { Application } from './application';
 
+
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
