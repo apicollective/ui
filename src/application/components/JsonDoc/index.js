@@ -3,24 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
-import { onClickHref } from '../../../utils';
+import { onClickHref, getType, getModel, isModel, getEnum, isEnum, isArray } from '../../../utils';
 
 const numSpaces = 4;
 
 const spaces = (indent) => Array(indent * numSpaces).join(' ');
-
-const getType = (type) => {
-  const ex = /[\[]?([^\]]+)/i;
-  return type.match(ex)[1];
-};
-
-const getModel = (name, spec) => spec.models.find(m => m.name === getType(name));
-const isModel = (type, spec) => Boolean(getModel(type, spec));
-
-const getEnum = (type, spec) => spec.enums.find(e => e.name === type);
-const isEnum = (type, spec) => Boolean(getEnum(type, spec));
-
-const isArray = (type) => type.startsWith('[');
 
 // --    "name": "value",
 /* eslint-disable max-len */
