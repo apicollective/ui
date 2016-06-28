@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import NavBar from '../../components/NavBar';
@@ -9,16 +9,35 @@ import { onClickHref } from '../../utils';
 
 import styles from './app.css';
 
-const App = (props) =>
-  <div>
-    <NavBar items={props.navBarItems} homeOnClick={onClickHref('/')} />
-    <div className={styles.main}>
-      <SideBar items={props.sideBarItems} />
-      <Content>
-        {props.children}
-      </Content>
-    </div>
-  </div>;
+class App extends Component {
+
+  componentWillMount() {
+    this.fireEvent();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params !== nextProps.params) {
+      this.fireEvent(nextProps.params);
+    }
+  }
+
+  fireEvent(params = this.props.params) {
+    console.log(params);
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar items={this.props.navBarItems} homeOnClick={onClickHref('/')} />
+        <div className={styles.main}>
+          <SideBar sections={this.props.sideBarItems} />
+          <Content>
+            {this.props.children}
+          </Content>
+        </div>
+      </div>);
+  }
+}
 
 App.propTypes = {
   children: PropTypes.object.isRequired,

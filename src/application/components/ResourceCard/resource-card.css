@@ -12,7 +12,7 @@
 
 .left {
   flex: 0 0 10%;
-  border-radius: var(--bor)
+  border-radius: var(--border-radius)
 }
 .method {
   padding: 0.67rem 1rem;

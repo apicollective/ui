@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 
 import styles from './sidebar.css';
 
 const Item = ({ item }) =>
-  <div onClick={item.onClick} className={styles.a} {...item.data}>{item.name}</div>;
+  <div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
+    {item.name}
+  </div>;
 
 Item.propTypes = {
   item: PropTypes.object.isRequired,
@@ -33,17 +36,17 @@ Section.propTypes = {
   section: PropTypes.object.isRequired,
 };
 
-const SideBar = ({ items }) =>
+const SideBar = ({ sections }) =>
   <div className={styles.sidebar}>
     <div className={styles.sidebarInner}>
-      {items.map((section, id) => (
+      {sections.map((section, id) => (
         <Section key={id} section={section} />
       ))}
     </div>
   </div>;
 
 SideBar.propTypes = {
-  items: PropTypes.array.isRequired,
+  sections: PropTypes.array.isRequired,
 };
 
 export default SideBar;

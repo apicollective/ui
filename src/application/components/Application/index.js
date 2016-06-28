@@ -134,6 +134,7 @@ class Application extends Component {
               .reduce((flat, r) => flat.concat(r.operations), [])
                  .map(({ method, path }) => (
                    <ResourceCard
+                     key={path}
                      method={method}
                      path={path}
                    />

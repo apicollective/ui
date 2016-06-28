@@ -6,6 +6,7 @@ import { onClickHref } from '../utils';
 
 const initialState = new Map(
   {
+    [actionTypes.updateCurrentPage]: {},
     [actionTypes.updateNavBar]: [],
     [actionTypes.updateSideBar]: [],
     organizations: [],
@@ -28,6 +29,9 @@ const getSideBarModel = (payload) => (
 
 const app = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.updateCurrentPage: {
+      return state.set(actionTypes.updateCurrentPage, action.payload);
+    }
     case actionTypes.updateNavBar: {
       return state.set(actionTypes.updateNavBar, action.payload);
     }

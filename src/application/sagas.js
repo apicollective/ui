@@ -5,7 +5,7 @@ import { actions as appActions } from '../app';
 import { actionTypes as specActionTypes } from '../generated/version/';
 import { cleanPath, onClickHref } from '../utils';
 
-const getSideBarModel = (spec) => {
+const getSideBarModel = (spec, currentItem) => {
   const orgKey = spec.organization.key;
   const appKey = spec.application.key;
   const method = (operation) => operation.method.toLowerCase();
@@ -34,12 +34,14 @@ const getSideBarModel = (spec) => {
           {
             name: `${model.name}`,
             onClick: onClickHref(`/org/${orgKey}/app/${appKey}/m/${model.name}`),
+            active: currentItem === model.name,
           }
       )).concat(
         spec.enums.map((enumValue) => (
           {
             name: `${enumValue.name}`,
             onClick: onClickHref(`/org/${orgKey}/app/${appKey}/m/${enumValue.name}`),
+            active: currentItem === enumValue.name,
           }
       ))),
       }],
