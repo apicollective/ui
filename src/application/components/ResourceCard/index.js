@@ -3,8 +3,7 @@ import classnames from 'classnames';
 
 import styles from './resource-card.css';
 
-const ResourceCard = ({method, path}) => {
-
+const ResourceCard = ({ method, path }) => {
   const methodClasses = classnames(styles[method.toLowerCase()], styles.method);
 
   return (
@@ -20,7 +19,7 @@ const ResourceCard = ({method, path}) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 ResourceCard.propTypes = {
@@ -31,5 +30,5 @@ ResourceCard.propTypes = {
 export default ResourceCard;
 
 export {
-  styles
-}
+  styles,
+};

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
-import { onClickHref, getType, getModel, isModel, getEnum, isEnum, isArray } from '../../../utils';
+import * as utils from '../../../utils';
 
 const numSpaces = 4;
 
@@ -47,9 +47,9 @@ const StringValue = ({ value, fullType, indent, mouseOver }) =>
 
 StringValue.propTypes = {
   value: PropTypes.string.isRequired,
-  fullType: PropTypes.string.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
+  fullType: PropTypes.string,
 };
 
 const ArrayValue = ({ name, fullType, indent, mouseOver }) =>
@@ -69,10 +69,10 @@ ArrayValue.propTypes = {
 const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
   let open = '{';
   let close = '}';
-  if (isArray(type)) {
+  if (utils.isArray(type)) {
     open = '[{';
     close = '}]';
-  } else if (isEnum(type, spec)) {
+  } else if (utils.isEnum(type, spec)) {
     open = '[';
     close = ']';
   }
@@ -92,21 +92,22 @@ const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
 };
 
 const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
-  if (isEnum(type, spec)) {
+  if (utils.isEnum(type, spec)) {
     // Enum Value
-    const enumModel = getEnum(type, spec);
+    const enumModel = utils.getEnum(type, spec);
     return (
-      <StringValue value={enumModel.fields[0].name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+      <StringValue value={enumModel.values[0].name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
     );
   } else {
     // Model, Array, Field
     return (
       <div>
-        {getModel(type, spec).fields.map((field, id) => {
-          const value = field.example;
-          if (isModel(field.type, spec)) {
+        {utils.getModel(type, spec).fields.map((field, id) => {
+          const example = utils.isISODateTime(field.type) ? new Date().toISOString() : field.example;
+          const value = utils.isEnum(field.type, spec) ? utils.getEnumExampleValue(utils.getEnum(field.type, spec)) : example;
+          if (utils.isModel(field.type, spec)) {
             return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
-          } else if (isArray(field.type)) {
+          } else if (utils.isArray(field.type)) {
             return (
               <ArrayValue
                 key={id}
@@ -125,7 +126,7 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
-                click={onClickHref(`${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`)}
+                click={utils.onClickHref(`${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`)}
               />);
           }
         })}
@@ -144,7 +145,7 @@ ModelInner.propTypes = {
 const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) =>
   <div>
     <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
-    <ModelInner type={getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
+    <ModelInner type={utils.getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
     {`${spaces(indent)}${close},`}
   </div>;
 
@@ -186,15 +187,15 @@ class JsonDoc extends Component {
     if (!documentationFullType) return '';
 
     const [modelName, fieldName] = documentationFullType.split('.');
-    const model = getModel(modelName, spec);
+    const model = utils.getModel(modelName, spec);
     const field = model.fields.find(f => f.name === fieldName);
 
     return <Documentation field={field} />;
   }
 
-  getModelDoc(baseModel, spec, includeModel) {
+  getModel(baseModel, spec, includeModel) {
     const docs = () => {
-      const model = getModel(baseModel, spec);
+      const model = utils.getModel(baseModel, spec);
       return (
         <div>
           <H2 className={styles.modelName}>{baseModel}</H2>
@@ -209,7 +210,7 @@ class JsonDoc extends Component {
     const { baseModel, spec, includeModel } = this.props;
     return (
       <div className={styles.jsonDoc}>
-        {this.getModelDoc(baseModel, spec, includeModel)}
+        {this.getModel(baseModel, spec, includeModel)}
         <div className={styles.container}>
           <pre className={styles.code}>
           {'{'}

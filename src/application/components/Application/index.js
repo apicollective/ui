@@ -8,8 +8,10 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import ResourceCard from '../ResourceCard';
-import { cleanPath } from '../../../utils';
+import { cleanPath, isEnum } from '../../../utils';
 import Model from './Model';
+import EnumModel from './EnumModel';
+
 
 import styles from './application.css';
 
@@ -114,7 +116,11 @@ class Application extends Component {
         </div>
       );
     } else if (this.props.params.model) {
-      return <Model modelName={this.props.params.model} spec={spec} />;
+      if (isEnum(this.props.params.model, spec)) {
+        return <EnumModel enumName={this.props.params.model} spec={spec} />;
+      } else {
+        return <Model modelName={this.props.params.model} spec={spec} />;
+      }
     } else {
       // No Operation
       return (
@@ -126,14 +132,13 @@ class Application extends Component {
           <div>
             {spec.resources
               .reduce((flat, r) => flat.concat(r.operations), [])
-              .map(({method, path}) => {
-                return (
-                  <ResourceCard
-                    method={method}
-                    path={path}
-                  />
-                )
-              })
+                 .map(({ method, path }) => (
+                   <ResourceCard
+                     method={method}
+                     path={path}
+                   />
+                 )
+              )
             }
           </div>
         </div>
