@@ -7,13 +7,6 @@ import * as request from 'superagent';
 
 function api({ orgKey, name, guid, key, has_version, limit, offset } = {}) {
   return request.get(`/api/${orgKey}`);
-  // return new Promise((resolve) => {
-  //   const response = {
-  //     name: 'Organization one',
-  //     key: 'one',
-  //   };
-  //   resolve(response);
-  // });
 }
 
 const actionTypes = {
