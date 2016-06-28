@@ -3,11 +3,11 @@ import classnames from 'classnames';
 
 import styles from './resource-card.css';
 
-const ResourceCard = ({ method, path }) => {
+const ResourceCard = ({ method, path, click }) => {
   const methodClasses = classnames(styles[method.toLowerCase()], styles.method);
 
   return (
-    <div className={styles.container}>
+    <div onClick={click} className={styles.container}>
       <div className={styles.flex}>
         <div className={styles.left}>
           <div className={methodClasses}>
@@ -25,6 +25,7 @@ const ResourceCard = ({ method, path }) => {
 ResourceCard.propTypes = {
   method: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 export default ResourceCard;

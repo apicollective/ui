@@ -8,7 +8,7 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import ResourceCard from '../ResourceCard';
-import { cleanPath, isEnum } from '../../../utils';
+import { cleanPath, isEnum, onClickHref } from '../../../utils';
 import Model from './Model';
 import EnumModel from './EnumModel';
 
@@ -123,6 +123,10 @@ class Application extends Component {
       }
     } else {
       // No Operation
+      const orgKey = this.props.params.organizationKey;
+      const appKey = this.props.params.applicationKey;
+      const buildClickHref = (type, method, path) =>
+        `/org/${orgKey}/app/${appKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
       return (
         <div>
           <div className={styles.header}>
@@ -130,17 +134,17 @@ class Application extends Component {
             <p className={styles.description}>{spec.description}</p>
           </div>
           <div>
-            {spec.resources
-              .reduce((flat, r) => flat.concat(r.operations), [])
-                 .map(({ method, path }) => (
-                   <ResourceCard
-                     key={path}
-                     method={method}
-                     path={path}
-                   />
-                 )
-              )
-            }
+        {spec.resources.map(resource => (
+          resource.operations.map(operation =>
+            <ResourceCard
+              key={operation.path}
+              method={operation.method}
+              path={operation.path}
+              click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
+            />
+          )
+         ))
+        }
           </div>
         </div>
       );

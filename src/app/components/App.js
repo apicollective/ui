@@ -17,12 +17,12 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params !== nextProps.params) {
-      this.fireEvent(nextProps.params);
+      this.fireEvent(nextProps);
     }
   }
 
-  fireEvent(params = this.props.params) {
-    console.log(params);
+  fireEvent(props = this.props) {
+    //console.log(props.params);
   }
 
   render() {
@@ -43,10 +43,13 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   navBarItems: PropTypes.array.isRequired,
   sideBarItems: PropTypes.array.isRequired,
+  params: PropTypes.object.isRequired,
+  currentPage: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => (
   {
+    currentPage: state.app.get(appActionTypes.updateCurrentPage),
     navBarItems: state.app.get(appActionTypes.updateNavBar),
     sideBarItems: state.app.get(appActionTypes.updateSideBar),
   }

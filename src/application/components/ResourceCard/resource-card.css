@@ -4,6 +4,7 @@
   max-width: 60rem;
   padding: 0 1.25rem;
   margin: 0.75rem 0;
+  cursor: pointer;
 }
 
 .flex {
