@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 import H1 from '../../../../components/H1';
 import H2 from '../../../../components/H2';
-import JsonDoc from '../../JsonDoc';
 import ParameterList from '../../ParameterList';
 
 import styles from './enumModel.css';

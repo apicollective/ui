@@ -104,7 +104,9 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
       <div>
         {utils.getModel(type, spec).fields.map((field, id) => {
           const example = utils.isISODateTime(field.type) ? new Date().toISOString() : field.example;
-          const value = utils.isEnum(field.type, spec) ? utils.getEnumExampleValue(utils.getEnum(field.type, spec)) : example;
+          const value = utils.isEnum(field.type, spec) ?
+                         utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
+                         example;
           if (utils.isModel(field.type, spec)) {
             return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
           } else if (utils.isArray(field.type)) {
@@ -126,7 +128,9 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
-                click={utils.onClickHref(`${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`)}
+                click={utils.onClickHref(
+                  `${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`
+                )}
               />);
           }
         })}
