@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import H1 from '../../../../components/H1';
 import H2 from '../../../../components/H2';
 import ParameterList from '../../ParameterList';
+import ReactMarkdown from 'react-markdown';
 
 import styles from './enumModel.css';
 
@@ -14,7 +15,7 @@ const EnumModel = ({ enumName, spec }) => {
   return (
     <div>
       <H1>{enumModel.name}</H1>
-      {enumModel.description ? <p className={styles.description}>{enumModel.description}</p> : null}
+      {enumModel.description ? <ReactMarkdown source={enumModel.description} className={styles.description} /> : null}
       <H2>Values</H2>
       {enumModel.values.map((value, id) => (
         <ParameterList key={id} {...value} />
