@@ -103,7 +103,7 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
     return (
       <div>
         {utils.getModel(type, spec).fields.map((field, id) => {
-          const example = utils.isISODateTime(field.type) ? new Date().toISOString() : field.example;
+          const example = utils.isISODateTime(field.type) ? new Date('2016-03-24T13:56:45.242Z').toISOString() : field.example;
           const value = utils.isEnum(field.type, spec) ?
                          utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
                          example;
