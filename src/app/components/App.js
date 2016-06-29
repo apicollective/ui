@@ -12,21 +12,14 @@ import styles from './app.css';
 
 class App extends Component {
 
-  /* componentWillMount() {
-   *   this.fireEvent(this.props);
-   * }
-
-   * componentWillReceiveProps(nextProps) {
-   *   if (this.props.params !== nextProps.params) {
-   *     this.fireEvent(nextProps);
-   *   }
-   * }
-
-   * fireEvent(props) {
-   *   this.props.actions.updateCurrentPage(this.props.params);
-   * }
-   */
-
+  getCurrentItem(params) {
+    if (params.model) {
+      return params.model;
+    } else if (params.path) {
+      return `${params.resource}${params.method}${params.path}`;
+    }
+    return null;
+  }
 
   createSideBarItems(params, spec, organizations, organizationObj, applications) {
     if (!params.organizationKey) {
@@ -63,7 +56,7 @@ class App extends Component {
         }],
       }];
     } else if (params.organizationKey && params.applicationKey && spec.apidoc) {
-      const currentItem = 'undefined';
+      const currentItem = this.getCurrentItem(params);
       return [{
         name: 'Resources',
         items: spec.resources.map((resource) => (
@@ -79,6 +72,7 @@ class App extends Component {
                   method: operation.method.toLowerCase(),
                   path: cleanPath(operation.path),
                 })),
+                active: currentItem === `${resource.type}${operation.method.toLowerCase()}${cleanPath(operation.path)}`,
               }
             )),
           }
