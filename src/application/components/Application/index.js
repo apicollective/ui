@@ -25,7 +25,7 @@ const Request = ({ operation, spec }) => {
       return (
         <div>
           <h3>Body</h3>
-          <JsonDoc baseModel={baseModel} spec={spec} />
+          <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} />
         </div>
       );
     } else return null;
@@ -35,7 +35,7 @@ const Request = ({ operation, spec }) => {
     <div className={classnames(styles.section, styles.request)}>
       <H2 className={styles.sectionHeader}>Request</H2>
       {operation.parameters.map((param, id) => (
-        <ParameterList {...param} />
+        <ParameterList key={id} {...param} />
       ))}
     {body()}
     </div>
@@ -103,8 +103,8 @@ class Application extends Component {
             <p className={styles.description}>{spec.description}</p>
           </div>
           <H2>{operation.method} {operation.path}</H2>
-          <Request operation={operation} spec={spec} />
-          <Response operation={operation} spec={spec} />
+          <Request key={`${method}${resource}${path}-request`} operation={operation} spec={spec} />
+          <Response key={`${method}${resource}${path}-response`} operation={operation} spec={spec} />
         </div>
       );
     } else if (this.props.params.model) {

@@ -4,6 +4,7 @@ import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import * as utils from '../../../utils';
+import ReactMarkdown from 'react-markdown'
 
 const numSpaces = 4;
 
@@ -100,14 +101,15 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
     );
   } else {
     // Model, Array, Field
+    const model = utils.getModel(type, spec);
     return (
       <div>
-        {utils.getModel(type, spec).fields.map((field, id) => {
+        {(!model ? [] : model.fields).map((field, id) => {
           const example = utils.isISODateTime(field.type) ?
-                           new Date('2016-03-24T13:56:45.242Z').toISOString() : field.example;
+                          new Date('2016-03-24T13:56:45.242Z').toISOString() : field.example;
           const value = utils.isEnum(field.type, spec) ?
-                         utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
-                         example;
+                        utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
+                        example;
           if (utils.isModel(field.type, spec)) {
             return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
           } else if (utils.isArray(field.type)) {
@@ -139,6 +141,7 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
     );
   }
 };
+
 ModelInner.propTypes = {
   type: PropTypes.string.isRequired,
   fullType: PropTypes.string,
@@ -175,8 +178,6 @@ Documentation.propTypes = {
   field: PropTypes.object.isRequired,
 };
 
-// TODO
-// Support for markdown descriptions
 class JsonDoc extends Component {
   constructor(props) {
     super(props);
@@ -204,7 +205,7 @@ class JsonDoc extends Component {
       return (
         <div>
           <H2 className={styles.modelName}>{baseModel}</H2>
-          <p className={styles.modelDescription}>{model.description}</p>
+          {model && model.description ? <ReactMarkdown source={model.description} className={styles.description} /> : null}
         </div>
       );
     };

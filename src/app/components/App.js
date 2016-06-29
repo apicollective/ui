@@ -111,6 +111,9 @@ class App extends Component {
   }
 
   createNavBarItems(params, spec) {
+    if (!spec.apidoc) {
+      return [];
+    }
     const operationPath = params.resource ? getOperation(params.resource, params.method, params.path, spec).path : null;
     return [].concat(
       params.organizationKey ? {
@@ -183,10 +186,7 @@ App.propTypes = {
   organizations: PropTypes.array,
   organization: PropTypes.object,
   applications: PropTypes.array,
-  /* navBarItems: PropTypes.array.isRequired,
-   * sideBarItems: PropTypes.array.isRequired,*/
   params: PropTypes.object.isRequired,
-  /*   actions: PropTypes.object.isRequired,*/
 };
 
 const mapStateToProps = (state) => (
