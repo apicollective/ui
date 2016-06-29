@@ -8,7 +8,7 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import ResourceCard from '../ResourceCard';
-import { cleanPath, isEnum, onClickHref } from '../../../utils';
+import { cleanPath, getOperation, isEnum, onClickHref } from '../../../utils';
 import Model from './Model';
 import EnumModel from './EnumModel';
 
@@ -87,14 +87,6 @@ class Application extends Component {
     );
   }
 
-  getOperation(type, method, path, spec) {
-    const resource = spec.resources.find(r => r.type === type);
-    const operation = resource.operations.find((o) => (
-      o.method.toLowerCase() === method && cleanPath(o.path) === path
-    ));
-    return operation;
-  }
-
   render() {
     const { spec } = this.props;
     if (!this.props.loaded) {
@@ -103,7 +95,7 @@ class Application extends Component {
     } else if (this.props.params.resource) {
       // Load Operation
       const { resource, method, path } = this.props.params;
-      const operation = this.getOperation(resource, method, path, spec);
+      const operation = getOperation(resource, method, path, spec);
       return (
         <div>
           <div className={styles.header}>
@@ -125,6 +117,7 @@ class Application extends Component {
       // No Operation
       const orgKey = this.props.params.organizationKey;
       const appKey = this.props.params.applicationKey;
+
       const buildClickHref = (type, method, path) =>
         `/org/${orgKey}/app/${appKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
       return (

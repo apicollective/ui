@@ -21,6 +21,14 @@ const getEnumExampleValue = (enumModel) => enumModel.values[0].name;
 
 const isISODateTime = (type) => type === 'date-iso8601';
 
+const getOperation = (type, method, path, spec) => {
+  const resource = spec.resources.find(r => r.type === type);
+  const operation = resource.operations.find((o) => (
+        o.method.toLowerCase() === method && cleanPath(o.path) === path
+    ));
+  return operation;
+};
+
 export {
   cleanPath,
   onClickHref,
@@ -32,4 +40,5 @@ export {
   isArray,
   getEnumExampleValue,
   isISODateTime,
+  getOperation,
 };
