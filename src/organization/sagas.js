@@ -32,26 +32,6 @@ const actions = {
   }),
 };
 
-const getSideBarModel = (orgKey, apps) => (
-  [{
-    name: '',
-    items: [
-      {
-        name: 'Applications',
-        items: apps.map((app) => (
-          { name: app.name, onClick: onClickHref(`/org/${orgKey}/app/${app.key}`) }
-        )),
-      },
-    ],
-  }]
-);
-
-const getNavBarItems = (orgKey) => (
-  [
-    { name: orgKey, onClick: onClickHref(`/org/${orgKey}`) },
-  ]
-);
-
 function* saga(action) {
   const { orgKey } = action.payload;
   try {
@@ -67,10 +47,6 @@ function* saga(action) {
       organization,
       applications,
     }));
-    const navBarItems = getNavBarItems(orgKey);
-    const sideBarItems = getSideBarModel(orgKey, applications);
-    yield put(appActions.updateNavBar(navBarItems));
-    yield put(appActions.updateSideBar(sideBarItems));
   } catch (error) {
     yield put(actions.getOrganizationDetails_failure(error));
   }
