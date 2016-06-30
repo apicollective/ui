@@ -1,10 +1,8 @@
 import { takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
-import { actions as appActions } from '../app';
 import { api as appsApi } from '../generated/organization/getOrganizationsByKey';
 import { api as orgsApi } from '../generated/application/getByOrgkey';
-import { onClickHref } from '../utils';
 
 const actionTypes = {
   getOrganizationDetails_get: 'getOrganizationDetails/get',

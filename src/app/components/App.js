@@ -6,7 +6,7 @@ import NavBar from '../../components/NavBar';
 import SideBar from '../../components/SideBar';
 import Content from '../../components/Content';
 import { actions } from '../actions';
-import { cleanPath, getOperation, onClickHref } from '../../utils';
+import { buildNavHref, cleanPath, getOperation, onClickHref } from '../../utils';
 
 import styles from './app.css';
 
@@ -26,7 +26,7 @@ class App extends Component {
       const organizationsWithHref = organizations.map((organization) => (
         {
           name: organization.name,
-          onClick: onClickHref(this.buildNavHref({
+          onClick: onClickHref(buildNavHref({
             organization: organization.key,
           })),
         }
@@ -42,7 +42,7 @@ class App extends Component {
       const applicationsWithHref = applications.map((application) => (
         {
           name: application.name,
-          onClick: onClickHref(this.buildNavHref({
+          onClick: onClickHref(buildNavHref({
             organization: params.organizationKey,
             application: application.key,
           })),
@@ -65,7 +65,7 @@ class App extends Component {
             items: resource.operations.map((operation) => (
               {
                 name: `${operation.method} ${operation.path}`,
-                onClick: onClickHref(this.buildNavHref({
+                onClick: onClickHref(buildNavHref({
                   organization: params.organizationKey,
                   application: params.applicationKey,
                   resource: resource.type,
@@ -85,7 +85,7 @@ class App extends Component {
           items: spec.models.map((model) => (
             {
               name: `${model.name}`,
-              onClick: onClickHref(this.buildNavHref({
+              onClick: onClickHref(buildNavHref({
                 organization: params.organizationKey,
                 application: params.applicationKey,
                 model: model.name,
@@ -96,7 +96,7 @@ class App extends Component {
           spec.enums.map((enumValue) => (
             {
               name: `${enumValue.name}`,
-              onClick: onClickHref(this.buildNavHref({
+              onClick: onClickHref(buildNavHref({
                 organization: params.organizationKey,
                 application: params.applicationKey,
                 model: enumValue.name,
@@ -118,20 +118,20 @@ class App extends Component {
     return [].concat(
       params.organizationKey ? {
         name: params.organizationKey,
-        onClick: onClickHref(this.buildNavHref({
+        onClick: onClickHref(buildNavHref({
           organization: params.organizationKey,
         })),
       } : [],
       params.applicationKey ? {
         name: params.applicationKey,
-        onClick: onClickHref(this.buildNavHref({
+        onClick: onClickHref(buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
         })),
       } : [],
       params.resource ? {
         name: `${params.method.toUpperCase()} ${operationPath}`,
-        onClick: onClickHref(this.buildNavHref({
+        onClick: onClickHref(buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
           resource: params.resource,
@@ -141,22 +141,12 @@ class App extends Component {
       } : [],
       params.model ? {
         name: `${params.model}`,
-        onClick: onClickHref(this.buildNavHref({
+        onClick: onClickHref(buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
           model: params.model,
         })),
       } : []);
-  }
-
-  buildNavHref({ organization, application, resource, method, path, model } = {}) {
-    const organizationString = organization ? `/org/${organization}` : '';
-    const applicationString = application ? `/app/${application}` : '';
-    const resourceString = resource ? `/r/${resource}` : '';
-    const methodString = method ? `/m/${method}` : '';
-    const pathString = path ? `/p/${path}` : '';
-    const modelString = model ? `/m/${model}` : '';
-    return `${organizationString}${applicationString}${resourceString}${methodString}${pathString}${modelString}`;
   }
 
   render() {

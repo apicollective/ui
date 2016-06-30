@@ -17,6 +17,11 @@ const isEnum = (type, spec) => Boolean(getEnum(type, spec));
 
 const isArray = (type) => type.startsWith('[');
 
+const isInSpec = (type, spec) => {
+  const actualType = getType(type);
+  return isModel(actualType, spec) || isEnum(actualType, spec);
+};
+
 const getEnumExampleValue = (enumModel) => enumModel.values[0].name;
 
 const isISODateTime = (type) => type === 'date-iso8601';
@@ -29,6 +34,16 @@ const getOperation = (type, method, path, spec) => {
   return operation;
 };
 
+const buildNavHref = ({ organization, application, resource, method, path, model } = {}) => {
+  const organizationString = organization ? `/org/${organization}` : '';
+  const applicationString = application ? `/app/${application}` : '';
+  const resourceString = resource ? `/r/${resource}` : '';
+  const methodString = method ? `/m/${method}` : '';
+  const pathString = path ? `/p/${path}` : '';
+  const modelString = model ? `/m/${model}` : '';
+  return `${organizationString}${applicationString}${resourceString}${methodString}${pathString}${modelString}`;
+};
+
 export {
   cleanPath,
   onClickHref,
@@ -38,7 +53,9 @@ export {
   getEnum,
   isEnum,
   isArray,
+  isInSpec,
   getEnumExampleValue,
   isISODateTime,
   getOperation,
+  buildNavHref,
 };

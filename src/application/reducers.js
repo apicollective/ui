@@ -20,6 +20,7 @@ const application = (state = initialState, action) => {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
       return state
         .set('spec', action.payload.service)
+        .set('imports', action.payload.imports)
         .set('loaded', true);
     }
     default: {

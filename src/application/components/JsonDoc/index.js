@@ -4,7 +4,7 @@ import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import * as utils from '../../../utils';
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 
 const numSpaces = 4;
 
@@ -128,12 +128,14 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
                 key={id}
                 name={field.name}
                 value={value}
-                fullType={`${type}.${field.name}`}
+                fullType={`${utils.getType(type)}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
-                click={utils.onClickHref(
-                  `${location.pathname.substring(0, location.pathname.lastIndexOf('/'))}/${type}`
-                )}
+                click={utils.onClickHref(utils.buildNavHref({
+                  organization: spec.organization.key,
+                  application: spec.application.key,
+                  model: utils.getType(type),
+                }))}
               />);
           }
         })}
@@ -179,6 +181,7 @@ Documentation.propTypes = {
 };
 
 class JsonDoc extends Component {
+
   constructor(props) {
     super(props);
     this.state = { documentationFullType: '' };
@@ -192,7 +195,8 @@ class JsonDoc extends Component {
   getDocumentation(documentationFullType, spec) {
     if (!documentationFullType) return '';
 
-    const [modelName, fieldName] = documentationFullType.split('.');
+    const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
+    const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);
     const model = utils.getModel(modelName, spec);
     const field = model.fields.find(f => f.name === fieldName);
 
@@ -201,11 +205,12 @@ class JsonDoc extends Component {
 
   getModel(baseModel, spec, includeModel) {
     const docs = () => {
-      const model = utils.getModel(baseModel, spec);
+      const model = utils.getModel(utils.getType(baseModel), spec);
       return (
         <div>
           <H2 className={styles.modelName}>{baseModel}</H2>
-          {model && model.description ? <ReactMarkdown source={model.description} className={styles.description} /> : null}
+          {model && model.description ?
+            <ReactMarkdown source={model.description} className={styles.description} /> : null}
         </div>
       );
     };
@@ -218,16 +223,18 @@ class JsonDoc extends Component {
       <div className={styles.jsonDoc}>
         {this.getModel(baseModel, spec, includeModel)}
         <div className={styles.container}>
-          <pre className={styles.code}>
-          {'{'}
-            <ModelInner
-              type={baseModel}
-              spec={spec}
-              indent={0}
-              mouseOver={this.mouseOver}
-            />
-          {'}'}
-          </pre>
+          {utils.isInSpec(baseModel, spec) ?
+            <pre className={styles.code}>
+            {utils.isArray(baseModel) ? '[{' : '{'}
+              <ModelInner
+                type={baseModel}
+                spec={spec}
+                indent={0}
+                mouseOver={this.mouseOver}
+              />
+            {utils.isArray(baseModel) ? '}]' : '}'}
+            </pre>
+           : null}
           {this.getDocumentation(this.state.documentationFullType, spec)}
         </div>
       </div>

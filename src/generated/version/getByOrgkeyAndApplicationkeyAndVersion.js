@@ -4,6 +4,7 @@
 import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
+import flatten from 'lodash/fp/flatten';
 
 // import exampleService from '../../exampleService.json';
 
@@ -50,10 +51,31 @@ const actions = {
   }),
 };
 
+const namespaceEntities = (namespace, entities, entityType) =>
+  entities.map((entity) => Object.assign(
+    entity,
+    { name: `${namespace}.${entityType}.${entity.name}`, plural: `${namespace}.${entityType}.${entity.plural}` }
+  ));
+
 function* saga(action) {
   try {
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_doing());
     const { body } = yield call(api, action.payload);
+    const calls = body.service.imports.map((importValue) =>
+        call(
+            api,
+            { orgKey: importValue.organization.key,
+            applicationKey: importValue.application.key,
+            version: importValue.version }
+        )
+    );
+    const results = yield calls;
+    body.imports = results.map((result) => result.body.service);
+
+    const importModels = body.imports.map((importValue) => namespaceEntities(importValue.namespace, importValue.models, 'models'));
+    const importEnums = body.imports.map((importValue) => namespaceEntities(importValue.namespace, importValue.enums, 'enums'));
+
+    body.service.models = flatten(body.service.models.concat(importModels, importEnums));
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_success(body));
   } catch (error) {
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_failure(error));

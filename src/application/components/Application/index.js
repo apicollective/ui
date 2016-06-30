@@ -25,6 +25,7 @@ const Request = ({ operation, spec }) => {
       return (
         <div>
           <h3>Body</h3>
+          <H2 className={styles.modelName}>{baseModel}</H2>
           <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} />
         </div>
       );
