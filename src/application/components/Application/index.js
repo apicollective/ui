@@ -42,7 +42,7 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
       <H2 className={styles.sectionHeader}>Request</H2>
       <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
       {operation.parameters.map((param, id) => (
-        <ParameterList key={id} {...param} spec={spec} />
+        <ParameterList key={id} {...param} spec={spec} parentModel={cleanPath(operation.path)} />
       ))}
     {body()}
     </div>

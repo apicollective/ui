@@ -6,7 +6,7 @@ import { buildNavHref, getType, isInSpec, onClickHref } from '../../../utils';
 
 import styles from './parameterList.css';
 
-const ParameterList = ({ name, type, required, description, example, defaultValue, spec }) => {
+const ParameterList = ({ name, type, required, description, example, defaultValue, spec, parentModel }) => {
   const typeClickFn = isInSpec(getType(type), spec) ?
                       onClickHref(buildNavHref(
                         { organization: spec.organization.key, application: spec.application.key, model: getType(type) }
@@ -14,7 +14,7 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
 
   return (<div className={styles.container}>
     <div className={styles.meta}>
-      <p className={styles.name}>{name}</p>
+      <a name={`${getType(parentModel)}.${name}`} className={styles.name}>{name}</a>
       <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>{type}</p>
       {required ? <p className={styles.required}>required</p> : null}
     </div>
@@ -30,6 +30,7 @@ ParameterList.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
+  parentModel: PropTypes.string.isRequired,
   description: PropTypes.string,
   example: PropTypes.string,
   defaultValue: PropTypes.string,

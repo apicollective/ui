@@ -196,14 +196,15 @@ Model.propTypes = {
 };
 
 
-const Documentation = ({ field, spec }) =>
+const Documentation = ({ field, spec, parentModel }) =>
   <div className={styles.documentation}>
-    <ParameterList {...field} spec={spec} />
+    <ParameterList {...field} spec={spec} parentModel={parentModel} />
   </div>;
 
 Documentation.propTypes = {
   field: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  parentModel: PropTypes.string.isRequired,
 };
 
 class JsonDoc extends Component {
@@ -226,7 +227,7 @@ class JsonDoc extends Component {
     const model = utils.getModel(modelName, spec);
     const field = model.fields.find(f => f.name === fieldName);
 
-    return <Documentation field={field} spec={spec} />;
+    return <Documentation field={field} spec={spec} parentModel={modelName} />;
   }
 
   getModel(baseModel, spec, includeModel) {

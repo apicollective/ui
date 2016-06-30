@@ -19,7 +19,7 @@ const EnumModel = ({ enumName, spec }) => {
       <ReactMarkdown source={enumModel.description ? enumModel.description : ''} className={styles.description} />
       <H2>Values</H2>
       {enumModel.values.map((value, id) => (
-        <ParameterList key={id} {...value} spec={spec} />
+        <ParameterList key={id} {...value} spec={spec} parentModel={enumModel.name} />
       ))}
     </div>
   );

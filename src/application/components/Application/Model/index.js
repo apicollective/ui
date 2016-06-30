@@ -17,7 +17,7 @@ const Model = ({ modelName, spec }) => {
       <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} />
       <H2>Fields</H2>
       {model.fields.map((field, id) => (
-        <ParameterList key={id} {...field} spec={spec} />
+        <ParameterList key={id} {...field} spec={spec} parentModel={model.name} />
       ))}
       <JsonDoc baseModel={model.name} spec={spec} includeModel={false} />
     </div>

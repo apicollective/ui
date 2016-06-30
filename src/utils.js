@@ -40,15 +40,13 @@ const getOperation = (type, method, path, spec) => {
   return operation;
 };
 
-const buildNavHref = ({ organization, application, resource, method, path, model } = {}) => {
-  const organizationString = organization ? `/org/${organization}` : '';
-  const applicationString = application ? `/app/${application}` : '';
-  const resourceString = resource ? `/r/${resource}` : '';
-  const methodString = method ? `/m/${method}` : '';
-  const pathString = path ? `/p/${path}` : '';
-  const modelString = model ? `/m/${model}` : '';
-  return `${organizationString}${applicationString}${resourceString}${methodString}${pathString}${modelString}`;
-};
+const buildNavHref = ({ organization, application, resource, method, path, model } = {}) =>
+  [].concat(organization ? `/org/${organization}` : null,
+                    application ? `/app/${application}` : null,
+                    resource ? `/r/${resource}` : null,
+                    method ? `/m/${method}` : null,
+                    path ? `/p/${path}` : null,
+                    model ? `/m/${model}` : null).join('');
 
 export {
   cleanPath,
