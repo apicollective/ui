@@ -1,8 +1,8 @@
 @import "variables.css";
 
 .content {
-  position: fixed 50px 0 0 400px;
-  width: 100%;
+  position: fixed 50px 0 0 300px;
+  width: calc(100% - 300px);
   padding: 0;
   font-family: var(--font-primary);
   overflow-y: auto;
@@ -15,5 +15,6 @@
 
 .content-inner {
   padding: 0 0 1.25rem 0;
+  width: 100%;
   min-height: calc(100% - 50px);
 }

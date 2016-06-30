@@ -7,12 +7,13 @@
 }
 
 .h1 {
-  color: white;
+
 }
 
 .header {
-  background: var(--color-cool-blue);
-  padding: 1.25rem;
+  padding: 4rem 4rem 0 4rem;
+  margin: 0 0 1.25rem 0;
+  background: white;
 }
 
 .description {

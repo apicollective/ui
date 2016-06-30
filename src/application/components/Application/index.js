@@ -167,7 +167,7 @@ class Application extends Component {
         {spec.resources.map(resource => (
           resource.operations.map(operation =>
             <ResourceCard
-              key={operation.path}
+              key={operation.method + operation.path}
               method={operation.method}
               path={operation.path}
               click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
