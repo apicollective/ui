@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import sortBy from 'lodash/fp/sortBy';
 
 import NavBar from '../../components/NavBar';
 import SideBar from '../../components/SideBar';
@@ -155,7 +156,13 @@ class App extends Component {
       this.props.spec,
       this.props.organizations,
       this.props.organization,
-      this.props.applications);
+      this.props.applications).map((sideBarItem) => {
+        sideBarItem.items.map((items) => (
+          Object.assign(items, { items: sortBy((item) => item.name, items.items) })
+        ));
+        return Object.assign(sideBarItem, { items: sortBy((item) => item.name, sideBarItem.items) });
+      });
+
     const navBarItems = this.createNavBarItems(this.props.params, this.props.spec);
     return (
       <div>

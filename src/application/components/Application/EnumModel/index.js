@@ -16,10 +16,10 @@ const EnumModel = ({ enumName, spec }) => {
   return (
     <div>
       <H1>{simplifyName(enumModel.name)}</H1>
-      <ReactMarkdown source={enumModel.descriptionu ? enumModel.descriptionu : ''} className={styles.description} />
+      <ReactMarkdown source={enumModel.description ? enumModel.descriptionu : ''} className={styles.description} />
       <H2>Values</H2>
       {enumModel.values.map((value, id) => (
-        <ParameterList key={id} {...value} />
+        <ParameterList key={id} {...value} spec={spec} />
       ))}
     </div>
   );

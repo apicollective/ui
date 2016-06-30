@@ -1,13 +1,21 @@
 import React, { PropTypes } from 'react';
 import ReactMarkdown from 'react-markdown';
+import classnames from 'classnames';
+
+import { buildNavHref, getType, isInSpec, onClickHref } from '../../../utils';
 
 import styles from './parameterList.css';
 
-const ParameterList = ({ name, type, required, description, example, defaultValue }) => (
-  <div className={styles.container}>
+const ParameterList = ({ name, type, required, description, example, defaultValue, spec }) => {
+  const typeClickFn = isInSpec(getType(type), spec) ?
+                      onClickHref(buildNavHref(
+                        { organization: spec.organization.key, application: spec.application.key, model: getType(type) }
+                      )) : null;
+
+  return (<div className={styles.container}>
     <div className={styles.meta}>
       <p className={styles.name}>{name}</p>
-      <p className={styles.type}>{type}</p>
+      <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>{type}</p>
       {required ? <p className={styles.required}>required</p> : null}
     </div>
     <div className={styles.info}>
@@ -15,8 +23,8 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
       {example ? <p className={styles.example}>Example: {example}</p> : null}
       {defaultValue ? <p className={styles.default}>Default: {defaultValue}</p> : null}
     </div>
-  </div>
-);
+  </div>);
+};
 
 ParameterList.propTypes = {
   name: PropTypes.string.isRequired,
@@ -25,6 +33,7 @@ ParameterList.propTypes = {
   description: PropTypes.string,
   example: PropTypes.string,
   defaultValue: PropTypes.string,
+  spec: PropTypes.object,
 };
 
 export default ParameterList;
