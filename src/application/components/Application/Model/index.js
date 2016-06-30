@@ -14,7 +14,7 @@ const Model = ({ modelName, spec }) => {
   return (
     <div>
       <H1>{simplifyName(model.name)}</H1>
-      {model.description ? <ReactMarkdown source={model.description} className={styles.description} /> : null}
+      <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} />
       <H2>Fields</H2>
       {model.fields.map((field, id) => (
         <ParameterList key={id} {...field} />

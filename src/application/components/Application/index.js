@@ -40,7 +40,7 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
   return (
     <div className={classnames(styles.section, styles.request)}>
       <H2 className={styles.sectionHeader}>Request</H2>
-      <ReactMarkdown source={operation.description} className={styles.description} />
+      <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
       {operation.parameters.map((param, id) => (
         <ParameterList key={id} {...param} />
       ))}
@@ -82,7 +82,7 @@ const Response = ({ operation, spec, orgKey, appKey }) => {
       {operation.responses.map((response, id) => (
         <div key={id}>
           <div>{response.code.integer.value}</div>
-          <ReactMarkdown source={response.description} className={styles.description} />
+          <ReactMarkdown source={response.description ? response.description : ''} className={styles.description} />
           {body(response)}
         </div>
       ))}

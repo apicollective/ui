@@ -20,7 +20,7 @@ const FieldValue = ({ name, value, fullType, indent, mouseOver, click }) =>
 
 FieldValue.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   fullType: PropTypes.string.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
@@ -237,7 +237,7 @@ class JsonDoc extends Component {
             {utils.simplifyName(baseModel)}
           </H2>
           {model && model.description && !this.props.excludeModelDescription ?
-            <ReactMarkdown source={model.description} className={styles.description} /> : null}
+            <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} /> : null}
         </div>
       );
     };

@@ -12,7 +12,7 @@ const getType = (type) => {
 const simplifyName = (name) => {
   const splitName = name.split('.');
   const joined = splitName.map((word) => word.search('[0-9]+') > -1 ? word : word[0]).join('.');
-  return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length -1]}`;
+  return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
 };
 
 const getModel = (name, spec) => spec.models.find(m => m.name === getType(name));

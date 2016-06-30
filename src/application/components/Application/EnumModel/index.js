@@ -16,7 +16,7 @@ const EnumModel = ({ enumName, spec }) => {
   return (
     <div>
       <H1>{simplifyName(enumModel.name)}</H1>
-      {enumModel.description ? <ReactMarkdown source={enumModel.description} className={styles.description} /> : null}
+      <ReactMarkdown source={enumModel.descriptionu ? enumModel.descriptionu : ''} className={styles.description} />
       <H2>Values</H2>
       {enumModel.values.map((value, id) => (
         <ParameterList key={id} {...value} />
