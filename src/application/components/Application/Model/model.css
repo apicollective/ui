@@ -1,4 +1,21 @@
 @import "variables.css";
 
+.header {
+  padding: 5rem 5rem 0 5rem;
+  margin: 0 0 2rem 0;
+}
+
+.title {
+  font-weight: 700;
+}
+
 .description {
+  margin: 0;
+  column-count: 2;
+  line-height: 1.5;
+
+  @nest & p {
+    margin: 0 0 1em 0;
+    line-height: 1.5;
+  }
 }

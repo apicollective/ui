@@ -3,14 +3,17 @@
 .container {
   font-family: var(--font-primary);
   font-weight: 300;
-  width: 750px;
   display: flex;
   align-items: stretch;
-  padding: 1.25rem 0;
-  border-bottom: 2px solid var(--color-concrete);
+  padding: 0 2rem 1.5rem 2rem;
+  margin: 0 0 1.5rem 0;
+  /*border-bottom: 2px solid var(--color-very-light-gray);*/
+  border-bottom: 2px solid white;
 
   @nest &:last-of-type {
     border-color: transparent;
+    padding: 0 2rem;
+    margin: 0;
   }
 }
 
@@ -19,30 +22,37 @@
 }
 
 .meta {
-  flex: 0 1 20%;
+  flex: 0 0 25%;
+  max-width: 25%;
   margin: 0 2% 0 0;
 }
 
 .name {
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
+  line-height: 1.5;
 }
 
 .type {
-  font-weight: 300;
+  font-weight: 400;
+  max-width: 95%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
   margin: 0;
-  color: var(--color-steel);
+  color: var(--color-light-gray);
+  line-height: 1.5;
 }
 
 .required {
-  line-height: 2;
+  line-height: 1.5;
   font-weight: 400;
   margin: 0;
-  text-decoration: underline;
+  color: var(--color-alert);
 }
 
 .info {
-  flex: 0 1 100%;
+  flex: 0 0 73%;
+  max-width: 73%;
   margin: 0;
 }
 
@@ -51,3 +61,7 @@
   line-height: 1.5;
 }
 
+.no-content {
+  color: var(--color-very-light-gray);
+  margin: 0;
+}

@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
-import ParameterList from '../ParameterList';
+import ParameterListGroup from '../ParameterListGroup';
 import ResourceCard from '../ResourceCard';
 import { buildNavHref, cleanPath, getOperation, getType, isEnum, onClickHref, simplifyName } from '../../../utils';
 import Model from './Model';
@@ -37,14 +37,18 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
     } else return null;
   };
 
+  // TODO: Fix this ASAP!
   return (
-    <div className={classnames(styles.section, styles.request)}>
-      <H2 className={styles.sectionHeader}>Request</H2>
+    <div>
+      <ParameterListGroup
+        parameters={operation.parameters}
+        title="Request"
+        spec={spec}
+        imports={imports}
+        parentModel={cleanPath(operation.path)}
+      />
       <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
-      {operation.parameters.map((param, id) => (
-        <ParameterList key={id} {...param} spec={spec} imports={imports} parentModel={cleanPath(operation.path)} />
-      ))}
-    {body()}
+      {body()}
     </div>
   );
 };

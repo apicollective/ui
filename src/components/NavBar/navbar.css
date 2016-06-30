@@ -42,7 +42,7 @@
 
   @nest &::before {
     content: '/';
-    color: color(var(--bg-color) b(+ 30%));
+    color: white;
     position: relative 0 auto auto -10px;
   }
 }

@@ -31,6 +31,8 @@
   --color-blue-whale: #022E4C;
   --color-midnight: #021E32;
 
+  --color-red: #E74C3C;
+
   --color-method-get: #27ae60;
   --color-method-post: #f39c12;
   --color-method-put: #8e44ad;
@@ -42,6 +44,8 @@
   --color-secondary: #27DBCF;
   --color-secondary-light: #98ECE6;
   --color-secondary-dark: #1FAFA6;
+
+  --color-alert: var(--color-red);
   --border-radius: 3px;
   --font-avenir: avenir, helvetica, arial, sans-serif;
   --font-open-sans: 'Open Sans', sans-serif;

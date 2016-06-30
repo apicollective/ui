@@ -1,22 +1,25 @@
 @import "variables.css";
 
 .json-doc {
-  font-size: 1rem;
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  padding: 2rem 5rem;
 }
 
 .container {
   display: flex;
+  width: 100%;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .code {
-  flex: 0 1 48%;
+  flex: 0 0 38%;
+  width: 38%;
   padding: 1rem;
   background: var(--color-tuatara);
   color: white;
@@ -45,7 +48,8 @@
 }
 
 .documentation {
-  flex: 0 1 50%;
+  flex: 0 0 60%;
+  width: 60%;
   font-family: var(--font-primary);
 }
 
