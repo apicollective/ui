@@ -9,10 +9,9 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import ResourceCard from '../ResourceCard';
-import { buildNavHref, cleanPath, getOperation, getType, isEnum, onClickHref } from '../../../utils';
+import { buildNavHref, cleanPath, getOperation, getType, isEnum, onClickHref, simplifyName } from '../../../utils';
 import Model from './Model';
 import EnumModel from './EnumModel';
-
 
 import styles from './application.css';
 
@@ -30,7 +29,7 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
             click={onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))}
             className={styles.modelName}
           >
-            {baseModel}
+            {simplifyName(baseModel)}
           </H2>
           <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} />
         </div>
@@ -67,7 +66,7 @@ const Response = ({ operation, spec, orgKey, appKey }) => {
             modelNameClick={
               onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))
             }
-            baseModel={baseModel}
+            baseModel={simplifyName(baseModel)}
             spec={spec}
             includeModel={true}
             excludeModelDescription={true}

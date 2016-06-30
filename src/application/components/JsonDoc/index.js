@@ -28,8 +28,8 @@ FieldValue.propTypes = {
 };
 
 // --    "name":
-const FieldEmpty = ({ name, fullType, indent, mouseOver }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+const FieldEmpty = ({ name, fullType, indent, mouseOver, click }) =>
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
     <span className={styles.name}>{spaces(indent)}"{name}"</span>:
   </a>;
 
@@ -38,11 +38,12 @@ FieldEmpty.propTypes = {
   fullType: PropTypes.string.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 // --   "value",
-const StringValue = ({ value, fullType, indent, mouseOver }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver}>
+const StringValue = ({ value, fullType, indent, mouseOver, click }) =>
+  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click} >
     <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
   </a>;
 
@@ -51,12 +52,13 @@ StringValue.propTypes = {
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
   fullType: PropTypes.string,
+  click: PropTypes.func.isRequired,
 };
 
-const ArrayValue = ({ name, fullType, indent, mouseOver }) =>
+const ArrayValue = ({ name, fullType, indent, mouseOver, click }) =>
   <div>
-    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {'[\n'}
-    <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} click={click} /> {'[\n'}
+    <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} click={click} />
     {`${spaces(indent)}],`}
   </div>;
 
@@ -65,6 +67,7 @@ ArrayValue.propTypes = {
   fullType: PropTypes.string.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
@@ -88,6 +91,11 @@ const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
       mouseOver={mouseOver}
       open={open}
       close={close}
+      click={utils.onClickHref(utils.buildNavHref({
+        organization: spec.organization.key,
+        application: spec.application.key,
+        model: utils.getType(type),
+      }))}
     />
   );
 };
@@ -96,15 +104,26 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
   if (utils.isEnum(type, spec)) {
     // Enum Value
     const enumModel = utils.getEnum(type, spec);
+
     return (
-      <StringValue value={enumModel.values[0].name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} />
+      <StringValue
+        value={enumModel.values[0].name}
+        fullType={fullType}
+        indent={indent + 1}
+        mouseOver={mouseOver}
+        click={utils.onClickHref(utils.buildNavHref({
+          organization: spec.organization.key,
+          application: spec.application.key,
+          model: utils.getType(type),
+        }))}
+      />
     );
   } else {
     // Model, Array, Field
     const model = utils.getModel(type, spec);
     return (
       <div>
-        {(!model ? [] : model.fields).map((field, id) => {
+        {model.fields.map((field, id) => {
           const example = utils.isISODateTime(field.type) ?
                           new Date('2016-03-24T13:56:45.242Z').toISOString() : field.example;
           const value = utils.isEnum(field.type, spec) ?
@@ -121,6 +140,11 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
+                click={utils.onClickHref(utils.buildNavHref({
+                  organization: spec.organization.key,
+                  application: spec.application.key,
+                  model: utils.getType(field.type),
+                }))}
               />);
           } else {
             return (
@@ -152,9 +176,9 @@ ModelInner.propTypes = {
   mouseOver: PropTypes.func.isRequired,
 };
 
-const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close }) =>
+const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close, click }) =>
   <div>
-    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} /> {open}
+    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} click={click} /> {open}
     <ModelInner type={utils.getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
     {`${spaces(indent)}${close},`}
   </div>;
@@ -168,6 +192,7 @@ Model.propTypes = {
   mouseOver: PropTypes.func.isRequired,
   open: PropTypes.string.isRequired,
   close: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 
