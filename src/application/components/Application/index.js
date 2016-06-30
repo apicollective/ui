@@ -66,7 +66,7 @@ const Response = ({ operation, spec, orgKey, appKey }) => {
             modelNameClick={
               onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))
             }
-            baseModel={simplifyName(baseModel)}
+            baseModel={baseModel}
             spec={spec}
             includeModel={true}
             excludeModelDescription={true}

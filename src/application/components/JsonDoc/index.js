@@ -233,7 +233,9 @@ class JsonDoc extends Component {
       const model = utils.getModel(utils.getType(baseModel), spec);
       return (
         <div>
-          <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>{baseModel}</H2>
+          <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>
+            {utils.simplifyName(baseModel)}
+          </H2>
           {model && model.description && !this.props.excludeModelDescription ?
             <ReactMarkdown source={model.description} className={styles.description} /> : null}
         </div>
