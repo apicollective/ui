@@ -9,6 +9,12 @@ const getType = (type) => {
   return type.match(ex)[1];
 };
 
+const simplifyName = (name) => {
+  const splitName = name.split('.');
+  const joined = splitName.map((word) => word.search('[0-9]+') > -1 ? word : word[0]).join('.');
+  return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length -1]}`;
+};
+
 const getModel = (name, spec) => spec.models.find(m => m.name === getType(name));
 const isModel = (type, spec) => Boolean(getModel(type, spec));
 
@@ -48,6 +54,7 @@ export {
   cleanPath,
   onClickHref,
   getType,
+  simplifyName,
   getModel,
   isModel,
   getEnum,

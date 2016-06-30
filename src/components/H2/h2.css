@@ -4,6 +4,9 @@
   --bg-color: var(--color-primary);
 }
 
+.pointer {
+  cursor: pointer;
+}
 .h2 {
   font-size: 24px;
   font-weight: 300;

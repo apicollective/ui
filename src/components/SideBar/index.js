@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
+import { simplifyName } from '../../utils';
+
 import styles from './sidebar.css';
 
 const Item = ({ item }) =>
   <div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
-    {item.name}
+    {simplifyName(item.name)}
   </div>;
 
 Item.propTypes = {

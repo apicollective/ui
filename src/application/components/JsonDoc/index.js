@@ -208,8 +208,8 @@ class JsonDoc extends Component {
       const model = utils.getModel(utils.getType(baseModel), spec);
       return (
         <div>
-          <H2 className={styles.modelName}>{baseModel}</H2>
-          {model && model.description ?
+          <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>{baseModel}</H2>
+          {model && model.description && !this.props.excludeModelDescription ?
             <ReactMarkdown source={model.description} className={styles.description} /> : null}
         </div>
       );
@@ -245,6 +245,8 @@ JsonDoc.propTypes = {
   spec: PropTypes.object.isRequired,
   baseModel: PropTypes.string.isRequired,
   includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
+  excludeModelDescription: PropTypes.bool,
+  modelNameClick: PropTypes.func,
 };
 
 export default JsonDoc;

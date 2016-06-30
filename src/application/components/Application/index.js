@@ -2,13 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 
 import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import ResourceCard from '../ResourceCard';
-import { cleanPath, getOperation, isEnum, onClickHref } from '../../../utils';
+import { buildNavHref, cleanPath, getOperation, getType, isEnum, onClickHref } from '../../../utils';
 import Model from './Model';
 import EnumModel from './EnumModel';
 
@@ -18,14 +19,19 @@ import styles from './application.css';
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
 
-const Request = ({ operation, spec }) => {
+const Request = ({ operation, spec, orgKey, appKey }) => {
   const body = () => {
     if (operation.body) {
       const baseModel = operation.body.type;
       return (
         <div>
           <h3>Body</h3>
-          <H2 className={styles.modelName}>{baseModel}</H2>
+          <H2
+            click={onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))}
+            className={styles.modelName}
+          >
+            {baseModel}
+          </H2>
           <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} />
         </div>
       );
@@ -35,6 +41,7 @@ const Request = ({ operation, spec }) => {
   return (
     <div className={classnames(styles.section, styles.request)}>
       <H2 className={styles.sectionHeader}>Request</H2>
+      <ReactMarkdown source={operation.description} className={styles.description} />
       {operation.parameters.map((param, id) => (
         <ParameterList key={id} {...param} />
       ))}
@@ -45,16 +52,26 @@ const Request = ({ operation, spec }) => {
 Request.propTypes = {
   operation: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  orgKey: PropTypes.string.isRequired,
+  appKey: PropTypes.string.isRequired,
 };
 
-const Response = ({ operation, spec }) => {
+const Response = ({ operation, spec, orgKey, appKey }) => {
   const body = (response) => {
     if (response.type) {
       const baseModel = response.type;
       return (
         <div>
           <h3>Body</h3>
-          <JsonDoc baseModel={baseModel} spec={spec} includeModel={true} />
+          <JsonDoc
+            modelNameClick={
+              onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))
+            }
+            baseModel={baseModel}
+            spec={spec}
+            includeModel={true}
+            excludeModelDescription={true}
+          />
         </div>
       );
     } else return null;
@@ -66,6 +83,7 @@ const Response = ({ operation, spec }) => {
       {operation.responses.map((response, id) => (
         <div key={id}>
           <div>{response.code.integer.value}</div>
+          <ReactMarkdown source={response.description} className={styles.description} />
           {body(response)}
         </div>
       ))}
@@ -75,6 +93,8 @@ const Response = ({ operation, spec }) => {
 Response.propTypes = {
   operation: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  orgKey: PropTypes.string.isRequired,
+  appKey: PropTypes.string.isRequired,
 };
 
 
@@ -104,8 +124,19 @@ class Application extends Component {
             <p className={styles.description}>{spec.description}</p>
           </div>
           <H2>{operation.method} {operation.path}</H2>
-          <Request key={`${method}${resource}${path}-request`} operation={operation} spec={spec} />
-          <Response key={`${method}${resource}${path}-response`} operation={operation} spec={spec} />
+          <Request
+            appKey={this.props.params.applicationKey}
+            orgKey={this.props.params.organizationKey}
+            key={`${method}${resource}${path}-request`}
+            operation={operation} spec={spec}
+          />
+          <Response
+            appKey={this.props.params.applicationKey}
+            orgKey={this.props.params.organizationKey}
+            key={`${method}${resource}${path}-response`}
+            operation={operation}
+            spec={spec}
+          />
         </div>
       );
     } else if (this.props.params.model) {
