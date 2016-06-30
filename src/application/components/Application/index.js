@@ -18,7 +18,7 @@ import styles from './application.css';
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
 
-const Request = ({ operation, spec, orgKey, appKey }) => {
+const Request = ({ operation, spec, imports, orgKey, appKey }) => {
   const body = () => {
     if (operation.body) {
       const baseModel = operation.body.type;
@@ -31,7 +31,7 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
           >
             {simplifyName(baseModel)}
           </H2>
-          <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} />
+          <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} imports={imports} />
         </div>
       );
     } else return null;
@@ -42,7 +42,7 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
       <H2 className={styles.sectionHeader}>Request</H2>
       <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
       {operation.parameters.map((param, id) => (
-        <ParameterList key={id} {...param} spec={spec} parentModel={cleanPath(operation.path)} />
+        <ParameterList key={id} {...param} spec={spec} imports={imports} parentModel={cleanPath(operation.path)} />
       ))}
     {body()}
     </div>
@@ -51,11 +51,12 @@ const Request = ({ operation, spec, orgKey, appKey }) => {
 Request.propTypes = {
   operation: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   orgKey: PropTypes.string.isRequired,
   appKey: PropTypes.string.isRequired,
 };
 
-const Response = ({ operation, spec, orgKey, appKey }) => {
+const Response = ({ operation, spec, imports, orgKey, appKey }) => {
   const body = (response) => {
     if (response.type) {
       const baseModel = response.type;
@@ -68,6 +69,7 @@ const Response = ({ operation, spec, orgKey, appKey }) => {
             }
             baseModel={baseModel}
             spec={spec}
+            imports={imports}
             includeModel={true}
             excludeModelDescription={true}
           />
@@ -92,6 +94,7 @@ const Response = ({ operation, spec, orgKey, appKey }) => {
 Response.propTypes = {
   operation: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   orgKey: PropTypes.string.isRequired,
   appKey: PropTypes.string.isRequired,
 };
@@ -108,7 +111,7 @@ class Application extends Component {
   }
 
   render() {
-    const { spec } = this.props;
+    const { imports, spec } = this.props;
     if (!this.props.loaded) {
       // First Load
       return (<div></div>);
@@ -127,7 +130,9 @@ class Application extends Component {
             appKey={this.props.params.applicationKey}
             orgKey={this.props.params.organizationKey}
             key={`${method}${resource}${path}-request`}
-            operation={operation} spec={spec}
+            operation={operation}
+            spec={spec}
+            imports={imports}
           />
           <Response
             appKey={this.props.params.applicationKey}
@@ -135,14 +140,15 @@ class Application extends Component {
             key={`${method}${resource}${path}-response`}
             operation={operation}
             spec={spec}
+            imports={imports}
           />
         </div>
       );
     } else if (this.props.params.model) {
-      if (isEnum(this.props.params.model, spec)) {
-        return <EnumModel enumName={this.props.params.model} spec={spec} />;
+      if (isEnum(this.props.params.model, spec, imports)) {
+        return <EnumModel enumName={this.props.params.model} spec={spec} imports={imports} />;
       } else {
-        return <Model modelName={this.props.params.model} spec={spec} />;
+        return <Model modelName={this.props.params.model} spec={spec} imports={imports} />;
       }
     } else {
       // No Operation
@@ -180,12 +186,14 @@ Application.propTypes = {
   params: PropTypes.object.isRequired,
   loaded: PropTypes.bool.isRequired,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => (
   {
     loaded: state.application.get('loaded'),
     spec: state.application.get('spec'),
+    imports: state.application.get('imports'),
   }
 );
 

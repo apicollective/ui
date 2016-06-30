@@ -13,6 +13,15 @@ const initialState = new Map({
       },
     ],
   },
+  imports: [{
+    enums: [],
+    models: [
+      {
+        name: 'default',
+        fields: [],
+      },
+    ],
+  }],
 });
 
 const application = (state = initialState, action) => {

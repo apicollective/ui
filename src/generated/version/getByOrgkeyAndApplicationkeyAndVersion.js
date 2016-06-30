@@ -4,7 +4,6 @@
 import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
-import flatten from 'lodash/fp/flatten';
 
 // import exampleService from '../../exampleService.json';
 
@@ -70,12 +69,13 @@ function* saga(action) {
         )
     );
     const results = yield calls;
-    body.imports = results.map((result) => result.body.service);
+    body.imports = results.map((result) => {
+      const service = result.body.service;
+      namespaceEntities(service.namespace, service.models, 'models');
+      namespaceEntities(service.namespace, service.enums, 'enums');
+      return service;
+    });
 
-    const importModels = body.imports.map((importValue) => namespaceEntities(importValue.namespace, importValue.models, 'models'));
-    const importEnums = body.imports.map((importValue) => namespaceEntities(importValue.namespace, importValue.enums, 'enums'));
-
-    body.service.models = flatten(body.service.models.concat(importModels, importEnums));
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_success(body));
   } catch (error) {
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_failure(error));

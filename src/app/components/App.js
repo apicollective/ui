@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import flatten from 'lodash/fp/flatten';
 import sortBy from 'lodash/fp/sortBy';
 
 import NavBar from '../../components/NavBar';
@@ -22,7 +23,49 @@ class App extends Component {
     return null;
   }
 
-  createSideBarItems(params, spec, organizations, organizationObj, applications) {
+  createResourceItem(params, resource, currentItem) {
+    return {
+      name: resource.type,
+      items: resource.operations.map((operation) => (
+        {
+          name: `${operation.method} ${operation.path}`,
+          onClick: onClickHref(buildNavHref({
+            organization: params.organizationKey,
+            application: params.applicationKey,
+            resource: resource.type,
+            method: operation.method.toLowerCase(),
+            path: cleanPath(operation.path),
+          })),
+          active: currentItem === `${resource.type}${operation.method.toLowerCase()}${cleanPath(operation.path)}`,
+        }
+      )),
+    };
+  }
+
+  createModelItem(params, model, currentItem) {
+    return {
+      name: `${model.name}`,
+      onClick: onClickHref(buildNavHref({
+        organization: params.organizationKey,
+        application: params.applicationKey,
+        model: model.name,
+      })),
+      active: currentItem === model.name,
+    };
+  }
+
+  createEnumItem(params, enumValue, currentItem) {
+    return {
+      name: `${enumValue.name}`,
+      onClick: onClickHref(buildNavHref({
+        organization: params.organizationKey,
+        application: params.applicationKey,
+        model: enumValue.name,
+      })),
+      active: currentItem === enumValue.name,
+    };
+  }
+  createSideBarItems(params, spec, imports, organizations, organizationObj, applications) {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map((organization) => (
         {
@@ -58,53 +101,22 @@ class App extends Component {
       }];
     } else if (params.organizationKey && params.applicationKey && spec.apidoc) {
       const currentItem = this.getCurrentItem(params);
+      const allResources = flatten(spec.resources.concat(imports.map((importValue) => importValue.resources)));
+      const allModels = flatten(spec.models.concat(imports.map((importValue) => importValue.models)));
+      const allEnums = flatten(spec.enums.concat(imports.map((importValue) => importValue.enums)));
+
       return [{
         name: 'Resources',
-        items: spec.resources.map((resource) => (
-          {
-            name: resource.type,
-            items: resource.operations.map((operation) => (
-              {
-                name: `${operation.method} ${operation.path}`,
-                onClick: onClickHref(buildNavHref({
-                  organization: params.organizationKey,
-                  application: params.applicationKey,
-                  resource: resource.type,
-                  method: operation.method.toLowerCase(),
-                  path: cleanPath(operation.path),
-                })),
-                active: currentItem === `${resource.type}${operation.method.toLowerCase()}${cleanPath(operation.path)}`,
-              }
-            )),
-          }
-        )),
+        items: allResources.map((resource) => (this.createResourceItem(params, resource, currentItem))),
       },
       {
         name: 'Models',
         items: [{
           name: '',
-          items: spec.models.map((model) => (
-            {
-              name: `${model.name}`,
-              onClick: onClickHref(buildNavHref({
-                organization: params.organizationKey,
-                application: params.applicationKey,
-                model: model.name,
-              })),
-              active: currentItem === model.name,
-            }
-        )).concat(
-          spec.enums.map((enumValue) => (
-            {
-              name: `${enumValue.name}`,
-              onClick: onClickHref(buildNavHref({
-                organization: params.organizationKey,
-                application: params.applicationKey,
-                model: enumValue.name,
-              })),
-              active: currentItem === enumValue.name,
-            }
-        ))),
+          items: allModels.map((model) => (this.createModelItem(params, model, currentItem)))
+                     .concat(
+                       allEnums.map((enumValue) => (this.createEnumItem(params, enumValue, currentItem)))
+                     ),
         }],
       }];
     }
@@ -154,6 +166,7 @@ class App extends Component {
     const sideBarItems = this.createSideBarItems(
       this.props.params,
       this.props.spec,
+      this.props.imports,
       this.props.organizations,
       this.props.organization,
       this.props.applications).map((sideBarItem) => {
@@ -179,11 +192,12 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
-  spec: PropTypes.object,
+  spec: PropTypes.object.isRequired,
   organizations: PropTypes.array,
   organization: PropTypes.object,
   applications: PropTypes.array,
   params: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => (
@@ -192,6 +206,7 @@ const mapStateToProps = (state) => (
     organizations: state.app.get('organizations'),
     organization: state.organization.get('organization'),
     applications: state.organization.get('applications'),
+    imports: state.application.get('imports'),
   }
 );
 

@@ -70,13 +70,13 @@ ArrayValue.propTypes = {
   click: PropTypes.func.isRequired,
 };
 
-const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
+const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver) => {
   let open = '{';
   let close = '}';
   if (utils.isArray(type)) {
     open = '[{';
     close = '}]';
-  } else if (utils.isEnum(type, spec)) {
+  } else if (utils.isEnum(type, spec, imports)) {
     open = '[';
     close = ']';
   }
@@ -87,6 +87,7 @@ const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
       type={type}
       fullType={fullType}
       spec={spec}
+      imports={imports}
       indent={indent}
       mouseOver={mouseOver}
       open={open}
@@ -100,10 +101,10 @@ const renderModel = (key, name, type, fullType, spec, indent, mouseOver) => {
   );
 };
 
-const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
-  if (utils.isEnum(type, spec)) {
+const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
+  if (utils.isEnum(type, spec, imports)) {
     // Enum Value
-    const enumModel = utils.getEnum(type, spec);
+    const enumModel = utils.getEnum(type, spec, imports);
 
     return (
       <StringValue
@@ -120,17 +121,19 @@ const ModelInner = ({ type, fullType, spec, indent, mouseOver }) => {
     );
   } else {
     // Model, Array, Field
-    const model = utils.getModel(type, spec);
+    const model = utils.getModel(type, spec, imports);
     return (
       <div>
         {model.fields.map((field, id) => {
           const example = utils.isISODateTime(field.type) ?
                           new Date('2016-03-24T13:56:45.242Z').toISOString() : field.example;
-          const value = utils.isEnum(field.type, spec) ?
+          const value = utils.isEnum(field.type, spec, imports) ?
                         utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
                         example;
-          if (utils.isModel(field.type, spec)) {
-            return renderModel(id, field.name, field.type, `${type}.${field.name}`, spec, indent + 1, mouseOver);
+          if (utils.isModel(field.type, spec, imports)) {
+            return renderModel(
+              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver
+            );
           } else if (utils.isArray(field.type)) {
             return (
               <ArrayValue
@@ -172,14 +175,17 @@ ModelInner.propTypes = {
   type: PropTypes.string.isRequired,
   fullType: PropTypes.string,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
-const Model = ({ name, type, fullType, spec, indent, mouseOver, open, close, click }) =>
+const Model = ({ name, type, fullType, spec, imports, indent, mouseOver, open, close, click }) =>
   <div>
     <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} click={click} /> {open}
-    <ModelInner type={utils.getType(type)} fullType={fullType} spec={spec} indent={indent} mouseOver={mouseOver} />
+    <ModelInner
+      type={utils.getType(type)} fullType={fullType} spec={spec} imports={imports} indent={indent} mouseOver={mouseOver}
+    />
     {`${spaces(indent)}${close},`}
   </div>;
 
@@ -188,6 +194,7 @@ Model.propTypes = {
   type: PropTypes.string.isRequired,
   fullType: PropTypes.string.isRequired,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
   open: PropTypes.string.isRequired,
@@ -196,14 +203,15 @@ Model.propTypes = {
 };
 
 
-const Documentation = ({ field, spec, parentModel }) =>
+const Documentation = ({ field, spec, imports, parentModel }) =>
   <div className={styles.documentation}>
-    <ParameterList {...field} spec={spec} parentModel={parentModel} />
+    <ParameterList {...field} spec={spec} imports={imports} parentModel={parentModel} />
   </div>;
 
 Documentation.propTypes = {
   field: PropTypes.object.isRequired,
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   parentModel: PropTypes.string.isRequired,
 };
 
@@ -219,20 +227,21 @@ class JsonDoc extends Component {
     };
   }
 
-  getDocumentation(documentationFullType, spec) {
+  getDocumentation(documentationFullType, spec, imports) {
     if (!documentationFullType) return '';
 
     const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
     const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);
-    const model = utils.getModel(modelName, spec);
+    const model = utils.getModel(modelName, spec, imports);
     const field = model.fields.find(f => f.name === fieldName);
 
-    return <Documentation field={field} spec={spec} parentModel={modelName} />;
+    return <Documentation field={field} spec={spec} imports={imports} parentModel={modelName} />;
   }
 
-  getModel(baseModel, spec, includeModel) {
+  getModel(baseModel, spec, imports, includeModel) {
     const docs = () => {
-      const model = utils.getModel(utils.getType(baseModel), spec);
+      const type = utils.getType(baseModel);
+      const model = utils.getModel(type, spec, imports);
       return (
         <div>
           <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>
@@ -247,24 +256,25 @@ class JsonDoc extends Component {
   }
 
   render() {
-    const { baseModel, spec, includeModel } = this.props;
+    const { baseModel, spec, imports, includeModel } = this.props;
     return (
       <div className={styles.jsonDoc}>
-        {this.getModel(baseModel, spec, includeModel)}
+        {this.getModel(baseModel, spec, imports, includeModel)}
         <div className={styles.container}>
-          {utils.isInSpec(baseModel, spec) ?
+          {utils.isImportOrInSpec(baseModel, spec, imports) ?
             <pre className={styles.code}>
             {utils.isArray(baseModel) ? '[{' : '{'}
               <ModelInner
                 type={baseModel}
                 spec={spec}
+                imports={imports}
                 indent={0}
                 mouseOver={this.mouseOver}
               />
             {utils.isArray(baseModel) ? '}]' : '}'}
             </pre>
            : null}
-          {this.getDocumentation(this.state.documentationFullType, spec)}
+          {this.getDocumentation(this.state.documentationFullType, spec, imports)}
         </div>
       </div>
     );
@@ -272,6 +282,7 @@ class JsonDoc extends Component {
 }
 JsonDoc.propTypes = {
   spec: PropTypes.object.isRequired,
+  imports: PropTypes.array.isRequired,
   baseModel: PropTypes.string.isRequired,
   includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
   excludeModelDescription: PropTypes.bool,

@@ -15,18 +15,42 @@ const simplifyName = (name) => {
   return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
 };
 
-const getModel = (name, spec) => spec.models.find(m => m.name === getType(name));
-const isModel = (type, spec) => Boolean(getModel(type, spec));
+const findByName = (name, values) => values.find(v => v.name === getType(name));
 
-const getEnum = (type, spec) => spec.enums.find(e => e.name === type);
-const isEnum = (type, spec) => Boolean(getEnum(type, spec));
+const getEnumImport = (name, imports) => {
+  const spec = imports.find(importValue => importValue.enums.find(e => e.name === getType(name)));
+  return spec ? findByName(name, spec.enums) : null;
+};
 
-const isArray = (type) => type.startsWith('[');
+const getModelImport = (name, imports) => {
+  const spec = imports.find(importValue => importValue.models.find(e => e.name === getType(name)));
+  return spec ? findByName(name, spec.models) : null;
+};
+/* eslint-disable no-use-before-define */
+
+const getEnum = (name, spec, imports) =>
+          imports && isImport(name, imports) ? getEnumImport(name, imports) : findByName(name, spec.enums);
+
+const getModel = (name, spec, imports) =>
+          imports && isImport(name, imports) ? getModelImport(name, imports) : findByName(name, spec.models);
+
+const isEnum = (type, spec, imports) => Boolean(getEnum(type, spec, imports));
+
+const isModel = (type, spec, imports) => Boolean(getModel(type, spec, imports));
 
 const isInSpec = (type, spec) => {
   const actualType = getType(type);
   return isModel(actualType, spec) || isEnum(actualType, spec);
 };
+
+const isImport = (type, imports) =>
+        Boolean(imports.map((importValue) => isInSpec(type, importValue)).find(b => b === true));
+
+/* eslint-enable no-use-before-define */
+
+const isImportOrInSpec = (type, spec, imports) => isInSpec(type, spec) || isImport(type, imports);
+
+const isArray = (type) => type.startsWith('[');
 
 const getEnumExampleValue = (enumModel) => enumModel.values[0].name;
 
@@ -58,7 +82,9 @@ export {
   getEnum,
   isEnum,
   isArray,
+  isImport,
   isInSpec,
+  isImportOrInSpec,
   getEnumExampleValue,
   isISODateTime,
   getOperation,
