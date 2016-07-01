@@ -8,7 +8,7 @@ import styles from './parameter-list-group.css';
 const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) => (
   <div className={styles.container}>
     <H2 className={styles.title}>{title}</H2>
-      {parameters.map((parameter, id) => (
+      {parameters.length > 0 ? parameters.map((parameter, id) => (
         <ParameterList
           key={id}
           {...parameter}
@@ -16,7 +16,7 @@ const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) =
           imports={imports}
           parentModel={parentModel}
         />
-      ))}
+       )) : <p>No parameters</p>}
   </div>
 );
 
