@@ -32,6 +32,10 @@ const application = (state = initialState, action) => {
         .set('imports', action.payload.imports)
         .set('loaded', true);
     }
+    case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_doing: {
+      return state
+        .set('loaded', false);
+    }
     default: {
       return state;
     }
