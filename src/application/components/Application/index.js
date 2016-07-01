@@ -132,14 +132,14 @@ class Application extends Component {
             <p className={styles.description}>{spec.description}</p>
           </div>
           <H2>{operation.method} {operation.path}</H2>
-          <Request
+          {operation.parameters.size > 0 ? <Request
             appKey={this.props.params.applicationKey}
             orgKey={this.props.params.organizationKey}
             key={`${method}${resource}${path}-request`}
             operation={operation}
             spec={spec}
             imports={imports}
-          />
+          /> : null}
           <Response
             appKey={this.props.params.applicationKey}
             orgKey={this.props.params.organizationKey}
