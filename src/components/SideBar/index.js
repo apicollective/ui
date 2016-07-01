@@ -16,7 +16,7 @@ const SidebarIcon = ({ item }) => {
 
   return (
     <div className={iconClasses}>{markup}</div>
-  )
+  );
 };
 
 const Item = ({ item }) => {
@@ -24,7 +24,7 @@ const Item = ({ item }) => {
     {item.type ? <SidebarIcon item={item} /> : null}
     {item.path ? item.path : simplifyName(item.name)}
   </div>);
-}
+};
 
 Item.propTypes = {
   item: PropTypes.object.isRequired,
@@ -55,7 +55,6 @@ Section.propTypes = {
 };
 
 const SideBar = ({ sections }) => {
-
   return (<div className={styles.sidebar}>
     <div className={styles.sidebarInner}>
       {sections.map((section, id) => (
@@ -63,7 +62,6 @@ const SideBar = ({ sections }) => {
       ))}
     </div>
   </div>);
-
 };
 
 SideBar.propTypes = {

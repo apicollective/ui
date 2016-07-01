@@ -9,9 +9,8 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import ParameterListGroup from '../ParameterListGroup';
 import ResourceCard from '../ResourceCard';
-import { buildNavHref, cleanPath, getOperation, getType, isEnum, onClickHref, simplifyName } from '../../../utils';
+import * as utils from '../../../utils';
 import Model from './Model';
-import EnumModel from './EnumModel';
 
 import styles from './application.css';
 
@@ -26,10 +25,12 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
         <div>
           <h3>Body</h3>
           <H2
-            click={onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))}
+            click={utils.onClickHref(utils.buildNavHref({
+              organization: orgKey, application: appKey, model: utils.getType(baseModel),
+            }))}
             className={styles.modelName}
           >
-            {simplifyName(baseModel)}
+            {utils.simplifyName(baseModel)}
           </H2>
           <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} imports={imports} />
         </div>
@@ -45,7 +46,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
         title="Request"
         spec={spec}
         imports={imports}
-        parentModel={cleanPath(operation.path)}
+        parentModel={utils.cleanPath(operation.path)}
       />
       {body()}
     </div>
@@ -68,7 +69,9 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
           <h3>Body</h3>
           <JsonDoc
             modelNameClick={
-              onClickHref(buildNavHref({ organization: orgKey, application: appKey, model: getType(baseModel) }))
+              utils.onClickHref(utils.buildNavHref({
+                organization: orgKey, application: appKey, model: utils.getType(baseModel),
+              }))
             }
             baseModel={baseModel}
             spec={spec}
@@ -121,7 +124,7 @@ class Application extends Component {
     } else if (this.props.params.resource) {
       // Load Operation
       const { resource, method, path } = this.props.params;
-      const operation = getOperation(resource, method, path, spec);
+      const operation = utils.getOperation(resource, method, path, spec);
       return (
         <div>
           <div className={styles.header}>
@@ -148,10 +151,15 @@ class Application extends Component {
         </div>
       );
     } else if (this.props.params.model) {
-      if (isEnum(this.props.params.model, spec, imports)) {
-        return <EnumModel enumName={this.props.params.model} spec={spec} imports={imports} />;
+      if (utils.isEnum(this.props.params.model, spec, imports)) {
+        const enumModel = utils.getEnum(this.props.params.model, spec, imports);
+        enumModel.fields = enumModel.values.map((value) => (
+          { name: value.name, description: value.description, type: 'string', required: false }
+        ));
+        return <Model model={enumModel} spec={spec} imports={imports} showJsonDoc={false} />;
       } else {
-        return <Model modelName={this.props.params.model} spec={spec} imports={imports} />;
+        const model = utils.getModel(this.props.params.model, spec, imports);
+        return <Model model={model} spec={spec} imports={imports} showJsonDoc={true} />;
       }
     } else {
       // No Operation
@@ -159,7 +167,7 @@ class Application extends Component {
       const appKey = this.props.params.applicationKey;
 
       const buildClickHref = (type, method, path) =>
-        `/org/${orgKey}/app/${appKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
+        `/org/${orgKey}/app/${appKey}/r/${type}/m/${method.toLowerCase()}/p/${utils.cleanPath(path)}`;
       return (
         <div>
           <div className={styles.header}>
@@ -173,7 +181,7 @@ class Application extends Component {
               key={operation.method + operation.path}
               method={operation.method}
               path={operation.path}
-              click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
+              click={utils.onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
             />
           )
          ))

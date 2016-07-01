@@ -45,7 +45,7 @@ class App extends Component {
     };
   }
 
-  createModelItem(params, model, currentItem, type='model') {
+  createModelItem(params, model, currentItem, type = 'model') {
     return {
       name: `${model.name}`,
       onClick: onClickHref(buildNavHref({
@@ -108,7 +108,9 @@ class App extends Component {
         items: [{
           name: '',
           items: allModels.map((model) => (this.createModelItem(params, model, currentItem)))
-                     .concat(allEnums.map((enumValue) => (this.createModelItem(params, enumValue, currentItem, 'enum')))),
+                          .concat(allEnums.map((enumValue) =>
+                            (this.createModelItem(params, enumValue, currentItem, 'enum')))
+                          ),
         }],
       }];
     }

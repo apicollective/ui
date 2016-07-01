@@ -9,12 +9,12 @@ const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) =
   <div className={styles.container}>
     <H2 className={styles.title}>{title}</H2>
       {parameters.map((parameter, id) => (
-        <ParameterList 
-          key={id} 
-          {...parameter} 
-          spec={spec} 
-          imports={imports} 
-          parentModel={parentModel} 
+        <ParameterList
+          key={id}
+          {...parameter}
+          spec={spec}
+          imports={imports}
+          parentModel={parentModel}
         />
       ))}
   </div>
