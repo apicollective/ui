@@ -4,10 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 
-import H1 from '../../../components/H1';
 import LoadingOverlay from '../../../components/LoadingOverlay';
 import Operation from '../../components/Operation';
-import ResourceCard from '../ResourceCard';
+import ApplicationHome from '../../components/ApplicationHome';
 import * as utils from '../../../utils';
 import Model from './Model';
 
@@ -57,49 +56,29 @@ class Application extends Component {
       
     } else if (this.props.params.model) {
       // Load Model
-      const {
-        model
-      } = this.props.params;
-      if (utils.isEnum(model, spec, imports)) {
-        const enumModel = utils.getEnum(model, spec, imports);
+      const modelName = this.props.params.model;
+      if (utils.isEnum(modelName, spec, imports)) {
+        const enumModel = utils.getEnum(modelName, spec, imports);
         enumModel.fields = enumModel.values.map((value) => (
           { name: value.name, description: value.description, type: 'string', required: false }
         ));
         return <Model model={enumModel} spec={spec} imports={imports} showJsonDoc={false} />;
       } else {
-        const model = utils.getModel(model, spec, imports);
+        const model = utils.getModel(modelName, spec, imports);
         return <Model model={model} spec={spec} imports={imports} showJsonDoc={true} />;
       }
     } else {
-      // No Operation
+      // Load Application Home
       const {
         applicationKey,
         organizationKey
       } = this.props.params;
 
-      const buildClickHref = (type, method, path) =>
-        `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${utils.cleanPath(path)}`;
-      return (
-        <div>
-          <div className={styles.header}>
-            <H1 className={styles.h1}>{spec.name}</H1>
-            <p className={styles.description}>{spec.description}</p>
-          </div>
-          <div>
-        {spec.resources.map(resource => (
-          resource.operations.map(operation =>
-            <ResourceCard
-              key={operation.method + operation.path}
-              method={operation.method}
-              path={operation.path}
-              click={utils.onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
-            />
-          )
-         ))
-        }
-          </div>
-        </div>
-      );
+      return (<ApplicationHome
+        spec={spec}
+        applicationKey={applicationKey}
+        organizationKey={organizationKey}
+      />);
     }
   }
 }
