@@ -19,12 +19,15 @@ const SidebarIcon = ({ item }) => {
   );
 };
 
-const Item = ({ item }) => {
-  return (<div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
+SidebarIcon.propTypes = {
+  item: PropTypes.object.isRequired,
+};
+
+const Item = ({ item }) =>
+  <div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
     {item.type ? <SidebarIcon item={item} /> : null}
     {item.path ? item.path : simplifyName(item.name)}
-  </div>);
-};
+  </div>;
 
 Item.propTypes = {
   item: PropTypes.object.isRequired,
@@ -54,15 +57,14 @@ Section.propTypes = {
   section: PropTypes.object.isRequired,
 };
 
-const SideBar = ({ sections }) => {
-  return (<div className={styles.sidebar}>
+const SideBar = ({ sections }) =>
+  <div className={styles.sidebar}>
     <div className={styles.sidebarInner}>
       {sections.map((section, id) => (
         <Section key={id} section={section} />
       ))}
     </div>
-  </div>);
-};
+  </div>;
 
 SideBar.propTypes = {
   sections: PropTypes.array.isRequired,
