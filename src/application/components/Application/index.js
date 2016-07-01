@@ -37,9 +37,9 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
     } else return null;
   };
 
-  // TODO: Fix this ASAP!
   return (
     <div>
+      <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
       <ParameterListGroup
         parameters={operation.parameters}
         title="Request"
@@ -47,7 +47,6 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
         imports={imports}
         parentModel={cleanPath(operation.path)}
       />
-      <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
       {body()}
     </div>
   );

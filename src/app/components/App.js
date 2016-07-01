@@ -37,12 +37,15 @@ class App extends Component {
             path: cleanPath(operation.path),
           })),
           active: currentItem === `${resource.type}${operation.method.toLowerCase()}${cleanPath(operation.path)}`,
+          type: 'resource',
+          method: operation.method,
+          path: operation.path,
         }
       )),
     };
   }
 
-  createModelItem(params, model, currentItem) {
+  createModelItem(params, model, currentItem, type='model') {
     return {
       name: `${model.name}`,
       onClick: onClickHref(buildNavHref({
@@ -51,20 +54,11 @@ class App extends Component {
         model: model.name,
       })),
       active: currentItem === model.name,
+      type,
     };
   }
 
-  createEnumItem(params, enumValue, currentItem) {
-    return {
-      name: `${enumValue.name}`,
-      onClick: onClickHref(buildNavHref({
-        organization: params.organizationKey,
-        application: params.applicationKey,
-        model: enumValue.name,
-      })),
-      active: currentItem === enumValue.name,
-    };
-  }
+
   createSideBarItems(params, spec, imports, organizations, organizationObj, applications) {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map((organization) => (
@@ -114,9 +108,7 @@ class App extends Component {
         items: [{
           name: '',
           items: allModels.map((model) => (this.createModelItem(params, model, currentItem)))
-                     .concat(
-                       allEnums.map((enumValue) => (this.createEnumItem(params, enumValue, currentItem)))
-                     ),
+                     .concat(allEnums.map((enumValue) => (this.createModelItem(params, enumValue, currentItem, 'enum')))),
         }],
       }];
     }

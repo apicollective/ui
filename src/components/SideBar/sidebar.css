@@ -20,6 +20,42 @@
   min-height: calc(100% - 50px);
 }
 
+.icon {
+  display: inline-block;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+  text-align: center;
+  line-height: 1.65;
+}
+
+.get {
+  background: var(--color-method-get)
+}
+.post {
+  background: var(--color-method-post)
+}
+.put {
+  background: var(--color-method-put)
+}
+.delete {
+  line-height: 1.7;
+  background: var(--color-method-delete)
+}
+
+
+.enum {
+  background: var(--color-hawkes-blue);
+  color: black;
+  line-height: 1.5;
+}
+.model {
+  background: var(--color-medium-persian-blue);
+  color: white;
+}
+
 .a {
   color: white;
   display: block;
