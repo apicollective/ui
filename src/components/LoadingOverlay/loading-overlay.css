@@ -1,0 +1,16 @@
+@import "variables.css";
+
+.container {
+  position: fixed 0 0 0 0;
+  z-index: 9999;
+  background: var(--color-cool-blue);
+}
+
+.loader {
+  display: block;
+  position: relative 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: var(--font-code);
+  font-size: 4rem;
+}

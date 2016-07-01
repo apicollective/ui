@@ -157,30 +157,39 @@ class App extends Component {
   }
 
   render() {
-    const sideBarItems = this.createSideBarItems(
-      this.props.params,
-      this.props.spec,
-      this.props.imports,
-      this.props.organizations,
-      this.props.organization,
-      this.props.applications).map((sideBarItem) => {
+
+    const {
+      params,
+      spec,
+      imports,
+      organizations,
+      organization,
+      applications,
+      children
+    } = this.props;
+
+    const sideBarItems = this.createSideBarItems(params, spec, imports, organizations, organization, applications)
+      .map((sideBarItem) => {
         sideBarItem.items.map((items) => (
           Object.assign(items, { items: sortBy((item) => item.name, items.items) })
         ));
         return Object.assign(sideBarItem, { items: sortBy((item) => item.name, sideBarItem.items) });
       });
 
-    const navBarItems = this.createNavBarItems(this.props.params, this.props.spec);
+    const navBarItems = this.createNavBarItems(params, spec);
+
     return (
       <div>
         <NavBar items={navBarItems} homeOnClick={onClickHref('/')} />
         <div className={styles.main}>
           <SideBar sections={sideBarItems} />
           <Content>
-            {this.props.children}
+            {children}
           </Content>
         </div>
-      </div>);
+      </div>
+    );
+    
   }
 }
 

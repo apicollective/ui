@@ -2,12 +2,11 @@ import { Map } from 'immutable';
 
 import { actionTypes } from './sagas';
 
-const initialState = new Map(
-  {
+const initialState = new Map({
+    loaded: false,
     organization: {},
     applications: [],
-  }
-);
+});
 
 const organization = (state = initialState, action) => {
   switch (action.type) {
@@ -15,7 +14,13 @@ const organization = (state = initialState, action) => {
     case actionTypes.getOrganizationDetails_success: {
       return state
         .set('organization', action.payload.organization)
-        .set('applications', action.payload.applications);
+        .set('applications', action.payload.applications)
+        .set('loaded', true);
+    }
+    case actionTypes.getOrganizationDetails_doing: {
+      console.log('org doing');
+      return state
+        .set('loaded', false);
     }
     default: {
       return state;
