@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import H1 from './../../components/H1';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 import styles from './organization.css';
 import { actions } from '../sagas';
@@ -36,19 +37,24 @@ class Organization extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className={styles.header}>
-          <H1 className={styles.h1}>{this.props.organization.name}</H1>
+
+    if (!this.props.loaded) {
+      return (<LoadingOverlay />);
+    } else {
+      return (
+        <div>
+          <div className={styles.header}>
+            <H1 className={styles.h1}>{this.props.organization.name}</H1>
+          </div>
+          <div className={styles.container}>
+            <Applications
+              orgKey={this.props.params.organizationKey}
+              applications={this.props.applications}
+            />
+          </div>
         </div>
-        <div className={styles.container}>
-          <Applications
-            orgKey={this.props.params.organizationKey}
-            applications={this.props.applications}
-          />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 Organization.propTypes = {
@@ -62,6 +68,7 @@ const mapStateToProps = (state) => (
   {
     organization: state.organization.get('organization'),
     applications: state.organization.get('applications'),
+    loaded: state.organization.get('loaded'),
   }
 );
 

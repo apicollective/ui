@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { actions as orgActions } from '../../generated/organization';
+
 import H1 from './../../components/H1';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 import styles from './home.css';
 
@@ -29,21 +31,29 @@ Organizations.propTypes = {
 };
 
 class Home extends Component {
+  // TODO: Can I haz more orgs?
   componentDidMount() {
     this.props.actions.getOrganizations_get({ limit: 20, offset: 0 });
   }
 
   render() {
-    return (
-      <div>
-        <div className={styles.header}>
-          <H1 className={styles.h1}>Organizations</H1>
+
+    if (!this.props.loaded) {
+      return (
+        <LoadingOverlay />
+      )
+    } else {
+      return (
+        <div>
+          <div className={styles.header}>
+            <H1 className={styles.h1}>Organizations</H1>
+          </div>
+          <div className={styles.container}>
+            <Organizations organizations={this.props.organizations} />
+          </div>
         </div>
-        <div className={styles.container}>
-          <Organizations organizations={this.props.organizations} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 Home.propTypes = {
@@ -52,7 +62,10 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => (
-  { organizations: state.app.get('organizations') }
+  {
+    organizations: state.app.get('organizations'),
+    loaded: state.app.get('loaded'),
+  }
 );
 
 const mapDispatchToProps = (dispatch) => (
