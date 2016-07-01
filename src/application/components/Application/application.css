@@ -14,30 +14,12 @@
   padding: 0 5rem;
 }
 
-.header {
-  padding: 5rem 5rem 0 5rem;
-  margin: 0 0 3rem 0;
-  background: white;
-}
-
-.description {
-  line-height: 2;
-  margin: 0;
-}
 
 .section {
-  padding: 0.67rem 1.25rem;
 }
 
 .request {
   background: #fafafa;
-}
-
-.model-name {
-  font-weight: 400;
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
-  line-height: 1;
 }
 
 .section-header {

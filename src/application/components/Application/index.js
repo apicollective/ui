@@ -4,10 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 
-import JsonDoc from './../JsonDoc';
 import H1 from '../../../components/H1';
-import H2 from '../../../components/H2';
-import ParameterListGroup from '../ParameterListGroup';
+import LoadingOverlay from '../../../components/LoadingOverlay';
+import Operation from '../../components/Operation';
 import ResourceCard from '../ResourceCard';
 import * as utils from '../../../utils';
 import Model from './Model';
@@ -17,93 +16,6 @@ import styles from './application.css';
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
 
-const Request = ({ operation, spec, imports, orgKey, appKey }) => {
-  const body = () => {
-    if (operation.body) {
-      const baseModel = operation.body.type;
-      return (
-        <div>
-          <h3>Body</h3>
-          <H2
-            click={utils.onClickHref(utils.buildNavHref({
-              organization: orgKey, application: appKey, model: utils.getType(baseModel),
-            }))}
-            className={styles.modelName}
-          >
-            {utils.simplifyName(baseModel)}
-          </H2>
-          <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} imports={imports} />
-        </div>
-      );
-    } else return null;
-  };
-
-  return (
-    <div>
-      <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
-      <ParameterListGroup
-        parameters={operation.parameters}
-        title="Request"
-        spec={spec}
-        imports={imports}
-        parentModel={utils.cleanPath(operation.path)}
-      />
-      {body()}
-    </div>
-  );
-};
-Request.propTypes = {
-  operation: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  orgKey: PropTypes.string.isRequired,
-  appKey: PropTypes.string.isRequired,
-};
-
-const Response = ({ operation, spec, imports, orgKey, appKey }) => {
-  const body = (response) => {
-    if (response.type) {
-      const baseModel = response.type;
-      return (
-        <div>
-          <h3>Body</h3>
-          <JsonDoc
-            modelNameClick={
-              utils.onClickHref(utils.buildNavHref({
-                organization: orgKey, application: appKey, model: utils.getType(baseModel),
-              }))
-            }
-            baseModel={baseModel}
-            spec={spec}
-            imports={imports}
-            includeModel={true}
-            excludeModelDescription={true}
-          />
-        </div>
-      );
-    } else return null;
-  };
-
-  return (
-    <div className={classnames(styles.section, styles.response)}>
-      <H2>Response</H2>
-      {operation.responses.map((response, id) => (
-        <div key={id}>
-          <div>{response.code.integer.value}</div>
-          <ReactMarkdown source={response.description ? response.description : ''} className={styles.description} />
-          {body(response)}
-        </div>
-      ))}
-    </div>
-  );
-};
-Response.propTypes = {
-  operation: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  orgKey: PropTypes.string.isRequired,
-  appKey: PropTypes.string.isRequired,
-};
 
 
 class Application extends Component {
@@ -120,54 +32,53 @@ class Application extends Component {
     const { imports, spec } = this.props;
     if (!this.props.loaded) {
       // First Load
-      return (<div></div>);
+      return (<LoadingOverlay />);
     } else if (this.props.params.resource) {
       // Load Operation
-      const { resource, method, path } = this.props.params;
+      const { 
+        resource, 
+        method, 
+        path, 
+        applicationKey, 
+        organizationKey 
+      } = this.props.params;
       const operation = utils.getOperation(resource, method, path, spec);
-      return (
-        <div>
-          <div className={styles.header}>
-            <H1 className={styles.h1}>{spec.name}</H1>
-            <p className={styles.description}>{spec.description}</p>
-          </div>
-          <H2>{operation.method} {operation.path}</H2>
-          <Request
-            appKey={this.props.params.applicationKey}
-            orgKey={this.props.params.organizationKey}
-            key={`${method}${resource}${path}-request`}
-            operation={operation}
-            spec={spec}
-            imports={imports}
-          />
-          <Response
-            appKey={this.props.params.applicationKey}
-            orgKey={this.props.params.organizationKey}
-            key={`${method}${resource}${path}-response`}
-            operation={operation}
-            spec={spec}
-            imports={imports}
-          />
-        </div>
-      );
+      
+      return (<Operation 
+        spec={spec}
+        imports={imports}
+        operation={operation}
+        applicationKey={applicationKey}
+        organizationKey={organizationKey}
+        resource={resource}
+        method={method}
+        path={path}
+      />)
+      
     } else if (this.props.params.model) {
-      if (utils.isEnum(this.props.params.model, spec, imports)) {
-        const enumModel = utils.getEnum(this.props.params.model, spec, imports);
+      // Load Model
+      const {
+        model
+      } = this.props.params;
+      if (utils.isEnum(model, spec, imports)) {
+        const enumModel = utils.getEnum(model, spec, imports);
         enumModel.fields = enumModel.values.map((value) => (
           { name: value.name, description: value.description, type: 'string', required: false }
         ));
         return <Model model={enumModel} spec={spec} imports={imports} showJsonDoc={false} />;
       } else {
-        const model = utils.getModel(this.props.params.model, spec, imports);
+        const model = utils.getModel(model, spec, imports);
         return <Model model={model} spec={spec} imports={imports} showJsonDoc={true} />;
       }
     } else {
       // No Operation
-      const orgKey = this.props.params.organizationKey;
-      const appKey = this.props.params.applicationKey;
+      const {
+        applicationKey,
+        organizationKey
+      } = this.props.params;
 
       const buildClickHref = (type, method, path) =>
-        `/org/${orgKey}/app/${appKey}/r/${type}/m/${method.toLowerCase()}/p/${utils.cleanPath(path)}`;
+        `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${utils.cleanPath(path)}`;
       return (
         <div>
           <div className={styles.header}>
