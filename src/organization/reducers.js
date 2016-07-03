@@ -3,9 +3,9 @@ import { Map } from 'immutable';
 import { actionTypes } from './sagas';
 
 const initialState = new Map({
-    loaded: false,
-    organization: {},
-    applications: [],
+  loaded: false,
+  organization: {},
+  applications: [],
 });
 
 const organization = (state = initialState, action) => {

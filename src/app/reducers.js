@@ -3,9 +3,9 @@ import { Map } from 'immutable';
 import { actionTypes as orgActionTypes } from '../generated/organization';
 
 const initialState = new Map({
-    loaded: false,
-    organizations: [],
-  });
+  loaded: false,
+  organizations: [],
+});
 
 const app = (state = initialState, action) => {
   switch (action.type) {

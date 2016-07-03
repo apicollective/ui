@@ -37,7 +37,6 @@ class Organization extends Component {
   }
 
   render() {
-
     if (!this.props.loaded) {
       return (<LoadingOverlay />);
     } else {
@@ -62,6 +61,7 @@ Organization.propTypes = {
   actions: PropTypes.object.isRequired,
   organization: PropTypes.object.isRequired,
   applications: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => (

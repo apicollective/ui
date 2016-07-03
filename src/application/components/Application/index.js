@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 
 import LoadingOverlay from '../../../components/LoadingOverlay';
 import Operation from '../../components/Operation';

@@ -37,11 +37,10 @@ class Home extends Component {
   }
 
   render() {
-
     if (!this.props.loaded) {
       return (
         <LoadingOverlay />
-      )
+      );
     } else {
       return (
         <div>
@@ -59,6 +58,7 @@ class Home extends Component {
 Home.propTypes = {
   actions: PropTypes.object.isRequired,
   organizations: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => (

@@ -8,7 +8,6 @@ import ResourceCard from '../../components/ResourceCard';
 import styles from './application-home.css';
 
 const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
-
   const buildClickHref = (type, method, path) =>
     `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
 
@@ -33,6 +32,12 @@ const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
       </div>
     </div>
   );
+};
+
+ApplicationHome.propTypes = {
+  spec: PropTypes.object.isRequired,
+  organizationKey: PropTypes.string.isRequired,
+  applicationKey: PropTypes.string.isRequired,
 };
 
 export default ApplicationHome;

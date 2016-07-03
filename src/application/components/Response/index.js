@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { onClickHref, buildNavHref, getType } from '../../../utils';
@@ -57,5 +57,5 @@ Response.propTypes = {
 export default Response;
 
 export {
-  styles
-}
+  styles,
+};

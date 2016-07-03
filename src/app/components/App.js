@@ -157,7 +157,6 @@ class App extends Component {
   }
 
   render() {
-
     const {
       params,
       spec,
@@ -165,7 +164,7 @@ class App extends Component {
       organizations,
       organization,
       applications,
-      children
+      children,
     } = this.props;
 
     const sideBarItems = this.createSideBarItems(params, spec, imports, organizations, organization, applications)
@@ -189,7 +188,6 @@ class App extends Component {
         </div>
       </div>
     );
-    
   }
 }
 
