@@ -7,7 +7,6 @@
   align-items: stretch;
   padding: 0 2rem 1.5rem 2rem;
   margin: 0 0 1.5rem 0;
-  /*border-bottom: 2px solid var(--color-very-light-gray);*/
   border-bottom: 2px solid white;
 
   @nest &:last-of-type {
@@ -57,11 +56,23 @@
 }
 
 .description {
-  margin: 0;
+  margin: 0 0 1rem 0;
   line-height: 1.5;
 }
 
 .no-content {
   color: var(--color-very-light-gray);
   margin: 0;
+}
+
+.sample {
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+}
+
+.sample-title {
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 0.5rem 0 0;
 }

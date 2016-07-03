@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 
 import LoadingOverlay from '../../../components/LoadingOverlay';
 import Operation from '../../components/Operation';
@@ -14,8 +12,6 @@ import styles from './application.css';
 
 import { actions as specActions } from '../../../generated/version';
 const allActions = Object.assign({}, specActions);
-
-
 
 class Application extends Component {
 
@@ -34,16 +30,16 @@ class Application extends Component {
       return (<LoadingOverlay />);
     } else if (this.props.params.resource) {
       // Load Operation
-      const { 
-        resource, 
-        method, 
-        path, 
-        applicationKey, 
-        organizationKey 
+      const {
+        resource,
+        method,
+        path,
+        applicationKey,
+        organizationKey,
       } = this.props.params;
       const operation = utils.getOperation(resource, method, path, spec);
-      
-      return (<Operation 
+
+      return (<Operation
         spec={spec}
         imports={imports}
         operation={operation}
@@ -52,8 +48,7 @@ class Application extends Component {
         resource={resource}
         method={method}
         path={path}
-      />)
-      
+      />);
     } else if (this.props.params.model) {
       // Load Model
       const modelName = this.props.params.model;
@@ -71,7 +66,7 @@ class Application extends Component {
       // Load Application Home
       const {
         applicationKey,
-        organizationKey
+        organizationKey,
       } = this.props.params;
 
       return (<ApplicationHome

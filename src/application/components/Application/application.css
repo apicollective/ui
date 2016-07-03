@@ -1,25 +1,11 @@
 @import "variables.css";
-@import "cssrecipes-defaults";
-@import "cssrecipes-reset";
-
-.main {
-
-}
-
-.h1 {
-
-}
 
 .method {
   padding: 0 5rem;
 }
 
-
-.section {
-}
-
 .request {
-  background: #fafafa;
+  background: #FAFAFA;
 }
 
 .section-header {

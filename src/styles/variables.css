@@ -33,10 +33,10 @@
 
   --color-red: #E74C3C;
 
-  --color-method-get: #27ae60;
-  --color-method-post: #f39c12;
-  --color-method-put: #8e44ad;
-  --color-method-delete: #e74c3c;
+  --color-method-get: #27AE60;
+  --color-method-post: #F39C12;
+  --color-method-put: #8E44AD;
+  --color-method-delete: #E74C3C;
 
   --color-primary: var(--color-cool-blue);
   --color-primary-light: var(--color-maya-blue);

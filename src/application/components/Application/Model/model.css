@@ -1,21 +1,29 @@
 @import "variables.css";
 
 .header {
-  padding: 5rem 5rem 0 5rem;
-  margin: 0 0 2rem 0;
+  margin: 2rem 0 1rem 0;
 }
 
 .title {
   font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.container {
+  padding: 0 3rem;
+}
+
+.fields-container {
+  padding: 0 1rem 1rem 1rem;
+  border: 2px solid var(--color-concrete);
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
 .description {
   margin: 0;
-  column-count: 2;
-  line-height: 1.5;
+}
 
-  @nest & p {
-    margin: 0 0 1em 0;
-    line-height: 1.5;
-  }
+.json {
+  padding: 1rem 0 1rem 0;
 }

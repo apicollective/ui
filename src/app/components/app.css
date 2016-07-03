@@ -1,8 +1,5 @@
-
-.app {
-}
+@import "global.css";
 
 .main {
   display: flex;
-  font-size: 14px;
 }

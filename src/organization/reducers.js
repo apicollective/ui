@@ -3,9 +3,9 @@ import { Map } from 'immutable';
 import { actionTypes } from './sagas';
 
 const initialState = new Map({
-    loaded: false,
-    organization: {},
-    applications: [],
+  loaded: false,
+  organization: {},
+  applications: [],
 });
 
 const organization = (state = initialState, action) => {
@@ -18,7 +18,6 @@ const organization = (state = initialState, action) => {
         .set('loaded', true);
     }
     case actionTypes.getOrganizationDetails_doing: {
-      console.log('org doing');
       return state
         .set('loaded', false);
     }

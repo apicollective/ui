@@ -1,14 +1,14 @@
 @import "variables.css";
 
 .content {
-  position: fixed 50px 0 0 300px;
-  width: calc(100% - 300px);
+  position: fixed 50px 0 0 400px;
+  width: calc(100% - 400px);
   padding: 0;
   font-family: var(--font-primary);
   overflow-y: auto;
 
   @nest &::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
   }
 }

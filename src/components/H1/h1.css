@@ -10,7 +10,6 @@
   color: var(--color-primary);
   font-weight: 700;
   font-family: var(--font-secondary);
-  text-transform: uppercase;
   letter-spacing: 0.025em;
   margin: 0;
 }

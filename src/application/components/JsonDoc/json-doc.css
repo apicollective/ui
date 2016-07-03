@@ -7,7 +7,6 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  padding: 2rem 5rem;
 }
 
 .container {
@@ -62,7 +61,7 @@
   flex: 0 1 30%;
 }
 
-field-right {
+.field-right {
   flex: 0 1 65%;
   margin-left: 5%;
 }

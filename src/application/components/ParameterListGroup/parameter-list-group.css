@@ -2,17 +2,17 @@
 
 .container {
   background: var(--color-concrete);
-  padding: 0 0 2rem 0;
-  margin: 0 5rem;
-  border-radius: 10px;
+  padding: 1rem 0 1rem 0;
+  border-radius: var(--border-radius);
   overflow: hidden;
-
 }
 
 .title {
-  padding: 0.67rem 2rem;
-  margin: 0 0 1rem 0;
   font-weight: 400;
-  background: var(--color-armadillo);
-  color: white;
+}
+
+.no-content {
+  color: var(--color-very-light-gray);
+  margin: 0;
+  padding: 0.67rem 2rem;
 }

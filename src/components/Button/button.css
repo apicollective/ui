@@ -15,18 +15,17 @@
   padding: 0 12px;
   border-radius: var(--border-radius);
   text-decoration: none;
-  transition: all .3s;
-
+  transition: all 0.3s;
   cursor: pointer;
 
-  &:not(.disabled):hover, &:not(.disabled):focus {
-      background: var(--color-primary-light);
+  &:not(.disabled):hover {
+    background: var(--color-primary-dark);
   }
-  
+
   &.disabled {
-      cursor: default;
-      background: var(--color-very-light-gray);
-      color: var(--color-light-gray);
+    cursor: default;
+    background: var(--color-very-light-gray);
+    color: var(--color-light-gray);
   }
 }
 
@@ -37,35 +36,22 @@
 
 /* // Variations */
 
-.button.secondary {
-
-}
-
 .button.loading {
   position: relative;
   padding-left: 42px;
   &::before {
     content: "";
-    display: block;
     position: absolute;
     top: 7px;
     left: 12px;
-    vertical-align: middle;
     width: 14px;
     height: 14px;
     border-radius: 50%;
     border: 2px solid white;
-    border-bottom-color: rgba(0,0,0,0);
+    border-bottom-color: rgba(0, 0, 0, 0);
     animation: rotate 1s linear infinite;
   }
 }
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
 
 /* // Component relations */
 

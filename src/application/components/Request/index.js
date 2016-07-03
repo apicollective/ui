@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { PropTypes } from 'react';
 
-import { onClickHref, buildNavHref, getType, simplifyName, cleanPath } from '../../../utils';
+import { cleanPath } from '../../../utils';
 
-import H2 from '../../../components/H2';
 import JsonDoc from '../../components/JsonDoc';
 import ParameterListGroup from '../../components/ParameterListGroup';
 
@@ -14,16 +12,15 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
     if (operation.body) {
       const baseModel = operation.body.type;
       return (
-        <div>
-          <h3>Body</h3>
-          <H2
-            click={onClickHref(buildNavHref({
-              organization: orgKey, application: appKey, model: getType(baseModel),
-            }))}
-            className={styles.name}
+        <div className={styles.json}>
+          {/* <H2
+          click={onClickHref(buildNavHref({
+          organization: orgKey, application: appKey, model: getType(baseModel),
+          }))}
+          className={styles.name}
           >
-            {simplifyName(baseModel)}
-          </H2>
+          {simplifyName(baseModel)}
+          </H2> */}
           <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} imports={imports} />
         </div>
       );
@@ -31,8 +28,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
   };
 
   return (
-    <div>
-      <ReactMarkdown source={operation.description ? operation.description : ''} className={styles.description} />
+    <div className={styles.container}>
       <ParameterListGroup
         parameters={operation.parameters}
         title="Request"
@@ -56,4 +52,4 @@ export default Request;
 
 export {
   styles,
-}
+};

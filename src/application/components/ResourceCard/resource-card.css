@@ -1,8 +1,10 @@
 @import "variables.css";
 
 .container {
-  padding: 0 5rem;
   margin: 0.75rem 0;
+}
+
+.is-click {
   cursor: pointer;
 }
 
@@ -12,8 +14,9 @@
 
 .left {
   flex: 0 0 10%;
-  border-radius: var(--border-radius)
+  border-radius: var(--border-radius);
 }
+
 .method {
   padding: 0.67rem 1rem;
   border-top-left-radius: var(--border-radius);
@@ -40,9 +43,14 @@
   }
 }
 
+.is-expanded-method {
+  border-bottom-left-radius: 0;
+}
+
 .right {
   flex: 0 0 90%;
 }
+
 .path {
   display: block;
   margin: 0;
@@ -53,3 +61,14 @@
   border-bottom-right-radius: var(--border-radius);
 }
 
+.is-expanded-path {
+  border-bottom-right-radius: 0;
+}
+
+.description {
+  padding: 0.67rem 2rem 0.67rem 11%;
+  border: 2px solid var(--color-concrete);
+  border-top-color: transparent;
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}

@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
-import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
+
+import Markdown from '../../../components/Markdown';
 
 import { buildNavHref, getType, isImport, isImportOrInSpec, onClickHref, simplifyName } from '../../../utils';
 
-import styles from './parameterList.css';
+import styles from './parameter-list.css';
 
 const ParameterList = ({ name, type, required, description, example, defaultValue, spec, imports, parentModel }) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
@@ -24,13 +25,18 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
       {required ? <p className={styles.required}>required</p> : null}
     </div>
     <div className={styles.info}>
-      {description ?
-        <ReactMarkdown source={description} className={styles.description} />
-        :
-        <p className={styles.noContent}>No description</p>
+      {description
+        ? <Markdown source={description} className={styles.description} />
+        : <p className={styles.noContent}>No description</p>
       }
-      {example ? <p className={styles.example}>Example: {example}</p> : null}
-      {defaultValue ? <p className={styles.default}>Default: {defaultValue}</p> : null}
+      {example
+        ? <p className={styles.sample}><span className={styles.sampleTitle}>Example</span>{example}</p>
+        : null
+      }
+      {defaultValue
+        ? <p className={styles.sample}><span className={styles.sampleTitle}>Default</span>{defaultValue}</p>
+        : null
+      }
     </div>
   </div>);
 };

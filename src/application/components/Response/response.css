@@ -1,13 +1,13 @@
 @import "variables.css";
 
-.name {
-  font-weight: 400;
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
-  line-height: 1;
+.container {
+  margin: 0 0 0.75rem;
+  padding: 0 0 1rem 1rem;
+  border: 2px solid var(--color-concrete);
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
 .description {
-  line-height: 2;
-  margin: 0;
+  padding: 0 0 1rem 0;
 }

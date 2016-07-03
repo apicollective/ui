@@ -12,7 +12,7 @@ const SidebarIcon = ({ item }) => {
     item.method ? styles[item.method.toLowerCase()] : null
   );
 
-  const markup = item.method ? item.method[0] : item.type[0];
+  const markup = item.method ? item.method : item.type[0];
 
   return (
     <div className={iconClasses}>{markup}</div>
@@ -25,8 +25,7 @@ SidebarIcon.propTypes = {
 
 const Item = ({ item }) =>
   <div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
-    {item.type ? <SidebarIcon item={item} /> : null}
-    {item.path ? item.path : simplifyName(item.name)}
+    {item.path ? `${item.method} ${item.path}` : simplifyName(item.name)}
   </div>;
 
 Item.propTypes = {
@@ -75,3 +74,4 @@ export default SideBar;
 export {
   styles,
 };
+

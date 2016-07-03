@@ -1,20 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './jsonDoc.css';
 import H2 from '../../../components/H2';
+import Markdown from '../../../components/Markdown';
 import ParameterList from '../ParameterList';
+
 import * as utils from '../../../utils';
-import ReactMarkdown from 'react-markdown';
+
+import styles from './json-doc.css';
 
 const numSpaces = 4;
 
-const spaces = (indent) => Array(indent * numSpaces).join(' ');
+const spaces = (indent) => new Array(indent * numSpaces).join(' ');
 
 // --    "name": "value",
 /* eslint-disable max-len */
 const FieldValue = ({ name, value, fullType, indent, mouseOver, click }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
-    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
+    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>{value}</span>,{`\n`}
   </a>;
 /* eslint-enable */
 
@@ -70,7 +72,7 @@ ArrayValue.propTypes = {
   click: PropTypes.func.isRequired,
 };
 
-const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver) => {
+const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver, parentModel) => {
   let open = '{';
   let close = '}';
   if (utils.isArray(type)) {
@@ -95,7 +97,7 @@ const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver
       click={utils.onClickHref(utils.buildNavHref({
         organization: spec.organization.key,
         application: spec.application.key,
-        model: utils.getType(type),
+        model: utils.getType(parentModel),
       }))}
     />
   );
@@ -130,23 +132,27 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
           const value = utils.isEnum(field.type, spec, imports) ?
                         utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
                         example;
+          const verifiedValue = value || '';
+          const formattedValue = field.type === 'integer' || field.type === 'number'
+                                ? verifiedValue : `"${verifiedValue}"`;
+
           if (utils.isModel(field.type, spec, imports)) {
             return renderModel(
-              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver
+              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver, model.name
             );
           } else if (utils.isArray(field.type)) {
             return (
               <ArrayValue
                 key={id}
                 name={field.name}
-                value={value}
+                value={formattedValue}
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
                 click={utils.onClickHref(utils.buildNavHref({
                   organization: spec.organization.key,
                   application: spec.application.key,
-                  model: utils.getType(field.type),
+                  model: utils.getType(model.name),
                 }))}
               />);
           } else {
@@ -154,7 +160,7 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
               <FieldValue
                 key={id}
                 name={field.name}
-                value={value}
+                value={formattedValue}
                 fullType={`${utils.getType(type)}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
@@ -248,11 +254,39 @@ class JsonDoc extends Component {
             {utils.simplifyName(baseModel)}
           </H2>
           {model && model.description && !this.props.excludeModelDescription ?
-            <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} /> : null}
+            <Markdown source={model.description ? model.description : ''} className={styles.description} /> : null}
         </div>
       );
     };
     return includeModel ? docs() : null;
+  }
+
+  getModelInnerJson(baseModel, spec, imports, mouseOver) {
+    if (utils.isImportOrInSpec(baseModel, spec, imports)) {
+      const start = utils.isArray(baseModel) ? '[{' : '{';
+      const end = utils.isArray(baseModel) ? '}]' : '}';
+      return (
+        <div>
+          {start}
+          <ModelInner type={baseModel} spec={spec} imports={imports} indent={0} mouseOver={this.mouseOver} />
+          {end}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  getJson(baseModel, spec, imports, modelInnerJson) {
+    if (modelInnerJson) {
+      return (
+        <pre className={styles.code}>
+          {modelInnerJson}
+        </pre>
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -261,19 +295,10 @@ class JsonDoc extends Component {
       <div className={styles.jsonDoc}>
         {this.getModel(baseModel, spec, imports, includeModel)}
         <div className={styles.container}>
-          {utils.isImportOrInSpec(baseModel, spec, imports) ?
-            <pre className={styles.code}>
-            {utils.isArray(baseModel) ? '[{' : '{'}
-              <ModelInner
-                type={baseModel}
-                spec={spec}
-                imports={imports}
-                indent={0}
-                mouseOver={this.mouseOver}
-              />
-            {utils.isArray(baseModel) ? '}]' : '}'}
-            </pre>
-           : null}
+          {this.getJson(baseModel, spec, imports,
+                        this.props.rawValue ?
+                        this.props.rawValue :
+                        this.getModelInnerJson(baseModel, spec, imports, this.mouseOver))}
           {this.getDocumentation(this.state.documentationFullType, spec, imports)}
         </div>
       </div>
@@ -287,6 +312,7 @@ JsonDoc.propTypes = {
   includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
   excludeModelDescription: PropTypes.bool,
   modelNameClick: PropTypes.func,
+  rawValue: PropTypes.string,
 };
 
 export default JsonDoc;

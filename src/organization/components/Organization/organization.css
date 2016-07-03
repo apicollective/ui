@@ -1,9 +1,5 @@
 @import "variables.css";
 
-.organization {
-  
-}
-
 .link {
   display: block;
   text-decoration: none;
@@ -17,16 +13,14 @@
 }
 
 .header {
-  padding: 5rem 5rem 0 5rem;
-  margin: 0 0 1rem 0;
+  margin: 2rem 0 2rem 0;
   background: white;
 }
 
-.h1 {
-
+.content {
+  padding: 0 3rem;
 }
 
 .container {
-  padding: 0 5rem;
-  max-width: 60rem;
+  margin: 0 0 0.75rem;
 }

@@ -70,9 +70,9 @@ class App extends Component {
         }
       ));
       return [{
-        name: '',
+        name: 'Organizations',
         items: [{
-          name: 'Organizations',
+          name: '',
           items: organizationsWithHref,
         }],
       }];
@@ -87,15 +87,15 @@ class App extends Component {
         }
       ));
       return [{
-        name: '',
+        name: 'Applications',
         items: [{
-          name: organizationObj.name,
+          name: '',
           items: applicationsWithHref,
         }],
       }];
     } else if (params.organizationKey && params.applicationKey && spec.apidoc) {
       const currentItem = this.getCurrentItem(params);
-      const allResources = flatten(spec.resources.concat(imports.map((importValue) => importValue.resources)));
+      const allResources = spec.resources;
       const allModels = flatten(spec.models.concat(imports.map((importValue) => importValue.models)));
       const allEnums = flatten(spec.enums.concat(imports.map((importValue) => importValue.enums)));
 
@@ -157,7 +157,6 @@ class App extends Component {
   }
 
   render() {
-
     const {
       params,
       spec,
@@ -165,7 +164,7 @@ class App extends Component {
       organizations,
       organization,
       applications,
-      children
+      children,
     } = this.props;
 
     const sideBarItems = this.createSideBarItems(params, spec, imports, organizations, organization, applications)
@@ -189,7 +188,6 @@ class App extends Component {
         </div>
       </div>
     );
-    
   }
 }
 

@@ -1,19 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
-import { actions as orgActions } from '../../generated/organization';
+import { actions as orgActions } from '../../../generated/organization';
 
-import H1 from './../../components/H1';
-import LoadingOverlay from '../../components/LoadingOverlay';
+import H1 from './../../../components/H1';
+import LoadingOverlay from '../../../components/LoadingOverlay';
+import HomeCard from '../HomeCard';
 
 import styles from './home.css';
 
 const allActions = Object.assign({}, orgActions);
 
 const Org = ({ organization }) =>
-  <Link className={styles.link} to={`org/${organization.key}`}>{organization.name}</Link>;
+  <HomeCard
+    link={`org/${organization.key}`}
+    name={organization.name}
+    description={organization.description}
+  />;
 
 Org.propTypes = {
   organization: PropTypes.object.isRequired,
@@ -22,7 +26,9 @@ Org.propTypes = {
 const Organizations = ({ organizations }) =>
   <div>
   {organizations.map((organization, id) => (
-    <Org key={id} organization={organization} />
+    <div key={`${organization}-${id}`} className={styles.container}>
+      <Org key={id} organization={organization} />
+    </div>
   ))}
   </div>;
 
@@ -37,14 +43,13 @@ class Home extends Component {
   }
 
   render() {
-
     if (!this.props.loaded) {
       return (
         <LoadingOverlay />
-      )
+      );
     } else {
       return (
-        <div>
+        <div className={styles.content}>
           <div className={styles.header}>
             <H1 className={styles.h1}>Organizations</H1>
           </div>
@@ -59,6 +64,7 @@ class Home extends Component {
 Home.propTypes = {
   actions: PropTypes.object.isRequired,
   organizations: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => (

@@ -6,13 +6,13 @@
 }
 
 .sidebar {
-    position: fixed 50px auto 0 0;
-    width: 300px;
-    height: 100%;
-    background: var(--color-tuatara);
-    color: white;
-    padding: 1.25rem;
-    overflow-y: auto;
+  position: fixed 50px auto 0 0;
+  width: 400px;
+  height: 100%;
+  background: var(--color-tuatara);
+  color: white;
+  padding: 1.25rem;
+  overflow-y: auto;
 }
 
 .sidebar-inner {
@@ -23,34 +23,39 @@
 .icon {
   display: inline-block;
   margin-right: 0.4rem;
-  border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  border-radius: 3px;
   color: white;
+  font-size: 0.5rem;
+  padding: 0.25rem 0.25rem 0.35rem 0.25rem;
   text-align: center;
-  line-height: 1.65;
+  line-height: 1.2;
+  position: relative;
+  top: -1px;
 }
 
 .get {
-  background: var(--color-method-get)
-}
-.post {
-  background: var(--color-method-post)
-}
-.put {
-  background: var(--color-method-put)
-}
-.delete {
-  line-height: 1.7;
-  background: var(--color-method-delete)
+  background: var(--color-method-get);
 }
 
+.post {
+  background: var(--color-method-post);
+}
+
+.put {
+  background: var(--color-method-put);
+}
+
+.delete {
+  line-height: 1.7;
+  background: var(--color-method-delete);
+}
 
 .enum {
   background: var(--color-hawkes-blue);
   color: black;
   line-height: 1.5;
 }
+
 .model {
   background: var(--color-medium-persian-blue);
   color: white;
@@ -60,9 +65,10 @@
   color: white;
   display: block;
   padding: 0.5rem 0 0.5rem 0.75rem;
+  margin: 0 0 0 0.25rem;
   font-family: var(--font-primary);
   text-decoration: none;
-  border-left: 2px solid rgba(255,255,255,0.5);
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
   position: relative;
   cursor: pointer;
   max-width: 100%;
@@ -103,16 +109,10 @@
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   color: var(--color-primary);
+  display: block;
+  margin: 0 0 0.5rem 0;
 }
 
 .section {
   margin: 0 0 2rem 0;
 }
-
-
-/* // Component relations */
-
-h1 + h2 { margin-top: 0px; }
-h2 + h2 { margin-top: 10px; }
-p + h2 { margin-top: 20px; }
-.button + h2 { margin-top: 30px; }
