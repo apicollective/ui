@@ -33,7 +33,6 @@ const application = (state = initialState, action) => {
         .set('loaded', true);
     }
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_doing: {
-      console.log('application doing');
       return state
         .set('loaded', false);
     }

@@ -15,7 +15,6 @@ const app = (state = initialState, action) => {
         .set('loaded', true);
     }
     case orgActionTypes.getOrganizations_doing: {
-      console.log('app doing');
       return state.set('loaded', false);
     }
     default: {

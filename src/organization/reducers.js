@@ -18,7 +18,6 @@ const organization = (state = initialState, action) => {
         .set('loaded', true);
     }
     case actionTypes.getOrganizationDetails_doing: {
-      console.log('org doing');
       return state
         .set('loaded', false);
     }

@@ -14,7 +14,7 @@ const spaces = (indent) => Array(indent * numSpaces).join(' ');
 /* eslint-disable max-len */
 const FieldValue = ({ name, value, fullType, indent, mouseOver, click }) =>
   <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
-    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>"{value}"</span>,{`\n`}
+    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>{value}</span>,{`\n`}
   </a>;
 /* eslint-enable */
 
@@ -70,7 +70,7 @@ ArrayValue.propTypes = {
   click: PropTypes.func.isRequired,
 };
 
-const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver) => {
+const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver, parentModel) => {
   let open = '{';
   let close = '}';
   if (utils.isArray(type)) {
@@ -95,7 +95,7 @@ const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver
       click={utils.onClickHref(utils.buildNavHref({
         organization: spec.organization.key,
         application: spec.application.key,
-        model: utils.getType(type),
+        model: utils.getType(parentModel),
       }))}
     />
   );
@@ -130,23 +130,27 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
           const value = utils.isEnum(field.type, spec, imports) ?
                         utils.getEnumExampleValue(utils.getEnum(field.type, spec)) :
                         example;
+          const verifiedValue = value || '';
+          const formattedValue = field.type === 'integer' || field.type === 'number'
+                                ? verifiedValue : `"${verifiedValue}"`;
+
           if (utils.isModel(field.type, spec, imports)) {
             return renderModel(
-              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver
+              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver, model.name
             );
           } else if (utils.isArray(field.type)) {
             return (
               <ArrayValue
                 key={id}
                 name={field.name}
-                value={value}
+                value={formattedValue}
                 fullType={`${type}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
                 click={utils.onClickHref(utils.buildNavHref({
                   organization: spec.organization.key,
                   application: spec.application.key,
-                  model: utils.getType(field.type),
+                  model: utils.getType(model.name),
                 }))}
               />);
           } else {
@@ -154,7 +158,7 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
               <FieldValue
                 key={id}
                 name={field.name}
-                value={value}
+                value={formattedValue}
                 fullType={`${utils.getType(type)}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
