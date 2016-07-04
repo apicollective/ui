@@ -69,7 +69,13 @@ module.exports = {
         addDependencyTo: webpack,
         path: ['./src/styles']
       }),
-      postCSSNext(),
+      postCSSNext({
+        features: {
+          rem: {
+            rootValue: '14px',
+          }
+        }
+      }),
       rucksack(),
       cssnano({
         autoprefixer: false,
