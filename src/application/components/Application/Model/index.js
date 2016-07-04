@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 
 import H1 from '../../../../components/H1';
+import Markdown from '../../../../components/Markdown';
 import JsonDoc from '../../JsonDoc';
 import ParameterListGroup from '../../ParameterListGroup';
-import ReactMarkdown from 'react-markdown';
+
 import { simplifyName } from '../../../../utils';
 
 import styles from './model.css';
@@ -12,7 +13,7 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
   <div className={styles.container}>
     <div className={styles.header}>
       <H1 className={styles.title}>{simplifyName(model.name)}</H1>
-      <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} />
+      <Markdown source={model.description ? model.description : ''} className={styles.description} />
     </div>
     <ParameterListGroup
       parameters={model.fields}

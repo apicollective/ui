@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
+
+import Markdown from '../../../components/Markdown';
 
 import { buildNavHref, getType, isImport, isImportOrInSpec, onClickHref, simplifyName } from '../../../utils';
 
@@ -24,10 +25,9 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
       {required ? <p className={styles.required}>required</p> : null}
     </div>
     <div className={styles.info}>
-      {description ?
-        <ReactMarkdown source={description} className={styles.description} />
-        :
-        <p className={styles.noContent}>No description</p>
+      {description
+        ? <Markdown source={description} className={styles.description} />
+        : <p className={styles.noContent}>No description</p>
       }
       {example ? <p className={styles.example}>Example: {example}</p> : null}
       {defaultValue ? <p className={styles.default}>Default: {defaultValue}</p> : null}

@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './json-doc.css';
 import H2 from '../../../components/H2';
+import Markdown from '../../../components/Markdown';
 import ParameterList from '../ParameterList';
+
 import * as utils from '../../../utils';
-import ReactMarkdown from 'react-markdown';
+
+import styles from './json-doc.css';
 
 const numSpaces = 4;
 
@@ -252,7 +254,7 @@ class JsonDoc extends Component {
             {utils.simplifyName(baseModel)}
           </H2>
           {model && model.description && !this.props.excludeModelDescription ?
-            <ReactMarkdown source={model.description ? model.description : ''} className={styles.description} /> : null}
+            <Markdown source={model.description ? model.description : ''} className={styles.description} /> : null}
         </div>
       );
     };

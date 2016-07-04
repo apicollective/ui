@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import { onClickHref, buildNavHref, getType } from '../../../utils';
 
 import H2 from '../../../components/H2';
+import Markdown from '../../../components/Markdown';
 import JsonDoc from '../../components/JsonDoc';
 
 import styles from './response.css';
@@ -38,7 +38,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
       {operation.responses.map((response, id) => (
         <div key={id}>
           <div>{response.code.integer.value}</div>
-          <ReactMarkdown source={response.description ? response.description : ''} className={styles.description} />
+          <Markdown source={response.description ? response.description : ''} className={styles.description} />
           {body(response)}
         </div>
       ))}
