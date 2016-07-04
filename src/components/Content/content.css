@@ -8,7 +8,7 @@
   overflow-y: auto;
 
   @nest &::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
     background: transparent;
   }
 }

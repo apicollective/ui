@@ -10,8 +10,8 @@
     "lint": "eslint src; exit 0",
     "lint:ci": "eslint src",
     "format": "eslint src --fix; exit 0",
-    "lint:style": "stylelint src/**/*.css; exit 0",
-    "lint:style:ci": "stylelint src/**/*.css",
+    "lint:style": "stylelint \"src/**/*.css\"; exit 0",
+    "lint:style:ci": "stylelint \"src/**/*.css\"",
     "check": "npm run lint:ci && npm run lint:style:ci && npm run test:ci"
   },
   "repository": {
@@ -43,8 +43,6 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "cssnano": "^3.7.1",
-    "cssrecipes-defaults": "^0.5.0",
-    "cssrecipes-reset": "^0.5.0",
     "eslint": "^2.13.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-import-resolver-webpack": "^0.3.0",
@@ -75,7 +73,6 @@
     "rucksack-css": "^0.8.6",
     "style-loader": "^0.13.1",
     "stylelint": "^6.6.0",
-    "stylelint-config-standard": "^9.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },

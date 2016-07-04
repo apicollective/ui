@@ -15,8 +15,9 @@
 
 .left {
   flex: 0 0 10%;
-  border-radius: var(--border-radius)
+  border-radius: var(--border-radius);
 }
+
 .method {
   padding: 0.67rem 1rem;
   border-top-left-radius: var(--border-radius);
@@ -46,6 +47,7 @@
 .right {
   flex: 0 0 90%;
 }
+
 .path {
   display: block;
   margin: 0;

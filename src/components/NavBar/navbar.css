@@ -14,7 +14,7 @@
   line-height: 2;
   cursor: pointer;
   letter-spacing: 0.05em;
-  text-shadow: 0.1rem 0.1rem 0.2rem rgba(0,0,0,0.1);
+  text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
 }
 
 .navbar {

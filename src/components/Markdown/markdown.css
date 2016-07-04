@@ -1,0 +1,13 @@
+@import "variables.css";
+
+.markdown {
+  @nest & p {
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+
+    @nest &:last-of-type {
+      margin: 0;
+    }
+  }
+
+}

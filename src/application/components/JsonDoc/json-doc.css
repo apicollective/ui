@@ -62,7 +62,7 @@
   flex: 0 1 30%;
 }
 
-field-right {
+.field-right {
   flex: 0 1 65%;
   margin-left: 5%;
 }
