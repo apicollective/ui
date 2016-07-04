@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import { onClickHref, buildNavHref, getType, simplifyName, cleanPath } from '../../../utils';
 
 import H2 from '../../../components/H2';
-import Markdown from '../../../components/Markdown';
 import JsonDoc from '../../components/JsonDoc';
 import ParameterListGroup from '../../components/ParameterListGroup';
 
@@ -32,7 +31,6 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
 
   return (
     <div>
-      <Markdown source={operation.description ? operation.description : ''} className={styles.description} />
       <ParameterListGroup
         parameters={operation.parameters}
         title="Request"

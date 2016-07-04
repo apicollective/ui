@@ -16,3 +16,12 @@
   background: var(--color-armadillo);
   color: white;
 }
+
+.no-content {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.67rem 2rem;
+  color: var(--color-armadillo);
+}

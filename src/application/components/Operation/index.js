@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import Markdown from '../../../components/Markdown';
 import Request from '../../components/Request';
 import Response from '../../components/Response';
 import ResourceCard from '../../components/ResourceCard';
@@ -14,6 +15,7 @@ const Operation = ({ spec, operation, applicationKey, organizationKey, resource,
         path={operation.path}
       />
     </div>
+    <Markdown source={operation.description ? operation.description : ''} className={styles.description} />
     <Request
       appKey={applicationKey}
       orgKey={organizationKey}
