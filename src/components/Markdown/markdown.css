@@ -3,6 +3,8 @@
 .markdown {
   @nest & p {
     font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
     margin: 0 0 1rem 0;
 
     @nest &:last-of-type {
@@ -10,4 +12,35 @@
     }
   }
 
+  @nest & code {
+    font-family: var(--font-code);
+    display: inline-block;
+    background: white;
+    border-radius: 3px;
+    color: var(--color-red);
+    border: 1px solid var(--color-very-light-gray);
+    line-height: 1.5;
+    font-size: 0.85rem;
+    padding: 0 0.25rem;
+  }
+
+  @nest & ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+
+    @nest & li {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: normal;
+      padding: 0 0.67rem 0.67rem 0;
+      text-decoration: underline;
+    }
+  }
+
+  @nest & a {
+    text-decoration: none;
+    color: var(--color-cool-blue);
+  }
 }
