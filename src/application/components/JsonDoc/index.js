@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './jsonDoc.css';
+import styles from './json-doc.css';
 import H2 from '../../../components/H2';
 import ParameterList from '../ParameterList';
 import * as utils from '../../../utils';
@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 
 const numSpaces = 4;
 
-const spaces = (indent) => Array(indent * numSpaces).join(' ');
+const spaces = (indent) => new Array(indent * numSpaces).join(' ');
 
 // --    "name": "value",
 /* eslint-disable max-len */

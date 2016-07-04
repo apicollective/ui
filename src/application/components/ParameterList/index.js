@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { buildNavHref, getType, isImport, isImportOrInSpec, onClickHref, simplifyName } from '../../../utils';
 
-import styles from './parameterList.css';
+import styles from './parameter-list.css';
 
 const ParameterList = ({ name, type, required, description, example, defaultValue, spec, imports, parentModel }) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
