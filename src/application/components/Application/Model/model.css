@@ -7,15 +7,10 @@
 
 .title {
   font-weight: 700;
+  margin: 0 0 1rem 0;
 }
 
 .description {
   margin: 0;
   column-count: 2;
-  line-height: 1.5;
-
-  @nest & p {
-    margin: 0 0 1em 0;
-    line-height: 1.5;
-  }
 }
