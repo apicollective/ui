@@ -26,6 +26,7 @@ const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
               method={operation.method}
               path={operation.path}
               click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
+              description={operation.description}
             />
           )
         ))
