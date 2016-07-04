@@ -9,6 +9,9 @@
   font-weight: 700;
 }
 
+.json {
+  margin: 2rem 0 0 5rem;
+}
 .description {
   margin: 0;
   column-count: 2;

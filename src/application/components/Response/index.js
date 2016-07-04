@@ -13,8 +13,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
     if (response.type) {
       const baseModel = response.type;
       return (
-        <div>
-          <h3>Body</h3>
+        <div className={styles.json}>
           <JsonDoc
             modelNameClick={
               onClickHref(buildNavHref({
@@ -24,8 +23,8 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
             baseModel={baseModel}
             spec={spec}
             imports={imports}
-            includeModel={true}
-            excludeModelDescription={true}
+            includeModel={false} // Removes type frrom above jsondoc
+            excludeModelDescription={true} // Dont include model description above json doc
           />
         </div>
       );
@@ -34,10 +33,9 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
 
   return (
     <div className={styles.response}>
-      <H2>Response</H2>
       {operation.responses.map((response, id) => (
-        <div key={id}>
-          <div>{response.code.integer.value}</div>
+        <div key={id} className={styles.container}>
+          <H2 className={styles.name}>{`${response.code.integer.value} Response`}</H2>
           <Markdown source={response.description ? response.description : ''} className={styles.description} />
           {body(response)}
         </div>

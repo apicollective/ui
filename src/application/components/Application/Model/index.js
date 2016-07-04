@@ -22,12 +22,15 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
       imports={imports}
       parentModel={model.name}
     />
-    {showJsonDoc ? <JsonDoc
-      baseModel={model.name}
-      spec={spec}
-      imports={imports}
-      includeModel={false}
-    /> : null}
+    <div className={styles.json}>
+      {showJsonDoc ?
+        <JsonDoc
+          baseModel={model.name}
+          spec={spec}
+          imports={imports}
+          includeModel={false}
+        /> : null}
+    </div>
   </div>;
 
 Model.propTypes = {

@@ -6,8 +6,9 @@ import ParameterList from '../ParameterList';
 import styles from './parameter-list-group.css';
 
 const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) => (
-  <div className={styles.container}>
+  <div>
     <H2 className={styles.title}>{title}</H2>
+    <div className={styles.container}>
       {parameters.length > 0
         ? parameters.map((parameter, id) => (
           <ParameterList
@@ -18,6 +19,7 @@ const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) =
             parentModel={parentModel}
           />))
         : <p className={styles.noContent}>No parameters</p>}
+    </div>
   </div>
 );
 
