@@ -1,16 +1,5 @@
 @import "variables.css";
 
-.h1 {
-
-}
-
 .header {
-  padding: 5rem 5rem 0 5rem;
-  margin: 0 0 3rem 0;
-  background: white;
-}
-
-.description {
-  line-height: 2;
-  margin: 0;
+  margin: 5rem 0 2rem 0;
 }

@@ -12,7 +12,7 @@ const SidebarIcon = ({ item }) => {
     item.method ? styles[item.method.toLowerCase()] : null
   );
 
-  const markup = item.method ? item.method[0] : item.type[0];
+  const markup = item.method ? item.method : item.type[0];
 
   return (
     <div className={iconClasses}>{markup}</div>

@@ -3,6 +3,9 @@
 .container {
   padding: 0 5rem;
   margin: 0.75rem 0;
+}
+
+.is-click {
   cursor: pointer;
 }
 

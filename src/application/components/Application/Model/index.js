@@ -4,7 +4,7 @@ import H1 from '../../../../components/H1';
 import JsonDoc from '../../JsonDoc';
 import ParameterListGroup from '../../ParameterListGroup';
 import ReactMarkdown from 'react-markdown';
-import { simplifyName } from '../..../../../../../utils';
+import { simplifyName } from '../../../../utils';
 
 import styles from './model.css';
 
