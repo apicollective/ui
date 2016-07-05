@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { onClickHref, buildNavHref, getType, simplifyName, cleanPath } from '../../../utils';
+import { cleanPath } from '../../../utils';
 
 import JsonDoc from '../../components/JsonDoc';
 import ParameterListGroup from '../../components/ParameterListGroup';
