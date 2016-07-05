@@ -18,9 +18,8 @@
   transition: all 0.3s;
   cursor: pointer;
 
-  &:not(.disabled):hover,
-  &:not(.disabled):focus {
-    background: var(--color-primary-light);
+  &:not(.disabled):hover {
+    background: var(--color-primary-dark);
   }
 
   &.disabled {
