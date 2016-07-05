@@ -1,0 +1,24 @@
+@import "variables.css";
+
+.container {
+  border-radius: var(--border-radius);
+  margin: 0 0 2rem 0;
+  cursor: pointer;
+}
+
+.name {
+  margin: 0;
+  background: var(--color-concrete);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  font-size: 1.75rem;
+  padding: 0.67rem 1rem;
+  color: var(--color-cool-blue);
+}
+
+.description {
+  border: 2px solid var(--color-concrete);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  padding: 0.67rem 1rem;
+}

@@ -70,9 +70,9 @@ class App extends Component {
         }
       ));
       return [{
-        name: '',
+        name: 'Organizations',
         items: [{
-          name: 'Organizations',
+          name: '',
           items: organizationsWithHref,
         }],
       }];
@@ -87,9 +87,9 @@ class App extends Component {
         }
       ));
       return [{
-        name: '',
+        name: 'Applications',
         items: [{
-          name: organizationObj.name,
+          name: '',
           items: applicationsWithHref,
         }],
       }];

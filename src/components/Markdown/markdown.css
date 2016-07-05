@@ -43,4 +43,9 @@
     text-decoration: none;
     color: var(--color-cool-blue);
   }
+
+  @nest & h1, & h2 {
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+  }
 }

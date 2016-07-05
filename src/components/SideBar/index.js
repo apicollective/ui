@@ -25,8 +25,7 @@ SidebarIcon.propTypes = {
 
 const Item = ({ item }) =>
   <div onClick={item.onClick} className={classnames(styles.a, item.active ? styles.active : null)} {...item.data}>
-    {item.type ? <SidebarIcon item={item} /> : null}
-    {item.path ? item.path : simplifyName(item.name)}
+    {item.path ? `${item.method} ${item.path}` : simplifyName(item.name)}
   </div>;
 
 Item.propTypes = {
