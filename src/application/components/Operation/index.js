@@ -8,7 +8,7 @@ import ResourceCard from '../../components/ResourceCard';
 import styles from './operation.css';
 
 const Operation = ({ spec, operation, applicationKey, organizationKey, resource, method, path, imports }) =>
-  <div>
+  <div className={styles.content}>
     <div className={styles.header}>
       <ResourceCard
         method={operation.method}
@@ -16,14 +16,16 @@ const Operation = ({ spec, operation, applicationKey, organizationKey, resource,
       />
     </div>
     <Markdown source={operation.description ? operation.description : ''} className={styles.description} />
-    <Request
-      appKey={applicationKey}
-      orgKey={organizationKey}
-      key={`${method}${resource}${path}-request`}
-      operation={operation}
-      spec={spec}
-      imports={imports}
-    />
+    <div className={styles.request}>
+      <Request
+        appKey={applicationKey}
+        orgKey={organizationKey}
+        key={`${method}${resource}${path}-request`}
+        operation={operation}
+        spec={spec}
+        imports={imports}
+      />
+    </div>
     <Response
       appKey={applicationKey}
       orgKey={organizationKey}

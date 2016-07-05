@@ -13,7 +13,7 @@ const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
     `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
 
   return (
-    <div>
+    <div className={styles.content}>
       <div className={styles.header}>
         <H1 className={styles.h1}>{spec.name}</H1>
         <Markdown source={spec.description ? spec.description : ''} className={styles.description} />

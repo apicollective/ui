@@ -12,7 +12,7 @@ import { actions } from '../../sagas';
 const App = ({ orgKey, application }) =>
   <AppCard
     name={application.name}
-    description={application.description ? application.description : ''}
+    description={application.description}
     link={`/org/${orgKey}/app/${application.key}`}
   />;
 
@@ -25,7 +25,9 @@ App.propTypes = {
 const Applications = ({ orgKey, applications }) =>
   <div>
   {applications.map((application, id) => (
-    <App key={id} orgKey={orgKey} application={application} />
+    <div key={`${orgKey}-${id}`} className={styles.container}>
+      <App key={id} orgKey={orgKey} application={application} />
+    </div>
   ))}
   </div>;
 
@@ -45,7 +47,7 @@ class Organization extends Component {
       return (<LoadingOverlay />);
     } else {
       return (
-        <div>
+        <div className={styles.content}>
           <div className={styles.header}>
             <H1 className={styles.h1}>{this.props.organization.name}</H1>
           </div>

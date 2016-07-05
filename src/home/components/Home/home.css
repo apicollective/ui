@@ -4,14 +4,17 @@
   display: flex;
 }
 
-.container {
-  padding: 0 5rem;
+.header {
+  margin: 2rem 0 2rem 0;
+  background: white;
 }
 
-.header {
-  padding: 5rem 5rem 0 5rem;
-  margin: 0 0 2rem 0;
-  background: white;
+.content {
+  padding: 0 3rem;
+}
+
+.container {
+  margin: 0 0 0.75rem;
 }
 
 .link {

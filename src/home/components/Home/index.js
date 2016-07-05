@@ -16,7 +16,7 @@ const Org = ({ organization }) =>
   <HomeCard
     link={`org/${organization.key}`}
     name={organization.name}
-    description={organization.description ? organization.description : 'No description'}
+    description={organization.description}
   />;
 
 Org.propTypes = {
@@ -26,7 +26,9 @@ Org.propTypes = {
 const Organizations = ({ organizations }) =>
   <div>
   {organizations.map((organization, id) => (
-    <Org key={id} organization={organization} />
+    <div key={`${organization}-${id}`} className={styles.container}>
+      <Org key={id} organization={organization} />
+    </div>
   ))}
   </div>;
 
@@ -47,7 +49,7 @@ class Home extends Component {
       );
     } else {
       return (
-        <div>
+        <div className={styles.content}>
           <div className={styles.header}>
             <H1 className={styles.h1}>Organizations</H1>
           </div>
