@@ -15,21 +15,23 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
       <H1 className={styles.title}>{simplifyName(model.name)}</H1>
       <Markdown source={model.description ? model.description : ''} className={styles.description} />
     </div>
-    <ParameterListGroup
-      parameters={model.fields}
-      title="Fields"
-      spec={spec}
-      imports={imports}
-      parentModel={model.name}
-    />
-    <div className={styles.json}>
-      {showJsonDoc ?
-        <JsonDoc
-          baseModel={model.name}
-          spec={spec}
-          imports={imports}
-          includeModel={false}
-        /> : null}
+    <div className={styles.fieldsContainer}>
+      <ParameterListGroup
+        parameters={model.fields}
+        title="Fields"
+        spec={spec}
+        imports={imports}
+        parentModel={model.name}
+      />
+      <div className={styles.json}>
+        {showJsonDoc ?
+          <JsonDoc
+            baseModel={model.name}
+            spec={spec}
+            imports={imports}
+            includeModel={false}
+          /> : null}
+      </div>
     </div>
   </div>;
 

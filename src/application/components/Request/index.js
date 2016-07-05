@@ -28,7 +28,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <ParameterListGroup
         parameters={operation.parameters}
         title="Request"
