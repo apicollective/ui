@@ -1,10 +1,12 @@
 @import "variables.css";
 
 .header {
+  margin: 5rem 0 2rem 0;
 }
 
 .title {
   font-weight: 700;
+  margin: 0 0 1rem 0;
 }
 
 .container {
@@ -21,7 +23,6 @@
 
 .description {
   margin: 0;
-  column-count: 2;
 }
 
 .json {
