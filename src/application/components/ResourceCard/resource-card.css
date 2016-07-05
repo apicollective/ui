@@ -68,7 +68,7 @@
 
 .description {
   padding: 0.67rem 2rem 0.67rem 7.4rem;
-  border: 1px solid var(--color-concrete);
+  border: 2px solid var(--color-concrete);
   border-top-color: transparent;
   border-bottom-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
