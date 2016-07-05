@@ -12,6 +12,11 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
   const body = (response) => {
     if (response.type) {
       const baseModel = response.type;
+      // TODO make this better, perhaps use isInImportOrSpec?
+      const rawValue = response.type === 'string' || response.type === 'integer' || response.type === 'number' ?
+                       `${response.code.integer.value}` :
+                       null;
+      const formattedRawValue = response.type === 'string' ? `"${rawValue}"` : rawValue;
       return (
         <div className={styles.json}>
           <JsonDoc
@@ -25,6 +30,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
             imports={imports}
             includeModel={false} // Removes type frrom above jsondoc
             excludeModelDescription={true} // Dont include model description above json doc
+            rawValue={formattedRawValue}
           />
         </div>
       );

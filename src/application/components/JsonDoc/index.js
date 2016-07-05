@@ -261,25 +261,44 @@ class JsonDoc extends Component {
     return includeModel ? docs() : null;
   }
 
+  getModelInnerJson(baseModel, spec, imports, mouseOver) {
+    if (utils.isImportOrInSpec(baseModel, spec, imports)) {
+      const start = utils.isArray(baseModel) ? '[{' : '{';
+      const end = utils.isArray(baseModel) ? '}]' : '}';
+      return (
+        <div>
+          {start}
+          <ModelInner type={baseModel} spec={spec} imports={imports} indent={0} mouseOver={this.mouseOver} />
+          {end}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  getJson(baseModel, spec, imports, modelInnerJson) {
+    if (modelInnerJson) {
+      return (
+        <pre className={styles.code}>
+          {modelInnerJson}
+        </pre>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const { baseModel, spec, imports, includeModel } = this.props;
     return (
       <div className={styles.jsonDoc}>
         {this.getModel(baseModel, spec, imports, includeModel)}
         <div className={styles.container}>
-          {utils.isImportOrInSpec(baseModel, spec, imports) ?
-            <pre className={styles.code}>
-            {utils.isArray(baseModel) ? '[{' : '{'}
-              <ModelInner
-                type={baseModel}
-                spec={spec}
-                imports={imports}
-                indent={0}
-                mouseOver={this.mouseOver}
-              />
-            {utils.isArray(baseModel) ? '}]' : '}'}
-            </pre>
-           : null}
+          {this.getJson(baseModel, spec, imports,
+                        this.props.rawValue ?
+                        this.props.rawValue :
+                        this.getModelInnerJson(baseModel, spec, imports, this.mouseOver))}
           {this.getDocumentation(this.state.documentationFullType, spec, imports)}
         </div>
       </div>
@@ -293,6 +312,7 @@ JsonDoc.propTypes = {
   includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
   excludeModelDescription: PropTypes.bool,
   modelNameClick: PropTypes.func,
+  rawValue: PropTypes.string,
 };
 
 export default JsonDoc;
