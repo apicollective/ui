@@ -29,8 +29,14 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
         ? <Markdown source={description} className={styles.description} />
         : <p className={styles.noContent}>No description</p>
       }
-      {example ? <p className={styles.example}>Example: {example}</p> : null}
-      {defaultValue ? <p className={styles.default}>Default: {defaultValue}</p> : null}
+      {example
+        ? <p className={styles.sample}><span className={styles.sampleTitle}>Example</span>{example}</p>
+        : null
+      }
+      {defaultValue
+        ? <p className={styles.sample}><span className={styles.sampleTitle}>Default</span>{defaultValue}</p>
+        : null
+      }
     </div>
   </div>);
 };
