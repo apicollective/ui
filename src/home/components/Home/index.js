@@ -1,19 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
-import { actions as orgActions } from '../../generated/organization';
+import { actions as orgActions } from '../../../generated/organization';
 
-import H1 from './../../components/H1';
-import LoadingOverlay from '../../components/LoadingOverlay';
+import H1 from './../../../components/H1';
+import LoadingOverlay from '../../../components/LoadingOverlay';
+import HomeCard from '../HomeCard';
 
 import styles from './home.css';
 
 const allActions = Object.assign({}, orgActions);
 
 const Org = ({ organization }) =>
-  <Link className={styles.link} to={`org/${organization.key}`}>{organization.name}</Link>;
+  <HomeCard
+    link={`org/${organization.key}`}
+    name={organization.name}
+    description={organization.description ? organization.description : 'No description'}
+  />;
 
 Org.propTypes = {
   organization: PropTypes.object.isRequired,
