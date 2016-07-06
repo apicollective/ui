@@ -1,107 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
-import H2 from '../../../components/H2';
-import Markdown from '../../../components/Markdown';
-import ParameterList from '../ParameterList';
+import Documenation from './Documentation';
+import { NameValue, Name, Value } from './Fields';
+import ModelDescription from './ModelDescription';
 
 import * as utils from '../../../utils';
 
 import styles from './json-doc.css';
 
 const numSpaces = 4;
-
 const spaces = (indent) => new Array(indent * numSpaces).join(' ');
-
-// --    "name": "value",
-/* eslint-disable max-len */
-const FieldValue = ({ name, value, fullType, indent, mouseOver, click }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
-    <span className={styles.name}>{spaces(indent)}"{name}"</span>: <span className={styles.value}>{value}</span>,{`\n`}
-  </a>;
-/* eslint-enable */
-
-FieldValue.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  fullType: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  click: PropTypes.func.isRequired,
-};
-
-// --    "name":
-const FieldEmpty = ({ name, fullType, indent, mouseOver, click }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click}>
-    <span className={styles.name}>{spaces(indent)}"{name}"</span>:
-  </a>;
-
-FieldEmpty.propTypes = {
-  name: PropTypes.string.isRequired,
-  fullType: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  click: PropTypes.func.isRequired,
-};
-
-// --   "value",
-const StringValue = ({ value, fullType, indent, mouseOver, click }) =>
-  <a href={`#${fullType}`} className={styles.link} data-fullType={fullType} onMouseOver={mouseOver} onClick={click} >
-    <span className={styles.name}>{spaces(indent)}"{value}"</span>{`\n`}
-  </a>;
-
-StringValue.propTypes = {
-  value: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  fullType: PropTypes.string,
-  click: PropTypes.func.isRequired,
-};
-
-const ArrayValue = ({ name, fullType, indent, mouseOver, click }) =>
-  <div>
-    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} click={click} /> {'[\n'}
-    <StringValue value={name} fullType={fullType} indent={indent + 1} mouseOver={mouseOver} click={click} />
-    {`${spaces(indent)}],`}
-  </div>;
-
-ArrayValue.propTypes = {
-  name: PropTypes.string.isRequired,
-  fullType: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  click: PropTypes.func.isRequired,
-};
-
-const renderModel = (key, name, type, fullType, spec, imports, indent, mouseOver, parentModel) => {
-  let open = '{';
-  let close = '}';
-  if (utils.isArray(type)) {
-    open = '[{';
-    close = '}]';
-  } else if (utils.isEnum(type, spec, imports)) {
-    open = '[';
-    close = ']';
-  }
-  return (
-    <Model
-      key={key}
-      name={name}
-      type={type}
-      fullType={fullType}
-      spec={spec}
-      imports={imports}
-      indent={indent}
-      mouseOver={mouseOver}
-      open={open}
-      close={close}
-      click={utils.onClickHref(utils.buildNavHref({
-        organization: spec.organization.key,
-        application: spec.application.key,
-        model: utils.getType(parentModel),
-      }))}
-    />
-  );
-};
 
 const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
   if (utils.isEnum(type, spec, imports)) {
@@ -109,7 +17,7 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
     const enumModel = utils.getEnum(type, spec, imports);
 
     return (
-      <StringValue
+      <Value
         value={enumModel.values[0].name}
         fullType={fullType}
         indent={indent + 1}
@@ -124,6 +32,7 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
   } else {
     // Model, Array, Field
     const model = utils.getModel(type, spec, imports);
+
     return (
       <div>
         {model.fields.map((field, id) => {
@@ -136,39 +45,65 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
           const formattedValue = field.type === 'integer' || field.type === 'number'
                                 ? verifiedValue : `"${verifiedValue}"`;
 
+          const click = (modelType) => utils.onClickHref(utils.buildNavHref({
+            organization: spec.organization.key,
+            application: spec.application.key,
+            model: utils.getType(modelType),
+          }));
+
+
           if (utils.isModel(field.type, spec, imports)) {
-            return renderModel(
-              id, field.name, field.type, `${type}.${field.name}`, spec, imports, indent + 1, mouseOver, model.name
-            );
+            return (
+              <div key={id}>
+                <Name
+                  name={field.name}
+                  fullType={fullType}
+                  indent={indent + 1}
+                  mouseOver={mouseOver}
+                  click={click(type)}
+                />
+                <Model
+                  name={field.name}
+                  type={field.type}
+                  fullType={fullType}
+                  spec={spec}
+                  imports={imports}
+                  indent={indent + 2}
+                  mouseOver={mouseOver}
+                  click={click(model.name)}
+                />
+              </div>
+          );
           } else if (utils.isArray(field.type)) {
             return (
-              <ArrayValue
-                key={id}
-                name={field.name}
-                value={formattedValue}
-                fullType={`${type}.${field.name}`}
-                indent={indent + 1}
-                mouseOver={mouseOver}
-                click={utils.onClickHref(utils.buildNavHref({
-                  organization: spec.organization.key,
-                  application: spec.application.key,
-                  model: utils.getType(model.name),
-                }))}
-              />);
+              <div key={id}>
+                <Name
+                  name={field.name}
+                  fullType={fullType}
+                  indent={indent}
+                  mouseOver={mouseOver}
+                  click={click(field.name)}
+                />
+                {'[\n'}
+                <Value
+                  value={formattedValue}
+                  fullType={fullType}
+                  indent={indent + 1}
+                  mouseOver={mouseOver}
+                  click={click(model.name)}
+                />
+                {`${spaces(indent)}],`}
+              </div>);
           } else {
             return (
-              <FieldValue
+              <NameValue
                 key={id}
                 name={field.name}
                 value={formattedValue}
                 fullType={`${utils.getType(type)}.${field.name}`}
                 indent={indent + 1}
                 mouseOver={mouseOver}
-                click={utils.onClickHref(utils.buildNavHref({
-                  organization: spec.organization.key,
-                  application: spec.application.key,
-                  model: utils.getType(type),
-                }))}
+                click={click(type)}
               />);
           }
         })}
@@ -179,21 +114,34 @@ const ModelInner = ({ type, fullType, spec, imports, indent, mouseOver }) => {
 
 ModelInner.propTypes = {
   type: PropTypes.string.isRequired,
-  fullType: PropTypes.string,
+  fullType: PropTypes.string.isRequired,
   spec: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
 };
 
-const Model = ({ name, type, fullType, spec, imports, indent, mouseOver, open, close, click }) =>
-  <div>
-    <FieldEmpty name={name} fullType={fullType} indent={indent} mouseOver={mouseOver} click={click} /> {open}
-    <ModelInner
-      type={utils.getType(type)} fullType={fullType} spec={spec} imports={imports} indent={indent} mouseOver={mouseOver}
-    />
-    {`${spaces(indent)}${close},`}
-  </div>;
+const Model = ({ name, type, fullType, spec, imports, indent, mouseOver, click }) => {
+  const onClick = (modelType) => utils.onClickHref(utils.buildNavHref({
+    organization: spec.organization.key,
+    application: spec.application.key,
+    model: utils.getType(modelType),
+  }));
+    // <div className={styles.model} onClick={onClick(name)} onMouseOver={mouseOver}>
+  return (
+    <div className={styles.model}>
+      {`${spaces(indent)}{`}
+      <ModelInner
+        type={utils.getType(type)}
+        fullType={fullType}
+        spec={spec}
+        imports={imports}
+        indent={indent}
+        mouseOver={mouseOver}
+      />
+      {`${spaces(indent)}},`}
+    </div>);
+};
 
 Model.propTypes = {
   name: PropTypes.string.isRequired,
@@ -203,23 +151,9 @@ Model.propTypes = {
   imports: PropTypes.array.isRequired,
   indent: PropTypes.number.isRequired,
   mouseOver: PropTypes.func.isRequired,
-  open: PropTypes.string.isRequired,
-  close: PropTypes.string.isRequired,
   click: PropTypes.func.isRequired,
 };
 
-
-const Documentation = ({ field, spec, imports, parentModel }) =>
-  <div className={styles.documentation}>
-    <ParameterList {...field} spec={spec} imports={imports} parentModel={parentModel} />
-  </div>;
-
-Documentation.propTypes = {
-  field: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  parentModel: PropTypes.string.isRequired,
-};
 
 class JsonDoc extends Component {
 
@@ -233,34 +167,6 @@ class JsonDoc extends Component {
     };
   }
 
-  getDocumentation(documentationFullType, spec, imports) {
-    if (!documentationFullType) return '';
-
-    const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
-    const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);
-    const model = utils.getModel(modelName, spec, imports);
-    const field = model.fields.find(f => f.name === fieldName);
-
-    return <Documentation field={field} spec={spec} imports={imports} parentModel={modelName} />;
-  }
-
-  getModel(baseModel, spec, imports, includeModel) {
-    const docs = () => {
-      const type = utils.getType(baseModel);
-      const model = utils.getModel(type, spec, imports);
-      return (
-        <div>
-          <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>
-            {utils.simplifyName(baseModel)}
-          </H2>
-          {model && model.description && !this.props.excludeModelDescription ?
-            <Markdown source={model.description ? model.description : ''} className={styles.description} /> : null}
-        </div>
-      );
-    };
-    return includeModel ? docs() : null;
-  }
-
   getModelInnerJson(baseModel, spec, imports, mouseOver) {
     if (utils.isImportOrInSpec(baseModel, spec, imports)) {
       const start = utils.isArray(baseModel) ? '[{' : '{';
@@ -268,7 +174,14 @@ class JsonDoc extends Component {
       return (
         <div>
           {start}
-          <ModelInner type={baseModel} spec={spec} imports={imports} indent={0} mouseOver={this.mouseOver} />
+          <ModelInner
+            type={baseModel}
+            fullType={"test"}
+            spec={spec}
+            imports={imports}
+            indent={0}
+            mouseOver={this.mouseOver}
+          />
           {end}
         </div>
       );
@@ -291,15 +204,25 @@ class JsonDoc extends Component {
 
   render() {
     const { baseModel, spec, imports, includeModel } = this.props;
+
     return (
       <div className={styles.jsonDoc}>
-        {this.getModel(baseModel, spec, imports, includeModel)}
+        {includeModel ? <ModelDescription
+          baseModel={baseModel}
+          spec={spec}
+          imports={imports}
+          modelNameClick={this.props.modelNameClick}
+        /> : null}
         <div className={styles.container}>
           {this.getJson(baseModel, spec, imports,
                         this.props.rawValue ?
                         this.props.rawValue :
                         this.getModelInnerJson(baseModel, spec, imports, this.mouseOver))}
-          {this.getDocumentation(this.state.documentationFullType, spec, imports)}
+          <Documenation
+            documentationFullType={this.state.documentationFullType}
+            spec={spec}
+            imports={imports}
+          />
         </div>
       </div>
     );

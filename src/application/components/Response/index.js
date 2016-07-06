@@ -28,7 +28,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
             baseModel={baseModel}
             spec={spec}
             imports={imports}
-            includeModel={false} // Removes type frrom above jsondoc
+            includeModel={true} // Removes type frrom above jsondoc
             excludeModelDescription={true} // Dont include model description above json doc
             rawValue={formattedRawValue}
           />

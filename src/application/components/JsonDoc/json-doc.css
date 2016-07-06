@@ -28,9 +28,15 @@
 }
 
 .link {
+  display: block;
+  width: 100%;
   text-decoration: none;
   color: var(--color-aluminium);
   font-family: var(--font-mono);
+  @nest &:hover {
+    background-color: color(var(--color-cool-blue) b(+35%));
+    border-radius: var(--border-radius);
+  }
 }
 
 .name {
@@ -64,6 +70,13 @@
 .field-right {
   flex: 0 1 65%;
   margin-left: 5%;
+}
+
+.model {
+  @nest &:hover {
+    background-color: color(var(--color-cool-blue) b(+55%));
+    border-radius: var(--border-radius);
+  }
 }
 
 .model-name {
