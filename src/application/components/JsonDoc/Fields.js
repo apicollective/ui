@@ -47,7 +47,6 @@ Name.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-
 // --   "value",
 const Value = (props) =>
   <Wrapper {...props}><span className={styles.name}>{spaces(props.indent)}"{props.value}"</span></Wrapper>;
