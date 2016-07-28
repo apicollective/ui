@@ -1,6 +1,6 @@
 {
   "name": "apidoc-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Apidoc UI",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --history-api-fallback --output-public-path / --progress --colors --host 0.0.0.0",
