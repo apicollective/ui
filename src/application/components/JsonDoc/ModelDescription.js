@@ -13,7 +13,7 @@ const ModelDescription = ({ baseModel, spec, imports, modelNameClick }) => {
   //   <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>
   //   <H2 className={styles.modelName}>
   return (
-    <div>
+    <div className={styles.modelDescription}>
       <H2 className={styles.modelName}>
         {utils.simplifyName(baseModel)}
       </H2>

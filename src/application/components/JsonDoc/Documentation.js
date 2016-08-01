@@ -5,8 +5,13 @@ import * as utils from '../../../utils';
 
 import styles from './json-doc.css';
 
+const defaultView =
+  <div className={styles.documentation}>
+    <span className={styles.defaultView}>&lt;-- Hover over JSON example for documentation</span>
+  </div>;
+
 const Documentation = ({ documentationFullType, spec, imports }) => {
-  if (!documentationFullType) return null;
+  if (!documentationFullType) return defaultView;
 
   const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
   const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);

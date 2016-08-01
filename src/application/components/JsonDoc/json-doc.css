@@ -27,14 +27,26 @@
   overflow-x: scroll;
 }
 
-.link {
-  display: block;
+.field {
   width: 100%;
   text-decoration: none;
   color: var(--color-aluminium);
   font-family: var(--font-mono);
+  cursor: pointer;
   @nest &:hover {
     background-color: color(var(--color-cool-blue) b(+35%));
+    border-radius: var(--border-radius);
+  }
+}
+
+.element {
+  width: 100%;
+  text-decoration: none;
+  color: var(--color-aluminium);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  @nest &:hover {
+    background-color: color(var(--color-cool-blue) b(+65%));
     border-radius: var(--border-radius);
   }
 }
@@ -87,13 +99,13 @@
 }
 
 .model-description {
-  margin: 0;
-  margin-bottom: 0.67rem;
-  font-weight: 300;
-  line-height: 1.5;
+  margin: 2.0rem 0 1.5rem 0;
 }
 
 .model-description + .field-container {
   border-top: 1px solid var(--color-very-light-gray);
 }
 
+.default-view {
+  color: var(--color-light-gray);
+}

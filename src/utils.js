@@ -2,7 +2,11 @@ import { browserHistory } from 'react-router';
 
 const cleanPath = (path) => path.replace(/\W/g, '');
 
-const onClickHref = (href) => (event) => browserHistory.push(href);
+const onClickHref = (href) => (event) => {
+  browserHistory.push(href);
+  // Stop parent nav events to be publishes - jsondoc nesting
+  if (event.stopPropagation) event.stopPropagation();
+}
 
 const getType = (type) => {
   const ex = /[\[]?([^\]]+)/i;
@@ -31,10 +35,10 @@ const getModelImport = (name, imports) => {
 /* eslint-disable no-use-before-define */
 
 const getEnum = (name, spec, imports) =>
-          imports && isImport(name, imports) ? getEnumImport(name, imports) : findByName(name, spec.enums);
+  imports && isImport(name, imports) ? getEnumImport(name, imports) : findByName(name, spec.enums);
 
 const getModel = (name, spec, imports) =>
-          imports && isImport(name, imports) ? getModelImport(name, imports) : findByName(name, spec.models);
+  imports && isImport(name, imports) ? getModelImport(name, imports) : findByName(name, spec.models);
 
 const isEnum = (type, spec, imports) => Boolean(getEnum(type, spec, imports));
 
@@ -46,7 +50,7 @@ const isInSpec = (type, spec) => {
 };
 
 const isImport = (type, imports) =>
-        Boolean(imports.map((importValue) => isInSpec(type, importValue)).find(b => b === true));
+  Boolean(imports.map((importValue) => isInSpec(type, importValue)).find(b => b === true));
 
 /* eslint-enable no-use-before-define */
 
@@ -66,13 +70,14 @@ const getOperation = (type, method, path, spec) => {
   return operation;
 };
 
-const buildNavHref = ({ organization, application, resource, method, path, model } = {}) =>
+const buildNavHref = ({ organization, application, resource, method, path, model, field } = {}) =>
   [].concat(organization ? `/org/${organization}` : null,
-                    application ? `/app/${application}` : null,
-                    resource ? `/r/${resource}` : null,
-                    method ? `/m/${method}` : null,
-                    path ? `/p/${path}` : null,
-                    model ? `/m/${model}` : null).join('');
+    application ? `/app/${application}` : null,
+    resource ? `/r/${resource}` : null,
+    method ? `/m/${method}` : null,
+    path ? `/p/${path}` : null,
+    model ? `/m/${model}` : null,
+    field ? `#${field}` : null).join('');
 
 export {
   cleanPath,
