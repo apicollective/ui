@@ -1,0 +1,183 @@
+{
+  "name": "test-jsondoc-spec",
+  "description": "Used to dev of the JsonDoc component in APIDOC",
+
+  "imports": [],
+
+  "models": {
+    "person": {
+      "description": "This is a person",
+      "fields": [
+        {
+          "name": "id",
+          "type": "integer",
+          "description": "Primary Key",
+          "example": "123",
+          "minimum": 1,
+          "maximum": 5
+        },
+        {
+          "name": "default",
+          "type": "string",
+          "minimum": 1,
+          "maximum": 255,
+          "default": "default value"
+        },
+        {
+          "name": "example",
+          "type": "string",
+          "minimum": 1,
+          "maximum": 255,
+          "example": "example value"
+        },
+        {
+          "name": "boolean",
+          "type": "boolean"
+        },
+        {
+          "name": "dob",
+          "type": "date-iso8601",
+          "required": false
+        },
+        {
+          "name": "time",
+          "type": "date-time-iso8601"
+        },
+        {
+          "name": "details",
+          "description": "details description",
+          "type": "detail"
+        },
+        {
+          "name": "addresses",
+          "description": "addresses description",
+          "type": "[address]"
+        },
+        {
+          "name": "gender",
+          "description": "gender description",
+          "type": "gender"
+        }
+      ]
+    },
+    "detail": {
+      "fields": [
+        {
+          "name": "some_int",
+          "description": "some_int description",
+          "type": "integer"
+        },
+        {
+          "name": "tags",
+          "description": "tags description",
+          "type": "[string]",
+          "minimum": 1,
+          "maximum": 10
+        }
+      ]
+    },
+    "address": {
+      "fields": [
+        {
+          "name": "street",
+          "type": "string",
+          "maximum": 255
+        },
+        {
+          "name": "tags",
+          "type": "[string]",
+          "minimum": 1,
+          "maximum": 10
+        }
+      ]
+    },
+    "error": {
+      "description": "an error message from the api.",
+      "fields": [
+        {
+          "name": "status",
+          "type": "string",
+          "description": "a description of the http error code."
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": "a description of the error that occurred."
+        }
+      ]
+    }
+  },
+
+  "enums": {
+    "gender": {
+      "description": "yep gender",
+      "values": [
+        {"name": "female"},
+        {"name": "male"},
+        {"name": "other"}
+      ]
+    }
+  },
+
+
+  "resources": {
+    "gender": {
+      "path": "/gender",
+      "operations": [
+        {
+          "method": "GET",
+          "responses": {
+            "200": {
+              "type": "gender"
+            }
+          },
+          "responses": {
+            "201": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "person": {
+      "description": "TBC",
+      "path": "/:tenant/v0/",
+      "operations": [
+        {
+          "method": "POST",
+          "path": "person/",
+          "body": {
+            "type": "person"
+          },
+          "responses": {
+            "201": {
+              "type": "person"
+            },
+            "404": {
+              "type": "error"
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "people/",
+          "body": {
+            "type": "[person]"
+          },
+          "responses": {
+            "200": {
+              "type": "integer"
+            },
+            "404": {
+              "type": "error"
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  "unions": {},
+
+  "headers": []
+}

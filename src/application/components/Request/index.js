@@ -13,15 +13,13 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
       const baseModel = operation.body.type;
       return (
         <div className={styles.json}>
-          {/* <H2
-          click={onClickHref(buildNavHref({
-          organization: orgKey, application: appKey, model: getType(baseModel),
-          }))}
-          className={styles.name}
-          >
-          {simplifyName(baseModel)}
-          </H2> */}
-          <JsonDoc key={`${operation.body}-requestbody`} baseModel={baseModel} spec={spec} imports={imports} />
+          <JsonDoc
+            key={`${operation.body}-requestbody`}
+            baseModel={baseModel}
+            spec={spec}
+            imports={imports}
+            includeModel={true}
+          />
         </div>
       );
     } else return null;
