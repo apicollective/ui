@@ -11,19 +11,6 @@ import type { Service, Model, Field } from '../../../generated/version/ServiceTy
 const numSpaces = 2;
 const spaces = (indent: number): string => new Array(indent * numSpaces + 1).join(' ');
 
-// type Service = {
-//   name: string,
-//   organization: Organization,
-//   application: Application,
-//   namespace: string,
-//   version: string,
-//   headers: Array<Header>,
-//   imports: Array<Import>,
-//   enums: Array<Enum>,
-//   unions: Array<Union>,
-//   models: Array<Model>,
-//   resources: Array<Resource>,
-// };
 /**
  JFields - the lines with "name: ..." eg:
    ...
