@@ -13,8 +13,11 @@ const defaultView =
     <span className={styles.defaultView}>&lt;-- Hover over JSON example for documentation</span>
   </div>);
 
-const Documentation = ({ documentationFullType, service, imports }:
-                       {documentationFullType: string, service: Service, imports: Array<Service>}) => {
+const Documentation = ({ documentationFullType, service, imports }: {
+  documentationFullType: string,
+  service: Service,
+  imports: Array<Service>
+}) => {
   if (!documentationFullType) return defaultView;
 
   const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
