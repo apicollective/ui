@@ -121,7 +121,9 @@ class App extends Component {
     if (!service.apidoc) {
       return [];
     }
-    const operationPath = params.resource ? getOperation(params.resource, params.method, params.path, service).path : null;
+    const operationPath = params.resource ?
+            getOperation(params.resource, params.method, params.path, service).path :
+            null;
     return [].concat(
       params.organizationKey ? {
         name: params.organizationKey,

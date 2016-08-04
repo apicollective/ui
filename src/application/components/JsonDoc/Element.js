@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import * as utils from '../../../utils';
 import * as defaults from './defaults';
@@ -42,26 +42,58 @@ const click = (fieldKey: string, service: Service) => utils.onClickHref(utils.bu
 }));
 
 const FieldClickable = ({ fieldKey, mouseOver, onClick, children }:
-    { fieldKey: string, mouseOver: (event: SyntheticEvent) => void, onClick: () => void, children?: React$Element<*> }) =>
-  <div className={styles.field} href={`#${String(fieldKey)}`} data-fieldKey={fieldKey} onMouseOver={mouseOver} onClick={onClick}>
+                        { fieldKey: string,
+                          mouseOver: (event: SyntheticEvent) => void,
+                          onClick: () => void,
+                          children?: React$Element<*>
+                        }) =>
+  <div
+    className={styles.field}
+    href={`#${String(fieldKey)}`}
+    data-fieldKey={fieldKey}
+    onMouseOver={mouseOver}
+    onClick={onClick}
+  >
     {children}
   </div>;
 
 const ElementClickable = ({ fieldKey, mouseOver, onClick, children }:
-    { fieldKey: string, mouseOver: (event: SyntheticEvent) => void, onClick: () => void, children?: React$Element<*> }) =>
-  <div className={styles.element} href={`#${fieldKey}`} data-fieldKey={fieldKey} onMouseOver={mouseOver} onClick={onClick}>
+                          { fieldKey: string,
+                            mouseOver: (event: SyntheticEvent) => void,
+                            onClick: () => void,
+                            children?: React$Element<*>
+                          }) =>
+  <div
+    className={styles.element}
+    href={`#${fieldKey}`}
+    data-fieldKey={fieldKey}
+    onMouseOver={mouseOver}
+    onClick={onClick}
+  >
     {children}
   </div>;
 
 const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }:
-    { label: string, value: string, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, onClick: () => void }) =>
+                         { label: string,
+                           value: string,
+                           fieldKey: string,
+                           indent: number,
+                           mouseOver: (event: SyntheticEvent) => void,
+                           onClick: () => void,
+                         }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.name}>{spaces(indent)}"{label}":</span>
     <span className={styles.value}> {value},</span>
   </FieldClickable>;
 
 const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children }:
-    { label: string, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, onClick: () => void, children?: React$Element<*>}) =>
+                        { label: string,
+                          fieldKey: string,
+                          indent: number,
+                          mouseOver: (event: SyntheticEvent) => void,
+                          onClick: () => void,
+                          children?: React$Element<*>
+                        }) =>
   <div>
     <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
       <span className={styles.name}>{spaces(indent)}"{label}":</span>
@@ -72,15 +104,25 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
   </div>;
 
 const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick }:
-    { value: string, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, onClick: () => void }) =>
+                       { value: string,
+                         fieldKey: string,
+                         indent: number,
+                         mouseOver: (event: SyntheticEvent) => void,
+                         onClick: () => void
+                       }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.value}>{spaces(indent)}{value}</span>,
   </FieldClickable>;
 
 const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }:
-    { fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, onClick: () => void, children?: React$Element<*> }) => {
+                      { fieldKey: string,
+                        indent: number,
+                        mouseOver: (event: SyntheticEvent) => void,
+                        onClick: () => void,
+                        children?: React$Element<*>
+                      }) => {
   if (children == undefined) {
-    return;
+    return null;
   }
   const indented = React.cloneElement(children, { indent: children.props.indent + 1 });
   return (
@@ -93,7 +135,13 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }:
 };
 
 const ModelElement = ({ model, fieldKey, indent, mouseOver, service, imports }:
-        { model: Model, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, service: Service, imports: Array<Service>}) =>
+                      { model: Model,
+                        fieldKey: string,
+                        indent: number,
+                        mouseOver: (event: SyntheticEvent) => void,
+                        service: Service,
+                        imports: Array<Service>
+                      }) =>
   <div>
     {`${spaces(indent)}{`}
     {model.fields.map((field, id) =>
@@ -111,7 +159,13 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, imports }:
   </div>;
 
 const JField = ({ field, fieldKey, indent, mouseOver, service, imports }:
-                { field: Field, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, service: Service, imports: Array<Service>}) => {
+                { field: Field,
+                  fieldKey: string,
+                  indent: number,
+                  mouseOver: (event: SyntheticEvent) => void,
+                  service: Service,
+                  imports: Array<Service>
+                }) => {
   const type = field.type;
 
   if (utils.isArray(type) || utils.isModel(type, service, imports)) {
@@ -132,7 +186,7 @@ const JField = ({ field, fieldKey, indent, mouseOver, service, imports }:
           imports={imports}
           mouseOver={mouseOver}
         />
-        </MultiLineField>
+      </MultiLineField>
     );
   } else { // Standard Value or Enum
     let value = null;
@@ -156,7 +210,14 @@ const JField = ({ field, fieldKey, indent, mouseOver, service, imports }:
 };
 
 const Element = ({ field, type, fieldKey, indent, mouseOver, service, imports }:
-                 { field?: Field, type: string, fieldKey: string, indent: number, mouseOver: (event: SyntheticEvent) => void, service: Service, imports: Array<Service> }) => {
+                 { field?: Field,
+                   type: string,
+                   fieldKey: string,
+                   indent: number,
+                   mouseOver: (event: SyntheticEvent) => void,
+                   service: Service,
+                   imports: Array<Service>
+                 }) => {
   let element = null;
   if (utils.isModel(type, service, imports)) {
     const model = utils.getModel(type, service, imports);

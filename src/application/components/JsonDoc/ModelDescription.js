@@ -10,7 +10,10 @@ import * as utils from '../../../utils';
 import styles from './json-doc.css';
 
 const ModelDescription = ({ baseModel, service, imports, modelNameClick }:
-                          { baseModel: string, service: Service, imports: Array<Service>, modelNameClick: (event: Object) => void }) => {
+                          { baseModel: string, service: Service,
+                            imports: Array<Service>,
+                            modelNameClick: (event: Object) => void
+                          }) => {
   const type = utils.getType(baseModel);
   const model = utils.getModel(type, service, imports);
 

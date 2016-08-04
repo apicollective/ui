@@ -3,14 +3,15 @@
   "env": {
     "mocha": true
   },
-  "plugins": ["react"],
+  "plugins": ["react", "flowtype"],
   "parser": "babel-eslint",
   "rules": {
     "no-confusing-arrow": "off",
     "no-else-return": "off",
     "max-len": ["error", 120],
     "no-unused-vars": ["error", {"args": "none"}],
-    "react/jsx-boolean-value": ["error", "always"]
+    "react/jsx-boolean-value": ["error", "always"],
+    "flowtype/define-flow-type": 1
   },
   "settings": {
     "import/resolver": "webpack"
