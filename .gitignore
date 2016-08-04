@@ -3,3 +3,4 @@ node_modules
 static
 .module-cache
 *.log*
+build.prod
