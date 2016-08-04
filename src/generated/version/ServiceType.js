@@ -1,3 +1,4 @@
+// @flow
 // THIS FILE WILL BE GENERATED in the future
 
 export type Header = {
@@ -68,6 +69,48 @@ export type Model = {
   plural: string,
   description?: string,
   fields: Array<Field>,
+};
+
+export type Method = string;
+
+export type Parameter = {
+  name: string,
+  type: string,
+  location: string,
+  description?: string,
+  required?: boolean,
+  default?: string,
+  minimum?: number,
+  maximum?: number,
+  example?: string,
+};
+
+export type Response = {
+  code: string,
+  type: string,
+  description?: string,
+};
+
+export type Body = {
+  type: string,
+  description:? string,
+};
+
+export type Operation = {
+  method: Method,
+  path: string,
+  description?: string,
+  body?: Body,
+  parameters: Array<Parameter>,
+  responses: Array<Response>,
+};
+
+export type Resource = {
+  type: string,
+  plural: string,
+  path?: string,
+  description?: string,
+  operations: Array<Operation>,
 };
 
 export type Service = {
