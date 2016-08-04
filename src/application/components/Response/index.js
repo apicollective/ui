@@ -8,11 +8,11 @@ import JsonDoc from '../../components/JsonDoc';
 
 import styles from './response.css';
 
-const Response = ({ operation, spec, imports, orgKey, appKey }) => {
+const Response = ({ operation, service, imports, orgKey, appKey }) => {
   const body = (response) => {
     if (response.type) {
       const baseModel = response.type;
-      // TODO make this better, perhaps use isInImportOrSpec?
+      // TODO make this better, perhaps use isInImportOrService?
       const rawValue = response.type === 'string' || response.type === 'integer' || response.type === 'number' ?
                        `${response.code.integer.value}` :
                        null;
@@ -26,7 +26,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
               }))
             }
             baseModel={baseModel}
-            spec={spec}
+            service={service}
             imports={imports}
             includeModel={true} // Removes type frrom above jsondoc
             excludeModelDescription={true} // Dont include model description above json doc
@@ -52,7 +52,7 @@ const Response = ({ operation, spec, imports, orgKey, appKey }) => {
 
 Response.propTypes = {
   operation: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   orgKey: PropTypes.string.isRequired,
   appKey: PropTypes.string.isRequired,

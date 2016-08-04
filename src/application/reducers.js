@@ -4,7 +4,7 @@ import { actionTypes } from '../generated/version';
 
 const initialState = new Map({
   loaded: false,
-  spec: {
+  service: {
     enums: [],
     models: [
       {
@@ -28,7 +28,7 @@ const application = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
       return state
-        .set('spec', action.payload.service)
+        .set('service', action.payload.service)
         .set('imports', action.payload.imports)
         .set('loaded', true);
     }

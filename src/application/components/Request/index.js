@@ -7,7 +7,7 @@ import ParameterListGroup from '../../components/ParameterListGroup';
 
 import styles from './request.css';
 
-const Request = ({ operation, spec, imports, orgKey, appKey }) => {
+const Request = ({ operation, service, imports, orgKey, appKey }) => {
   const body = () => {
     if (operation.body) {
       const baseModel = operation.body.type;
@@ -16,7 +16,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
           <JsonDoc
             key={`${operation.body}-requestbody`}
             baseModel={baseModel}
-            spec={spec}
+            service={service}
             imports={imports}
             includeModel={true}
           />
@@ -30,7 +30,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
       <ParameterListGroup
         parameters={operation.parameters}
         title="Request"
-        spec={spec}
+        service={service}
         imports={imports}
         parentModel={cleanPath(operation.path)}
       />
@@ -40,7 +40,7 @@ const Request = ({ operation, spec, imports, orgKey, appKey }) => {
 };
 Request.propTypes = {
   operation: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   orgKey: PropTypes.string.isRequired,
   appKey: PropTypes.string.isRequired,

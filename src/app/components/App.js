@@ -59,7 +59,7 @@ class App extends Component {
   }
 
 
-  createSideBarItems(params, spec, imports, organizations, organizationObj, applications) {
+  createSideBarItems(params, service, imports, organizations, organizationObj, applications) {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map((organization) => (
         {
@@ -93,11 +93,11 @@ class App extends Component {
           items: applicationsWithHref,
         }],
       }];
-    } else if (params.organizationKey && params.applicationKey && spec.apidoc) {
+    } else if (params.organizationKey && params.applicationKey && service.apidoc) {
       const currentItem = this.getCurrentItem(params);
-      const allResources = flatten(spec.resources.concat(imports.map((importValue) => importValue.resources)));
-      const allModels = flatten(spec.models.concat(imports.map((importValue) => importValue.models)));
-      const allEnums = flatten(spec.enums.concat(imports.map((importValue) => importValue.enums)));
+      const allResources = flatten(service.resources.concat(imports.map((importValue) => importValue.resources)));
+      const allModels = flatten(service.models.concat(imports.map((importValue) => importValue.models)));
+      const allEnums = flatten(service.enums.concat(imports.map((importValue) => importValue.enums)));
 
       return [{
         name: 'Resources',
@@ -117,11 +117,11 @@ class App extends Component {
     return [{ name: 'Unknown', items: [{ name: 'Unknown', items: [] }] }];
   }
 
-  createNavBarItems(params, spec) {
-    if (!spec.apidoc) {
+  createNavBarItems(params, service) {
+    if (!service.apidoc) {
       return [];
     }
-    const operationPath = params.resource ? getOperation(params.resource, params.method, params.path, spec).path : null;
+    const operationPath = params.resource ? getOperation(params.resource, params.method, params.path, service).path : null;
     return [].concat(
       params.organizationKey ? {
         name: params.organizationKey,
@@ -159,7 +159,7 @@ class App extends Component {
   render() {
     const {
       params,
-      spec,
+      service,
       imports,
       organizations,
       organization,
@@ -167,7 +167,7 @@ class App extends Component {
       children,
     } = this.props;
 
-    const sideBarItems = this.createSideBarItems(params, spec, imports, organizations, organization, applications)
+    const sideBarItems = this.createSideBarItems(params, service, imports, organizations, organization, applications)
       .map((sideBarItem) => {
         sideBarItem.items.map((items) => (
           Object.assign(items, { items: sortBy((item) => item.name, items.items) })
@@ -175,7 +175,7 @@ class App extends Component {
         return Object.assign(sideBarItem, { items: sortBy((item) => item.name, sideBarItem.items) });
       });
 
-    const navBarItems = this.createNavBarItems(params, spec);
+    const navBarItems = this.createNavBarItems(params, service);
 
     return (
       <div>
@@ -193,7 +193,7 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   organizations: PropTypes.array,
   organization: PropTypes.object,
   applications: PropTypes.array,
@@ -203,7 +203,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => (
   {
-    spec: state.application.get('spec'),
+    service: state.application.get('service'),
     organizations: state.app.get('organizations'),
     organization: state.organization.get('organization'),
     applications: state.organization.get('applications'),

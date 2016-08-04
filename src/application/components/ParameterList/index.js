@@ -3,17 +3,17 @@ import classnames from 'classnames';
 
 import Markdown from '../../../components/Markdown';
 
-import { buildNavHref, getType, isImport, isImportOrInSpec, onClickHref, simplifyName } from '../../../utils';
+import { buildNavHref, getType, isImport, isImportOrInService, onClickHref, simplifyName } from '../../../utils';
 
 import styles from './parameter-list.css';
 
-const ParameterList = ({ name, type, required, description, example, defaultValue, spec, imports, parentModel }) => {
+const ParameterList = ({ name, type, required, description, example, defaultValue, service, imports, parentModel }) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
   const modelType = isImport(possibleImportType, imports) ? possibleImportType : type;
-  const typeClickFn = isImportOrInSpec(getType(modelType), spec, imports) ?
+  const typeClickFn = isImportOrInService(getType(modelType), service, imports) ?
                       onClickHref(buildNavHref(
-                        { organization: spec.organization.key,
-                          application: spec.application.key, model: getType(modelType) }
+                        { organization: service.organization.key,
+                          application: service.application.key, model: getType(modelType) }
                       )) : null;
 
   return (<div className={styles.container}>
@@ -46,7 +46,7 @@ ParameterList.propTypes = {
   type: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
   parentModel: PropTypes.string.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   description: PropTypes.string,
   example: PropTypes.string,

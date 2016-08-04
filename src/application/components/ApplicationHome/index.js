@@ -8,18 +8,18 @@ import ResourceCard from '../../components/ResourceCard';
 
 import styles from './application-home.css';
 
-const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
+const ApplicationHome = ({ service, organizationKey, applicationKey }) => {
   const buildClickHref = (type, method, path) =>
     `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
 
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <H1 className={styles.h1}>{spec.name}</H1>
-        <Markdown source={spec.description ? spec.description : ''} className={styles.description} />
+        <H1 className={styles.h1}>{service.name}</H1>
+        <Markdown source={service.description ? service.description : ''} className={styles.description} />
       </div>
       <div>
-        {spec.resources.map(resource => (
+        {service.resources.map(resource => (
           resource.operations.map(operation =>
             <ResourceCard
               key={operation.method + operation.path}
@@ -37,7 +37,7 @@ const ApplicationHome = ({ spec, organizationKey, applicationKey }) => {
 };
 
 ApplicationHome.propTypes = {
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   organizationKey: PropTypes.string.isRequired,
   applicationKey: PropTypes.string.isRequired,
 };

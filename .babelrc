@@ -1,4 +1,4 @@
 {
   "presets": ["movio"],
-  "plugins": []
+  "plugins": ["transform-flow-strip-types"]
 }

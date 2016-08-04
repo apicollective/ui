@@ -12,7 +12,8 @@
     "format": "eslint src --fix; exit 0",
     "lint:style": "stylelint \"src/**/*.css\"; exit 0",
     "lint:style:ci": "stylelint \"src/**/*.css\"",
-    "check": "npm run lint:ci && npm run lint:style:ci && npm run test:ci"
+    "check": "npm run lint:ci && npm run lint:style:ci && npm run test:ci",
+    "flow": "flow; exit 0"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "babel-eslint": "^6.1.2",
     "babel-istanbul-loader": "^0.1.0",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-polyfill": "^6.9.1",
     "babel-preset-movio": "^1.2.1",
     "babel-runtime": "^6.11.6",
@@ -43,6 +45,7 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "cssnano": "^3.7.3",
+    "empty": "^0.10.1",
     "eslint": "^3.1.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-import-resolver-webpack": "^0.4.0",
@@ -51,6 +54,7 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "5.2.2",
     "file-loader": "^0.9.0",
+    "flow-bin": "^0.30.0",
     "html-webpack-plugin": "^2.22.0",
     "http-server": "^0.9.0",
     "json-loader": "^0.5.4",

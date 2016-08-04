@@ -9,7 +9,7 @@ import { simplifyName } from '../../../../utils';
 
 import styles from './model.css';
 
-const Model = ({ model, spec, imports, showJsonDoc }) =>
+const Model = ({ model, service, imports, showJsonDoc }) =>
   <div className={styles.container}>
     <div className={styles.header}>
       <H1 className={styles.title}>{simplifyName(model.name)}</H1>
@@ -19,7 +19,7 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
       <ParameterListGroup
         parameters={model.fields}
         title="Fields"
-        spec={spec}
+        service={service}
         imports={imports}
         parentModel={model.name}
       />
@@ -27,7 +27,7 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
         {showJsonDoc ?
           <JsonDoc
             baseModel={model.name}
-            spec={spec}
+            service={service}
             imports={imports}
             includeModel={false}
           /> : null}
@@ -37,7 +37,7 @@ const Model = ({ model, spec, imports, showJsonDoc }) =>
 
 Model.propTypes = {
   model: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   showJsonDoc: PropTypes.bool.isRequired,
 };

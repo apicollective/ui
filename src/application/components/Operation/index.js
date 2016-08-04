@@ -7,7 +7,7 @@ import ResourceCard from '../../components/ResourceCard';
 
 import styles from './operation.css';
 
-const Operation = ({ spec, operation, applicationKey, organizationKey, resource, method, path, imports }) =>
+const Operation = ({ service, operation, applicationKey, organizationKey, resource, method, path, imports }) =>
   <div className={styles.content}>
     <div className={styles.header}>
       <ResourceCard
@@ -22,7 +22,7 @@ const Operation = ({ spec, operation, applicationKey, organizationKey, resource,
         orgKey={organizationKey}
         key={`${method}${resource}${path}-request`}
         operation={operation}
-        spec={spec}
+        service={service}
         imports={imports}
       />
     </div>
@@ -31,13 +31,13 @@ const Operation = ({ spec, operation, applicationKey, organizationKey, resource,
       orgKey={organizationKey}
       key={`${method}${resource}${path}-response`}
       operation={operation}
-      spec={spec}
+      service={service}
       imports={imports}
     />
   </div>;
 
 Operation.propTypes = {
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   operation: PropTypes.object.isRequired,
   applicationKey: PropTypes.string.isRequired,
   organizationKey: PropTypes.string.isRequired,
