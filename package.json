@@ -3,8 +3,8 @@
   "version": "0.2.0",
   "description": "Apidoc UI",
   "scripts": {
-    "package": "webpack -p",
-    "start": "webpack-dev-server --hot --inline --history-api-fallback --output-public-path / --progress --colors --host 0.0.0.0",
+    "build": "webpack --config webpack.config.prod.js -p",
+    "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline --history-api-fallback --output-public-path / --progress --colors --host 0.0.0.0",
     "test": "karma start --single-run; exit 0",
     "test:ci": "karma start --single-run",
     "test:watch": "karma start --auto-watch",
@@ -44,6 +44,7 @@
     "carte-blanche-react-plugin": "^0.3.0",
     "carte-blanche-source-plugin": "^0.1.0",
     "chai": "^3.5.0",
+    "clean-webpack-plugin": "^0.1.10",
     "css-loader": "^0.23.1",
     "cssnano": "^3.7.3",
     "empty": "^0.10.1",
