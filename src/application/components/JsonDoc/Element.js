@@ -1,15 +1,18 @@
-import React, { PropTypes } from 'react';
+// @flow
+
+import React from 'react';
 
 import * as utils from '../../../utils';
 import * as defaults from './defaults';
 
 import styles from './json-doc.css';
+import type { Service, Model, Field } from '../../../generated/version/ServiceType';
 
 const numSpaces = 2;
-const spaces = (indent) => new Array(indent * numSpaces + 1).join(' ');
+const spaces = (indent: number): string => new Array(indent * numSpaces + 1).join(' ');
 
 /**
- Fields - the lines with "name: ..." eg:
+ JFields - the lines with "name: ..." eg:
    ...
    "name": "value",
    ...
@@ -31,53 +34,66 @@ const spaces = (indent) => new Array(indent * numSpaces + 1).join(' ');
  It should look like 'test-jsondoc-spec-expected.js'.
 */
 
-const click = (fieldKey, spec) => utils.onClickHref(utils.buildNavHref({
-  organization: spec.organization.key,
-  application: spec.application.key,
+const click = (fieldKey: string, service: Service) => utils.onClickHref(utils.buildNavHref({
+  organization: service.organization.key,
+  application: service.application.key,
   model: fieldKey.split('.')[0],
   field: fieldKey,
 }));
 
-const FieldClickable = ({ fieldKey, mouseOver, onClick, children }) =>
-  <div className={styles.field} href={`#${fieldKey}`} data-fieldKey={fieldKey} onMouseOver={mouseOver} onClick={onClick}>
+const FieldClickable = ({ fieldKey, mouseOver, onClick, children }:
+                        { fieldKey: string,
+                          mouseOver: (event: SyntheticEvent) => void,
+                          onClick: () => void,
+                          children?: React$Element<*>
+                        }) =>
+  <div
+    className={styles.field}
+    href={`#${String(fieldKey)}`}
+    data-fieldKey={fieldKey}
+    onMouseOver={mouseOver}
+    onClick={onClick}
+  >
     {children}
   </div>;
 
-FieldClickable.propTypes = {
-  fieldKey: PropTypes.string.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-const ElementClickable = ({ fieldKey, mouseOver, onClick, children }) =>
-  <div className={styles.element} href={`#${fieldKey}`} data-fieldKey={fieldKey} onMouseOver={mouseOver} onClick={onClick}>
+const ElementClickable = ({ fieldKey, mouseOver, onClick, children }:
+                          { fieldKey: string,
+                            mouseOver: (event: SyntheticEvent) => void,
+                            onClick: () => void,
+                            children?: React$Element<*>
+                          }) =>
+  <div
+    className={styles.element}
+    href={`#${fieldKey}`}
+    data-fieldKey={fieldKey}
+    onMouseOver={mouseOver}
+    onClick={onClick}
+  >
     {children}
   </div>;
 
-ElementClickable.propTypes = {
-  fieldKey: PropTypes.string.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }) =>
+const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }:
+                         { label: string,
+                           value: string,
+                           fieldKey: string,
+                           indent: number,
+                           mouseOver: (event: SyntheticEvent) => void,
+                           onClick: () => void,
+                         }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.name}>{spaces(indent)}"{label}":</span>
     <span className={styles.value}> {value},</span>
-  </FieldClickable>
+  </FieldClickable>;
 
-SingleLineField.propTypes = {
-  label: PropTypes.node.isRequired,
-  value: PropTypes.node.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
-const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children }) =>
+const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children }:
+                        { label: string,
+                          fieldKey: string,
+                          indent: number,
+                          mouseOver: (event: SyntheticEvent) => void,
+                          onClick: () => void,
+                          children?: React$Element<*>
+                        }) =>
   <div>
     <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
       <span className={styles.name}>{spaces(indent)}"{label}":</span>
@@ -87,29 +103,27 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
     </ElementClickable>
   </div>;
 
-MultiLineField.propTypes = {
-  label: PropTypes.node.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick }) =>
+const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick }:
+                       { value: string,
+                         fieldKey: string,
+                         indent: number,
+                         mouseOver: (event: SyntheticEvent) => void,
+                         onClick: () => void
+                       }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.value}>{spaces(indent)}{value}</span>,
   </FieldClickable>;
 
-SimpleElement.propTypes = {
-  value: PropTypes.string.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
-const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }) => {
+const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }:
+                      { fieldKey: string,
+                        indent: number,
+                        mouseOver: (event: SyntheticEvent) => void,
+                        onClick: () => void,
+                        children?: React$Element<*>
+                      }) => {
+  if (children == undefined) {
+    return null;
+  }
   const indented = React.cloneElement(children, { indent: children.props.indent + 1 });
   return (
     <div>
@@ -120,58 +134,55 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }) => {
   );
 };
 
-ArrayElement.propTypes = {
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-const ModelElement = ({ model, fieldKey, indent, mouseOver, spec, imports }) =>
+const ModelElement = ({ model, fieldKey, indent, mouseOver, service, imports }:
+                      { model: Model,
+                        fieldKey: string,
+                        indent: number,
+                        mouseOver: (event: SyntheticEvent) => void,
+                        service: Service,
+                        imports: Array<Service>
+                      }) =>
   <div>
     {`${spaces(indent)}{`}
     {model.fields.map((field, id) =>
-      <Field
+      <JField
         key={id}
         field={field}
         fieldKey={`${model.name}.${field.name}`}
         indent={indent + 1}
         mouseOver={mouseOver}
-        spec={spec}
+        service={service}
         imports={imports}
       />
     )}
     {`${spaces(indent)}},`}
   </div>;
 
-ModelElement.propTypes = {
-  model: PropTypes.object.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-};
-
-const Field = ({ field, fieldKey, indent, mouseOver, spec, imports }) => {
+const JField = ({ field, fieldKey, indent, mouseOver, service, imports }:
+                { field: Field,
+                  fieldKey: string,
+                  indent: number,
+                  mouseOver: (event: SyntheticEvent) => void,
+                  service: Service,
+                  imports: Array<Service>
+                }) => {
   const type = field.type;
 
-  if (utils.isArray(type) || utils.isModel(type, spec, imports)) {
+  if (utils.isArray(type) || utils.isModel(type, service, imports)) {
     return (
       <MultiLineField
         label={field.name}
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, spec)}
+        onClick={click(fieldKey, service)}
       >
         <Element
           field={field}
           type={type}
           fieldKey={fieldKey}
           indent={indent}
-          spec={spec}
+          service={service}
           imports={imports}
           mouseOver={mouseOver}
         />
@@ -179,8 +190,8 @@ const Field = ({ field, fieldKey, indent, mouseOver, spec, imports }) => {
     );
   } else { // Standard Value or Enum
     let value = null;
-    if (utils.isEnum(type, spec, imports)) {
-      const enumModel = utils.getEnum(type, spec, imports);
+    if (utils.isEnum(type, service, imports)) {
+      const enumModel = utils.getEnum(type, service, imports);
       value = `"${enumModel.values[0].name}"`;
     } else {
       value = defaults.getFieldValue(field);
@@ -192,33 +203,32 @@ const Field = ({ field, fieldKey, indent, mouseOver, spec, imports }) => {
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, spec)}
+        onClick={click(fieldKey, service)}
       />
     );
   }
 };
 
-Field.propTypes = {
-  field: PropTypes.object.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-};
-
-const Element = ({ field, type, fieldKey, indent, mouseOver, spec, imports }) => {
+const Element = ({ field, type, fieldKey, indent, mouseOver, service, imports }:
+                 { field?: Field,
+                   type: string,
+                   fieldKey: string,
+                   indent: number,
+                   mouseOver: (event: SyntheticEvent) => void,
+                   service: Service,
+                   imports: Array<Service>
+                 }) => {
   let element = null;
-  if (utils.isModel(type, spec, imports)) {
-    const model = utils.getModel(type, spec, imports);
+  if (utils.isModel(type, service, imports)) {
+    const model = utils.getModel(type, service, imports);
     element =
       (<ModelElement
         model={model}
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, spec)}
-        spec={spec}
+        onClick={click(fieldKey, service)}
+        service={service}
         imports={imports}
       />);
   } else {
@@ -232,8 +242,8 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, spec, imports }) =>
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, spec)}
-        spec={spec}
+        onClick={click(fieldKey, service)}
+        service={service}
         imports={imports}
       />);
   }
@@ -244,7 +254,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, spec, imports }) =>
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, spec)}
+        onClick={click(fieldKey, service)}
       >
         {element}
       </ArrayElement>
@@ -252,16 +262,6 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, spec, imports }) =>
   } else {
     return element;
   }
-};
-
-Element.propTypes = {
-  field: PropTypes.object, // Optional - not used on first load
-  type: PropTypes.string.isRequired,
-  fieldKey: PropTypes.string.isRequired,
-  indent: PropTypes.number.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  spec: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
 };
 
 export default Element;

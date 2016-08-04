@@ -1,0 +1,40 @@
+// @flow
+
+import type { Service, Model, Field } from './ServiceType';
+
+declare export var actionTypes: {
+  getByOrgkeyAndApplicationkeyAndVersion_get: string,
+  getByOrgkeyAndApplicationkeyAndVersion_doing: string,
+  getByOrgkeyAndApplicationkeyAndVersion_success: string,
+  getByOrgkeyAndApplicationkeyAndVersion_failure: string,
+};
+
+declare type Query = {
+  orgKey: string,
+  applicationKey: string,
+  version?: string
+};
+
+declare type Result = {
+  type: string,
+  payload: Query,
+  error?: boolean
+};
+
+declare export var actions: {
+  /**
+   * Retrieve a specific version of an application.
+   * @param {string} orgKey -
+   * @param {string} applicationKey -
+   * @param {string} version - The version of tthis application to download, or the keyword latest to get the latest version
+   */
+  getByOrgkeyAndApplicationkeyAndVersion_get: (query: Query) => Result;
+
+  getByOrgkeyAndApplicationkeyAndVersion_doing: () => {type: string};
+
+  getByOrgkeyAndApplicationkeyAndVersion_success: (results: Array<Service>) => Result;
+
+  getByOrgkeyAndApplicationkeyAndVersion_failure: (err: Object) => Result;
+};
+
+declare export function api(parmas: Query): Promise<*>;

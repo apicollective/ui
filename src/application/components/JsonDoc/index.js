@@ -1,16 +1,33 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { PropTypes } from 'react';
 
 import Documenation from './Documentation';
 import ModelDescription from './ModelDescription';
 import Element from './Element';
 
 import * as utils from '../../../utils';
+import type { Service } from '../../../generated/version/ServiceType';
 
 import styles from './json-doc.css';
 
-class JsonDoc extends Component {
+type Props = {
+  service: Service,
+  imports: Array<Service>,
+  baseModel: string,
+  includeModel?: boolean, // Include Model Documentation in JsonDoc
+  excludeModelDescription?: boolean,
+  modelNameClick: () => void,
+  rawValue: ?string,
+};
 
-  constructor(props) {
+class JsonDoc extends React.Component {
+  state: {
+    documentationFullType: string,
+  };
+
+  mouseOver: (event: Object) => void;
+
+  constructor(props: Props) {
     super(props);
     this.state = { documentationFullType: '' };
 
@@ -22,15 +39,15 @@ class JsonDoc extends Component {
     };
   }
 
-  getModelJson(baseModel, spec, imports, mouseOver) {
-    if (utils.isImportOrInSpec(baseModel, spec, imports)) {
+  getModelJson(baseModel: string, service: Service, imports: Array<Service>, mouseOver: (event: Object)=> void) {
+    if (utils.isImportOrInService(baseModel, service, imports)) {
       return (
         <Element
           type={baseModel}
           fieldKey="__"
           indent={0}
           mouseOver={this.mouseOver}
-          spec={spec}
+          service={service}
           imports={imports}
         />
       );
@@ -39,7 +56,7 @@ class JsonDoc extends Component {
     }
   }
 
-  getJson(baseModel, spec, imports, modelFieldJson) {
+  getJson(baseModel: string, service: Service, imports: Array<Service>, modelFieldJson: any) {
     if (modelFieldJson) {
       return (
         <pre className={styles.code}>
@@ -52,24 +69,24 @@ class JsonDoc extends Component {
   }
 
   render() {
-    const { baseModel, spec, imports, includeModel } = this.props;
+    const { baseModel, service, imports, includeModel } = this.props;
 
     return (
       <div className={styles.jsonDoc}>
         {includeModel ? <ModelDescription
           baseModel={baseModel}
-          spec={spec}
+          service={service}
           imports={imports}
           modelNameClick={this.props.modelNameClick}
         /> : null}
         <div className={styles.container}>
-          {this.getJson(baseModel, spec, imports,
+          {this.getJson(baseModel, service, imports,
                         this.props.rawValue ?
                         this.props.rawValue :
-                        this.getModelJson(baseModel, spec, imports, this.mouseOver))}
+                        this.getModelJson(baseModel, service, imports, this.mouseOver))}
           <Documenation
             documentationFullType={this.state.documentationFullType}
-            spec={spec}
+            service={service}
             imports={imports}
           />
         </div>
@@ -77,8 +94,9 @@ class JsonDoc extends Component {
     );
   }
 }
+// Keep until using flow everywhere
 JsonDoc.propTypes = {
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   baseModel: PropTypes.string.isRequired,
   includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc

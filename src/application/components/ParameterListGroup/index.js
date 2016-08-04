@@ -5,7 +5,7 @@ import ParameterList from '../ParameterList';
 
 import styles from './parameter-list-group.css';
 
-const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) => (
+const ParameterListGroup = ({ title, parameters, service, imports, parentModel }) => (
   <div>
     <H2 className={styles.title}>{title}</H2>
     <div className={styles.container}>
@@ -14,7 +14,7 @@ const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) =
           <ParameterList
             key={id}
             {...parameter}
-            spec={spec}
+            service={service}
             imports={imports}
             parentModel={parentModel}
           />))
@@ -26,7 +26,7 @@ const ParameterListGroup = ({ title, parameters, spec, imports, parentModel }) =
 ParameterListGroup.propTypes = {
   title: PropTypes.string.isRequired,
   parameters: PropTypes.array.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
   parentModel: PropTypes.string.isRequired,
 };

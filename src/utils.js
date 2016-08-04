@@ -6,7 +6,7 @@ const onClickHref = (href) => (event) => {
   browserHistory.push(href);
   // Stop parent nav events to be publishes - jsondoc nesting
   if (event.stopPropagation) event.stopPropagation();
-}
+};
 
 const getType = (type) => {
   const ex = /[\[]?([^\]]+)/i;
@@ -24,37 +24,37 @@ const simplifyName = (name) => {
 const findByName = (name, values) => values.find(v => v.name === getType(name));
 
 const getEnumImport = (name, imports) => {
-  const spec = imports.find(importValue => importValue.enums.find(e => e.name === getType(name)));
-  return spec ? findByName(name, spec.enums) : null;
+  const service = imports.find(importValue => importValue.enums.find(e => e.name === getType(name)));
+  return service ? findByName(name, service.enums) : null;
 };
 
 const getModelImport = (name, imports) => {
-  const spec = imports.find(importValue => importValue.models.find(e => e.name === getType(name)));
-  return spec ? findByName(name, spec.models) : null;
+  const service = imports.find(importValue => importValue.models.find(e => e.name === getType(name)));
+  return service ? findByName(name, service.models) : null;
 };
 /* eslint-disable no-use-before-define */
 
-const getEnum = (name, spec, imports) =>
-  imports && isImport(name, imports) ? getEnumImport(name, imports) : findByName(name, spec.enums);
+const getEnum = (name, service, imports) =>
+  imports && isImport(name, imports) ? getEnumImport(name, imports) : findByName(name, service.enums);
 
-const getModel = (name, spec, imports) =>
-  imports && isImport(name, imports) ? getModelImport(name, imports) : findByName(name, spec.models);
+const getModel = (name, service, imports) =>
+  imports && isImport(name, imports) ? getModelImport(name, imports) : findByName(name, service.models);
 
-const isEnum = (type, spec, imports) => Boolean(getEnum(type, spec, imports));
+const isEnum = (type, service, imports) => Boolean(getEnum(type, service, imports));
 
-const isModel = (type, spec, imports) => Boolean(getModel(type, spec, imports));
+const isModel = (type, service, imports) => Boolean(getModel(type, service, imports));
 
-const isInSpec = (type, spec) => {
+const isInService = (type, service) => {
   const actualType = getType(type);
-  return isModel(actualType, spec) || isEnum(actualType, spec);
+  return isModel(actualType, service) || isEnum(actualType, service);
 };
 
 const isImport = (type, imports) =>
-  Boolean(imports.map((importValue) => isInSpec(type, importValue)).find(b => b === true));
+  Boolean(imports.map((importValue) => isInService(type, importValue)).find(b => b === true));
 
 /* eslint-enable no-use-before-define */
 
-const isImportOrInSpec = (type, spec, imports) => isInSpec(type, spec) || isImport(type, imports);
+const isImportOrInService = (type, service, imports) => isInService(type, service) || isImport(type, imports);
 
 const isArray = (type) => type.startsWith('[');
 
@@ -62,8 +62,8 @@ const getEnumExampleValue = (enumModel) => enumModel.values[0].name;
 
 const isISODateTime = (type) => type === 'date-iso8601';
 
-const getOperation = (type, method, path, spec) => {
-  const resource = spec.resources.find(r => r.type === type);
+const getOperation = (type, method, path, service) => {
+  const resource = service.resources.find(r => r.type === type);
   const operation = resource.operations.find((o) => (
         o.method.toLowerCase() === method && cleanPath(o.path) === path
     ));
@@ -90,8 +90,8 @@ export {
   isEnum,
   isArray,
   isImport,
-  isInSpec,
-  isImportOrInSpec,
+  isInService,
+  isImportOrInService,
   getEnumExampleValue,
   isISODateTime,
   getOperation,

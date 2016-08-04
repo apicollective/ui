@@ -10,8 +10,8 @@ import Model from './Model';
 
 import styles from './application.css';
 
-import { actions as specActions } from '../../../generated/version';
-const allActions = Object.assign({}, specActions);
+import { actions as serviceActions } from '../../../generated/version';
+const allActions = Object.assign({}, serviceActions);
 
 class Application extends Component {
 
@@ -24,7 +24,7 @@ class Application extends Component {
   }
 
   render() {
-    const { imports, spec } = this.props;
+    const { imports, service } = this.props;
     if (!this.props.loaded) {
       // First Load
       return (<LoadingOverlay />);
@@ -37,10 +37,10 @@ class Application extends Component {
         applicationKey,
         organizationKey,
       } = this.props.params;
-      const operation = utils.getOperation(resource, method, path, spec);
+      const operation = utils.getOperation(resource, method, path, service);
 
       return (<Operation
-        spec={spec}
+        service={service}
         imports={imports}
         operation={operation}
         applicationKey={applicationKey}
@@ -52,15 +52,15 @@ class Application extends Component {
     } else if (this.props.params.model) {
       // Load Model
       const modelName = this.props.params.model;
-      if (utils.isEnum(modelName, spec, imports)) {
-        const enumModel = utils.getEnum(modelName, spec, imports);
+      if (utils.isEnum(modelName, service, imports)) {
+        const enumModel = utils.getEnum(modelName, service, imports);
         enumModel.fields = enumModel.values.map((value) => (
           { name: value.name, description: value.description, type: 'string', required: false }
         ));
-        return <Model model={enumModel} spec={spec} imports={imports} showJsonDoc={false} />;
+        return <Model model={enumModel} service={service} imports={imports} showJsonDoc={false} />;
       } else {
-        const model = utils.getModel(modelName, spec, imports);
-        return <Model model={model} spec={spec} imports={imports} showJsonDoc={true} />;
+        const model = utils.getModel(modelName, service, imports);
+        return <Model model={model} service={service} imports={imports} showJsonDoc={true} />;
       }
     } else {
       // Load Application Home
@@ -70,7 +70,7 @@ class Application extends Component {
       } = this.props.params;
 
       return (<ApplicationHome
-        spec={spec}
+        service={service}
         applicationKey={applicationKey}
         organizationKey={organizationKey}
       />);
@@ -81,14 +81,14 @@ Application.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   loaded: PropTypes.bool.isRequired,
-  spec: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
   imports: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => (
   {
     loaded: state.application.get('loaded'),
-    spec: state.application.get('spec'),
+    service: state.application.get('service'),
     imports: state.application.get('imports'),
   }
 );
