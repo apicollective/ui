@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import flatten from 'lodash/fp/flatten';
 import sortBy from 'lodash/fp/sortBy';
+import snakeCase from 'lodash/fp/snakeCase';
 
 import NavBar from '../../components/NavBar';
 import SideBar from '../../components/SideBar';
 import Content from '../../components/Content';
 import { actions } from '../actions';
 import { buildNavHref, cleanPath, getOperation, onClickHref } from '../../utils';
+import docs from '../../../documents.json';
 
 import styles from './app.css';
 
@@ -86,11 +88,27 @@ class App extends Component {
           })),
         }
       ));
+      const docsByOrg = docs.organizations[params.organizationKey].documents;
+      const docsWithHref = docsByOrg.map(doc => (
+        {
+          name: doc.name,
+          onClick: onClickHref(buildNavHref({
+            organization: params.organizationKey,
+            documentation: snakeCase(doc.name),
+          })),
+        }
+      ));
       return [{
         name: 'Applications',
         items: [{
           name: '',
           items: applicationsWithHref,
+        }],
+      }, {
+        name: 'Documentation',
+        items: [{
+          name: '',
+          items: docsWithHref,
         }],
       }];
     } else if (params.organizationKey && params.applicationKey && service.apidoc) {
