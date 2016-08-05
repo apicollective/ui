@@ -88,7 +88,8 @@ class App extends Component {
           })),
         }
       ));
-      const docsByOrg = docs.organizations[params.organizationKey].documents;
+      const orgDocsList = docs.organizations[params.organizationKey];
+      const docsByOrg = (orgDocsList && orgDocsList.documents) || [];
       const docsWithHref = docsByOrg.map(doc => (
         {
           name: doc.name,
@@ -98,19 +99,22 @@ class App extends Component {
           })),
         }
       ));
-      return [{
+      const applicationSidebarGroup = [{
         name: 'Applications',
         items: [{
           name: '',
           items: applicationsWithHref,
         }],
-      }, {
-        name: 'Documentation',
-        items: [{
-          name: '',
-          items: docsWithHref,
-        }],
       }];
+      return applicationSidebarGroup.concat(docsWithHref.length
+        ? [{
+          name: 'Documentation',
+          items: [{
+            name: '',
+            items: docsWithHref,
+          }],
+        }]
+       : []);
     } else if (params.organizationKey && params.applicationKey && service.apidoc) {
       const currentItem = this.getCurrentItem(params);
       const allResources = flatten(service.resources.concat(imports.map((importValue) => importValue.resources)));
