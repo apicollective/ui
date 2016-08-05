@@ -3,7 +3,7 @@
         "movio.cinema": {
             "documents": [{
                 "name": "Document 1",
-                "rootUrl": "http://localhost:8080/doc/",
+                "rootUrl": "http://localhost/doc1/",
                 "markdownPath": "README.md"
             }]
         }
