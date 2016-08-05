@@ -70,8 +70,9 @@ const getOperation = (type, method, path, service) => {
   return operation;
 };
 
-const buildNavHref = ({ organization, application, resource, method, path, model, field } = {}) =>
+const buildNavHref = ({ organization, documentation, application, resource, method, path, model, field } = {}) =>
   [].concat(organization ? `/org/${organization}` : null,
+    documentation ? `/doc/${documentation}` : null,
     application ? `/app/${application}` : null,
     resource ? `/r/${resource}` : null,
     method ? `/m/${method}` : null,
