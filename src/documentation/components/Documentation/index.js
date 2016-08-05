@@ -37,7 +37,7 @@ class Documentation extends Component {
       return (
         <div className={styles.content}>
           <div className={styles.container}>
-            <H1>{document.name}</H1>
+            <H1 className={styles.h1}>{document.name}</H1>
             <Markdown source={this.props.markdown} className={styles.markdown} />
           </div>
         </div>
