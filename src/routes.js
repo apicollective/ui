@@ -6,6 +6,7 @@ import { App } from './app';
 import { Home } from './home';
 import { Organization } from './organization';
 import { Application } from './application';
+import { Documentation } from './documentation';
 
 
 const routes = (

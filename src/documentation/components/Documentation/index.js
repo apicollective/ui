@@ -2,19 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { actions as docActions } from '../../../generated/documentation';
+import { actions as docActions } from '../../../generated/documentation/getByRootUrlAndMarkdownPath';
 
 import H1 from './../../../components/H1';
 import LoadingOverlay from '../../../components/LoadingOverlay';
+import Markdown from '../../../components/Markdown';
 
 import styles from './documentation.css';
+import docs from '../../../../documents.json';
 
 const allActions = Object.assign({}, docActions);
 
-class Home extends Component {
-  // TODO: Can I haz more orgs?
+class Documentation extends Component {
+
   componentDidMount() {
-    this.props.actions.getOrganizations_get({ limit: 20, offset: 0 });
+    const document =
+      docs.organizations[this.props.params.organizationKey].documents
+          .filter((doc) => doc.name === this.props.params.documentationKey);
+    this.props.actions.getByRootUrlAndMarkdownPath_get(
+      { rootUrl: document.rootUrl, markdownPath: document.markdownPath }
+    );
   }
 
   render() {
@@ -29,22 +36,24 @@ class Home extends Component {
             <H1 className={styles.h1}>Organizations</H1>
           </div>
           <div className={styles.container}>
-            <Organizations organizations={this.props.organizations} />
+            <Markdown source={this.props.markdown} className={styles.markdown} />
           </div>
         </div>
       );
     }
   }
 }
-Home.propTypes = {
+
+Documentation.propTypes = {
+  params: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  organizations: PropTypes.array.isRequired,
+  markdown: PropTypes.object.isRequired,
   loaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => (
   {
-    organizations: state.app.get('organizations'),
+    markdown: state.app.get('markdown'),
     loaded: state.app.get('loaded'),
   }
 );
@@ -56,7 +65,7 @@ const mapDispatchToProps = (dispatch) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Documentation);
 
 export {
   styles,

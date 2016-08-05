@@ -3,19 +3,19 @@
         "movio.cinema": {
             "documents": [{
                 "name": "Document 1",
-                "rootUrl": "markdown.movio.co/doc1/",
+                "rootUrl": "markdown.movio.co/docs/doc1/",
                 "markdownPath": "markdownFile.md"
             }, {
                 "name": "Document 2",
-                "rootUrl": "markdown.movio.co/doc2/",
+                "rootUrl": "markdown.movio.co/docs/doc2/",
                 "markdownPath": "markdownFile.md"
             }, {
                 "name": "Document 3",
-                "rootUrl": "markdown.movio.co/doc3/",
+                "rootUrl": "markdown.movio.co/docs/doc3/",
                 "markdownPath": "markdownFile.md"
             }, {
                 "name": "Document 4",
-                "rootUrl": "markdown.movio.co/doc4/",
+                "rootUrl": "markdown.movio.co/docs/doc4/",
                 "markdownPath": "markdownFile.md"
             }]
         }
