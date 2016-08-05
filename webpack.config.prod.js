@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const CarteBlanche = require('carte-blanche');
 const ReactPlugin = require('carte-blanche-react-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
@@ -18,7 +17,7 @@ module.exports = {
   debug: true,
   entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'src')],
   output: {
-    publicPath: '/',
+    publicPath: '/assets/',
     path: path.resolve(ROOT_PATH, 'build.prod'),
     filename: 'bundle.js',
   },
@@ -120,11 +119,5 @@ module.exports = {
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
     })
-    // new CarteBlanche({
-    //   componentRoot: 'src',
-    //   plugins: [
-    //     new ReactPlugin(),
-    //   ]
-    // })
   ],
 };
