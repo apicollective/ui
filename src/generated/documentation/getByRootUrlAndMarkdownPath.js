@@ -4,9 +4,11 @@
 import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
+import { resolve } from 'url';
 
 function api({ rootUrl, markdownPath } = {}) {
-    return request.get(`${rootUrl}/${markdownPath}`);
+  const url = resolve(rootUrl, markdownPath);
+  return request.get(url);
 }
 
 const actionTypes = {
@@ -17,7 +19,7 @@ const actionTypes = {
 };
 
 const actions = {
-    getByRootUrlAndMarkdownPath_get: ({ rootUrl, markdownPath } = {}) => ({
+  getByRootUrlAndMarkdownPath_get: ({ rootUrl, markdownPath } = {}) => ({
     type: actionTypes.getByRootUrlAndMarkdownPath_get,
     payload: {
       rootUrl,
@@ -42,12 +44,12 @@ function* saga(action) {
   try {
     const rootUrl = action.payload.rootUrl;
     yield put(actions.getByRootUrlAndMarkdownPath_doing());
-    const { body } = yield call(api, action.payload);
+    const { text } = yield call(api, action.payload);
 
     const imagesRegex = /!\[(.*)\]\(/;
-    const bodyWithImages = body.replace(imagesRegex, `![$1](${rootUrl}`);
+    const textWithImages = text.replace(imagesRegex, `![$1](${rootUrl}/`);
 
-    yield put(actions.getByRootUrlAndMarkdownPath_success(bodyWithImages));
+    yield put(actions.getByRootUrlAndMarkdownPath_success(textWithImages));
   } catch (error) {
     yield put(actions.getByRootUrlAndMarkdownPath_failure(error));
   }

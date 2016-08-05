@@ -1,3 +1,5 @@
-.markdown {
+@import "variables.css";
 
+.container {
+  padding: 3rem;
 }

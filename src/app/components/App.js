@@ -103,8 +103,11 @@ class App extends Component {
         items: [{
           name: '',
           items: applicationsWithHref,
-        }, {
-          name: 'Documentation',
+        }],
+      }, {
+        name: 'Documentation',
+        items: [{
+          name: '',
           items: docsWithHref,
         }],
       }];

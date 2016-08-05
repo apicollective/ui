@@ -30,6 +30,7 @@ module.exports = {
         rewrite: function(req) {
           req.url = req.url.replace(/^\/api/, '');
         }
+
       },
       // This is to support period/dot's in URL params
       '/*.*' : {   // Match all URL's with period/dot
@@ -37,7 +38,7 @@ module.exports = {
         rewrite: function(req) {
           req.url = 'index.html';  // Send to react app
         }
-      }
+      },
     },
   },
   debug: true,

@@ -7,7 +7,6 @@ import { reducers as organizationReducers } from '../organization';
 import { reducers as documentationReducers } from '../documentation';
 
 const routing = { routing: routerReducer };
-
 const allReducers = Object.assign(
   {},
   routing,
