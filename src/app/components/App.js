@@ -117,7 +117,7 @@ class App extends Component {
        : []);
     } else if (params.organizationKey && params.applicationKey && service.apidoc) {
       const currentItem = this.getCurrentItem(params);
-      const allResources = flatten(service.resources.concat(imports.map((importValue) => importValue.resources)));
+      const allResources = service.resources;
       const allModels = flatten(service.models.concat(imports.map((importValue) => importValue.models)));
       const allEnums = flatten(service.enums.concat(imports.map((importValue) => importValue.enums)));
 
