@@ -21,11 +21,6 @@ type Props = {
 };
 
 class JsonDoc extends React.Component {
-  state: {
-    documentationFullType: string,
-  };
-
-  mouseOver: (event: Object) => void;
 
   constructor(props: Props) {
     super(props);
@@ -38,6 +33,10 @@ class JsonDoc extends React.Component {
       if (event.stopPropagation) event.stopPropagation();
     };
   }
+
+  state: {
+    documentationFullType: string,
+  };
 
   getModelJson(baseModel: string, service: Service, imports: Array<Service>, mouseOver: (event: Object)=> void) {
     if (utils.isImportOrInService(baseModel, service, imports)) {
@@ -67,6 +66,8 @@ class JsonDoc extends React.Component {
       return null;
     }
   }
+
+  mouseOver: (event: Object) => void;
 
   render() {
     const { baseModel, service, imports, includeModel } = this.props;

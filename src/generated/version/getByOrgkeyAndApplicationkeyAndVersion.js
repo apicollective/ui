@@ -41,7 +41,7 @@ const actions = {
   }),
   getByOrgkeyAndApplicationkeyAndVersion_success: (payload) => ({
     type: actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success,
-    payload: payload,
+    payload,
   }),
   getByOrgkeyAndApplicationkeyAndVersion_failure: (err) => ({
     type: actionTypes.getByOrgkeyAndApplicationkeyAndVersion_failure,

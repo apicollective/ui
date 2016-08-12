@@ -121,7 +121,7 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
   onClick: () => void,
   children?: React$Element<*>
 }) => {
-  if (children == undefined) {
+  if (children === undefined) {
     return null;
   }
   const indented = React.cloneElement(children, { indent: children.props.indent + 1 });
