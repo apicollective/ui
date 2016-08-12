@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import Markdown from '../../../components/Markdown';
+import Header from '../../components/Header';
 import Request from '../../components/Request';
 import Response from '../../components/Response';
 import ResourceCard from '../../components/ResourceCard';
@@ -16,6 +17,16 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
       />
     </div>
     <Markdown source={operation.description ? operation.description : ''} className={styles.description} />
+    <div className={styles.headers}>
+      <Header
+        appKey={applicationKey}
+        orgKey={organizationKey}
+        key={`${method}${resource}${path}-header`}
+        operation={operation}
+        service={service}
+        imports={imports}
+      />
+    </div>
     <div className={styles.request}>
       <Request
         appKey={applicationKey}
