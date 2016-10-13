@@ -6,7 +6,7 @@ Work in progress
 UI Dev
 
     npm start
-    http://localhost:8080/carte-blanche
+    http://localhost:8080/
     
 App
 
