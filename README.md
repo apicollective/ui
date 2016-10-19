@@ -1,5 +1,15 @@
 # apidoc-ui
-Work in progress
+A fresh UI built using React + Redux for https://github.com/mbryzek/apidoc
+
+
+## Preview
+
+![APIDOC-UI-org](organization.png)
+
+![APIDOC-UI-model](model.png)
+
+![APIDOC-UI-resource](resource.png)
+
 
 ## Running
 
