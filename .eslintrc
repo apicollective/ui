@@ -11,7 +11,8 @@
     "max-len": ["error", 120],
     "no-unused-vars": ["error", {"args": "none"}],
     "react/jsx-boolean-value": ["error", "always"],
-    "flowtype/define-flow-type": 1
+    "flowtype/define-flow-type": 1,
+    "react/jsx-filename-extension": "off"
   },
   "settings": {
     "import/resolver": "webpack"

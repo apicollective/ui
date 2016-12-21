@@ -1,12 +1,13 @@
 # https://flowtype.org/docs/advanced-configuration.html
 [version]
-0.30.0
+0.37.4
 
 [ignore]
 .*/node_modules/jsverify/*
 .*/node_modules/fbjs/*
 .*/node_modules/react-motion/*
 .*/node_modules/systemjs-builder/*
+.*/node_modules/stylelint/*
 
 [options]
 suppress_comment=\\(.\\|\n\\)*\\flow-disable-next-line

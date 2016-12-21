@@ -11,13 +11,18 @@ A fresh UI built using React + Redux for https://github.com/mbryzek/apidoc
 ![APIDOC-UI-resource](resource.png)
 
 
-## Running
+## Dev
 
 UI Dev
 
+    yarn install
     npm start
     http://localhost:8080/
     
 App
 
     npm start
+    
+## Deploy
+
+    npm run build

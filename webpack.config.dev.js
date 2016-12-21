@@ -1,7 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const CarteBlanche = require('carte-blanche');
-const ReactPlugin = require('carte-blanche-react-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // PostCSS plugins
@@ -67,7 +65,6 @@ module.exports = {
   postcss: (webpack) => {
     return [
       postCSSImport({
-        addDependencyTo: webpack,
         path: ['./src/styles']
       }),
       postCSSNext({
@@ -98,11 +95,5 @@ module.exports = {
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
     })
-    // new CarteBlanche({
-    //   componentRoot: 'src',
-    //   plugins: [
-    //     new ReactPlugin(),
-    //   ]
-    // })
   ],
 };

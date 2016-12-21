@@ -1,3 +1,4 @@
+// @flow
 import { actions, actionTypes } from './actions';
 import { reducers } from './reducers';
 
