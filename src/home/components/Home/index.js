@@ -1,3 +1,4 @@
+// @flow
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,33 +11,42 @@ import HomeCard from '../HomeCard';
 
 import styles from './home.css';
 
+import type { State } from '../../../app/reducers';
+import type { Organization } from '../../../generated/version/ServiceType';
+
 const allActions = Object.assign({}, orgActions);
 
-const Org = ({ organization }) =>
+const Org = ({ organization }: {
+  organization: Organization,
+}) =>
   <HomeCard
     link={`org/${organization.key}`}
     name={organization.name}
     description={organization.description}
   />;
 
-Org.propTypes = {
-  organization: PropTypes.object.isRequired,
-};
-
-const Organizations = ({ organizations }) =>
+const Organizations = ({ organizations }: {
+  organizations: Organization[],
+}) =>
   <div>
   {organizations.map((organization, id) => (
-    <div key={`${organization}-${id}`} className={styles.container}>
+    <div key={`${organization.key}-${id}`} className={styles.container}>
       <Org key={id} organization={organization} />
     </div>
   ))}
   </div>;
 
-Organizations.propTypes = {
-  organizations: PropTypes.array.isRequired,
-};
-
+type Props = {
+  loaded: boolean,
+  actions: Object, // FIXME - types
+  organizations: Organization[],
+}
 class Home extends Component {
+  props: Props;
+  constructor(props: Props) {
+    super(props);
+  }
+
   // TODO: Can I haz more orgs?
   componentDidMount() {
     this.props.actions.getOrganizations_get({ limit: 20, offset: 0 });
@@ -61,20 +71,10 @@ class Home extends Component {
     }
   }
 }
-Home.propTypes = {
-  actions: PropTypes.object.isRequired,
-  organizations: PropTypes.array.isRequired,
-  loaded: PropTypes.bool.isRequired,
-};
 
-const mapStateToProps = (state) => (
-  {
-    organizations: state.app.get('organizations'),
-    loaded: state.app.get('loaded'),
-  }
-);
+const mapStateToProps = (state: State) => ({ ...state.app });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch): {[key: string]: Function} => (
   { actions: bindActionCreators(allActions, dispatch) }
 );
 

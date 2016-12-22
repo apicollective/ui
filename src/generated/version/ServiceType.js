@@ -11,10 +11,14 @@ export type Header = {
 
 export type Organization = {
   key: string,
+  name: string,
+  description?: string,
 };
 
 export type Application = {
   key: string,
+  name: string,
+  description?: string,
 };
 
 export type Import = {
@@ -23,9 +27,9 @@ export type Import = {
   organization: Organization,
   application: Application,
   version: string,
-  enums: Array<string>,
-  unions: Array<string>,
-  models: Array<string>,
+  enums: string[],
+  unions: string[],
+  models: string[],
 };
 
 export type EnumValue = {
@@ -37,7 +41,7 @@ export type Enum = {
   name: string,
   plural: string,
   description?: string,
-  values: Array<EnumValue>,
+  values: EnumValue[],
 };
 
 export type UnionType = {
@@ -50,7 +54,7 @@ export type Union = {
   plural: string,
   descriminator?: string,
   description?: string,
-  types: Array<UnionType>,
+  types: UnionType[],
 };
 
 export type Field = {
@@ -68,7 +72,7 @@ export type Model = {
   name: string,
   plural: string,
   description?: string,
-  fields: Array<Field>,
+  fields: Field[],
 };
 
 export type Method = string;
@@ -101,8 +105,8 @@ export type Operation = {
   path: string,
   description?: string,
   body?: Body,
-  parameters: Array<Parameter>,
-  responses: Array<Response>,
+  parameters: Parameter[],
+  responses: Response[],
 };
 
 export type Resource = {
@@ -110,7 +114,7 @@ export type Resource = {
   plural: string,
   path?: string,
   description?: string,
-  operations: Array<Operation>,
+  operations: Operation[],
 };
 
 export type Service = {
@@ -119,10 +123,10 @@ export type Service = {
   application: Application,
   namespace: string,
   version: string,
-  headers: Array<Header>,
-  imports: Array<Import>,
-  enums: Array<Enum>,
-  unions: Array<Union>,
-  models: Array<Model>,
-  resources: Array<Resource>,
+  headers: Header[],
+  imports: Import[],
+  enums: Enum[],
+  unions: Union[],
+  models: Model[],
+  resources: Resource[],
 };

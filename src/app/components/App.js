@@ -1,3 +1,4 @@
+// @flow
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,11 +13,30 @@ import { actions } from '../actions';
 import { buildNavHref, cleanPath, getOperation, onClickHref } from '../../utils';
 import docs from '../../../documents.json';
 
+import type { State } from '../../app/reducers';
+
 import styles from './app.css';
+
+
+/* type Item<T> = {
+ *   name: string,
+ *   items: T,
+ * }*/
+type Item = {
+  name: string,
+  active?: boolean,
+  type?: string,
+  /* onClick?: (href: string) => (event: Event) => void,*/
+  onClick?: Function, // FIXME - use proper type
+  items?: Item[],
+}
 
 class App extends Component {
 
-  getCurrentItem(params) {
+  // FIXME add props
+
+  // FIXME nullable?
+  getCurrentItem(params): ?string {
     if (params.model) {
       return params.model;
     } else if (params.path) {
@@ -25,10 +45,10 @@ class App extends Component {
     return null;
   }
 
-  createResourceItem(params, resource, currentItem) {
+  createResourceItem(params, resource, currentItem): Item {
     return {
       name: resource.type,
-      items: resource.operations.map((operation) => (
+      items: resource.operations.map(operation => (
         {
           name: `${operation.method} ${operation.path}`,
           onClick: onClickHref(buildNavHref({
@@ -47,7 +67,7 @@ class App extends Component {
     };
   }
 
-  createModelItem(params, model, currentItem, type = 'model') {
+  createModelItem(params, model, currentItem, type = 'model'): Item {
     return {
       name: `${model.name}`,
       onClick: onClickHref(buildNavHref({
@@ -61,9 +81,9 @@ class App extends Component {
   }
 
 
-  createSideBarItems(params, service, imports, organizations, organizationObj, applications) {
+  createSideBarItems(params, service, imports, organizations, organizationObj, applications): Item[] {
     if (!params.organizationKey) {
-      const organizationsWithHref = organizations.map((organization) => (
+      const organizationsWithHref = organizations.map(organization => (
         {
           name: organization.name,
           onClick: onClickHref(buildNavHref({
@@ -79,7 +99,7 @@ class App extends Component {
         }],
       }];
     } else if (params.organizationKey && !params.applicationKey) {
-      const applicationsWithHref = applications.map((application) => (
+      const applicationsWithHref = applications.map(application => (
         {
           name: application.name,
           onClick: onClickHref(buildNavHref({
@@ -118,19 +138,23 @@ class App extends Component {
     } else if (params.organizationKey && params.applicationKey && service.apidoc) {
       const currentItem = this.getCurrentItem(params);
       const allResources = service.resources;
-      const allModels = flatten(service.models.concat(imports.map((importValue) => importValue.models)));
-      const allEnums = flatten(service.enums.concat(imports.map((importValue) => importValue.enums)));
+      // FIXME - add back imports
+      /* const allModels = flatten(service.models.concat(imports.map(importValue => importValue.models)));*/
+      const allModels = service.models;
+      // FIXME - add back enums
+      /* const allEnums = flatten(service.enums.concat(imports.map(importValue => importValue.enums)));*/
+      const allEnums = service.emums || [];
 
       return [{
         name: 'Resources',
-        items: allResources.map((resource) => (this.createResourceItem(params, resource, currentItem))),
+        items: allResources.map(resource => (this.createResourceItem(params, resource, currentItem))),
       },
       {
         name: 'Models',
         items: [{
           name: '',
-          items: allModels.map((model) => (this.createModelItem(params, model, currentItem)))
-                          .concat(allEnums.map((enumValue) =>
+          items: allModels.map(model => (this.createModelItem(params, model, currentItem)))
+                          .concat(allEnums.map(enumValue =>
                             (this.createModelItem(params, enumValue, currentItem, 'enum')))
                           ),
         }],
@@ -139,13 +163,18 @@ class App extends Component {
     return [{ name: 'Unknown', items: [{ name: 'Unknown', items: [] }] }];
   }
 
-  createNavBarItems(params, service) {
+  createNavBarItems(params, service): Item[] {
+    // FIXME test
     if (!service.apidoc) {
       return [];
     }
-    const operationPath = params.resource ?
-            getOperation(params.resource, params.method, params.path, service).path :
-            null;
+    // FIXME test
+    let operationPath = '';
+    if(params.resource) {
+      const op = getOperation(params.resource, params.method, params.path, service);
+      operationPath = op ? op.path : '';
+    }
+
     return [].concat(
       params.organizationKey ? {
         name: params.organizationKey,
@@ -193,10 +222,12 @@ class App extends Component {
 
     const sideBarItems = this.createSideBarItems(params, service, imports, organizations, organization, applications)
       .map((sideBarItem) => {
-        sideBarItem.items.map((items) => (
-          Object.assign(items, { items: sortBy((item) => item.name, items.items) })
-        ));
-        return Object.assign(sideBarItem, { items: sortBy((item) => item.name, sideBarItem.items) });
+        if (sideBarItem.items) {
+          sideBarItem.items.map(items => (
+            Object.assign(items, { items: sortBy(item => item.name, items.items) })
+          ));
+        }
+        return Object.assign(sideBarItem, { items: sortBy(item => item.name, sideBarItem.items) });
       });
 
     const navBarItems = this.createNavBarItems(params, service);
@@ -215,6 +246,7 @@ class App extends Component {
   }
 }
 
+// FIXME - replace with flow
 App.propTypes = {
   children: PropTypes.object.isRequired,
   service: PropTypes.object.isRequired,
@@ -225,17 +257,18 @@ App.propTypes = {
   imports: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => (
+const mapStateToProps = (state: State) => (
   {
-    service: state.application.get('service'),
-    organizations: state.app.get('organizations'),
-    organization: state.organization.get('organization'),
-    applications: state.organization.get('applications'),
-    imports: state.application.get('imports'),
+    service: state.application.service,
+    organizations: state.app.organizations,
+    organization: state.organization.organization,
+    applications: state.organization.applications,
+    imports: state.application.imports,
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
+// FIXME type for dispatch
+const mapDispatchToProps = dispatch => (
   { actions: bindActionCreators(actions, dispatch) }
 );
 

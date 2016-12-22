@@ -1,16 +1,28 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import classnames from 'classnames';
 
 import Markdown from '../../../components/Markdown';
-
 import { buildNavHref, getType, isImport, isImportOrInService, onClickHref, simplifyName } from '../../../utils';
+
+import type { Service } from '../../../generated/version/ServiceType';
 
 import styles from './parameter-list.css';
 
-const ParameterList = ({ name, type, required, description, example, defaultValue, service, imports, parentModel }) => {
+const ParameterList = ({ name, type, required, description, example, defaultValue, service, importedServices, parentModel }: {
+  name: string,
+  type: string,
+  required: boolean,
+  description?: string,
+  example?: string,
+  defaultValue?: string,
+  service: Service,
+  importedServices: Service[],
+  parentModel: string,
+}) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
-  const modelType = isImport(possibleImportType, imports) ? possibleImportType : type;
-  const typeClickFn = isImportOrInService(getType(modelType), service, imports) ?
+  const modelType = isImport(possibleImportType, importedServices) ? possibleImportType : type;
+  const typeClickFn = isImportOrInService(getType(modelType), service, importedServices) ?
                       onClickHref(buildNavHref(
                         { organization: service.organization.key,
                           application: service.application.key, model: getType(modelType) }
@@ -39,18 +51,6 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
       }
     </div>
   </div>);
-};
-
-ParameterList.propTypes = {
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  required: PropTypes.bool.isRequired,
-  parentModel: PropTypes.string.isRequired,
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  description: PropTypes.string,
-  example: PropTypes.string,
-  defaultValue: PropTypes.string,
 };
 
 export default ParameterList;

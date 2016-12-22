@@ -10,7 +10,13 @@ import AppCard from '../AppCard';
 import styles from './organization.css';
 import { actions } from '../../sagas';
 
-const App = ({ orgKey, application }) =>
+import type { State } from '../../../app/reducers';
+import type { Application } from '../../../generated/version/ServiceType';
+
+const App = ({ orgKey, application }: {
+  orgKey: string,
+  application: Application,
+}) =>
   <AppCard
     name={application.name}
     description={application.description}
@@ -23,13 +29,16 @@ App.propTypes = {
 };
 
 // Roll into Org FIXME
-const Applications = ({ orgKey, applications }) =>
+const Applications = ({ orgKey, applications }: {
+  orgKey: string,
+  applications: Application[],
+}) =>
   <div>
-  {applications.map((application, id) => (
-    <div key={`${orgKey}-${id}`} className={styles.container}>
-      <App key={id} orgKey={orgKey} application={application} />
-    </div>
-  ))}
+    {applications.map((application, id) => (
+      <div key={`${orgKey}-${id}`} className={styles.container}>
+        <App key={id} orgKey={orgKey} application={application} />
+      </div>
+    ))}
   </div>;
 
 Applications.propTypes = {
@@ -71,11 +80,11 @@ Organization.propTypes = {
   loaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => (
+const mapStateToProps = (state: State) => (
   {
-    organization: state.organization.get('organization'),
-    applications: state.organization.get('applications'),
-    loaded: state.organization.get('loaded'),
+    organization: state.organization.organization,
+    applications: state.organization.applications,
+    loaded: state.organization.loaded,
   }
 );
 

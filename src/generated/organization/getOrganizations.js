@@ -9,6 +9,8 @@ function api({ guid, user_guid, key, name, namespace, limit, offset } = {}) {
   return request.get('/api/organizations');
 }
 
+// FIXME - eg of types
+/* declare type Response = 'yes' | 'no' | 'maybe';*/
 const actionTypes = {
   getOrganizations_get: 'getOrganizations/get',
   getOrganizations_doing: 'getOrganizations/doing',

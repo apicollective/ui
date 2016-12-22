@@ -16,6 +16,8 @@ const allActions = Object.assign({}, serviceActions);
 
 class Application extends Component {
 
+  // FIXME props
+
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     const applicationKey = this.props.params.applicationKey;
@@ -54,10 +56,13 @@ class Application extends Component {
       // Load Model
       const modelName = this.props.params.model;
       if (utils.isEnum(modelName, service, imports)) {
+        // FIXME - not sure if this is enum or model? Need a test case
         const enumModel = utils.getEnum(modelName, service, imports);
-        enumModel.fields = enumModel.values.map((value) => (
-          { name: value.name, description: value.description, type: 'string', required: false }
-        ));
+        /* if (enumModel) {
+         *   enumModel.fields = enumModel.values.map(value => (
+         *     { name: value.name, description: value.description, type: 'string', required: false }
+         *   ));
+         * }*/
         return <Model model={enumModel} service={service} imports={imports} showJsonDoc={false} />;
       } else {
         const model = utils.getModel(modelName, service, imports);
@@ -86,15 +91,15 @@ Application.propTypes = {
   imports: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => (
+const mapStateToProps = state => (
   {
-    loaded: state.application.get('loaded'),
-    service: state.application.get('service'),
-    imports: state.application.get('imports'),
+    loaded: state.application.loaded,
+    service: state.application.service,
+    imports: state.application.imports,
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = dispatch => (
   { actions: bindActionCreators(allActions, dispatch) }
 );
 

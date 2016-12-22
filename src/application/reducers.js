@@ -1,8 +1,19 @@
-import { Map } from 'immutable';
-
+// @flow
+/* import type { Service, Import } from '../generated/version/ServiceType';*/
 import { actionTypes } from '../generated/version';
 
-const initialState = new Map({
+export type ApplicationState = {
+  loaded: boolean,
+  service: any, // FIXME Service,
+  imports: any, // FIXME Import[],
+}
+
+type Action = {
+  type: string,
+  payload: any, // FIXME
+}
+
+const initialState = {
   loaded: false,
   service: {
     enums: [],
@@ -22,19 +33,21 @@ const initialState = new Map({
       },
     ],
   }],
-});
+};
 
-const application = (state = initialState, action) => {
+const application = (state: ApplicationState = initialState, action: Action) => {
   switch (action.type) {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
-      return state
-        .set('service', action.payload.service)
-        .set('imports', action.payload.imports)
-        .set('loaded', true);
+      return {
+        loaded: true,
+        service: action.payload.service,
+        imports: action.payload.import,
+      };
     }
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_doing: {
-      return state
-        .set('loaded', false);
+      return Object.assign(state, {
+        loaded: false,
+      });
     }
     default: {
       return state;

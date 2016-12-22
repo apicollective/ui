@@ -19,21 +19,19 @@ module.exports = {
     path: path.resolve(ROOT_PATH, 'build.dev'),
     filename: 'bundle.js',
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map',
   devServer: {
     proxy: {
-      '/api/*': {
+      '/api': {
         changeOrigin: true,
+        // FIXME - make config or use static files
         target: 'http://apidoc.movio.co:9001/',
-        rewrite: function(req) {
-          req.url = req.url.replace(/^\/api/, '');
-        }
-
+        pathRewrite: { '^/api' : '' },
       },
       // This is to support period/dot's in URL params
       '/*.*' : {   // Match all URL's with period/dot
         target: 'http://localhost:8080/', // send to webpack dev server
-        rewrite: function(req) {
+        rewrite: (req) => {
           req.url = 'index.html';  // Send to react app
         }
       },

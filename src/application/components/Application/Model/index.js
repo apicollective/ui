@@ -1,3 +1,4 @@
+// @flow
 import React, { PropTypes } from 'react';
 
 import H1 from '../../../../components/H1';
@@ -7,9 +8,16 @@ import ParameterListGroup from '../../ParameterListGroup';
 
 import { simplifyName } from '../../../../utils';
 
+import type { Import, Service, Model as ModelType } from '../../../../generated/version/ServiceType';
+
 import styles from './model.css';
 
-const Model = ({ model, service, imports, showJsonDoc }) =>
+const Model = ({ model, service, imports, showJsonDoc }: {
+  model: any, // FIXME ModelType,
+  service: Service,
+  imports: Import[],
+  showJsonDoc: boolean,
+}) =>
   <div className={styles.container}>
     <div className={styles.header}>
       <H1 className={styles.title}>{simplifyName(model.name)}</H1>
@@ -35,6 +43,7 @@ const Model = ({ model, service, imports, showJsonDoc }) =>
     </div>
   </div>;
 
+// FIXME - remove all prop types once we have flow
 Model.propTypes = {
   model: PropTypes.object.isRequired,
   service: PropTypes.object.isRequired,

@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 
 import * as utils from '../../../utils';
@@ -79,7 +78,7 @@ const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }:
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
-  onClick: () => void,
+  onClick: Function, // FIXME () => void,
 }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.name}>{spaces(indent)}"{label}":</span>
@@ -91,7 +90,7 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
-  onClick: () => void,
+  onClick: Function, // FIXME () => void,
   children?: React$Element<*>
 }) =>
   <div>
@@ -108,7 +107,7 @@ const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick }: {
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
-  onClick: () => void
+  onClick: Function, // FIXME () => void
 }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.value}>{spaces(indent)}{value}</span>,
@@ -118,7 +117,7 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
-  onClick: () => void,
+  onClick: Function, // FIXME () => void,
   children?: React$Element<*>
 }) => {
   if (children === undefined) {
@@ -134,13 +133,13 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
   );
 };
 
-const ModelElement = ({ model, fieldKey, indent, mouseOver, service, imports }: {
+const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedServices }: {
   model: Model,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
-  imports: Array<Service>
+  importedServices: Service[],
 }) =>
   <div>
     {`${spaces(indent)}{`}
@@ -152,23 +151,23 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, imports }: 
         indent={indent + 1}
         mouseOver={mouseOver}
         service={service}
-        imports={imports}
+        importedServices={importedServices}
       />
     )}
     {`${spaces(indent)}},`}
   </div>;
 
-const JField = ({ field, fieldKey, indent, mouseOver, service, imports }: {
+const JField = ({ field, fieldKey, indent, mouseOver, service, importedServices }: {
   field: Field,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
-  imports: Array<Service>
+  importedServices: Service[],
 }) => {
   const type = field.type;
 
-  if (utils.isArray(type) || utils.isModel(type, service, imports)) {
+  if (utils.isArray(type) || utils.isModel(type, service, importedServices)) {
     return (
       <MultiLineField
         label={field.name}
@@ -183,16 +182,16 @@ const JField = ({ field, fieldKey, indent, mouseOver, service, imports }: {
           fieldKey={fieldKey}
           indent={indent}
           service={service}
-          imports={imports}
+          importedServices={importedServices}
           mouseOver={mouseOver}
         />
       </MultiLineField>
     );
   } else { // Standard Value or Enum
     let value = null;
-    if (utils.isEnum(type, service, imports)) {
-      const enumModel = utils.getEnum(type, service, imports);
-      value = `"${enumModel.values[0].name}"`;
+    if (utils.isEnum(type, service, importedServices)) {
+      const enumModel = utils.getEnum(type, service, importedServices);
+      value = enumModel ? `"${enumModel.values[0].name}"` : '';
     } else {
       value = defaults.getFieldValue(field);
     }
@@ -209,18 +208,18 @@ const JField = ({ field, fieldKey, indent, mouseOver, service, imports }: {
   }
 };
 
-const Element = ({ field, type, fieldKey, indent, mouseOver, service, imports }: {
+const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedServices }: {
   field?: Field,
   type: string,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
-  imports: Array<Service>
+  importedServices: Service[],
 }) => {
   let element = null;
-  if (utils.isModel(type, service, imports)) {
-    const model = utils.getModel(type, service, imports);
+  if (utils.isModel(type, service, importedServices)) {
+    const model = utils.mustGetModel(type, service, importedServices); 
     element =
       (<ModelElement
         model={model}
@@ -229,7 +228,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, imports }:
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
         service={service}
-        imports={imports}
+        importedServices={importedServices}
       />);
   } else {
     let value = '""';
@@ -244,7 +243,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, imports }:
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
         service={service}
-        imports={imports}
+        imports={importedServices}
       />);
   }
 

@@ -1,6 +1,5 @@
 // @flow
-
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import ParameterList from '../ParameterList';
 import * as utils from '../../../utils';
@@ -13,29 +12,23 @@ const defaultView =
     <span className={styles.defaultView}>&lt;-- Hover over JSON example for documentation</span>
   </div>);
 
-const Documentation = ({ documentationFullType, service, imports }: {
+const Documentation = ({ documentationFullType, service, importedServices }: {
   documentationFullType: string,
   service: Service,
-  imports: Array<Service>
+  importedServices: Service[],
 }) => {
   if (!documentationFullType) return defaultView;
 
   const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
   const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);
-  const model = utils.getModel(modelName, service, imports);
-  const field = model.fields.find(f => f.name === fieldName);
+  const model = utils.getModel(modelName, service, importedServices);
+  const field = model ? model.fields.find(f => f.name === fieldName) : null;
 
   return (
     <div className={styles.documentation}>
-      <ParameterList {...field} service={service} imports={imports} parentModel={modelName} />
+      <ParameterList {...field} service={service} importedServices={importedServices} parentModel={modelName} />
     </div>
   );
-};
-
-Documentation.propTypes = {
-  documentationFullType: PropTypes.string.isRequired,
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
 };
 
 export default Documentation;

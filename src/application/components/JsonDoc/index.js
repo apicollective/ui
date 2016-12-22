@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import Documenation from './Documentation';
 import ModelDescription from './ModelDescription';
@@ -12,7 +12,7 @@ import styles from './json-doc.css';
 
 type Props = {
   service: Service,
-  imports: Array<Service>,
+  importedServices: Service[],
   baseModel: string,
   includeModel?: boolean, // Include Model Documentation in JsonDoc
   excludeModelDescription?: boolean,
@@ -38,8 +38,8 @@ class JsonDoc extends React.Component {
     documentationFullType: string,
   };
 
-  getModelJson(baseModel: string, service: Service, imports: Array<Service>, mouseOver: (event: Object)=> void) {
-    if (utils.isImportOrInService(baseModel, service, imports)) {
+  getModelJson(baseModel: string, service: Service, importedServices: Service[], mouseOver: (event: Object)=> void) {
+    if (utils.isImportOrInService(baseModel, service, importedServices)) {
       return (
         <Element
           type={baseModel}
@@ -47,7 +47,7 @@ class JsonDoc extends React.Component {
           indent={0}
           mouseOver={this.mouseOver}
           service={service}
-          imports={imports}
+          importedServices={importedServices}
         />
       );
     } else {
@@ -55,7 +55,7 @@ class JsonDoc extends React.Component {
     }
   }
 
-  getJson(baseModel: string, service: Service, imports: Array<Service>, modelFieldJson: any) {
+  getJson(baseModel: string, service: Service, importedServices: Service[], modelFieldJson: any) {
     if (modelFieldJson) {
       return (
         <pre className={styles.code}>
@@ -70,40 +70,30 @@ class JsonDoc extends React.Component {
   mouseOver: (event: Object) => void;
 
   render() {
-    const { baseModel, service, imports, includeModel } = this.props;
+    const { baseModel, service, importedServices, includeModel } = this.props;
 
     return (
       <div className={styles.jsonDoc}>
         {includeModel ? <ModelDescription
           baseModel={baseModel}
           service={service}
-          imports={imports}
+          importedServices={importedServices}
           modelNameClick={this.props.modelNameClick}
         /> : null}
         <div className={styles.container}>
-          {this.getJson(baseModel, service, imports,
+          {this.getJson(baseModel, service, importedServices,
                         this.props.rawValue ?
                         this.props.rawValue :
-                        this.getModelJson(baseModel, service, imports, this.mouseOver))}
+                        this.getModelJson(baseModel, service, importedServices, this.mouseOver))}
           <Documenation
             documentationFullType={this.state.documentationFullType}
             service={service}
-            imports={imports}
+            importedServices={importedServices}
           />
         </div>
       </div>
     );
   }
 }
-// Keep until using flow everywhere
-JsonDoc.propTypes = {
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  baseModel: PropTypes.string.isRequired,
-  includeModel: PropTypes.bool, // Include Model Documentation in JsonDoc
-  excludeModelDescription: PropTypes.bool,
-  modelNameClick: PropTypes.func,
-  rawValue: PropTypes.string,
-};
 
 export default JsonDoc;

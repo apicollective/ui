@@ -1,13 +1,20 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 
 import { cleanPath } from '../../../utils';
-
-import JsonDoc from '../../components/JsonDoc';
 import ParameterListGroup from '../../components/ParameterListGroup';
+
+import type { Operation, Service, Import } from '../../../generated/version/ServiceType';
 
 import styles from './header.css';
 
-const Header = ({ operation, service, imports, orgKey, appKey }) => {
+const Header = ({ operation, service, imports, orgKey, appKey }: {
+  operation: Operation,
+  service: Service,
+  imports: Import[],
+  orgKey: string,
+  appKey: string,
+}) => {
   return (
     <div className={styles.container}>
       <ParameterListGroup
@@ -19,14 +26,6 @@ const Header = ({ operation, service, imports, orgKey, appKey }) => {
       />
     </div>
   );
-};
-
-Header.propTypes = {
-  operation: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  orgKey: PropTypes.string.isRequired,
-  appKey: PropTypes.string.isRequired,
 };
 
 export default Header;
