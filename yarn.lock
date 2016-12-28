@@ -356,6 +356,10 @@ babel-helper-hoist-variables@^6.18.0:
     babel-runtime "^6.0.0"
     babel-types "^6.18.0"
 
+babel-helper-is-react-class@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/babel-helper-is-react-class/-/babel-helper-is-react-class-1.0.0.tgz#ef6f3678b05c76dbdeedadead7af98c2724d8431"
+
 babel-helper-optimise-call-expression@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-helper-optimise-call-expression/-/babel-helper-optimise-call-expression-6.18.0.tgz#9261d0299ee1a4f08a6dd28b7b7c777348fd8f0f"
@@ -450,6 +454,12 @@ babel-plugin-check-es2015-constants@^6.3.13:
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.8.0.tgz#dbf024c32ed37bfda8dee1e76da02386a8d26fe7"
   dependencies:
     babel-runtime "^6.0.0"
+
+babel-plugin-react-fix-it@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-fix-it/-/babel-plugin-react-fix-it-0.1.0.tgz#82a06d515c90dbcaf6a56a24592faa1fcb8e77a1"
+  dependencies:
+    babel-helper-is-react-class "^1.0.0"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -4736,6 +4746,10 @@ react-addons-test-utils@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.4.1.tgz#1e4caab151bf27cce26df5f9cb714f4fd8359ae1"
 
+react-component-errors@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-component-errors/-/react-component-errors-0.0.6.tgz#370f03e284dfa95ca94449f0fdd24e8914fb8752"
+
 react-dom@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
@@ -4743,6 +4757,12 @@ react-dom@^15.4.1:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+
+react-fix-it@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-fix-it/-/react-fix-it-0.3.3.tgz#c3debc91c43660010b0ef78fc3b730dbb1f9e7fd"
+  dependencies:
+    react-component-errors "^0.0.6"
 
 react-hot-api@^0.4.5:
   version "0.4.7"
