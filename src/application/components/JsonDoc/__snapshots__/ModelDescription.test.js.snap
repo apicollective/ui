@@ -1,4 +1,4 @@
-exports[`test MD 1`] = `
+exports[`test simple html 1`] = `
 <div
   className="modelDescription">
   <h2

@@ -12,7 +12,8 @@
     "no-unused-vars": ["error", {"args": "none"}],
     "react/jsx-boolean-value": ["error", "always"],
     "flowtype/define-flow-type": 1,
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}]
   },
   "settings": {
     "import/resolver": "webpack"

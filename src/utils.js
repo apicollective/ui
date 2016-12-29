@@ -122,7 +122,7 @@ const buildNavHref = ({ organization, documentation, application, resource, meth
     method ? `/m/${method}` : null,
     path ? `/p/${path}` : null,
     model ? `/m/${model}` : null,
-    field ? `#${field}` : null
+    field ? `#${field}` : null,
   ).join('');
 
 export {
