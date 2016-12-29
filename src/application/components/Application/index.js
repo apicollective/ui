@@ -26,6 +26,7 @@ type Props = {
 }
 
 class Application extends Component {
+  props: Props;
 
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
@@ -35,7 +36,6 @@ class Application extends Component {
     );
   }
 
-  props: Props;
 
   render() {
     const { service, importedServices } = this.props;
@@ -43,7 +43,6 @@ class Application extends Component {
     if (!this.props.loaded) {
       // First Load
       return (<LoadingOverlay />);
-
     } else if (this.props.params.resource) {
       // Load Operation
       const {
@@ -68,7 +67,6 @@ class Application extends Component {
           path={path}
         />
       );
-
     } else if (this.props.params.model) {
       // Load Model
       const modelName = this.props.params.model;
@@ -86,7 +84,6 @@ class Application extends Component {
         return <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />;
       }
     } else {
-
       // Load Application Home
       const {
         applicationKey,
@@ -116,7 +113,7 @@ const mapDispatchToProps = dispatch => (
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Application);
 
 export {

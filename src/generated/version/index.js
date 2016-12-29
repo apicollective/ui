@@ -4,12 +4,12 @@ import * as getByOrgkeyAndApplicationkeyAndVersion from './getByOrgkeyAndApplica
 
 const actionTypes = Object.assign(
   {},
-  getByOrgkeyAndApplicationkeyAndVersion.actionTypes
+  getByOrgkeyAndApplicationkeyAndVersion.actionTypes,
 );
 
 const actions = Object.assign(
   {},
-  getByOrgkeyAndApplicationkeyAndVersion.actions
+  getByOrgkeyAndApplicationkeyAndVersion.actions,
 );
 
 const sagas = {

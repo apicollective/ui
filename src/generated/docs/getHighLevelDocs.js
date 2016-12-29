@@ -36,11 +36,11 @@ const actions = {
   getHighLevelDocs_doing: () => ({
     type: actionTypes.getHighLevelDocs_doing,
   }),
-  getHighLevelDocs_success: (response) => ({
+  getHighLevelDocs_success: response => ({
     type: actionTypes.getHighLevelDocs_success,
     payload: response,
   }),
-  getHighLevelDocs_failure: (err) => ({
+  getHighLevelDocs_failure: err => ({
     type: actionTypes.getHighLevelDocs_failure,
     payload: err,
     error: true,

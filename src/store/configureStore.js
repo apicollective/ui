@@ -1,13 +1,21 @@
+// @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../app/rootReducer';
 import allSagas from '../app/allSagas';
 
+// for flowtype of module
+/* declare var module : {
+ *   hot : {
+ *     accept(path:string, callback:() => void): void;
+ *   };
+ * };
+ * */
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, compose(
     applyMiddleware(sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : (f) => f
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
   ));
 
   if (module.hot) {
@@ -19,7 +27,7 @@ const configureStore = () => {
   }
 
   // Run Sagas - needs to be done after the middleware is added to the store
-  allSagas.map((_) => sagaMiddleware.run(_));
+  allSagas.map(_ => sagaMiddleware.run(_));
 
   return store;
 };

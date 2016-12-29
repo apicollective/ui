@@ -27,21 +27,23 @@ const ResourceCard = ({ method, path, click, description }: {
   );
 
   return (
-    <div onClick={click} className={containerClasses}>
-      <div className={styles.flex}>
-        <div className={styles.left}>
-          <div className={methodClasses}>
-            {method}
+    <div className={containerClasses}>
+      <a tabIndex="0" onClick={click}>
+        <div className={styles.flex}>
+          <div className={styles.left}>
+            <div className={methodClasses}>
+              {method}
+            </div>
+          </div>
+          <div className={styles.right}>
+            <pre className={pathClasses}>{path}</pre>
           </div>
         </div>
-        <div className={styles.right}>
-          <pre className={pathClasses}>{path}</pre>
-        </div>
-      </div>
-      {description
-        ? <Markdown source={description} className={styles.description} />
-        : null
-      }
+        {description
+          ? <Markdown source={description} className={styles.description} />
+          : null
+        }
+      </a>
     </div>
   );
 };

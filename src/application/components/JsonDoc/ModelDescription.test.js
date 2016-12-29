@@ -1,12 +1,11 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
-/* import { test, expect } from 'jest';*/
 
 import ModelDescription from './ModelDescription';
 import Example from '../../../exampleService.json';
 
-test('MD', () => {
+test('simple html', () => {
   const params = {
     baseModel: 'base',
     service: Example,

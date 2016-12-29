@@ -42,11 +42,11 @@ const actions = {
   getByOrgkey_doing: () => ({
     type: actionTypes.getByOrgkey_doing,
   }),
-  getByOrgkey_success: (response) => ({
+  getByOrgkey_success: response => ({
     type: actionTypes.getByOrgkey_success,
     payload: response,
   }),
-  getByOrgkey_failure: (err) => ({
+  getByOrgkey_failure: err => ({
     type: actionTypes.getByOrgkey_failure,
     payload: err,
     error: true,

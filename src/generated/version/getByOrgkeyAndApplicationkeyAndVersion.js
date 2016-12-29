@@ -39,11 +39,11 @@ const actions = {
   getByOrgkeyAndApplicationkeyAndVersion_doing: () => ({
     type: actionTypes.getByOrgkeyAndApplicationkeyAndVersion_doing,
   }),
-  getByOrgkeyAndApplicationkeyAndVersion_success: (payload) => ({
+  getByOrgkeyAndApplicationkeyAndVersion_success: payload => ({
     type: actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success,
     payload,
   }),
-  getByOrgkeyAndApplicationkeyAndVersion_failure: (err) => ({
+  getByOrgkeyAndApplicationkeyAndVersion_failure: err => ({
     type: actionTypes.getByOrgkeyAndApplicationkeyAndVersion_failure,
     payload: err,
     error: true,
@@ -51,22 +51,22 @@ const actions = {
 };
 
 const namespaceEntities = (namespace, entities, entityType) =>
-  entities.map((entity) => Object.assign(
+  entities.map(entity => Object.assign(
     entity,
-    { name: `${namespace}.${entityType}.${entity.name}`, plural: `${namespace}.${entityType}.${entity.plural}` }
+    { name: `${namespace}.${entityType}.${entity.name}`, plural: `${namespace}.${entityType}.${entity.plural}` },
   ));
 
 function* saga(action) {
   try {
     yield put(actions.getByOrgkeyAndApplicationkeyAndVersion_doing());
     const { body } = yield call(api, action.payload);
-    const calls = body.service.imports.map((importValue) =>
+    const calls = body.service.imports.map(importValue =>
         call(
             api,
-            { orgKey: importValue.organization.key,
+          { orgKey: importValue.organization.key,
             applicationKey: importValue.application.key,
-            version: importValue.version }
-        )
+            version: importValue.version },
+        ),
     );
     const results = yield calls;
     body.importedServices = results.map((result) => {

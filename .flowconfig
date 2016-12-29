@@ -13,3 +13,6 @@
 suppress_comment=\\(.\\|\n\\)*\\flow-disable-next-line
 module.name_mapper='.*\(.css\)' -> 'empty/object'
 module.use_strict=true
+
+[libs]
+/flow-typed/

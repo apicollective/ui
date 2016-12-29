@@ -25,6 +25,7 @@ const Request = ({ operation, service, importedServices }: {
             service={service}
             importedServices={importedServices}
             includeModel={true}
+            modelNameClick={() => {}}
           />
         </div>
       );

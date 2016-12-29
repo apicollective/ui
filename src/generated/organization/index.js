@@ -4,12 +4,12 @@ import * as getOrganizations from './getOrganizations';
 
 const actionTypes = Object.assign(
   {},
-  getOrganizations.actionTypes
+  getOrganizations.actionTypes,
 );
 
 const actions = Object.assign(
   {},
-  getOrganizations.actions
+  getOrganizations.actions,
 );
 
 const sagas = {

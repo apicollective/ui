@@ -29,10 +29,10 @@ const Organizations = ({ organizations }: {
   organizations: Organization[],
 }) =>
   <div>
-  {organizations.map((organization, id) => (
-    <div key={`${organization.key}-${id}`} className={styles.container}>
-      <Org key={id} organization={organization} />
-    </div>
+    {organizations.map((organization, id) => (
+      <div key={`${organization.key}-${id}`} className={styles.container}>
+        <Org key={id} organization={organization} />
+      </div>
   ))}
   </div>;
 
@@ -43,9 +43,6 @@ type Props = {
 }
 class Home extends Component {
   props: Props;
-  constructor(props: Props) {
-    super(props);
-  }
 
   // TODO: Can I haz more orgs?
   componentDidMount() {
@@ -80,7 +77,7 @@ const mapDispatchToProps = (dispatch): {[key: string]: Function} => (
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Home);
 
 export {

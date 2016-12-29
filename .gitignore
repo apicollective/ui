@@ -4,4 +4,3 @@ static
 .module-cache
 *.log*
 build.prod
-flow-typed

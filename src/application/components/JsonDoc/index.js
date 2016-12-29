@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 
 import Documenation from './Documentation';
 import ModelDescription from './ModelDescription';
@@ -15,12 +15,15 @@ type Props = {
   importedServices: Service[],
   baseModel: string,
   includeModel?: boolean, // Include Model Documentation in JsonDoc
-  excludeModelDescription?: boolean,
-  modelNameClick: () => void,
-  rawValue: ?string,
+  modelNameClick: (event: Event) => void,
+  rawValue?: string,
 };
 
-class JsonDoc extends React.Component {
+class JsonDoc extends Component {
+  props: Props;
+  state: {
+    documentationFullType: string,
+  };
 
   constructor(props: Props) {
     super(props);
@@ -34,11 +37,27 @@ class JsonDoc extends React.Component {
     };
   }
 
-  state: {
-    documentationFullType: string,
-  };
 
-  getModelJson(baseModel: string, service: Service, importedServices: Service[], mouseOver: (event: Object)=> void) {
+  static getJson(baseModel: string, service: Service, importedServices: Service[], modelFieldJson: any) {
+    if (modelFieldJson) {
+      return (
+        <pre className={styles.code}>
+          {modelFieldJson}
+        </pre>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  mouseOver: (event: Object) => void;
+
+  getModelJson(
+    baseModel: string,
+    service: Service,
+    importedServices: Service[],
+    mouseOver: (event: Object)=> void,
+  ) {
     if (utils.isImportOrInService(baseModel, service, importedServices)) {
       return (
         <Element
@@ -55,19 +74,6 @@ class JsonDoc extends React.Component {
     }
   }
 
-  getJson(baseModel: string, service: Service, importedServices: Service[], modelFieldJson: any) {
-    if (modelFieldJson) {
-      return (
-        <pre className={styles.code}>
-          {modelFieldJson}
-        </pre>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  mouseOver: (event: Object) => void;
 
   render() {
     const { baseModel, service, importedServices, includeModel } = this.props;
@@ -81,7 +87,7 @@ class JsonDoc extends React.Component {
           modelNameClick={this.props.modelNameClick}
         /> : null}
         <div className={styles.container}>
-          {this.getJson(baseModel, service, importedServices,
+          {JsonDoc.getJson(baseModel, service, importedServices,
                         this.props.rawValue ?
                         this.props.rawValue :
                         this.getModelJson(baseModel, service, importedServices, this.mouseOver))}

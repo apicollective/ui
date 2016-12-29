@@ -38,19 +38,19 @@ const Applications = ({ orgKey, applications }: {
 
 type Props = {
   loaded: boolean,
-  params: Object, //FIXME
-  actions: Object, //FIXME
+  params: Object, // FIXME
+  actions: Object, // FIXME
   organization: OrganizationType,
   applications: any, // FIXME PropTypes.array.isRequired,
 }
 
 class Organization extends Component {
+  props: Props;
+
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     this.props.actions.getOrganizationDetails_get({ orgKey });
   }
-
-  props: Props;
 
   render() {
     if (!this.props.loaded) {
@@ -81,13 +81,13 @@ const mapStateToProps = (state: State) => (
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = dispatch => (
   { actions: bindActionCreators(actions, dispatch) }
 );
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Organization);
 
 export {

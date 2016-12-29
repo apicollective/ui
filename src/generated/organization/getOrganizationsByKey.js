@@ -20,7 +20,7 @@ const actions = {
    * Returns the organization with this key.
    * @param {string} key -
    */
-  getOrganizationsByKey_get: (key) => ({
+  getOrganizationsByKey_get: key => ({
     type: actionTypes.getOrganizationsByKey_get,
     payload: {
       key,
@@ -29,11 +29,11 @@ const actions = {
   getOrganizationsByKey_doing: () => ({
     type: actionTypes.getOrganizationsByKey_doing,
   }),
-  getOrganizationsByKey_success: (response) => ({
+  getOrganizationsByKey_success: response => ({
     type: actionTypes.getOrganizationsByKey_success,
     payload: response,
   }),
-  getOrganizationsByKey_failure: (err) => ({
+  getOrganizationsByKey_failure: err => ({
     type: actionTypes.getOrganizationsByKey_failure,
     payload: err,
     error: true,

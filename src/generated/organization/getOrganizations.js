@@ -44,11 +44,11 @@ const actions = {
   getOrganizations_doing: () => ({
     type: actionTypes.getOrganizations_doing,
   }),
-  getOrganizations_success: (response) => ({
+  getOrganizations_success: response => ({
     type: actionTypes.getOrganizations_success,
     payload: response,
   }),
-  getOrganizations_failure: (err) => ({
+  getOrganizations_failure: err => ({
     type: actionTypes.getOrganizations_failure,
     payload: err,
     error: true,
@@ -75,7 +75,7 @@ function* takeEverySaga() {
 /**
  * Start this saga if you'd prefer to process only the latest action
  */
-function * takeLatestSaga() {
+function* takeLatestSaga() {
   yield* takeLatest(actionTypes.getOrganizations_get, saga);
 }
 

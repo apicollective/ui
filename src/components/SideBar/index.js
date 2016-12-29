@@ -9,7 +9,7 @@ const SidebarIcon = ({ item }) => {
   const iconClasses = classnames(
     styles[item.type.toLowerCase()],
     styles.icon,
-    item.method ? styles[item.method.toLowerCase()] : null
+    item.method ? styles[item.method.toLowerCase()] : null,
   );
 
   const markup = item.method ? item.method : item.type[0];

@@ -8,7 +8,7 @@ import styles from './json-doc.css';
 import type { Service, Model, Field } from '../../../generated/version/ServiceType';
 
 const numSpaces = 2;
-const spaces = (indent: number): string => new Array(indent * numSpaces + 1).join(' ');
+const spaces = (indent: number): string => new Array((indent * numSpaces) + 1).join(' ');
 
 /**
  JFields - the lines with "name: ..." eg:
@@ -51,9 +51,10 @@ const FieldClickable = ({ fieldKey, mouseOver, onClick, children } : {
     href={`#${String(fieldKey)}`}
     data-fieldKey={fieldKey}
     onMouseOver={mouseOver}
-    onClick={onClick}
   >
-    {children}
+    <a tabIndex={0} onClick={onClick}>
+      {children}
+    </a>
   </div>;
 
 const ElementClickable = ({ fieldKey, mouseOver, onClick, children }: {
@@ -67,9 +68,10 @@ const ElementClickable = ({ fieldKey, mouseOver, onClick, children }: {
     href={`#${fieldKey}`}
     data-fieldKey={fieldKey}
     onMouseOver={mouseOver}
-    onClick={onClick}
   >
-    {children}
+    <a tabIndex={0} onClick={onClick}>
+      {children}
+    </a>
   </div>;
 
 const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }: {
@@ -81,7 +83,7 @@ const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }:
   onClick: Function, // FIXME () => void,
 }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-    <span className={styles.name}>{spaces(indent)}"{label}":</span>
+    <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
     <span className={styles.value}> {value},</span>
   </FieldClickable>;
 
@@ -95,7 +97,7 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
 }) =>
   <div>
     <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-      <span className={styles.name}>{spaces(indent)}"{label}":</span>
+      <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
     </FieldClickable>
     <ElementClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
       {children}
@@ -152,7 +154,7 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedSer
         mouseOver={mouseOver}
         service={service}
         importedServices={importedServices}
-      />
+      />,
     )}
     {`${spaces(indent)}},`}
   </div>;
@@ -219,7 +221,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
 }) => {
   let element = null;
   if (utils.isModel(type, service, importedServices)) {
-    const model = utils.mustGetModel(type, service, importedServices); 
+    const model = utils.mustGetModel(type, service, importedServices);
     element =
       (<ModelElement
         model={model}
