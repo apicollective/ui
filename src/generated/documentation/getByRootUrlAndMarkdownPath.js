@@ -29,11 +29,11 @@ const actions = {
   getByRootUrlAndMarkdownPath_doing: () => ({
     type: actionTypes.getByRootUrlAndMarkdownPath_doing,
   }),
-  getByRootUrlAndMarkdownPath_success: (response) => ({
+  getByRootUrlAndMarkdownPath_success: response => ({
     type: actionTypes.getByRootUrlAndMarkdownPath_success,
     payload: response,
   }),
-  getByRootUrlAndMarkdownPath_failure: (err) => ({
+  getByRootUrlAndMarkdownPath_failure: err => ({
     type: actionTypes.getByRootUrlAndMarkdownPath_failure,
     payload: err,
     error: true,

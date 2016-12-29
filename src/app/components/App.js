@@ -179,7 +179,7 @@ class App extends Component {
           name: '',
           items: allModels.map(model => (App.createModelItem(params, model, currentItem)))
                           .concat(allEnums.map(enumValue =>
-                            (App.createModelItem(params, enumValue, currentItem, 'enum')))
+                            (App.createModelItem(params, enumValue, currentItem, 'enum'))),
                           ),
         }],
       }];

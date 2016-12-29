@@ -19,11 +19,11 @@ const actions = {
   getOrganizationDetails_doing: () => ({
     type: actionTypes.getOrganizationDetails_doing,
   }),
-  getOrganizationDetails_success: (result) => ({
+  getOrganizationDetails_success: result => ({
     type: actionTypes.getOrganizationDetails_success,
     payload: result,
   }),
-  getOrganizationDetails_failure: (err) => ({
+  getOrganizationDetails_failure: err => ({
     type: actionTypes.getOrganizationDetails_failure,
     payload: err,
     error: true,

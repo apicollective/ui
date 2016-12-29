@@ -13,7 +13,7 @@ const allReducers = Object.assign(
   appReducers,
   applicationReducers,
   organizationReducers,
-  documentationReducers
+  documentationReducers,
 );
 
 export default combineReducers(allReducers);

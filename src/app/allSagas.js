@@ -7,7 +7,7 @@ const allSagas = [].concat(
   orgSagas.getOrganizationsTakeLatestSaga,
   specSagas.getByOrgkeyAndApplicationkeyAndVersionLatestSaga,
   organizationSaga,
-  documentationSaga
+  documentationSaga,
 );
 
 export default allSagas;

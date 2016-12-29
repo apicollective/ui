@@ -38,8 +38,8 @@ const Applications = ({ orgKey, applications }: {
 
 type Props = {
   loaded: boolean,
-  params: Object, //FIXME
-  actions: Object, //FIXME
+  params: Object, // FIXME
+  actions: Object, // FIXME
   organization: OrganizationType,
   applications: any, // FIXME PropTypes.array.isRequired,
 }
@@ -81,13 +81,13 @@ const mapStateToProps = (state: State) => (
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = dispatch => (
   { actions: bindActionCreators(actions, dispatch) }
 );
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Organization);
 
 export {

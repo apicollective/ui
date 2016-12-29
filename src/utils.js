@@ -12,8 +12,8 @@ const onClickHref = (href: string) => (event: Event) => {
 };
 
 const getType = (type: string): string => {
-  const ex = /[\[]?([^\]]+)/i;
-  /* ex.a*/
+  /* const ex = /[\[]?([^\]]+)/i;*/
+  const ex = /[[]?([^\]]+)/i;
   const result = type.match(ex);
   if (!result) {
     throw new Error('internal error: type should always exist');
@@ -24,7 +24,7 @@ const getType = (type: string): string => {
 const simplifyName = (name: string): string => {
   const splitName = name.split('.');
   const joined = splitName.map(word =>
-    word.search('v[0-9]+') > -1 ? word : word.substring(0, word.search('[A-Za-z]') + 1)
+    word.search('v[0-9]+') > -1 ? word : word.substring(0, word.search('[A-Za-z]') + 1),
   ).join('.');
   return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
 };
@@ -47,8 +47,8 @@ const getModelImport = (name: string, importedServices: Service[]): ?Model => {
 
 const mustGetModelImport = (name: string, importedServices: Service[]): Model => {
   const service = importedServices.find(importValue => importValue.models.find(e => e.name === getType(name)));
-  if( service){ 
-    return mustFindByName(name, service.models)
+  if (service) {
+    return mustFindByName(name, service.models);
   } else {
     throw new Error('FIXME');
   }
@@ -56,13 +56,19 @@ const mustGetModelImport = (name: string, importedServices: Service[]): Model =>
 /* eslint-disable no-use-before-define */
 
 const getEnum = (name: string, service: Service, importedServices: Service[]): ?Enum =>
-  importedServices && isImport(name, importedServices) ? getEnumImport(name, importedServices) : findByName(name, service.enums);
+  importedServices && isImport(name, importedServices) ?
+    getEnumImport(name, importedServices) :
+    findByName(name, service.enums);
 
 const getModel = (name: string, service: Service, importedServices: Service[]): ?Model =>
-  importedServices && isImport(name, importedServices) ? getModelImport(name, importedServices) : findByName(name, service.models);
+  importedServices && isImport(name, importedServices) ?
+    getModelImport(name, importedServices) :
+    findByName(name, service.models);
 
 const mustGetModel = (name: string, service: Service, importedServices: Service[]): Model =>
-  importedServices && isImport(name, importedServices) ? mustGetModelImport(name, importedServices) : mustFindByName(name, service.models); 
+  importedServices && isImport(name, importedServices) ?
+    mustGetModelImport(name, importedServices) :
+    mustFindByName(name, service.models);
 
 const isEnum = (type: string, service: Service, importedServices: Service[]): boolean =>
   Boolean(getEnum(type, service, importedServices));

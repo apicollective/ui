@@ -152,7 +152,7 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedSer
         mouseOver={mouseOver}
         service={service}
         importedServices={importedServices}
-      />
+      />,
     )}
     {`${spaces(indent)}},`}
   </div>;
@@ -219,7 +219,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
 }) => {
   let element = null;
   if (utils.isModel(type, service, importedServices)) {
-    const model = utils.mustGetModel(type, service, importedServices); 
+    const model = utils.mustGetModel(type, service, importedServices);
     element =
       (<ModelElement
         model={model}

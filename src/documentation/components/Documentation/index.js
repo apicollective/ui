@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch): {[key: string]: Function} => (
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Documentation);
 
 export {

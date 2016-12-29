@@ -9,7 +9,8 @@ import type { Service } from '../../../generated/version/ServiceType';
 
 import styles from './parameter-list.css';
 
-const ParameterList = ({ name, type, required, description, example, defaultValue, service, importedServices, parentModel }: {
+const ParameterList = (
+  { name, type, required, description, example, defaultValue, service, importedServices, parentModel }: {
   name: string,
   type: string,
   required: boolean,
@@ -24,16 +25,22 @@ const ParameterList = ({ name, type, required, description, example, defaultValu
   const modelType = isImport(possibleImportType, importedServices) ? possibleImportType : type;
   const typeClickFn = isImportOrInService(getType(modelType), service, importedServices) ?
                       onClickHref(buildNavHref(
-                        { organization: service.organization.key,
-                          application: service.application.key, model: getType(modelType) }
+                        {
+                          organization: service.organization.key,
+                          application: service.application.key,
+                          model: getType(modelType),
+                        },
                       )) : null;
 
   return (<div className={styles.container}>
     <div className={styles.meta}>
       <a name={`${getType(parentModel)}.${name}`} className={styles.name}>{name}</a>
-      <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>
+      {/* <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>
+          {simplifyName(modelType)}
+          </p> */}
+      <a tabIndex="0" onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>
         {simplifyName(modelType)}
-      </p>
+      </a>
       {required ? <p className={styles.required}>required</p> : null}
     </div>
     <div className={styles.info}>
