@@ -14,7 +14,18 @@
     "react/jsx-boolean-value": ["error", "always"],
     "flowtype/define-flow-type": 1,
     "react/jsx-filename-extension": "off",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}],
+    "react/sort-comp": [1, {
+      order: [
+        '/^props/',
+        '/^state/',
+        'lifecycle',
+        'static-methods',
+        'everything-else',
+        'render'
+      ]
+    }],
+    "import/prefer-default-export": "off"
   },
   "settings": {
     "import/resolver": "webpack"
