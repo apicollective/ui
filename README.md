@@ -24,6 +24,10 @@ UI Dev
     flow-typed install
     yarn test
     
+Before a Pull Request
+
+   yarn run check
+    
 App
 
     npm start

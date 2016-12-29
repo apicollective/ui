@@ -33,6 +33,7 @@
   color: var(--color-aluminium);
   font-family: var(--font-mono);
   cursor: pointer;
+
   @nest &:hover {
     background-color: color(var(--color-cool-blue) b(+35%));
     border-radius: var(--border-radius);
@@ -45,6 +46,7 @@
   color: var(--color-aluminium);
   font-family: var(--font-mono);
   cursor: pointer;
+
   @nest &:hover {
     background-color: color(var(--color-cool-blue) b(+65%));
     border-radius: var(--border-radius);
@@ -99,7 +101,7 @@
 }
 
 .model-description {
-  margin: 2.0rem 0 1.5rem 0;
+  margin: 2rem 0 1.5rem 0;
 }
 
 .model-description + .field-container {
