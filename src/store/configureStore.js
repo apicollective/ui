@@ -4,6 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../app/rootReducer';
 import allSagas from '../app/allSagas';
 
+// for flowtype of module
+declare var module : {
+  hot : {
+    accept(path:string, callback:() => void): void;
+  };
+};
+
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, compose(
