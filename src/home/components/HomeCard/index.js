@@ -1,12 +1,16 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 
 import Markdown from '../../../components/Markdown';
-
 import { onClickHref } from '../../../utils';
 
 import styles from './home-card.css';
 
-const HomeCard = ({ name, description, link }) =>
+const HomeCard = ({ name, description, link }: {
+  name: string,
+  description?: string,
+  link: string,
+}) =>
   <div className={styles.container} onClick={onClickHref(link)}>
     <p className={styles.name}>{name}</p>
     <div className={styles.description}>
@@ -18,12 +22,6 @@ const HomeCard = ({ name, description, link }) =>
       }
     </div>
   </div>;
-
-HomeCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  link: PropTypes.string.isRequired,
-};
 
 export default HomeCard;
 

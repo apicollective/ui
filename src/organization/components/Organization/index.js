@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ import styles from './organization.css';
 import { actions } from '../../sagas';
 
 import type { State } from '../../../app/reducers';
-import type { Application } from '../../../generated/version/ServiceType';
+import type { Application, Organization as OrganizationType } from '../../../generated/version/ServiceType';
 
 const App = ({ orgKey, application }: {
   orgKey: string,
@@ -22,11 +22,6 @@ const App = ({ orgKey, application }: {
     description={application.description}
     link={`/org/${orgKey}/app/${application.key}`}
   />;
-
-App.propTypes = {
-  orgKey: PropTypes.string.isRequired,
-  application: PropTypes.object.isRequired,
-};
 
 // Roll into Org FIXME
 const Applications = ({ orgKey, applications }: {
@@ -41,16 +36,21 @@ const Applications = ({ orgKey, applications }: {
     ))}
   </div>;
 
-Applications.propTypes = {
-  orgKey: PropTypes.string.isRequired,
-  applications: PropTypes.array.isRequired,
-};
+type Props = {
+  loaded: boolean,
+  params: Object, //FIXME
+  actions: Object, //FIXME
+  organization: OrganizationType,
+  applications: any, // FIXME PropTypes.array.isRequired,
+}
 
 class Organization extends Component {
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     this.props.actions.getOrganizationDetails_get({ orgKey });
   }
+
+  props: Props;
 
   render() {
     if (!this.props.loaded) {
@@ -72,13 +72,6 @@ class Organization extends Component {
     }
   }
 }
-Organization.propTypes = {
-  params: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
-  organization: PropTypes.object.isRequired,
-  applications: PropTypes.array.isRequired,
-  loaded: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = (state: State) => (
   {

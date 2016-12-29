@@ -243,7 +243,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
         service={service}
-        imports={importedServices}
+        importedServices={importedServices}
       />);
   }
 

@@ -1,23 +1,29 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 
 import { cleanPath } from '../../../utils';
-
 import JsonDoc from '../../components/JsonDoc';
 import ParameterListGroup from '../../components/ParameterListGroup';
 
+import type { Operation, Service } from '../../../generated/version/ServiceType';
+
 import styles from './request.css';
 
-const Request = ({ operation, service, imports, orgKey, appKey }) => {
+const Request = ({ operation, service, importedServices }: {
+  operation: Operation,
+  service: Service,
+  importedServices: Service[],
+}) => {
   const body = () => {
     if (operation.body) {
       const baseModel = operation.body.type;
       return (
         <div className={styles.json}>
           <JsonDoc
-            key={`${operation.body}-requestbody`}
+            key={`${operation.body.type}-requestbody`}
             baseModel={baseModel}
             service={service}
-            imports={imports}
+            importedServices={importedServices}
             includeModel={true}
           />
         </div>
@@ -31,19 +37,12 @@ const Request = ({ operation, service, imports, orgKey, appKey }) => {
         parameters={operation.parameters}
         title="Request"
         service={service}
-        imports={imports}
+        importedServices={importedServices}
         parentModel={cleanPath(operation.path)}
       />
       {body()}
     </div>
   );
-};
-Request.propTypes = {
-  operation: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  orgKey: PropTypes.string.isRequired,
-  appKey: PropTypes.string.isRequired,
 };
 
 export default Request;

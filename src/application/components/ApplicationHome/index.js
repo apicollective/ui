@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 
 import { onClickHref, cleanPath } from '../../../utils';
 
@@ -6,9 +7,15 @@ import H1 from '../../../components/H1';
 import Markdown from '../../../components/Markdown';
 import ResourceCard from '../../components/ResourceCard';
 
+import type { Service } from '../../../generated/version/ServiceType';
+
 import styles from './application-home.css';
 
-const ApplicationHome = ({ service, organizationKey, applicationKey }) => {
+const ApplicationHome = ({ service, organizationKey, applicationKey }: {
+  service: Service,
+  organizationKey: string,
+  applicationKey: string,
+}) => {
   const buildClickHref = (type, method, path) =>
     `/org/${organizationKey}/app/${applicationKey}/r/${type}/m/${method.toLowerCase()}/p/${cleanPath(path)}`;
 
@@ -27,19 +34,13 @@ const ApplicationHome = ({ service, organizationKey, applicationKey }) => {
               path={operation.path}
               click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
               description={operation.description}
-            />
+            />,
           )
         ))
         }
       </div>
     </div>
   );
-};
-
-ApplicationHome.propTypes = {
-  service: PropTypes.object.isRequired,
-  organizationKey: PropTypes.string.isRequired,
-  applicationKey: PropTypes.string.isRequired,
 };
 
 export default ApplicationHome;

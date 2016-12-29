@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import H1 from '../../../../components/H1';
 import Markdown from '../../../../components/Markdown';
@@ -8,14 +8,14 @@ import ParameterListGroup from '../../ParameterListGroup';
 
 import { simplifyName } from '../../../../utils';
 
-import type { Import, Service, Model as ModelType } from '../../../../generated/version/ServiceType';
+import type { Service } from '../../../../generated/version/ServiceType';
 
 import styles from './model.css';
 
-const Model = ({ model, service, imports, showJsonDoc }: {
+const Model = ({ model, service, importedServices, showJsonDoc }: {
   model: any, // FIXME ModelType,
   service: Service,
-  imports: Import[],
+  importedServices: Service[],
   showJsonDoc: boolean,
 }) =>
   <div className={styles.container}>
@@ -28,7 +28,7 @@ const Model = ({ model, service, imports, showJsonDoc }: {
         parameters={model.fields}
         title="Fields"
         service={service}
-        imports={imports}
+        importedServices={importedServices}
         parentModel={model.name}
       />
       <div className={styles.json}>
@@ -36,19 +36,11 @@ const Model = ({ model, service, imports, showJsonDoc }: {
           <JsonDoc
             baseModel={model.name}
             service={service}
-            imports={imports}
+            importedServices={importedServices}
             includeModel={false}
           /> : null}
       </div>
     </div>
   </div>;
-
-// FIXME - remove all prop types once we have flow
-Model.propTypes = {
-  model: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-  showJsonDoc: PropTypes.bool.isRequired,
-};
 
 export default Model;

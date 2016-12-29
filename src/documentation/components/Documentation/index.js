@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
@@ -14,16 +15,30 @@ import docs from '../../../../documents.json';
 
 const allActions = Object.assign({}, docActions);
 
+type Props = {
+  loaded: boolean,
+  params: Object, // FIXME
+  actions: Object, // FIXME
+  markdown: string,
+}
+
 class Documentation extends Component {
+
+  // FIXME needed?
+  constructor(props: Props) {
+    super(props);
+  }
 
   componentDidMount() {
     const document =
       docs.organizations[this.props.params.organizationKey].documents
-          .filter((doc) => snakeCase(doc.name) === this.props.params.documentationKey)[0];
+          .filter(doc => snakeCase(doc.name) === this.props.params.documentationKey)[0];
     this.props.actions.getByRootUrlAndMarkdownPath_get(
-      { rootUrl: document.rootUrl, markdownPath: document.markdownPath }
+      { rootUrl: document.rootUrl, markdownPath: document.markdownPath },
     );
   }
+
+  props: Props;
 
   render() {
     if (!this.props.loaded) {
@@ -33,7 +48,7 @@ class Documentation extends Component {
     } else {
       const document =
         docs.organizations[this.props.params.organizationKey].documents
-            .filter((doc) => snakeCase(doc.name) === this.props.params.documentationKey)[0];
+            .filter(doc => snakeCase(doc.name) === this.props.params.documentationKey)[0];
       return (
         <div className={styles.content}>
           <div className={styles.container}>
@@ -46,21 +61,14 @@ class Documentation extends Component {
   }
 }
 
-Documentation.propTypes = {
-  params: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
-  markdown: PropTypes.string.isRequired,
-  loaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => (
+const mapStateToProps = state => (
   {
     markdown: state.documentation.get('markdown'),
     loaded: state.documentation.get('loaded'),
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch): {[key: string]: Function} => (
   { actions: bindActionCreators(allActions, dispatch) }
 );
 

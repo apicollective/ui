@@ -1,8 +1,7 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import flatten from 'lodash/fp/flatten';
 import sortBy from 'lodash/fp/sortBy';
 import snakeCase from 'lodash/fp/snakeCase';
 
@@ -10,9 +9,10 @@ import NavBar from '../../components/NavBar';
 import SideBar from '../../components/SideBar';
 import Content from '../../components/Content';
 import { actions } from '../actions';
-import { buildNavHref, cleanPath, getOperation, onClickHref } from '../../utils';
+import * as utils from '../../utils';
 import docs from '../../../documents.json';
 
+import type { Application, Organization, Service } from '../../generated/version/ServiceType';
 import type { State } from '../../app/reducers';
 
 import styles from './app.css';
@@ -31,12 +31,25 @@ type Item = {
   items?: Item[],
 }
 
+type Props = {
+  children: Object, // FIXME
+  service: Service,
+  organizations: Organization[],
+  organization: Organization,
+  applications: Object[], // FIXME PropTypes.array,
+  params: Object, // FIXME
+  importedServices: Service[],
+}
+
 class App extends Component {
 
-  // FIXME add props
+  // FIXME needed?
+  constructor(props: Props) {
+    super(props);
+  }
 
-  // FIXME nullable?
-  getCurrentItem(params): ?string {
+  // FIXME nullable? + types
+  static getCurrentItem(params: Object): ?string {
     if (params.model) {
       return params.model;
     } else if (params.path) {
@@ -45,20 +58,22 @@ class App extends Component {
     return null;
   }
 
-  createResourceItem(params, resource, currentItem): Item {
+  props: Props;
+
+  static createResourceItem(params: Object, resource: any, currentItem: string): Item {
     return {
       name: resource.type,
       items: resource.operations.map(operation => (
         {
           name: `${operation.method} ${operation.path}`,
-          onClick: onClickHref(buildNavHref({
+          onClick: utils.onClickHref(utils.buildNavHref({
             organization: params.organizationKey,
             application: params.applicationKey,
             resource: resource.type,
             method: operation.method.toLowerCase(),
-            path: cleanPath(operation.path),
+            path: utils.cleanPath(operation.path),
           })),
-          active: currentItem === `${resource.type}${operation.method.toLowerCase()}${cleanPath(operation.path)}`,
+          active: currentItem === `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(operation.path)}`,
           type: 'resource',
           method: operation.method,
           path: operation.path,
@@ -67,10 +82,11 @@ class App extends Component {
     };
   }
 
-  createModelItem(params, model, currentItem, type = 'model'): Item {
+  // FIXME types
+  static createModelItem(params: Object, model: Object, currentItem: string, type: string = 'model'): Item {
     return {
       name: `${model.name}`,
-      onClick: onClickHref(buildNavHref({
+      onClick: utils.onClickHref(utils.buildNavHref({
         organization: params.organizationKey,
         application: params.applicationKey,
         model: model.name,
@@ -81,12 +97,20 @@ class App extends Component {
   }
 
 
-  createSideBarItems(params, service, imports, organizations, organizationObj, applications): Item[] {
+  // FIXME types
+  static createSideBarItems(
+    params: Object,
+    service: Service,
+    importedServices: Service[],
+    organizations: Organization[],
+    organizationObj: Organization,
+    applications: Application[],
+  ): Item[] {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map(organization => (
         {
           name: organization.name,
-          onClick: onClickHref(buildNavHref({
+          onClick: utils.onClickHref(utils.buildNavHref({
             organization: organization.key,
           })),
         }
@@ -102,7 +126,7 @@ class App extends Component {
       const applicationsWithHref = applications.map(application => (
         {
           name: application.name,
-          onClick: onClickHref(buildNavHref({
+          onClick: utils.onClickHref(utils.buildNavHref({
             organization: params.organizationKey,
             application: application.key,
           })),
@@ -113,7 +137,7 @@ class App extends Component {
       const docsWithHref = docsByOrg.map(doc => (
         {
           name: doc.name,
-          onClick: onClickHref(buildNavHref({
+          onClick: utils.onClickHref(utils.buildNavHref({
             organization: params.organizationKey,
             documentation: snakeCase(doc.name),
           })),
@@ -135,27 +159,27 @@ class App extends Component {
           }],
         }]
        : []);
-    } else if (params.organizationKey && params.applicationKey && service.apidoc) {
-      const currentItem = this.getCurrentItem(params);
+    } else if (params.organizationKey && params.applicationKey && service && service.apidoc) {
+      const currentItem = App.getCurrentItem(params) || ''; // FIXME shouldn't be empty
       const allResources = service.resources;
       // FIXME - add back imports
       /* const allModels = flatten(service.models.concat(imports.map(importValue => importValue.models)));*/
       const allModels = service.models;
       // FIXME - add back enums
       /* const allEnums = flatten(service.enums.concat(imports.map(importValue => importValue.enums)));*/
-      const allEnums = service.emums || [];
+      const allEnums = service.enums || [];
 
       return [{
         name: 'Resources',
-        items: allResources.map(resource => (this.createResourceItem(params, resource, currentItem))),
+        items: allResources.map(resource => (App.createResourceItem(params, resource, currentItem))),
       },
       {
         name: 'Models',
         items: [{
           name: '',
-          items: allModels.map(model => (this.createModelItem(params, model, currentItem)))
+          items: allModels.map(model => (App.createModelItem(params, model, currentItem)))
                           .concat(allEnums.map(enumValue =>
-                            (this.createModelItem(params, enumValue, currentItem, 'enum')))
+                            (App.createModelItem(params, enumValue, currentItem, 'enum')))
                           ),
         }],
       }];
@@ -163,35 +187,36 @@ class App extends Component {
     return [{ name: 'Unknown', items: [{ name: 'Unknown', items: [] }] }];
   }
 
-  createNavBarItems(params, service): Item[] {
+  // FIXME types
+  static createNavBarItems(params: Object, service: Service): Item[] {
     // FIXME test
-    if (!service.apidoc) {
+    if (!service || !service.apidoc) {
       return [];
     }
     // FIXME test
     let operationPath = '';
-    if(params.resource) {
-      const op = getOperation(params.resource, params.method, params.path, service);
-      operationPath = op ? op.path : '';
+    if (params.resource) {
+      const op = utils.getOperation(params.resource, params.method, params.path, service);
+      operationPath = op.path;
     }
 
     return [].concat(
       params.organizationKey ? {
         name: params.organizationKey,
-        onClick: onClickHref(buildNavHref({
+        onClick: utils.onClickHref(utils.buildNavHref({
           organization: params.organizationKey,
         })),
       } : [],
       params.applicationKey ? {
         name: params.applicationKey,
-        onClick: onClickHref(buildNavHref({
+        onClick: utils.onClickHref(utils.buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
         })),
       } : [],
       params.resource ? {
         name: `${params.method.toUpperCase()} ${operationPath}`,
-        onClick: onClickHref(buildNavHref({
+        onClick: utils.onClickHref(utils.buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
           resource: params.resource,
@@ -201,7 +226,7 @@ class App extends Component {
       } : [],
       params.model ? {
         name: `${params.model}`,
-        onClick: onClickHref(buildNavHref({
+        onClick: utils.onClickHref(utils.buildNavHref({
           organization: params.organizationKey,
           application: params.applicationKey,
           model: params.model,
@@ -213,14 +238,14 @@ class App extends Component {
     const {
       params,
       service,
-      imports,
+      importedServices,
       organizations,
       organization,
       applications,
       children,
     } = this.props;
 
-    const sideBarItems = this.createSideBarItems(params, service, imports, organizations, organization, applications)
+    const sideBarItems = App.createSideBarItems(params, service, importedServices, organizations, organization, applications)
       .map((sideBarItem) => {
         if (sideBarItem.items) {
           sideBarItem.items.map(items => (
@@ -230,11 +255,11 @@ class App extends Component {
         return Object.assign(sideBarItem, { items: sortBy(item => item.name, sideBarItem.items) });
       });
 
-    const navBarItems = this.createNavBarItems(params, service);
+    const navBarItems = App.createNavBarItems(params, service);
 
     return (
       <div>
-        <NavBar items={navBarItems} homeOnClick={onClickHref('/')} />
+        <NavBar items={navBarItems} homeOnClick={utils.onClickHref('/')} />
         <div className={styles.main}>
           <SideBar sections={sideBarItems} />
           <Content>
@@ -246,24 +271,13 @@ class App extends Component {
   }
 }
 
-// FIXME - replace with flow
-App.propTypes = {
-  children: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  organizations: PropTypes.array,
-  organization: PropTypes.object,
-  applications: PropTypes.array,
-  params: PropTypes.object.isRequired,
-  imports: PropTypes.array.isRequired,
-};
-
 const mapStateToProps = (state: State) => (
   {
     service: state.application.service,
     organizations: state.app.organizations,
     organization: state.organization.organization,
     applications: state.organization.applications,
-    imports: state.application.imports,
+    importedServices: state.application.importedServices,
   }
 );
 
@@ -274,5 +288,5 @@ const mapDispatchToProps = dispatch => (
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);

@@ -15,9 +15,14 @@ A fresh UI built using React + Redux for https://github.com/mbryzek/apidoc
 
 UI Dev
 
+
     yarn install
-    npm start
+    yarn start
     http://localhost:8080/
+    
+    npm install -g flow-typed
+    flow-typed install
+    yarn test
     
 App
 

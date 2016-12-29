@@ -1,11 +1,12 @@
 // @flow
-/* import type { Service, Import } from '../generated/version/ServiceType';*/
 import { actionTypes } from '../generated/version';
+
+import type { Service } from '../generated/version/ServiceType';
 
 export type ApplicationState = {
   loaded: boolean,
-  service: any, // FIXME Service,
-  imports: any, // FIXME Import[],
+  service?: Service,
+  importedServices: Service[],
 }
 
 type Action = {
@@ -15,24 +16,7 @@ type Action = {
 
 const initialState = {
   loaded: false,
-  service: {
-    enums: [],
-    models: [
-      {
-        name: 'default',
-        fields: [],
-      },
-    ],
-  },
-  imports: [{
-    enums: [],
-    models: [
-      {
-        name: 'default',
-        fields: [],
-      },
-    ],
-  }],
+  importedServices: [],
 };
 
 const application = (state: ApplicationState = initialState, action: Action) => {
@@ -41,7 +25,7 @@ const application = (state: ApplicationState = initialState, action: Action) => 
       return {
         loaded: true,
         service: action.payload.service,
-        imports: action.payload.import,
+        importedServices: action.payload.importedServices,
       };
     }
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_doing: {

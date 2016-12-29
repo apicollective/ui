@@ -92,6 +92,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
-    })
+    }),
   ],
 };

@@ -69,7 +69,7 @@ function* saga(action) {
         )
     );
     const results = yield calls;
-    body.imports = results.map((result) => {
+    body.importedServices = results.map((result) => {
       const service = result.body.service;
       namespaceEntities(service.namespace, service.models, 'models');
       namespaceEntities(service.namespace, service.enums, 'enums');

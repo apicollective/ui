@@ -89,14 +89,18 @@ const getEnumExampleValue = (enumModel: Enum[]): Enum => enumModel.values[0].nam
 
 const isISODateTime = (type: string): boolean => type === 'date-iso8601';
 
-const getOperation = (type: string, method: Method, path: string, service: Service): ?Operation => {
+const getOperation = (type: string, method: Method, path: string, service: Service): Operation => {
   const resource = service.resources.find(r => r.type === type);
   if (!resource) {
-    return undefined;
+    throw new Error(`Resource not found: ${type}`);
   }
   const operation = resource.operations.find(o => (
         o.method.toLowerCase() === method && cleanPath(o.path) === path
     ));
+  if (!operation) {
+    throw new Error(`Operation not found: ${type}`);
+  }
+
   return operation;
 };
 
@@ -110,14 +114,16 @@ const buildNavHref = ({ organization, documentation, application, resource, meth
   model?: string,
   field?: string,
 }) =>
-  [].concat(organization ? `/org/${organization}` : null,
+  [].concat(
+    organization ? `/org/${organization}` : null,
     documentation ? `/doc/${documentation}` : null,
     application ? `/app/${application}` : null,
     resource ? `/r/${resource}` : null,
     method ? `/m/${method}` : null,
     path ? `/p/${path}` : null,
     model ? `/m/${model}` : null,
-    field ? `#${field}` : null).join('');
+    field ? `#${field}` : null
+  ).join('');
 
 export {
   cleanPath,

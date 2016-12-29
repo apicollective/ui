@@ -1,0 +1,10 @@
+exports[`test MD 1`] = `
+<div
+  className="modelDescription">
+  <h2
+    className="modelName h2"
+    onClick={undefined}>
+    base
+  </h2>
+</div>
+`;
