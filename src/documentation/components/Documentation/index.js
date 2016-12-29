@@ -24,10 +24,7 @@ type Props = {
 
 class Documentation extends Component {
 
-  // FIXME needed?
-  constructor(props: Props) {
-    super(props);
-  }
+  props: Props;
 
   componentDidMount() {
     const document =
@@ -38,7 +35,6 @@ class Documentation extends Component {
     );
   }
 
-  props: Props;
 
   render() {
     if (!this.props.loaded) {

@@ -38,6 +38,7 @@ const Model = ({ model, service, importedServices, showJsonDoc }: {
             service={service}
             importedServices={importedServices}
             includeModel={false}
+            modelNameClick={() => {}}
           /> : null}
       </div>
     </div>

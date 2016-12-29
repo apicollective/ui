@@ -42,15 +42,12 @@ type Props = {
   organizations: Organization[],
 }
 class Home extends Component {
-  constructor(props: Props) {
-    super(props);
-  }
+  props: Props;
 
   // TODO: Can I haz more orgs?
   componentDidMount() {
     this.props.actions.getOrganizations_get({ limit: 20, offset: 0 });
   }
-  props: Props;
 
   render() {
     if (!this.props.loaded) {

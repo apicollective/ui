@@ -45,12 +45,12 @@ type Props = {
 }
 
 class Organization extends Component {
+  props: Props;
+
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     this.props.actions.getOrganizationDetails_get({ orgKey });
   }
-
-  props: Props;
 
   render() {
     if (!this.props.loaded) {

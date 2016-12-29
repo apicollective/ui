@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 
 import Documenation from './Documentation';
 import ModelDescription from './ModelDescription';
@@ -15,12 +15,11 @@ type Props = {
   importedServices: Service[],
   baseModel: string,
   includeModel?: boolean, // Include Model Documentation in JsonDoc
-  excludeModelDescription?: boolean,
-  modelNameClick: () => void,
-  rawValue: ?string,
+  modelNameClick: (event: Event) => void,
+  rawValue?: string,
 };
 
-class JsonDoc extends React.Component {
+class JsonDoc extends Component {
 
   constructor(props: Props) {
     super(props);
@@ -33,6 +32,8 @@ class JsonDoc extends React.Component {
       if (event.stopPropagation) event.stopPropagation();
     };
   }
+
+  props: Props;
 
   state: {
     documentationFullType: string,

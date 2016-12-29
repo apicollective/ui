@@ -42,11 +42,7 @@ type Props = {
 }
 
 class App extends Component {
-
-  // FIXME needed?
-  constructor(props: Props) {
-    super(props);
-  }
+  props: Props;
 
   // FIXME nullable? + types
   static getCurrentItem(params: Object): ?string {
@@ -58,7 +54,6 @@ class App extends Component {
     return null;
   }
 
-  props: Props;
 
   static createResourceItem(params: Object, resource: any, currentItem: string): Item {
     return {
@@ -234,6 +229,7 @@ class App extends Component {
       } : []);
   }
 
+
   render() {
     const {
       params,
@@ -245,15 +241,16 @@ class App extends Component {
       children,
     } = this.props;
 
-    const sideBarItems = App.createSideBarItems(params, service, importedServices, organizations, organization, applications)
-      .map((sideBarItem) => {
-        if (sideBarItem.items) {
-          sideBarItem.items.map(items => (
-            Object.assign(items, { items: sortBy(item => item.name, items.items) })
-          ));
-        }
-        return Object.assign(sideBarItem, { items: sortBy(item => item.name, sideBarItem.items) });
-      });
+    const sideBarItems =
+      App.createSideBarItems(params, service, importedServices, organizations, organization, applications)
+        .map((sideBarItem) => {
+          if (sideBarItem.items) {
+            sideBarItem.items.map(items => (
+              Object.assign(items, { items: sortBy(item => item.name, items.items) })
+            ));
+          }
+          return Object.assign(sideBarItem, { items: sortBy(item => item.name, sideBarItem.items) });
+        });
 
     const navBarItems = App.createNavBarItems(params, service);
 

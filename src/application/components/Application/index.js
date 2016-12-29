@@ -26,6 +26,7 @@ type Props = {
 }
 
 class Application extends Component {
+  props: Props;
 
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
@@ -35,7 +36,6 @@ class Application extends Component {
     );
   }
 
-  props: Props;
 
   render() {
     const { service, importedServices } = this.props;
