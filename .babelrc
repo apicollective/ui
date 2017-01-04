@@ -5,9 +5,4 @@
     "stage-1"
   ],
   "plugins": ["transform-flow-strip-types"],
-  "env": {
-    "development": {
-      "plugins": ["react-fix-it"]
-    }
-  }
 }
