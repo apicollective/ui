@@ -8,6 +8,7 @@
 .*/node_modules/react-motion/*
 .*/node_modules/systemjs-builder/*
 .*/node_modules/stylelint/*
+.*/node_modules/flow-coverage-report/*
 
 [options]
 suppress_comment=\\(.\\|\n\\)*\\flow-disable-next-line

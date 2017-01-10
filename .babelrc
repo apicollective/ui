@@ -4,5 +4,8 @@
     "es2015",
     "stage-1"
   ],
-  "plugins": ["transform-flow-strip-types"],
+  "plugins": [
+    "transform-flow-strip-types",
+    "babel-plugin-flow-react-proptypes",
+  ],
 }
