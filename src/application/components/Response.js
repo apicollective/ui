@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 
-import { onClickHref, buildNavHref, getType } from '../../../utils';
+import { onClickHref, buildNavHref, getType } from '../../utils';
 
-import H2 from '../../../components/H2';
-import Markdown from '../../../components/Markdown';
-import JsonDoc from '../../components/JsonDoc';
+import H2 from '../../components/H2';
+import Markdown from '../../components/Markdown';
+import JsonDoc from '../components/JsonDoc/JsonDoc';
 
-import type { Operation, Service } from '../../../generated/version/ServiceType';
+import type { Operation, Service } from '../../generated/version/ServiceType';
 
 import styles from './response.css';
 

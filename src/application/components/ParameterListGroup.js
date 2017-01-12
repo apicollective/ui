@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 
-import H2 from '../../../components/H2';
-import ParameterList from '../ParameterList';
+import H2 from '../../components/H2';
+import ParameterList from './ParameterList';
 
-import type { Service } from '../../../generated/version/ServiceType';
+import type { Service } from '../../generated/version/ServiceType';
 
 import styles from './parameter-list-group.css';
 

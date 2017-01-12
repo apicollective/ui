@@ -2,10 +2,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import Markdown from '../../../components/Markdown';
-import { buildNavHref, getType, isImport, isImportOrInService, onClickHref, simplifyName } from '../../../utils';
+import Markdown from '../../components/Markdown';
+import { buildNavHref, getType, isImport, isImportOrInService, onClickHref, simplifyName } from '../../utils';
 
-import type { Service } from '../../../generated/version/ServiceType';
+import type { Service } from '../../generated/version/ServiceType';
 
 import styles from './parameter-list.css';
 

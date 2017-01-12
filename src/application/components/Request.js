@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 
-import { cleanPath } from '../../../utils';
-import JsonDoc from '../../components/JsonDoc';
-import ParameterListGroup from '../../components/ParameterListGroup';
+import { cleanPath } from '../../utils';
+import JsonDoc from './JsonDoc/JsonDoc';
+import ParameterListGroup from '../components/ParameterListGroup';
 
-import type { Operation, Service } from '../../../generated/version/ServiceType';
+import type { Operation, Service } from '../../generated/version/ServiceType';
 
 import styles from './request.css';
 
