@@ -6,7 +6,7 @@ import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
 
 function api({ guid, user_guid, key, name, namespace, limit, offset } = {}) {
-  return request.get('/api/organizations');
+  return request.get(`${process.env.APIDOC_HOST}/api/organizations`);
 }
 
 // FIXME - eg of types

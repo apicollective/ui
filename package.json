@@ -4,6 +4,7 @@
   "description": "Apidoc UI",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
+    "deploy": "DEPLOY=true webpack --config webpack.config.prod.js",
     "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline --history-api-fallback --output-public-path / --progress --colors --host 0.0.0.0",
     "start2": "NODE_ENV=development webpack-dev-server --config webpack2.js --hot --progress --colors",
     "lint": "eslint src",
@@ -84,7 +85,8 @@
     "stylelint": "^7.7.0",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-md5-hash": "^0.0.5"
+    "webpack-md5-hash": "^0.0.5",
+    "webpack-s3-plugin": "^0.9.2"
   },
   "dependencies": {
     "classnames": "^2.2.5",

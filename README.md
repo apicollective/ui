@@ -20,18 +20,18 @@ UI Dev
     yarn start
     http://localhost:8080/
     
-    npm install -g flow-typed
-    flow-typed install
     yarn test
+    yarn flow
     
 Before a Pull Request
 
-   yarn run check
+    yarn run check
     
 App
 
-    npm start
+    yarn start
     
 ## Deploy
+Deploy will build and push to S3. You need to have ~/.aws/credentials setup with access to the S3 bucket for this
 
-    npm run build
+    yarn deploy

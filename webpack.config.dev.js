@@ -26,18 +26,17 @@ module.exports = {
         changeOrigin: true,
         // FIXME - make config or use static files
         target: 'http://apidoc.movio.co:9001/',
-        pathRewrite: { '^/api' : '' },
+        pathRewrite: { '^/api': '' },
       },
       // This is to support period/dot's in URL params
-      '/*.*' : {   // Match all URL's with period/dot
+      '/*.*': {   // Match all URL's with period/dot
         target: 'http://localhost:8080/', // send to webpack dev server
         rewrite: (req) => {
           req.url = 'index.html';  // Send to react app
-        }
+        },
       },
     },
   },
-  debug: true,
   module: {
     loaders: [
       {
@@ -45,9 +44,10 @@ module.exports = {
         exclude: /node_modules/,
         loaders: [
           'react-hot', 
-          'babel?cacheDirectory'
-        ]
-      },{
+          'babel?cacheDirectory',
+        ],
+      },
+      {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: ['style', 'css?sourceMap&-minimize&camelCase&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss'],
@@ -55,7 +55,7 @@ module.exports = {
         test: /\.json$/,
         loader: 'json',
       },
-    ]
+    ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -63,35 +63,40 @@ module.exports = {
   postcss: (webpack) => {
     return [
       postCSSImport({
-        path: ['./src/styles']
+        path: ['./src/styles'],
       }),
       postCSSNext({
         features: {
           rem: {
             rootValue: '14px',
-          }
-        }
+          },
+        },
       }),
       rucksack(),
       cssnano({
         autoprefixer: false,
         discardComments: {
-          removeAll: true
+          removeAll: true,
         },
         discardUnused: false,
         mergeIdents: false,
         reduceIdents: false,
         safe: true,
-        sourcemap: true
+        sourcemap: true,
       }),
       postCSSReporter(),
-    ]
+    ];
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        APIDOC_HOST: '""',
+      },
     }),
   ],
 };
