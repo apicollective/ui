@@ -159,7 +159,7 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedSer
     {`${spaces(indent)}},`}
   </div>;
 
-const JField = ({ field, fieldKey, indent, mouseOver, service, importedServices }: {
+export const JField = ({ field, fieldKey, indent, mouseOver, service, importedServices }: {
   field: Field,
   fieldKey: string,
   indent: number,

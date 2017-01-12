@@ -1,0 +1,217 @@
+exports[`test Element Array 1`] = `
+<div
+  className="field"
+  data-fieldKey="key"
+  href="#key"
+  onMouseOver={[Function]}>
+  <a
+    onClick={[Function]}
+    tabIndex={0}>
+    <span
+      className="value">
+              
+      \"\"
+    </span>
+    ,
+  </a>
+</div>
+`;
+
+exports[`test Element Field Model 1`] = `
+<div
+  className="field"
+  data-fieldKey="key"
+  href="#key"
+  onMouseOver={[Function]}>
+  <a
+    onClick={[Function]}
+    tabIndex={0}>
+    <span
+      className="value">
+              
+      
+    </span>
+    ,
+  </a>
+</div>
+`;
+
+exports[`test Element Field Value string 1`] = `
+<div
+  className="field"
+  data-fieldKey="key"
+  href="#key"
+  onMouseOver={[Function]}>
+  <a
+    onClick={[Function]}
+    tabIndex={0}>
+    <span
+      className="value">
+              
+      \"code\"
+    </span>
+    ,
+  </a>
+</div>
+`;
+
+exports[`test Element Model 1`] = `
+<div>
+          {
+  <div
+    className="field"
+    data-fieldKey="error.code"
+    href="#error.code"
+    onMouseOver={[Function]}>
+    <a
+      onClick={[Function]}
+      tabIndex={0}>
+      <span
+        className="name">
+                  
+        \"
+        code
+        \":
+      </span>
+      <span
+        className="value">
+         
+        \"code\"
+        ,
+      </span>
+    </a>
+  </div>
+  <div
+    className="field"
+    data-fieldKey="error.message"
+    href="#error.message"
+    onMouseOver={[Function]}>
+    <a
+      onClick={[Function]}
+      tabIndex={0}>
+      <span
+        className="name">
+                  
+        \"
+        message
+        \":
+      </span>
+      <span
+        className="value">
+         
+        \"message\"
+        ,
+      </span>
+    </a>
+  </div>
+          },
+</div>
+`;
+
+exports[`test JField model 1`] = `
+<div>
+  <div
+    className="field"
+    data-fieldKey="key"
+    href="#key"
+    onMouseOver={[Function]}>
+    <a
+      onClick={[Function]}
+      tabIndex={0}>
+      <span
+        className="name">
+                
+        \"
+        code
+        \":
+      </span>
+    </a>
+  </div>
+  <div
+    className="element"
+    data-fieldKey="key"
+    href="#key"
+    onMouseOver={[Function]}>
+    <a
+      onClick={[Function]}
+      tabIndex={0}>
+      <div>
+                {
+        <div
+          className="field"
+          data-fieldKey="error.code"
+          href="#error.code"
+          onMouseOver={[Function]}>
+          <a
+            onClick={[Function]}
+            tabIndex={0}>
+            <span
+              className="name">
+                        
+              \"
+              code
+              \":
+            </span>
+            <span
+              className="value">
+               
+              \"code\"
+              ,
+            </span>
+          </a>
+        </div>
+        <div
+          className="field"
+          data-fieldKey="error.message"
+          href="#error.message"
+          onMouseOver={[Function]}>
+          <a
+            onClick={[Function]}
+            tabIndex={0}>
+            <span
+              className="name">
+                        
+              \"
+              message
+              \":
+            </span>
+            <span
+              className="value">
+               
+              \"message\"
+              ,
+            </span>
+          </a>
+        </div>
+                },
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`test JField value 1`] = `
+<div
+  className="field"
+  data-fieldKey="key"
+  href="#key"
+  onMouseOver={[Function]}>
+  <a
+    onClick={[Function]}
+    tabIndex={0}>
+    <span
+      className="name">
+              
+      \"
+      code
+      \":
+    </span>
+    <span
+      className="value">
+       
+      \"code\"
+      ,
+    </span>
+  </a>
+</div>
+`;
