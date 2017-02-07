@@ -2,11 +2,12 @@
 language: node_js
 
 node_js:
-  - "6"
+  - "7"
 
 script:
-  - npm run check
+  - yarn run check
 
 cache:
+  yarn: true
   directories:
     - node_modules
