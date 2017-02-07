@@ -11,7 +11,7 @@
     "format": "eslint src --fix",
     "lint:style": "stylelint \"src/**/*.css\"",
     "lint:style:ci": "stylelint \"src/**/*.css\"",
-    "check": "npm run test && npm run flow && npm run lint && npm run lint:style",
+    "check": "yarn run test && yarn run flow && yarn run lint && yarn run lint:style",
     "flow:cover": "flow coverage --color",
     "flow:coverage": "flow-coverage-report -i 'src/**/*.js' -x 'src/**/*.test.js' -x 'src/generated/**/*' -t text",
     "test": "jest",
