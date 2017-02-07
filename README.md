@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/movio/apidoc-ui.svg?branch=master)](https://travis-ci.org/movio/apidoc-ui)
+
 # apidoc-ui
 A fresh UI built using React + Redux for https://github.com/mbryzek/apidoc
 
