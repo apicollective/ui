@@ -17,15 +17,24 @@ import { actions as serviceActions } from '../../generated/version';
 
 const allActions = Object.assign({}, serviceActions);
 
+type Params = {
+  model?: string,
+  resource?: string,
+  method: string,
+  path: string,
+  applicationKey: string,
+  organizationKey: string,
+}
+
 type Props = {
   actions: Object, // FIXME
-  params: Object, // FIXME
+  params: Params, // FIXME
   loaded: boolean,
   service: Service,
   importedServices: Service[],
 }
 
-class Application extends Component {
+export class Application extends Component {
   props: Props;
 
   componentDidMount() {
@@ -35,7 +44,6 @@ class Application extends Component {
       { orgKey, applicationKey, version: 'latest' },
     );
   }
-
 
   render() {
     const { service, importedServices } = this.props;
