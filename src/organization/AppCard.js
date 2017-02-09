@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 
-import Markdown from '../../../components/Markdown';
-import { onClickHref } from '../../../utils';
+import Markdown from '../components/Markdown';
+import { onClickHref } from '../utils';
 
 import styles from './app-card.css';
 
