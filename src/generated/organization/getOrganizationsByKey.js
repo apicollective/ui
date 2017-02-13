@@ -5,7 +5,7 @@ import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
 
 function api({ key } = {}) {
-  return request.get(`${process.env.APIDOC_HOST}/api/organizations/${key}`);
+  return request.get(`${process.env.APIDOC_HOST}/organizations/${key}`);
 }
 
 const actionTypes = {

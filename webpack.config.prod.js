@@ -18,7 +18,7 @@ const config = {
   entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'src')],
   output: {
     path: path.resolve(ROOT_PATH, 'build.prod'),
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
   },
   devtool: 'cheap-module-source-map',
   module: {
@@ -44,40 +44,38 @@ const config = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  postcss: (webpack) => {
-    return [
-      postCSSImport({
-        path: ['./src/styles'],
-      }),
-      postCSSNext({
-        features: {
-          rem: {
-            rootValue: '14px',
-          },
+  postcss: wp => [
+    postCSSImport({
+      path: ['./src/styles'],
+    }),
+    postCSSNext({
+      features: {
+        rem: {
+          rootValue: '14px',
         },
-      }),
-      rucksack(),
-      cssnano({
-        autoprefixer: false,
-        discardComments: {
-          removeAll: true,
-        },
-        discardUnused: false,
-        mergeIdents: false,
-        reduceIdents: false,
-        safe: true,
-        sourcemap: true,
-      }),
-      postCSSReporter(),
-    ];
-  },
+      },
+    }),
+    rucksack(),
+    cssnano({
+      autoprefixer: false,
+      discardComments: {
+        removeAll: true,
+      },
+      discardUnused: false,
+      mergeIdents: false,
+      reduceIdents: false,
+      safe: true,
+      sourcemap: true,
+    }),
+    postCSSReporter(),
+  ],
   plugins: [
     new CleanPlugin('build.prod'),
     new webpack.DefinePlugin({
       __DEV__: false,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        APIDOC_HOST: '"http://apidoc.me"',
+        APIDOC_HOST: '"http://api.apidoc.me"',
         /* APIDOC_HOST: '""',*/
       },
     }),
