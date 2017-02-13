@@ -1,27 +1,40 @@
-import { Map } from 'immutable';
-
+// @flow
 import { actionTypes } from '../generated/documentation/getByRootUrlAndMarkdownPath';
 
-const initialState = new Map({
-  loaded: false,
-  markdown: '',
-});
+export type State = {
+  loaded: boolean,
+  markdown?: string,
+}
 
-const documentation = (state = initialState, action) => {
+type Action = {
+  type: string,
+  payload: any, // FIXME
+}
+
+const initialState: State = {
+  loaded: false,
+};
+
+const documentation = (state: State = initialState, action: Action) => {
   switch (action.type) {
     // Get documentation
     case actionTypes.getByRootUrlAndMarkdownPath_success: {
-      return state
-        .set('markdown', action.payload)
-        .set('loaded', true);
+      return {
+        markdown: action.payload,
+        loaded: true,
+      };
     }
     case actionTypes.getByRootUrlAndMarkdownPath_doing: {
-      return state
-          .set('loaded', false);
+      return {
+        loaded: false,
+        markdown: state.markdown,
+      };
     }
     case actionTypes.getByRootUrlAndMarkdownPath_failure: {
-      return state
-        .set('loaded', true);
+      return {
+        loaded: true,
+        markdown: state.markdown,
+      };
     }
     default: {
       return state;

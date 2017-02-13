@@ -25,7 +25,7 @@ module.exports = {
       '/api': {
         changeOrigin: true,
         // FIXME - make config or use static files
-        target: 'http://apidoc.movio.co:9001/',
+        target: 'http://api.apidoc.me',
         pathRewrite: { '^/api': '' },
       },
       // This is to support period/dot's in URL params
@@ -95,7 +95,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        APIDOC_HOST: '""',
+        APIDOC_HOST: '"/api"',
       },
     }),
   ],

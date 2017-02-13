@@ -8,7 +8,7 @@ import * as request from 'superagent';
 // import exampleService from '../../exampleService.json';
 
 function api({ orgKey, applicationKey, version } = {}) {
-  return request.get(`${process.env.APIDOC_HOST}/api/${orgKey}/${applicationKey}/latest`);
+  return request.get(`${process.env.APIDOC_HOST}/${orgKey}/${applicationKey}/latest`);
   // return new Promise((resolve) => {
   //   resolve(exampleService);
   // });

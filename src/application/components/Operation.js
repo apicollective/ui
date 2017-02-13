@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 
-import Markdown from '../../../components/Markdown';
-import Header from '../../components/Header';
-import Request from '../../components/Request';
-import Response from '../../components/Response';
-import ResourceCard from '../../components/ResourceCard';
+import Markdown from '../../components/Markdown';
+import Header from '../components/Header';
+import Request from '../components/Request';
+import Response from '../components/Response';
+import ResourceCard from '../components/ResourceCard';
 
-import type { Operation as OperationType, Service } from '../../../generated/version/ServiceType';
+import type { Operation as OperationType, Service } from '../../generated/version/ServiceType';
 
 import styles from './operation.css';
 

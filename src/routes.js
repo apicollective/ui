@@ -1,13 +1,13 @@
+// @flow
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 
 import { App } from './app';
 
-import { Home } from './home';
-import { Organization } from './organization';
+import Home from './home';
+import Organization from './organization';
 import { Application } from './application';
-import { Documentation } from './documentation';
-
+import Documentation from './documentation';
 
 const routes = (
   <Route path="/" component={App}>

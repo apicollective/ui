@@ -1,3 +1,4 @@
+// @flow
 const actionTypes = {
   // fixme: 'applciation/fixme',
 };

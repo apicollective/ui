@@ -3,29 +3,38 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import LoadingOverlay from '../../../components/LoadingOverlay';
-import Operation from '../../components/Operation';
-import ApplicationHome from '../../components/ApplicationHome';
-import * as utils from '../../../utils';
+import LoadingOverlay from '../../components/LoadingOverlay';
+import Operation from '../components/Operation';
+import ApplicationHome from '../components/ApplicationHome';
+import * as utils from '../../utils';
 import Model from './Model';
 
-import type { Service } from '../../../generated/version/ServiceType';
+import type { Service } from '../../generated/version/ServiceType';
 
 import styles from './application.css';
 
-import { actions as serviceActions } from '../../../generated/version';
+import { actions as serviceActions } from '../../generated/version';
 
 const allActions = Object.assign({}, serviceActions);
 
+type Params = {
+  model?: string,
+  resource?: string,
+  method: string,
+  path: string,
+  applicationKey: string,
+  organizationKey: string,
+}
+
 type Props = {
   actions: Object, // FIXME
-  params: Object, // FIXME
+  params: Params, // FIXME
   loaded: boolean,
   service: Service,
   importedServices: Service[],
 }
 
-class Application extends Component {
+export class Application extends Component {
   props: Props;
 
   componentDidMount() {
@@ -35,7 +44,6 @@ class Application extends Component {
       { orgKey, applicationKey, version: 'latest' },
     );
   }
-
 
   render() {
     const { service, importedServices } = this.props;

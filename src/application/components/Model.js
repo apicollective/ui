@@ -1,14 +1,14 @@
 // @flow
 import React from 'react';
 
-import H1 from '../../../../components/H1';
-import Markdown from '../../../../components/Markdown';
-import JsonDoc from '../../JsonDoc';
-import ParameterListGroup from '../../ParameterListGroup';
+import H1 from '../../components/H1';
+import Markdown from '../../components/Markdown';
+import JsonDoc from './JsonDoc/JsonDoc';
+import ParameterListGroup from './ParameterListGroup';
 
-import { simplifyName } from '../../../../utils';
+import { simplifyName } from '../../utils';
 
-import type { Service } from '../../../../generated/version/ServiceType';
+import type { Service } from '../../generated/version/ServiceType';
 
 import styles from './model.css';
 

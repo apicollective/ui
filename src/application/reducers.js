@@ -3,7 +3,7 @@ import { actionTypes } from '../generated/version';
 
 import type { Service } from '../generated/version/ServiceType';
 
-export type ApplicationState = {
+export type State = {
   loaded: boolean,
   service?: Service,
   importedServices: Service[],
@@ -14,12 +14,12 @@ type Action = {
   payload: any, // FIXME
 }
 
-const initialState = {
+const initialState: State = {
   loaded: false,
   importedServices: [],
 };
 
-const application = (state: ApplicationState = initialState, action: Action) => {
+const application = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case actionTypes.getByOrgkeyAndApplicationkeyAndVersion_success: {
       return {

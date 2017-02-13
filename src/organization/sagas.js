@@ -1,3 +1,4 @@
+// @flow
 import { takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
@@ -12,25 +13,25 @@ const actionTypes = {
 };
 
 const actions = {
-  getOrganizationDetails_get: ({ orgKey } = {}) => ({
+  getOrganizationDetails_get: ({ orgKey }: { orgKey?: string } = {}) => ({
     type: actionTypes.getOrganizationDetails_get,
     payload: { orgKey },
   }),
   getOrganizationDetails_doing: () => ({
     type: actionTypes.getOrganizationDetails_doing,
   }),
-  getOrganizationDetails_success: result => ({
+  getOrganizationDetails_success: (result: any) => ({   // FIXME types
     type: actionTypes.getOrganizationDetails_success,
     payload: result,
   }),
-  getOrganizationDetails_failure: err => ({
+  getOrganizationDetails_failure: (err: any) => ({  // FIXME types
     type: actionTypes.getOrganizationDetails_failure,
     payload: err,
     error: true,
   }),
 };
 
-function* saga(action) {
+function* saga(action: any): Generator<any[], void, any> {  // FIXME types
   const { orgKey } = action.payload;
   try {
     yield put(actions.getOrganizationDetails_doing());
@@ -50,7 +51,7 @@ function* saga(action) {
   }
 }
 
-function* takeLatestSaga() {
+function* takeLatestSaga(): Generator<void, void, void> {
   yield* takeLatest(actionTypes.getOrganizationDetails_get, saga);
 }
 
