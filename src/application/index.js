@@ -2,7 +2,7 @@
 import { actions, actionTypes } from './actions';
 import { reducers } from './reducers';
 
-import Application from './components/Application';
+import Appln from './components/Application';
 
 const name = 'application';
 
@@ -11,5 +11,5 @@ export {
   actionTypes,
   actions,
   reducers,
-  Application,
+  Appln,
 };
