@@ -37,7 +37,6 @@ class JsonDoc extends Component {
     };
   }
 
-
   static getJson(baseModel: string, service: Service, importedServices: Service[], modelFieldJson: any) {
     if (modelFieldJson) {
       return (

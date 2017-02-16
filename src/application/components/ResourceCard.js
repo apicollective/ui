@@ -11,7 +11,7 @@ const ResourceCard = ({ method, path, click, description }: {
   path: string,
   click?: Function,
   description?: string,
-}) => {
+} = {}) => {
   const methodClasses = classnames(
     styles.method,
     styles[method.toLowerCase()],

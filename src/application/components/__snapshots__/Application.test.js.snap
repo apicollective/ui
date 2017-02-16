@@ -1,145 +1,149 @@
 exports[`test Application Home 1`] = `
-<div
-  className="content">
-  <div
-    className="header">
-    <h1
-      className="h1 h1">
-      apidoc generator
-    </h1>
-    <div
-      className="description container">
-      <div
-        className="markdown">
-        <p>
-          Documentation for an apidoc code generator API
-        </p>
-      </div>
-    </div>
-  </div>
+<div>
   <div>
     <div
-      className="container isClick">
-      <a
-        onClick={[Function]}
-        tabIndex="0">
-        <div
-          className="flex">
-          <div
-            className="left">
-            <div
-              className="method get isExpandedMethod">
-              GET
-            </div>
-          </div>
-          <div
-            className="right">
-            <pre
-              className="path isExpandedPath">
-              /generators
-            </pre>
-          </div>
-        </div>
+      className="content">
+      <div
+        className="header">
+        <h1
+          className="h1 h1">
+          apidoc generator
+        </h1>
         <div
           className="description container">
           <div
             className="markdown">
             <p>
-              Get all available generators
+              Documentation for an apidoc code generator API
             </p>
           </div>
         </div>
-      </a>
-    </div>
-    <div
-      className="container isClick">
-      <a
-        onClick={[Function]}
-        tabIndex="0">
+      </div>
+      <div>
         <div
-          className="flex">
-          <div
-            className="left">
+          className="container isClick">
+          <a
+            onClick={[Function]}
+            tabIndex="0">
             <div
-              className="method get isExpandedMethod">
-              GET
+              className="flex">
+              <div
+                className="left">
+                <div
+                  className="method get isExpandedMethod">
+                  GET
+                </div>
+              </div>
+              <div
+                className="right">
+                <pre
+                  className="path isExpandedPath">
+                  /generators
+                </pre>
+              </div>
             </div>
-          </div>
-          <div
-            className="right">
-            <pre
-              className="path isExpandedPath">
-              /generators/:key
-            </pre>
-          </div>
-        </div>
-        <div
-          className="description container">
-          <div
-            className="markdown">
-            <p>
-              Get generator with this key
-            </p>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div
-      className="container isClick">
-      <a
-        onClick={[Function]}
-        tabIndex="0">
-        <div
-          className="flex">
-          <div
-            className="left">
             <div
-              className="method get">
-              GET
+              className="description container">
+              <div
+                className="markdown">
+                <p>
+                  Get all available generators
+                </p>
+              </div>
             </div>
-          </div>
-          <div
-            className="right">
-            <pre
-              className="path">
-              /_internal_/healthcheck
-            </pre>
-          </div>
+          </a>
         </div>
-      </a>
-    </div>
-    <div
-      className="container isClick">
-      <a
-        onClick={[Function]}
-        tabIndex="0">
         <div
-          className="flex">
-          <div
-            className="left">
+          className="container isClick">
+          <a
+            onClick={[Function]}
+            tabIndex="0">
             <div
-              className="method post isExpandedMethod">
-              POST
+              className="flex">
+              <div
+                className="left">
+                <div
+                  className="method get isExpandedMethod">
+                  GET
+                </div>
+              </div>
+              <div
+                className="right">
+                <pre
+                  className="path isExpandedPath">
+                  /generators/:key
+                </pre>
+              </div>
             </div>
-          </div>
-          <div
-            className="right">
-            <pre
-              className="path isExpandedPath">
-              /invocations/:key
-            </pre>
-          </div>
+            <div
+              className="description container">
+              <div
+                className="markdown">
+                <p>
+                  Get generator with this key
+                </p>
+              </div>
+            </div>
+          </a>
         </div>
         <div
-          className="description container">
-          <div
-            className="markdown">
-            <p>
-              Invoke a generator
-            </p>
-          </div>
+          className="container isClick">
+          <a
+            onClick={[Function]}
+            tabIndex="0">
+            <div
+              className="flex">
+              <div
+                className="left">
+                <div
+                  className="method get">
+                  GET
+                </div>
+              </div>
+              <div
+                className="right">
+                <pre
+                  className="path">
+                  /_internal_/healthcheck
+                </pre>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
+        <div
+          className="container isClick">
+          <a
+            onClick={[Function]}
+            tabIndex="0">
+            <div
+              className="flex">
+              <div
+                className="left">
+                <div
+                  className="method post isExpandedMethod">
+                  POST
+                </div>
+              </div>
+              <div
+                className="right">
+                <pre
+                  className="path isExpandedPath">
+                  /invocations/:key
+                </pre>
+              </div>
+            </div>
+            <div
+              className="description container">
+              <div
+                className="markdown">
+                <p>
+                  Invoke a generator
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -32,7 +32,7 @@ type Item = {
 }
 
 type Props = {
-  children: Object, // FIXME
+  children: React$Element<*>,
   service: Service,
   organizations: Organization[],
   organization: Organization,

@@ -48,10 +48,7 @@ export class Application extends Component {
   render() {
     const { service, importedServices } = this.props;
 
-    if (!this.props.loaded) {
-      // First Load
-      return (<LoadingOverlay />);
-    } else if (this.props.params.resource) {
+    if (this.props.params.resource) {
       // Load Operation
       const {
         resource,
@@ -64,16 +61,18 @@ export class Application extends Component {
       const operation = utils.getOperation(resource, method, path, service);
 
       return (
-        <Operation
-          service={service}
-          importedServices={importedServices}
-          operation={operation}
-          applicationKey={applicationKey}
-          organizationKey={organizationKey}
-          resource={resource}
-          method={method}
-          path={path}
-        />
+        <LoadingOverlay isLoaded={this.props.loaded}>
+          <Operation
+            service={service}
+            importedServices={importedServices}
+            operation={operation}
+            applicationKey={applicationKey}
+            organizationKey={organizationKey}
+            resource={resource}
+            method={method}
+            path={path}
+          />
+        </LoadingOverlay>
       );
     } else if (this.props.params.model) {
       // Load Model
@@ -86,10 +85,18 @@ export class Application extends Component {
          *     { name: value.name, description: value.description, type: 'string', required: false }
          *   ));
          * }*/
-        return <Model model={enumModel} service={service} importedServices={importedServices} showJsonDoc={false} />;
+        return (
+          <LoadingOverlay isLoaded={this.props.loaded}>
+            <Model model={enumModel} service={service} importedServices={importedServices} showJsonDoc={false} />;
+          </LoadingOverlay>
+        );
       } else {
         const model = utils.getModel(modelName, service, importedServices);
-        return <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />;
+        return (
+          <LoadingOverlay isLoaded={this.props.loaded}>
+            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />;
+          </LoadingOverlay>
+        );
       }
     } else {
       // Load Application Home
@@ -98,11 +105,15 @@ export class Application extends Component {
         organizationKey,
       } = this.props.params;
 
-      return (<ApplicationHome
-        service={service}
-        applicationKey={applicationKey}
-        organizationKey={organizationKey}
-      />);
+      return (
+        <LoadingOverlay isLoaded={this.props.loaded}>
+          <ApplicationHome
+            service={service}
+            applicationKey={applicationKey}
+            organizationKey={organizationKey}
+          />
+        </LoadingOverlay>
+      );
     }
   }
 }

@@ -45,7 +45,7 @@ const FieldClickable = ({ fieldKey, mouseOver, onClick, children } : {
   mouseOver: (event: SyntheticEvent) => void,
   onClick: () => void,
   children?: React$Element<*>
-}) =>
+} = {}) =>
   <div
     className={styles.field}
     href={`#${String(fieldKey)}`}
@@ -62,7 +62,7 @@ const ElementClickable = ({ fieldKey, mouseOver, onClick, children }: {
   mouseOver: (event: SyntheticEvent) => void,
   onClick: () => void,
   children?: React$Element<*>
-}) =>
+} = {}) =>
   <div
     className={styles.element}
     href={`#${fieldKey}`}
@@ -93,8 +93,8 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   onClick: Function, // FIXME () => void,
-  children?: React$Element<*>
-}) =>
+  children?: React$Element<*>,
+} = {}) =>
   <div>
     <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
       <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
@@ -147,7 +147,7 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedSer
     {`${spaces(indent)}{`}
     {model.fields.map((field, id) =>
       <JField
-        key={id}
+        key={field.name}
         field={field}
         fieldKey={`${model.name}.${field.name}`}
         indent={indent + 1}

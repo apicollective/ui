@@ -48,13 +48,13 @@ const Response = ({ operation, service, importedServices, orgKey, appKey }: {
 
   return (
     <div className={styles.response}>
-      {operation.responses.map((response, id) => (
-        <div key={id} className={styles.container}>
+      {operation.responses.map(response =>
+        <div key={response.code} className={styles.container}>
           <H2 className={styles.name}>{`${response.code} Response`}</H2>
           <Markdown source={response.description ? response.description : ''} className={styles.description} />
           {body(response)}
-        </div>
-      ))}
+        </div>,
+      )}
     </div>
   );
 };

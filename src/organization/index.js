@@ -29,18 +29,18 @@ const Applications = ({ orgKey, applications }: {
   applications: Application[],
 }) =>
   <div>
-    {applications.map((application, id) => (
-      <div key={`${orgKey}-${id}`} className={styles.container}>
-        <App key={id} orgKey={orgKey} application={application} />
-      </div>
-    ))}
+    {applications.map(application =>
+      <div key={application.name} className={styles.container}>
+        <App key={application.name} orgKey={orgKey} application={application} />
+      </div>,
+    )}
   </div>;
 
 type Props = {
   loaded: boolean,
   params: Object, // FIXME
   actions: Object, // FIXME
-  organization: OrganizationType,
+  organization?: OrganizationType,
   applications: any, // FIXME PropTypes.array.isRequired,
 }
 
@@ -53,13 +53,11 @@ class Organization extends Component {
   }
 
   render() {
-    if (!this.props.loaded) {
-      return (<LoadingOverlay />);
-    } else {
-      return (
+    return (
+      <LoadingOverlay isLoaded={this.props.loaded}>
         <div className={styles.content}>
           <div className={styles.header}>
-            <H1 className={styles.h1}>{this.props.organization.name}</H1>
+            <H1 className={styles.h1}>{this.props.organization && this.props.organization.name}</H1>
           </div>
           <div className={styles.container}>
             <Applications
@@ -68,8 +66,8 @@ class Organization extends Component {
             />
           </div>
         </div>
-      );
-    }
+      </LoadingOverlay>
+    );
   }
 }
 

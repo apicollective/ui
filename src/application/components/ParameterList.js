@@ -20,7 +20,7 @@ const ParameterList = (
   service: Service,
   importedServices: Service[],
   parentModel: string,
-}) => {
+} = {}) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
   const modelType = isImport(possibleImportType, importedServices) ? possibleImportType : type;
   const typeClickFn = isImportOrInService(getType(modelType), service, importedServices) ?
