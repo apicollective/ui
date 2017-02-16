@@ -10,7 +10,7 @@ import styles from './parameter-list-group.css';
 
 const ParameterListGroup = ({ title, parameters, service, importedServices, parentModel }: {
   title: string,
-  parameters: any, // FIXME PropTypes.array.isRequired,
+  parameters: any[], // FIXME PropTypes.array.isRequired,
   service: Service,
   importedServices: Service[],
   parentModel: string,
@@ -21,7 +21,7 @@ const ParameterListGroup = ({ title, parameters, service, importedServices, pare
       {parameters.length > 0
         ? parameters.map((parameter, id) => (
           <ParameterList
-            key={id}
+            key={parameter.name}
             {...parameter}
             service={service}
             importedServices={importedServices}

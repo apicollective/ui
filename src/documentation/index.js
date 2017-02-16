@@ -37,23 +37,19 @@ class Documentation extends Component {
 
 
   render() {
-    if (!this.props.loaded) {
-      return (
-        <LoadingOverlay />
-      );
-    } else {
-      const document =
-        docs.organizations[this.props.params.organizationKey].documents
-            .filter(doc => snakeCase(doc.name) === this.props.params.documentationKey)[0];
-      return (
+    const document =
+      docs.organizations[this.props.params.organizationKey].documents
+          .filter(doc => snakeCase(doc.name) === this.props.params.documentationKey)[0];
+    return (
+      <LoadingOverlay isLoaded={this.props.loaded}>
         <div className={styles.content}>
           <div className={styles.container}>
             <H1 className={styles.h1}>{document.name}</H1>
             <Markdown source={this.props.markdown} className={styles.markdown} />
           </div>
         </div>
-      );
-    }
+      </LoadingOverlay>
+    );
   }
 }
 

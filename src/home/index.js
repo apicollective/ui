@@ -29,9 +29,9 @@ const Organizations = ({ organizations }: {
   organizations: Organization[],
 }) =>
   <div>
-    {organizations.map((organization, id) => (
-      <div key={`${organization.key}-${id}`} className={styles.container}>
-        <Org key={id} organization={organization} />
+    {organizations.map(organization => (
+      <div key={organization.key} className={styles.container}>
+        <Org key={organization.key} organization={organization} />
       </div>
   ))}
   </div>;
@@ -50,12 +50,8 @@ class Home extends Component {
   }
 
   render() {
-    if (!this.props.loaded) {
-      return (
-        <LoadingOverlay />
-      );
-    } else {
-      return (
+    return (
+      <LoadingOverlay isLoaded={this.props.loaded}>
         <div className={styles.content}>
           <div className={styles.header}>
             <H1 className={styles.h1}>Organizations</H1>
@@ -64,8 +60,8 @@ class Home extends Component {
             <Organizations organizations={this.props.organizations} />
           </div>
         </div>
-      );
-    }
+      </LoadingOverlay>
+    );
   }
 }
 

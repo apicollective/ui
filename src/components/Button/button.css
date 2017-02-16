@@ -39,6 +39,7 @@
 .button.loading {
   position: relative;
   padding-left: 42px;
+
   &::before {
     content: "";
     position: absolute;
