@@ -1,18 +1,25 @@
-exports[`test Application Home 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Application Home 1`] = `
 <div>
   <div>
     <div
-      className="content">
+      className="content"
+    >
       <div
-        className="header">
+        className="header"
+      >
         <h1
-          className="h1 h1">
+          className="h1 h1"
+        >
           apidoc generator
         </h1>
         <div
-          className="description container">
+          className="description container"
+        >
           <div
-            className="markdown">
+            className="markdown"
+          >
             <p>
               Documentation for an apidoc code generator API
             </p>
@@ -21,31 +28,40 @@ exports[`test Application Home 1`] = `
       </div>
       <div>
         <div
-          className="container isClick">
+          className="container isClick"
+        >
           <a
             onClick={[Function]}
-            tabIndex="0">
+            tabIndex="0"
+          >
             <div
-              className="flex">
+              className="flex"
+            >
               <div
-                className="left">
+                className="left"
+              >
                 <div
-                  className="method get isExpandedMethod">
+                  className="method get isExpandedMethod"
+                >
                   GET
                 </div>
               </div>
               <div
-                className="right">
+                className="right"
+              >
                 <pre
-                  className="path isExpandedPath">
+                  className="path isExpandedPath"
+                >
                   /generators
                 </pre>
               </div>
             </div>
             <div
-              className="description container">
+              className="description container"
+            >
               <div
-                className="markdown">
+                className="markdown"
+              >
                 <p>
                   Get all available generators
                 </p>
@@ -54,31 +70,40 @@ exports[`test Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick">
+          className="container isClick"
+        >
           <a
             onClick={[Function]}
-            tabIndex="0">
+            tabIndex="0"
+          >
             <div
-              className="flex">
+              className="flex"
+            >
               <div
-                className="left">
+                className="left"
+              >
                 <div
-                  className="method get isExpandedMethod">
+                  className="method get isExpandedMethod"
+                >
                   GET
                 </div>
               </div>
               <div
-                className="right">
+                className="right"
+              >
                 <pre
-                  className="path isExpandedPath">
+                  className="path isExpandedPath"
+                >
                   /generators/:key
                 </pre>
               </div>
             </div>
             <div
-              className="description container">
+              className="description container"
+            >
               <div
-                className="markdown">
+                className="markdown"
+              >
                 <p>
                   Get generator with this key
                 </p>
@@ -87,23 +112,30 @@ exports[`test Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick">
+          className="container isClick"
+        >
           <a
             onClick={[Function]}
-            tabIndex="0">
+            tabIndex="0"
+          >
             <div
-              className="flex">
+              className="flex"
+            >
               <div
-                className="left">
+                className="left"
+              >
                 <div
-                  className="method get">
+                  className="method get"
+                >
                   GET
                 </div>
               </div>
               <div
-                className="right">
+                className="right"
+              >
                 <pre
-                  className="path">
+                  className="path"
+                >
                   /_internal_/healthcheck
                 </pre>
               </div>
@@ -111,31 +143,40 @@ exports[`test Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick">
+          className="container isClick"
+        >
           <a
             onClick={[Function]}
-            tabIndex="0">
+            tabIndex="0"
+          >
             <div
-              className="flex">
+              className="flex"
+            >
               <div
-                className="left">
+                className="left"
+              >
                 <div
-                  className="method post isExpandedMethod">
+                  className="method post isExpandedMethod"
+                >
                   POST
                 </div>
               </div>
               <div
-                className="right">
+                className="right"
+              >
                 <pre
-                  className="path isExpandedPath">
+                  className="path isExpandedPath"
+                >
                   /invocations/:key
                 </pre>
               </div>
             </div>
             <div
-              className="description container">
+              className="description container"
+            >
               <div
-                className="markdown">
+                className="markdown"
+              >
                 <p>
                   Invoke a generator
                 </p>
