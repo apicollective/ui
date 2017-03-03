@@ -18,7 +18,7 @@ const config = {
   entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'src')],
   output: {
     path: path.resolve(ROOT_PATH, 'build.prod'),
-    filename: 'bundle.[hash].js',
+    filename: '/bundle.[hash].js',
   },
   devtool: 'cheap-module-source-map',
   module: {
@@ -98,6 +98,7 @@ const config = {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(ROOT_PATH, 'src/index.html'),
+      favicon: 'src/favicon.ico',
     }),
   ],
 };
