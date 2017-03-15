@@ -34,15 +34,6 @@ const config = {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-              plugins: [
-                'transform-decorators-legacy',
-                'syntax-flow',
-                'transform-flow-strip-types',
-                'flow-react-proptypes',
-              ],
-            },
           },
         ],
       },
