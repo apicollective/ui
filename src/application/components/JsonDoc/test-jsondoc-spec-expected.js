@@ -1,6 +1,8 @@
 
 // This is what the test-jsondoc-spec should look like in the ui
 
+/* eslint-disable comma-dangle */
+
 export const getGender200 =
 'female';
 
@@ -17,15 +19,15 @@ export const postPerson =
     time: '2016-03-24T13:56:45.242Z',
     tags:
     [
-      'tag',
+      'tag'
     ],
     details:
     {
       some_thing: 10,
       tags:
       [
-        'string',
-      ],
+        'string'
+      ]
     },
     addresses:
     [
@@ -33,11 +35,11 @@ export const postPerson =
         street: 10,
         tags:
         [
-          'string',
-        ],
-      },
+          'string'
+        ]
+      }
     ],
-    gender: 'gender',
+    gender: 'gender'
   }
 ;
 
@@ -49,15 +51,15 @@ export const postPeople =
       dob: '2001-10-10',
       tags:
       [
-        'tag',
+        'tag'
       ],
       details:
       {
         some_thing: 10,
         tags:
         [
-          'string',
-        ],
+          'string'
+        ]
       },
       addresses:
       [
@@ -65,11 +67,13 @@ export const postPeople =
           street: 10,
           tags:
           [
-            'string',
-          ],
+            'string'
+          ]
         },
       ],
-      gender: 'gender',
-    },
+      gender: 'gender'
+    }
   ]
 ;
+
+/* eslint-enable comma-dangle */

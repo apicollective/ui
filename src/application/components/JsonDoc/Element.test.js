@@ -14,6 +14,7 @@ test('Element Model', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
@@ -36,6 +37,7 @@ test('Element Field Model', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
@@ -58,6 +60,7 @@ test('Element Field Value string', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
@@ -77,6 +80,7 @@ test('Element Array', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
@@ -99,6 +103,7 @@ test('JField value', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
@@ -120,6 +125,7 @@ test('JField model', () => {
     mouseOver: () => {},
     service: Example,
     importedServices: [],
+    isLast: false,
   };
 
   const component = renderer.create(
