@@ -66,6 +66,7 @@ class JsonDoc extends Component {
           mouseOver={this.mouseOver}
           service={service}
           importedServices={importedServices}
+          isLast={true}
         />
       );
     } else {

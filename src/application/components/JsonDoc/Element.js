@@ -10,6 +10,8 @@ import type { Service, Model, Field } from '../../../generated/version/ServiceTy
 const numSpaces = 2;
 const spaces = (indent: number): string => new Array((indent * numSpaces) + 1).join(' ');
 
+const comma = (isLast: boolean): string => isLast ? '' : ',';
+
 /**
  JFields - the lines with "name: ..." eg:
    ...
@@ -74,17 +76,18 @@ const ElementClickable = ({ fieldKey, mouseOver, onClick, children }: {
     </a>
   </div>;
 
-const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick }: {
+const SingleLineField = ({ label, value, fieldKey, indent, mouseOver, onClick, isLast }: {
   label: string,
   value: string,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   onClick: Function, // FIXME () => void,
+  isLast: boolean,
 }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
     <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
-    <span className={styles.value}> {value},</span>
+    <span className={styles.value}> {value}{comma(isLast)}</span>
   </FieldClickable>;
 
 const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children }: {
@@ -104,15 +107,16 @@ const MultiLineField = ({ label, fieldKey, indent, mouseOver, onClick, children 
     </ElementClickable>
   </div>;
 
-const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick }: {
+const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick, isLast }: {
   value: string,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   onClick: Function, // FIXME () => void
+  isLast: boolean,
 }) =>
   <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-    <span className={styles.value}>{spaces(indent)}{value}</span>,
+    <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
   </FieldClickable>;
 
 const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
@@ -120,7 +124,7 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   onClick: Function, // FIXME () => void,
-  children?: React$Element<*>
+  children?: React$Element<*>,
 }) => {
   if (children === undefined) {
     return null;
@@ -130,18 +134,19 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
     <div>
       {`${spaces(indent)}[`}
       {indented}
-      {`${spaces(indent)}],`}
+      {`${spaces(indent)}]`}
     </div>
   );
 };
 
-const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedServices }: {
+const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedServices, isLast }: {
   model: Model,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
   importedServices: Service[],
+  isLast: boolean,
 }) =>
   <div>
     {`${spaces(indent)}{`}
@@ -154,18 +159,20 @@ const ModelElement = ({ model, fieldKey, indent, mouseOver, service, importedSer
         mouseOver={mouseOver}
         service={service}
         importedServices={importedServices}
+        isLast={model.fields.length === id + 1}
       />,
     )}
-    {`${spaces(indent)}},`}
+    {`${spaces(indent)}}${comma(isLast)}`}
   </div>;
 
-export const JField = ({ field, fieldKey, indent, mouseOver, service, importedServices }: {
+export const JField = ({ field, fieldKey, indent, mouseOver, service, importedServices, isLast }: {
   field: Field,
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
   importedServices: Service[],
+  isLast: boolean,
 }) => {
   const type = field.type;
 
@@ -186,6 +193,7 @@ export const JField = ({ field, fieldKey, indent, mouseOver, service, importedSe
           service={service}
           importedServices={importedServices}
           mouseOver={mouseOver}
+          isLast={isLast}
         />
       </MultiLineField>
     );
@@ -205,12 +213,13 @@ export const JField = ({ field, fieldKey, indent, mouseOver, service, importedSe
         indent={indent}
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
+        isLast={isLast}
       />
     );
   }
 };
 
-const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedServices }: {
+const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedServices, isLast }: {
   field?: Field,
   type: string,
   fieldKey: string,
@@ -218,6 +227,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
   mouseOver: (event: SyntheticEvent) => void,
   service: Service,
   importedServices: Service[],
+  isLast: boolean,
 }) => {
   let element = null;
   if (utils.isModel(type, service, importedServices)) {
@@ -231,6 +241,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         onClick={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
+        isLast={true}
       />);
   } else {
     let value = '""';
@@ -246,6 +257,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         onClick={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
+        isLast={true}
       />);
   }
 
@@ -256,6 +268,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         indent={indent}
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
+        isLast={true}
       >
         {element}
       </ArrayElement>
