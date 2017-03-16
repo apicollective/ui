@@ -135,12 +135,14 @@ module.exports = env => ({
     new webpack.NamedModulesPlugin(),
     new HTMLWebpackPlugin({
       inject: true,
-      template: path.resolve(ROOT_PATH, 'src/index.html'),
+      template: path.resolve(ROOT_PATH, 'src/index.html.ejs'),
       showErrors: true,
+      title: process.env.TITLE ? process.env.TITLE : 'APIDOC',
     }),
     new webpack.DefinePlugin({
       'process.env': {
         APIDOC_HOST: '"/api"',
+        TITLE: JSON.stringify(process.env.TITLE),
       },
     }),
   ],
