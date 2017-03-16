@@ -23,7 +23,7 @@ const config = {
   output: {
     filename: 'bundle.[hash].js',
     path: path.resolve(ROOT_PATH, 'dist/prod'),
-    publicPath: '/',
+    publicPath: process.env.PREFIX ? process.env.PREFIX : '/',
   },
 
   module: {
