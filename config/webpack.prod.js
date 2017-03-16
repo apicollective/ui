@@ -139,7 +139,7 @@ const config = {
       __DEV__: false,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        APIDOC_HOST: '"http://api.apidoc.me"',
+        APIDOC_HOST: '"' + (process.env.APIDOC_HOST ? process.env.APIDOC_HOST : 'http://api.apidoc.me') + '"',
         /* APIDOC_HOST: '""',*/
       },
     }),
