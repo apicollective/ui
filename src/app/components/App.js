@@ -241,6 +241,12 @@ class App extends Component {
       children,
     } = this.props;
 
+    const title = process.env.TITLE ? process.env.TITLE : 'apidoc';
+    let removeGithubLink = true;
+    if (typeof process.env.TITLE === 'undefined' || !process.env.TITLE) {
+      removeGithubLink = false;
+    }
+
     const sideBarItems =
       App.createSideBarItems(params, service, importedServices, organizations, organization, applications)
         .map((sideBarItem) => {
@@ -256,7 +262,12 @@ class App extends Component {
 
     return (
       <div>
-        <NavBar items={navBarItems} homeOnClick={utils.onClickHref('/')} />
+        <NavBar
+          title={title}
+          items={navBarItems}
+          homeOnClick={utils.onClickHref('/')}
+          removeGithubLink={removeGithubLink}
+        />
         <div className={styles.main}>
           <SideBar sections={sideBarItems} />
           <Content>

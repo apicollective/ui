@@ -139,6 +139,7 @@ const config = {
       __DEV__: false,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
+        TITLE: JSON.stringify(process.env.TITLE),
         APIDOC_HOST: '"' + (process.env.APIDOC_HOST ? process.env.APIDOC_HOST : 'http://api.apidoc.me') + '"',
         /* APIDOC_HOST: '""',*/
       },
@@ -162,7 +163,8 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ROOT_PATH, 'src/index.html'),
+      template: path.resolve(ROOT_PATH, 'src/index.html.ejs'),
+      title: process.env.TITLE ? process.env.TITLE : 'APIDOC',
       favicon: 'favicon.ico',
     }),
   ],
