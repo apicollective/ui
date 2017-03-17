@@ -8,7 +8,7 @@ import { resolve } from 'url';
 
 function api({ rootUrl, markdownPath } = {}) {
   const url = resolve(rootUrl, markdownPath);
-  return request.get(`${process.env.APIDOC_HOST}${url}`);
+  return request.get(url);
 }
 
 const actionTypes = {
