@@ -13,6 +13,8 @@ import Markdown from '../components/Markdown';
 import styles from './documentation.css';
 import docs from '../../documents.json';
 
+import type { State as ApplicationState } from '../app/reducers';
+
 const allActions = Object.assign({}, docActions);
 
 type Props = {
@@ -53,10 +55,10 @@ class Documentation extends Component {
   }
 }
 
-const mapStateToProps = state => (
+const mapStateToProps = (state: ApplicationState) => (
   {
-    markdown: state.documentation.get('markdown'),
-    loaded: state.documentation.get('loaded'),
+    markdown: state.documentation.markdown,
+    loaded: state.documentation.loaded,
   }
 );
 
