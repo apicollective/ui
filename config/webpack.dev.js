@@ -16,7 +16,7 @@ module.exports = env => ({
     './index.js',
   ],
 
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
 
   output: {
     publicPath: '/',

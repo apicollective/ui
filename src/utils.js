@@ -106,7 +106,7 @@ const getOperation = (type: string, method: Method, path: string, service: Servi
   if (!operation) {
     throw new Error(`Operation not found: ${type}`);
   }
-
+  operation.resourceDescription = resource.description;
   return operation;
 };
 
