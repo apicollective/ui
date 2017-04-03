@@ -119,12 +119,13 @@ const SimpleElement = ({ value, fieldKey, indent, mouseOver, onClick, isLast }: 
     <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
   </FieldClickable>;
 
-const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
+const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children, isLast }: {
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
   onClick: Function, // FIXME () => void,
   children?: React$Element<*>,
+  isLast: boolean,
 }) => {
   if (children === undefined) {
     return null;
@@ -134,7 +135,7 @@ const ArrayElement = ({ fieldKey, indent, mouseOver, onClick, children }: {
     <div>
       {`${spaces(indent)}[`}
       {indented}
-      {`${spaces(indent)}]`}
+      {`${spaces(indent)}]${comma(isLast)}`}
     </div>
   );
 };
@@ -230,6 +231,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
   isLast: boolean,
 }) => {
   let element = null;
+  const isArray = utils.isArray(type);
   if (utils.isModel(type, service, importedServices)) {
     const model = utils.mustGetModel(type, service, importedServices);
     element =
@@ -241,7 +243,7 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         onClick={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
-        isLast={true}
+        isLast={isArray || isLast}
       />);
   } else {
     let value = '""';
@@ -257,18 +259,18 @@ const Element = ({ field, type, fieldKey, indent, mouseOver, service, importedSe
         onClick={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
-        isLast={true}
+        isLast={isArray || isLast}
       />);
   }
 
-  if (utils.isArray(type)) {
+  if (isArray) {
     return (
       <ArrayElement
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
         onClick={click(fieldKey, service)}
-        isLast={true}
+        isLast={isLast}
       >
         {element}
       </ArrayElement>
