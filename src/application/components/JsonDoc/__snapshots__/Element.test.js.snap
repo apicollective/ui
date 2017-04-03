@@ -17,7 +17,7 @@ exports[`Element Array 1`] = `
               
       ""
     </span>
-    
+    ,
   </a>
 </div>
 `;
@@ -39,7 +39,7 @@ exports[`Element Field Model 1`] = `
               
       
     </span>
-    
+    ,
   </a>
 </div>
 `;
@@ -61,7 +61,7 @@ exports[`Element Field Value string 1`] = `
               
       "code"
     </span>
-    
+    ,
   </a>
 </div>
 `;
@@ -123,7 +123,7 @@ exports[`Element Model 1`] = `
       </span>
     </a>
   </div>
-          }
+          },
 </div>
 `;
 
@@ -215,7 +215,7 @@ exports[`JField model 1`] = `
             </span>
           </a>
         </div>
-                }
+                },
       </div>
     </a>
   </div>
