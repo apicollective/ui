@@ -51,15 +51,15 @@ export class Application extends Component {
     if (this.props.params.resource) {
       // Load Operation
       const {
-        resource,
         method,
         path,
+        resource: resourceType,
         applicationKey,
         organizationKey,
       } = this.props.params;
 
-      const operation = utils.getOperation(resource, method, path, service);
-      const resourceObj = utils.getResource(resource, service);
+      const operation = utils.getOperation(resourceType, method, path, service);
+      const resource = utils.getResource(resourceType, service);
 
       return (
         <LoadingOverlay isLoaded={this.props.loaded}>
@@ -69,7 +69,7 @@ export class Application extends Component {
             operation={operation}
             applicationKey={applicationKey}
             organizationKey={organizationKey}
-            resource={resourceObj}
+            resource={resource}
             method={method}
             path={path}
           />

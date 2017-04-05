@@ -95,20 +95,6 @@ const getEnumExampleValue = (enumModel: Enum[]): Enum => enumModel.values[0].nam
 
 const isISODateTime = (type: string): boolean => type === 'date-iso8601';
 
-const getOperation = (type: string, method: Method, path: string, service: Service): Operation => {
-  const resource = service.resources.find(r => r.type === type);
-  if (!resource) {
-    throw new Error(`Resource not found: ${type}`);
-  }
-  const operation = resource.operations.find(o => (
-        o.method.toLowerCase() === method && cleanPath(o.path) === path
-    ));
-  if (!operation) {
-    throw new Error(`Operation not found: ${type}`);
-  }
-  return operation;
-};
-
 const getResource = (type: string, service: Service): Resource => {
   const resource = service.resources.find(r => r.type === type);
   if (!resource) {
@@ -117,6 +103,16 @@ const getResource = (type: string, service: Service): Resource => {
   return resource;
 };
 
+const getOperation = (type: string, method: Method, path: string, service: Service): Operation => {
+  const resource = getResource(type, service);
+  const operation = resource.operations.find(o => (
+        o.method.toLowerCase() === method && cleanPath(o.path) === path
+    ));
+  if (!operation) {
+    throw new Error(`Operation not found: ${type}`);
+  }
+  return operation;
+};
 
 const buildNavHref = ({ organization, documentation, application, resource, method, path, model, field }: {
   organization?: string,

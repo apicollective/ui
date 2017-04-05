@@ -9,18 +9,18 @@ import ResourceCard from '../components/ResourceCard';
 import H1 from '../../components/H1';
 
 import type {
-  Operation as OperationType,
+  Operation as OperationServiceType,
   Service,
-  Resource as ResourceType } from '../../generated/version/ServiceType';
+  Resource as ResourceServiceType } from '../../generated/version/ServiceType';
 
 import styles from './operation.css';
 
 const Operation = ({ service, operation, applicationKey, organizationKey, resource, method, path, importedServices }: {
   service: Service,
-  operation: OperationType,
+  operation: OperationServiceType,
   applicationKey: string,
   organizationKey: string,
-  resource: ResourceType,
+  resource: ResourceServiceType,
   method: string,
   path: string,
   importedServices: Service[],
