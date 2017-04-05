@@ -107,7 +107,6 @@ export type Operation = {
   body?: Body,
   parameters: Parameter[],
   responses: Response[],
-  resourceDescription?: string,
 };
 
 export type Resource = {

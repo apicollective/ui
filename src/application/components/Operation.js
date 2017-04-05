@@ -8,7 +8,10 @@ import Response from '../components/Response';
 import ResourceCard from '../components/ResourceCard';
 import H1 from '../../components/H1';
 
-import type { Operation as OperationType, Service } from '../../generated/version/ServiceType';
+import type {
+  Operation as OperationType,
+  Service,
+  Resource as ResourceType } from '../../generated/version/ServiceType';
 
 import styles from './operation.css';
 
@@ -17,7 +20,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
   operation: OperationType,
   applicationKey: string,
   organizationKey: string,
-  resource: string,
+  resource: ResourceType,
   method: string,
   path: string,
   importedServices: Service[],
@@ -27,13 +30,13 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
       <H1 className={styles.h1}>
         <Link
           className={styles.link}
-          to={`/org/${organizationKey}/app/${applicationKey}/m/${resource}`}
+          to={`/org/${organizationKey}/app/${applicationKey}/m/${resource.type}`}
         >
-          {resource}
+          {resource.type}
         </Link>
       </H1>
-      {operation.resourceDescription && <Markdown
-        source={operation.resourceDescription}
+      {resource.description && <Markdown
+        source={resource.description}
         className={styles.description}
       />}
     </div>
@@ -48,7 +51,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
       <Header
         appKey={applicationKey}
         orgKey={organizationKey}
-        key={`${method}${resource}${path}-header`}
+        key={`${method}${resource.type}${path}-header`}
         operation={operation}
         service={service}
         importedServices={importedServices}
@@ -56,7 +59,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
     </div>
     <div className={styles.request}>
       <Request
-        key={`${method}${resource}${path}-request`}
+        key={`${method}${resource.type}${path}-request`}
         operation={operation}
         service={service}
         importedServices={importedServices}
@@ -65,7 +68,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
     <Response
       appKey={applicationKey}
       orgKey={organizationKey}
-      key={`${method}${resource}${path}-response`}
+      key={`${method}${resource.type}${path}-response`}
       operation={operation}
       service={service}
       importedServices={importedServices}

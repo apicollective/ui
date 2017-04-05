@@ -1,7 +1,7 @@
 // @flow
 import { browserHistory } from 'react-router';
 
-import type { Service, Operation, Method, Model, Enum } from './generated/version/ServiceType';
+import type { Service, Operation, Resource, Method, Model, Enum } from './generated/version/ServiceType';
 
 const cleanPath = (path: string) => path.replace(/\W/g, '');
 
@@ -106,9 +106,17 @@ const getOperation = (type: string, method: Method, path: string, service: Servi
   if (!operation) {
     throw new Error(`Operation not found: ${type}`);
   }
-  operation.resourceDescription = resource.description;
   return operation;
 };
+
+const getResource = (type: string, service: Service): Resource => {
+  const resource = service.resources.find(r => r.type === type);
+  if (!resource) {
+    throw new Error(`Resource not found: ${type}`);
+  }
+  return resource;
+};
+
 
 const buildNavHref = ({ organization, documentation, application, resource, method, path, model, field }: {
   organization?: string,
@@ -149,4 +157,5 @@ export {
   isISODateTime,
   getOperation,
   buildNavHref,
+  getResource,
 };
