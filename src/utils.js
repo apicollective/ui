@@ -1,7 +1,7 @@
 // @flow
 import { browserHistory } from 'react-router';
 
-import type { Service, Operation, Method, Model, Enum } from './generated/version/ServiceType';
+import type { Service, Operation, Resource, Method, Model, Enum } from './generated/version/ServiceType';
 
 const cleanPath = (path: string) => path.replace(/\W/g, '');
 
@@ -95,18 +95,22 @@ const getEnumExampleValue = (enumModel: Enum[]): Enum => enumModel.values[0].nam
 
 const isISODateTime = (type: string): boolean => type === 'date-iso8601';
 
-const getOperation = (type: string, method: Method, path: string, service: Service): Operation => {
+const getResource = (type: string, service: Service): Resource => {
   const resource = service.resources.find(r => r.type === type);
   if (!resource) {
     throw new Error(`Resource not found: ${type}`);
   }
+  return resource;
+};
+
+const getOperation = (type: string, method: Method, path: string, service: Service): Operation => {
+  const resource = getResource(type, service);
   const operation = resource.operations.find(o => (
         o.method.toLowerCase() === method && cleanPath(o.path) === path
     ));
   if (!operation) {
     throw new Error(`Operation not found: ${type}`);
   }
-  operation.resourceDescription = resource.description;
   return operation;
 };
 
@@ -149,4 +153,5 @@ export {
   isISODateTime,
   getOperation,
   buildNavHref,
+  getResource,
 };
