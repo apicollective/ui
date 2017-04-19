@@ -48,6 +48,9 @@ export class Application extends Component {
   render() {
     const { service, importedServices } = this.props;
 
+    if (!service) {
+      return <LoadingOverlay isLoaded={this.props.loaded} />;
+    }
     if (this.props.params.resource) {
       // Load Operation
       const {
