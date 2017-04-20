@@ -47,7 +47,7 @@ const Response = ({ operation, service, importedServices, orgKey, appKey }: {
   };
 
   return (
-    <div className={styles.response}>
+    <div>
       {operation.responses.map(response =>
         <div key={response.code.integer.value} className={styles.container}>
           <H2 className={styles.name}>{`${response.code.integer.value} Response`}</H2>
