@@ -8,12 +8,12 @@ import ParameterListGroup from './ParameterListGroup';
 
 import { simplifyName } from '../../utils';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service, Model as ModelType } from '../../generated/version/ServiceType';
 
 import styles from './model.css';
 
 const Model = ({ model, service, importedServices, showJsonDoc }: {
-  model: any, // FIXME ModelType,
+  model: ModelType,
   service: Service,
   importedServices: Service[],
   showJsonDoc: boolean,
