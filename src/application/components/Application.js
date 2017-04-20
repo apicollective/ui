@@ -83,7 +83,7 @@ export class Application extends Component {
       const modelName = this.props.params.model;
       if (utils.isEnum(modelName, service, importedServices)) {
         // FIXME - not sure if this is enum or model? Need a test case
-        const enumModel = utils.getEnum(modelName, service, importedServices);
+        const enumModel: any = utils.getEnum(modelName, service, importedServices);
         if (enumModel) {
           enumModel.fields = enumModel.values.map(value => (
             { name: value.name, description: value.description, type: 'string', required: false }
