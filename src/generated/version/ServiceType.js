@@ -89,8 +89,16 @@ export type Parameter = {
   example?: string,
 };
 
+export type Integer = {
+  value: number,
+}
+
+export type Code = {
+  integer: Integer,
+};
+
 export type Response = {
-  code: string,
+  code: Code,
   type: string,
   description?: string,
 };

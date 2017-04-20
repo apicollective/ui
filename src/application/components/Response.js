@@ -23,7 +23,7 @@ const Response = ({ operation, service, importedServices, orgKey, appKey }: {
       const baseModel = response.type;
       // TODO make this better, perhaps use isInImportOrService?
       const rawValue = response.type === 'string' || response.type === 'integer' || response.type === 'number' ?
-                       `${response.code}` :
+                       `${response.code.integer.value}` :
                        '';
       const formattedRawValue = response.type === 'string' ? `"${rawValue}"` : rawValue;
       return (
@@ -49,8 +49,8 @@ const Response = ({ operation, service, importedServices, orgKey, appKey }: {
   return (
     <div className={styles.response}>
       {operation.responses.map(response =>
-        <div key={response.code} className={styles.container}>
-          <H2 className={styles.name}>{`${response.code} Response`}</H2>
+        <div key={response.code.integer.value} className={styles.container}>
+          <H2 className={styles.name}>{`${response.code.integer.value} Response`}</H2>
           <Markdown source={response.description ? response.description : ''} className={styles.description} />
           {body(response)}
         </div>,

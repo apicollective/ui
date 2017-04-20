@@ -14,17 +14,22 @@ const Header = ({ operation, service, importedServices, orgKey, appKey }: {
   importedServices: Service[],
   orgKey: string,
   appKey: string,
-}) => (
-  <div className={styles.container}>
-    <ParameterListGroup
-      parameters={service.headers}
-      title="Headers"
-      service={service}
-      importedServices={importedServices}
-      parentModel={utils.cleanPath(operation.path)}
-    />
-  </div>
-);
+}) => {
+  if (service.headers && service.headers.length) {
+    return (
+      <div className={styles.container}>
+        <ParameterListGroup
+          parameters={service.headers}
+          title="Headers"
+          service={service}
+          importedServices={importedServices}
+          parentModel={utils.cleanPath(operation.path)}
+        />
+      </div>);
+  } else {
+    return null;
+  }
+};
 
 export default Header;
 
