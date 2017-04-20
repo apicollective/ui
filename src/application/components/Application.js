@@ -84,21 +84,21 @@ export class Application extends Component {
       if (utils.isEnum(modelName, service, importedServices)) {
         // FIXME - not sure if this is enum or model? Need a test case
         const enumModel = utils.getEnum(modelName, service, importedServices);
-        /* if (enumModel) {
-         *   enumModel.fields = enumModel.values.map(value => (
-         *     { name: value.name, description: value.description, type: 'string', required: false }
-         *   ));
-         * }*/
+        if (enumModel) {
+          enumModel.fields = enumModel.values.map(value => (
+            { name: value.name, description: value.description, type: 'string', required: false }
+          ));
+        }
         return (
           <LoadingOverlay isLoaded={this.props.loaded}>
-            <Model model={enumModel} service={service} importedServices={importedServices} showJsonDoc={false} />;
+            <Model model={enumModel} service={service} importedServices={importedServices} showJsonDoc={false} />
           </LoadingOverlay>
         );
       } else {
         const model = utils.getModel(modelName, service, importedServices);
         return (
           <LoadingOverlay isLoaded={this.props.loaded}>
-            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />;
+            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />
           </LoadingOverlay>
         );
       }
