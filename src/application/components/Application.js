@@ -8,6 +8,7 @@ import Operation from '../components/Operation';
 import ApplicationHome from '../components/ApplicationHome';
 import * as utils from '../../utils';
 import Model from './Model';
+import Enum from './Enum';
 
 import type { Service } from '../../generated/version/ServiceType';
 
@@ -82,25 +83,19 @@ export class Application extends Component {
       // Load Model
       const modelName = this.props.params.model;
       if (utils.isEnum(modelName, service, importedServices)) {
-        // FIXME - not sure if this is enum or model? Need a test case
         const enumModel = utils.getEnum(modelName, service, importedServices);
-        /* if (enumModel) {
-         *   enumModel.fields = enumModel.values.map(value => (
-         *     { name: value.name, description: value.description, type: 'string', required: false }
-         *   ));
-         * }*/
-        return (
+        return enumModel ? (
           <LoadingOverlay isLoaded={this.props.loaded}>
-            <Model model={enumModel} service={service} importedServices={importedServices} showJsonDoc={false} />;
+            <Enum enumModel={enumModel} service={service} importedServices={importedServices} />
           </LoadingOverlay>
-        );
+        ) : null;
       } else {
         const model = utils.getModel(modelName, service, importedServices);
-        return (
+        return model ? (
           <LoadingOverlay isLoaded={this.props.loaded}>
-            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />;
+            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />
           </LoadingOverlay>
-        );
+        ) : null;
       }
     } else {
       // Load Application Home

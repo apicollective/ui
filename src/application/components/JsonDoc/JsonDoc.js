@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import Documenation from './Documentation';
+import Documentation from './Documentation';
 import ModelDescription from './ModelDescription';
 import Element from './Element';
 
@@ -78,6 +78,10 @@ class JsonDoc extends Component {
   render() {
     const { baseModel, service, importedServices, includeModel } = this.props;
 
+    const jsonDoc = JsonDoc.getJson(baseModel, service, importedServices,
+                        this.props.rawValue ?
+                        this.props.rawValue :
+                        this.getModelJson(baseModel, service, importedServices, this.mouseOver));
     return (
       <div className={styles.jsonDoc}>
         {includeModel ? <ModelDescription
@@ -87,15 +91,12 @@ class JsonDoc extends Component {
           modelNameClick={this.props.modelNameClick}
         /> : null}
         <div className={styles.container}>
-          {JsonDoc.getJson(baseModel, service, importedServices,
-                        this.props.rawValue ?
-                        this.props.rawValue :
-                        this.getModelJson(baseModel, service, importedServices, this.mouseOver))}
-          <Documenation
+          {jsonDoc}
+          {jsonDoc && <Documentation
             documentationFullType={this.state.documentationFullType}
             service={service}
             importedServices={importedServices}
-          />
+          />}
         </div>
       </div>
     );
