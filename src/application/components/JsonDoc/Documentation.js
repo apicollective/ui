@@ -24,7 +24,8 @@ class Documentation extends Component {
   state: {
     height: number,
   };
-  constructor(props: props) {
+
+  constructor(props: Props) {
     super(props);
     this.state = { height: 0 };
     this.updateContainerHeight = this.updateContainerHeight.bind(this);
@@ -33,6 +34,9 @@ class Documentation extends Component {
   componentDidUpdate() {
     this.updateContainerHeight();
   }
+
+  container: HTMLDivElement;
+  updateContainerHeight: () => void;
 
   updateContainerHeight() {
     const container = this.container;
