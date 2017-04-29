@@ -29,7 +29,9 @@ const actions = {
    * @param {long} limit - The number of records to return
    * @param {long} offset - Used to paginate. First page of results is 0.
    */
-  getOrganizations_get: ({ guid, user_guid, key, name, namespace, limit, offset } = {}) => ({
+  getOrganizations_get: (
+    { guid, user_guid, key, name, namespace, limit, offset } = {}
+  ) => ({
     type: actionTypes.getOrganizations_get,
     payload: {
       guid,
@@ -79,11 +81,4 @@ function* takeLatestSaga() {
   yield* takeLatest(actionTypes.getOrganizations_get, saga);
 }
 
-export {
-  actions,
-  actionTypes,
-  api,
-  saga,
-  takeEverySaga,
-  takeLatestSaga,
-};
+export { actions, actionTypes, api, saga, takeEverySaga, takeLatestSaga };

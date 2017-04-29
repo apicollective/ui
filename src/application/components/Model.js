@@ -8,20 +8,31 @@ import ParameterListGroup from './ParameterListGroup';
 
 import { simplifyName } from '../../utils';
 
-import type { Service, Model as ModelType } from '../../generated/version/ServiceType';
+import type {
+  Service,
+  Model as ModelType,
+} from '../../generated/version/ServiceType';
 
 import styles from './model.css';
 
-const Model = ({ model, service, importedServices, showJsonDoc }: {
+const Model = ({
+  model,
+  service,
+  importedServices,
+  showJsonDoc,
+}: {
   model: ModelType,
   service: Service,
   importedServices: Service[],
   showJsonDoc: boolean,
-}) =>
+}) => (
   <div className={styles.container}>
     <div className={styles.header}>
       <H1 className={styles.title}>{simplifyName(model.name)}</H1>
-      <Markdown source={model.description ? model.description : ''} className={styles.description} />
+      <Markdown
+        source={model.description ? model.description : ''}
+        className={styles.description}
+      />
     </div>
     <div className={styles.fieldsContainer}>
       <ParameterListGroup
@@ -32,16 +43,18 @@ const Model = ({ model, service, importedServices, showJsonDoc }: {
         parentModel={model.name}
       />
       <div className={styles.json}>
-        {showJsonDoc ?
-          <JsonDoc
-            baseModel={model.name}
-            service={service}
-            importedServices={importedServices}
-            includeModel={false}
-            modelNameClick={() => {}}
-          /> : null}
+        {showJsonDoc
+          ? <JsonDoc
+              baseModel={model.name}
+              service={service}
+              importedServices={importedServices}
+              includeModel={false}
+              modelNameClick={() => {}}
+            />
+          : null}
       </div>
     </div>
-  </div>;
+  </div>
+);
 
 export default Model;

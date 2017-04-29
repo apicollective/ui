@@ -22,11 +22,8 @@ test('Application Home', () => {
     importedServices: [],
   };
 
-  const component = renderer.create(
-    <Application {...params} />,
-  );
+  const component = renderer.create(<Application {...params} />);
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
-

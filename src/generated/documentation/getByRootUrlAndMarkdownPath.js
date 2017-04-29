@@ -69,11 +69,4 @@ function* takeLatestSaga() {
   yield* takeLatest(actionTypes.getByRootUrlAndMarkdownPath_get, saga);
 }
 
-export {
-  actions,
-  actionTypes,
-  api,
-  saga,
-  takeEverySaga,
-  takeLatestSaga,
-};
+export { actions, actionTypes, api, saga, takeEverySaga, takeLatestSaga };

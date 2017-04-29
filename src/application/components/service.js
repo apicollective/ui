@@ -22,7 +22,6 @@ export const service = {
               location: 'Query',
               required: false,
               description: 'Filter generators with this key',
-
             },
             {
               name: 'limit',
@@ -55,7 +54,6 @@ export const service = {
           ],
           attributes: [],
           description: 'Get all available generators',
-
         },
         {
           method: 'GET',
@@ -81,7 +79,6 @@ export const service = {
               code: {
                 integer: {
                   value: 404,
-
                 },
               },
               type: 'unit',

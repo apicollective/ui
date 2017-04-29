@@ -6,10 +6,4 @@ import Appln from './components/Application';
 
 const name = 'application';
 
-export {
-  name,
-  actionTypes,
-  actions,
-  reducers,
-  Appln,
-};
+export { name, actionTypes, actions, reducers, Appln };

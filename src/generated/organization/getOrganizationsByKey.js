@@ -64,11 +64,4 @@ function* takeLatestSaga() {
   yield* takeLatest(actionTypes.getOrganizationsByKey_get, saga);
 }
 
-export {
-  actions,
-  actionTypes,
-  api,
-  saga,
-  takeEverySaga,
-  takeLatestSaga,
-};
+export { actions, actionTypes, api, saga, takeEverySaga, takeLatestSaga };

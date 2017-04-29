@@ -4,10 +4,15 @@ import classnames from 'classnames';
 
 import styles from './loading-overlay.css';
 
-const LoadingOverlay = ({ isLoaded, children }: {
-  isLoaded: boolean,
-  children?: React$Element<*>
-} = {}) => {
+const LoadingOverlay = (
+  {
+    isLoaded,
+    children,
+  }: {
+    isLoaded: boolean,
+    children?: React$Element<*>,
+  } = {}
+) => {
   const loader = (
     <div className={styles.container}>
       <div className={styles.cssloadLoader}>
@@ -25,7 +30,7 @@ const LoadingOverlay = ({ isLoaded, children }: {
       transitionLeaveTimeout={200}
       transitionAppearTimeout={250}
     >
-      {isLoaded ? <div>{ children }</div> : loader}
+      {isLoaded ? <div>{children}</div> : loader}
     </ReactCSSTransitionGroup>
   );
 };

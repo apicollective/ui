@@ -6,10 +6,4 @@ import App from './components/App';
 
 const name = 'app';
 
-export {
-  name,
-  actionTypes,
-  actions,
-  reducers,
-  App,
-};
+export { name, actionTypes, actions, reducers, App };

@@ -4,7 +4,7 @@ import type { Field } from '../../../generated/version/ServiceType';
 
 const getFieldValue = (field: Field) => {
   const type = utils.getType(field.type);
-  const wrap = (value) => {
+  const wrap = value => {
     switch (type) {
       case 'string':
       case 'date-time-iso8601':
@@ -44,6 +44,4 @@ const getFieldValue = (field: Field) => {
   }
 };
 
-export {
-  getFieldValue,
-};
+export { getFieldValue };

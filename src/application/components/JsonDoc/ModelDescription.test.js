@@ -13,9 +13,7 @@ test('simple html', () => {
     modelNameClick: () => {},
   };
 
-  const component = renderer.create(
-    <ModelDescription {...params} />,
-  );
+  const component = renderer.create(<ModelDescription {...params} />);
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();

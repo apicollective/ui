@@ -6,27 +6,29 @@ import { onClickHref } from '../utils';
 
 import styles from './home-card.css';
 
-const HomeCard = ({ name, description, link }: {
-  name: string,
-  description?: string,
-  link: string,
-} = {}) =>
+const HomeCard = (
+  {
+    name,
+    description,
+    link,
+  }: {
+    name: string,
+    description?: string,
+    link: string,
+  } = {}
+) => (
   <div className={styles.container}>
     <a tabIndex="0" onClick={onClickHref(link)}>
       <p className={styles.name}>{name}</p>
       <div className={styles.description}>
-        {description ?
-          <Markdown
-            source={description}
-          /> :
-          <p className={styles.noContent}>No description.</p>
-        }
+        {description
+          ? <Markdown source={description} />
+          : <p className={styles.noContent}>No description.</p>}
       </div>
     </a>
-  </div>;
+  </div>
+);
 
 export default HomeCard;
 
-export {
-  styles,
-};
+export { styles };

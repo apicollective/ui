@@ -11,11 +11,21 @@ import H1 from '../../components/H1';
 import type {
   Operation as OperationServiceType,
   Service,
-  Resource as ResourceServiceType } from '../../generated/version/ServiceType';
+  Resource as ResourceServiceType,
+} from '../../generated/version/ServiceType';
 
 import styles from './operation.css';
 
-const Operation = ({ service, operation, applicationKey, organizationKey, resource, method, path, importedServices }: {
+const Operation = ({
+  service,
+  operation,
+  applicationKey,
+  organizationKey,
+  resource,
+  method,
+  path,
+  importedServices,
+}: {
   service: Service,
   operation: OperationServiceType,
   applicationKey: string,
@@ -24,7 +34,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
   method: string,
   path: string,
   importedServices: Service[],
-}) =>
+}) => (
   <div className={styles.content}>
     <div className={styles.header}>
       <H1 className={styles.h1}>
@@ -35,18 +45,20 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
           {resource.type}
         </Link>
       </H1>
-      {resource.description && <Markdown
-        source={resource.description}
-        className={styles.description}
-      />}
+      {resource.description &&
+        <Markdown
+          source={resource.description}
+          className={styles.description}
+        />}
     </div>
     <div className={styles.resource}>
-      <ResourceCard
-        method={operation.method}
-        path={operation.path}
-      />
+      <ResourceCard method={operation.method} path={operation.path} />
     </div>
-    {operation.description && <Markdown source={operation.description} className={styles.description} /> }
+    {operation.description &&
+      <Markdown
+        source={operation.description}
+        className={styles.description}
+      />}
     <div className={styles.headers}>
       <Header
         appKey={applicationKey}
@@ -73,6 +85,7 @@ const Operation = ({ service, operation, applicationKey, organizationKey, resour
       service={service}
       importedServices={importedServices}
     />
-  </div>;
+  </div>
+);
 
 export default Operation;

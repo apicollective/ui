@@ -9,11 +9,16 @@ import type { Service } from '../../../generated/version/ServiceType';
 import * as utils from '../../../utils';
 import styles from './json-doc.css';
 
-const ModelDescription = ({ baseModel, service, importedServices, modelNameClick }: {
+const ModelDescription = ({
+  baseModel,
+  service,
+  importedServices,
+  modelNameClick,
+}: {
   baseModel: string,
   service: Service,
   importedServices: Service[],
-  modelNameClick: (event: Object) => void
+  modelNameClick: (event: Object) => void,
 }) => {
   const type = utils.getType(baseModel);
   const model = utils.getModel(type, service, importedServices);
@@ -25,8 +30,12 @@ const ModelDescription = ({ baseModel, service, importedServices, modelNameClick
       <H2 className={styles.modelName}>
         {utils.simplifyName(baseModel)}
       </H2>
-      {model && model.description ?
-        <Markdown source={model.description ? model.description : ''} className={styles.description} /> : null}
+      {model && model.description
+        ? <Markdown
+            source={model.description ? model.description : ''}
+            className={styles.description}
+          />
+        : null}
     </div>
   );
 };

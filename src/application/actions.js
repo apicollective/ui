@@ -11,7 +11,4 @@ const actions = {
   // fixme
 };
 
-export {
-  actionTypes,
-  actions,
-};
+export { actionTypes, actions };

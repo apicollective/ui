@@ -3,10 +3,11 @@ import classnames from 'classnames';
 
 import styles from './h1.css';
 
-const H1 = ({ className, children }) =>
+const H1 = ({ className, children }) => (
   <h1 className={classnames(className, styles.h1)}>
     {children}
-  </h1>;
+  </h1>
+);
 
 H1.propTypes = {
   children: PropTypes.node,
@@ -15,6 +16,4 @@ H1.propTypes = {
 
 export default H1;
 
-export {
-  styles,
-};
+export { styles };

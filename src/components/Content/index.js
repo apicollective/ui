@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react';
 
 import styles from './content.css';
 
-const Content = props =>
+const Content = props => (
   <div className={styles.content}>
     <div className={styles.contentInner}>
       {props.children}
     </div>
-  </div>;
+  </div>
+);
 
 Content.propTypes = {
   children: PropTypes.node,
@@ -15,6 +16,4 @@ Content.propTypes = {
 
 export default Content;
 
-export {
-  styles,
-};
+export { styles };

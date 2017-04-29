@@ -7,23 +7,36 @@ import ParameterListGroup from './ParameterListGroup';
 
 import { simplifyName } from '../../utils';
 
-import type { Service, Enum as EnumType } from '../../generated/version/ServiceType';
+import type {
+  Service,
+  Enum as EnumType,
+} from '../../generated/version/ServiceType';
 
 import styles from './enum.css';
 
-const Enum = ({ enumModel, service, importedServices }: {
+const Enum = ({
+  enumModel,
+  service,
+  importedServices,
+}: {
   enumModel: EnumType,
   service: Service,
   importedServices: Service[],
 }) => {
-  const enumValues = enumModel.values.map(value => (
-      { name: value.name, description: value.description, type: 'string', required: false }
-    ));
+  const enumValues = enumModel.values.map(value => ({
+    name: value.name,
+    description: value.description,
+    type: 'string',
+    required: false,
+  }));
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <H1 className={styles.title}>{simplifyName(enumModel.name)}</H1>
-        <Markdown source={enumModel.description ? enumModel.description : ''} className={styles.description} />
+        <Markdown
+          source={enumModel.description ? enumModel.description : ''}
+          className={styles.description}
+        />
       </div>
       <div className={styles.fieldsContainer}>
         <ParameterListGroup
@@ -34,8 +47,8 @@ const Enum = ({ enumModel, service, importedServices }: {
           parentModel={enumModel.name}
         />
       </div>
-    </div>);
+    </div>
+  );
 };
-
 
 export default Enum;

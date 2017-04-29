@@ -8,7 +8,13 @@ import type { Operation, Service } from '../../generated/version/ServiceType';
 
 import styles from './header.css';
 
-const Header = ({ operation, service, importedServices, orgKey, appKey }: {
+const Header = ({
+  operation,
+  service,
+  importedServices,
+  orgKey,
+  appKey,
+}: {
   operation: Operation,
   service: Service,
   importedServices: Service[],
@@ -25,7 +31,8 @@ const Header = ({ operation, service, importedServices, orgKey, appKey }: {
           importedServices={importedServices}
           parentModel={utils.cleanPath(operation.path)}
         />
-      </div>);
+      </div>
+    );
   } else {
     return null;
   }
@@ -33,6 +40,4 @@ const Header = ({ operation, service, importedServices, orgKey, appKey }: {
 
 export default Header;
 
-export {
-  styles,
-};
+export { styles };

@@ -13,10 +13,13 @@ import allSagas from '../app/allSagas';
  * */
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, compose(
-    applyMiddleware(sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : f => f,
-  ));
+  const store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(sagaMiddleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
