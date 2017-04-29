@@ -1,27 +1,27 @@
 // @flow
 // THIS FILE WILL BE GENERATED in the future
 
-export type Header = {
+export type Header = {|
   name: string,
   type: string,
   required: boolean,
   description?: string,
   default?: string,
-};
+|};
 
-export type Organization = {
+export type Organization = {|
   key: string,
   name: string,
   description?: string,
-};
+|};
 
-export type Application = {
+export type Application = {|
   key: string,
   name: string,
   description?: string,
-};
+|};
 
-export type Import = {
+export type Import = {|
   uri: string,
   namespace: string,
   organization: Organization,
@@ -30,34 +30,34 @@ export type Import = {
   enums: string[],
   unions: string[],
   models: string[],
-};
+|};
 
-export type EnumValue = {
+export type EnumValue = {|
   name: string,
   description?: string,
-};
+|};
 
-export type Enum = {
+export type Enum = {|
   name: string,
   plural: string,
   description?: string,
   values: EnumValue[],
-};
+|};
 
-export type UnionType = {
+export type UnionType = {|
   type: string,
   description?: string,
-};
+|};
 
-export type Union = {
+export type Union = {|
   name: string,
   plural: string,
   descriminator?: string,
   description?: string,
   types: UnionType[],
-};
+|};
 
-export type Field = {
+export type Field = {|
   name: string,
   type: string,
   description?: string,
@@ -66,18 +66,18 @@ export type Field = {
   minimum?: number,
   maximum?: number,
   example?: string,
-};
+|};
 
-export type Model = {
+export type Model = {|
   name: string,
   plural: string,
   description?: string,
   fields: Field[],
-};
+|};
 
 export type Method = string;
 
-export type Parameter = {
+export type Parameter = {|
   name: string,
   type: string,
   location: string,
@@ -87,45 +87,45 @@ export type Parameter = {
   minimum?: number,
   maximum?: number,
   example?: string,
-};
+|};
 
-export type Integer = {
+export type Integer = {|
   value: number,
-}
+|};
 
-export type Code = {
+export type Code = {|
   integer: Integer,
-};
+|};
 
-export type Response = {
+export type Response = {|
   code: Code,
   type: string,
   description?: string,
-};
+|};
 
-export type Body = {
+export type Body = {|
   type: string,
-  description:? string,
-};
+  description: ?string,
+|};
 
-export type Operation = {
+export type Operation = {|
   method: Method,
   path: string,
   description?: string,
   body?: Body,
   parameters: Parameter[],
   responses: Response[],
-};
+|};
 
-export type Resource = {
+export type Resource = {|
   type: string,
   plural: string,
   path?: string,
   description?: string,
   operations: Operation[],
-};
+|};
 
-export type Service = {
+export type Service = {|
   name: string,
   organization: Organization,
   application: Application,
@@ -137,4 +137,4 @@ export type Service = {
   unions: Union[],
   models: Model[],
   resources: Resource[],
-};
+|};

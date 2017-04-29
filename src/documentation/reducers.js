@@ -1,15 +1,17 @@
 // @flow
-import { actionTypes } from '../generated/documentation/getByRootUrlAndMarkdownPath';
+import {
+  actionTypes,
+} from '../generated/documentation/getByRootUrlAndMarkdownPath';
 
 export type State = {
   loaded: boolean,
   markdown?: string,
-}
+};
 
-type Action = {
+type Action = {|
   type: string,
   payload: any, // FIXME
-}
+|};
 
 const initialState: State = {
   loaded: false,
@@ -46,6 +48,4 @@ const reducers = {
   documentation,
 };
 
-export {
-  reducers,
-};
+export { reducers };

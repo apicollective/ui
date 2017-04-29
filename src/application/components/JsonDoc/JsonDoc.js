@@ -10,14 +10,14 @@ import type { Service } from '../../../generated/version/ServiceType';
 
 import styles from './json-doc.css';
 
-type Props = {
+type Props = {|
   service: Service,
   importedServices: Service[],
   baseModel: string,
   includeModel?: boolean, // Include Model Documentation in JsonDoc
   modelNameClick: (event: Event) => void,
   rawValue?: string,
-};
+|};
 
 class JsonDoc extends Component {
   props: Props;
@@ -29,7 +29,7 @@ class JsonDoc extends Component {
     super(props);
     this.state = { documentationFullType: '' };
 
-    this.mouseOver = (event) => {
+    this.mouseOver = event => {
       const documentationFullType = event.currentTarget.dataset.fieldkey;
       this.setState({ documentationFullType });
       // Stop parent nav events to be publishes - jsondoc nesting
@@ -37,7 +37,12 @@ class JsonDoc extends Component {
     };
   }
 
-  static getJson(baseModel: string, service: Service, importedServices: Service[], modelFieldJson: any) {
+  static getJson(
+    baseModel: string,
+    service: Service,
+    importedServices: Service[],
+    modelFieldJson: any
+  ) {
     if (modelFieldJson) {
       return (
         <pre className={styles.code}>
@@ -55,7 +60,7 @@ class JsonDoc extends Component {
     baseModel: string,
     service: Service,
     importedServices: Service[],
-    mouseOver: (event: Object)=> void,
+    mouseOver: (event: Object) => void
   ) {
     if (utils.isImportOrInService(baseModel, service, importedServices)) {
       return (
@@ -74,29 +79,40 @@ class JsonDoc extends Component {
     }
   }
 
-
   render() {
     const { baseModel, service, importedServices, includeModel } = this.props;
 
-    const jsonDoc = JsonDoc.getJson(baseModel, service, importedServices,
-                        this.props.rawValue ?
-                        this.props.rawValue :
-                        this.getModelJson(baseModel, service, importedServices, this.mouseOver));
+    const jsonDoc = JsonDoc.getJson(
+      baseModel,
+      service,
+      importedServices,
+      this.props.rawValue
+        ? this.props.rawValue
+        : this.getModelJson(
+            baseModel,
+            service,
+            importedServices,
+            this.mouseOver
+          )
+    );
     return (
       <div className={styles.jsonDoc}>
-        {includeModel ? <ModelDescription
-          baseModel={baseModel}
-          service={service}
-          importedServices={importedServices}
-          modelNameClick={this.props.modelNameClick}
-        /> : null}
+        {includeModel
+          ? <ModelDescription
+              baseModel={baseModel}
+              service={service}
+              importedServices={importedServices}
+              modelNameClick={this.props.modelNameClick}
+            />
+          : null}
         <div className={styles.container}>
           {jsonDoc}
-          {jsonDoc && <Documentation
-            documentationFullType={this.state.documentationFullType}
-            service={service}
-            importedServices={importedServices}
-          />}
+          {jsonDoc &&
+            <Documentation
+              documentationFullType={this.state.documentationFullType}
+              service={service}
+              importedServices={importedServices}
+            />}
         </div>
       </div>
     );
