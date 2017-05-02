@@ -3,18 +3,18 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import LoadingOverlay from '../../components/LoadingOverlay';
-import Operation from '../components/Operation';
-import ApplicationHome from '../components/ApplicationHome';
-import * as utils from '../../utils';
-import Model from './Model';
-import Enum from './Enum';
+import LoadingOverlay from 'components/LoadingOverlay';
+import Operation from 'application/components/Operation';
+import ApplicationHome from 'application/components/ApplicationHome';
+import * as utils from 'utils';
+import Model from 'application/components/Model';
+import Enum from 'application/components/Enum';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './application.css';
+import styles from 'application/components/application.css';
 
-import { actions as serviceActions } from '../../generated/version';
+import { actions as serviceActions } from 'generated/version';
 
 const allActions = Object.assign({}, serviceActions);
 
@@ -25,7 +25,7 @@ type Params = {
   path: string,
   applicationKey: string,
   organizationKey: string,
-}
+};
 
 type Props = {
   actions: Object, // FIXME
@@ -33,7 +33,7 @@ type Props = {
   loaded: boolean,
   service: Service,
   importedServices: Service[],
-}
+};
 
 export class Application extends Component {
   props: Props;
@@ -41,9 +41,11 @@ export class Application extends Component {
   componentDidMount() {
     const orgKey = this.props.params.organizationKey;
     const applicationKey = this.props.params.applicationKey;
-    this.props.actions.getByOrgkeyAndApplicationkeyAndVersion_get(
-      { orgKey, applicationKey, version: 'latest' },
-    );
+    this.props.actions.getByOrgkeyAndApplicationkeyAndVersion_get({
+      orgKey,
+      applicationKey,
+      version: 'latest',
+    });
   }
 
   render() {
@@ -84,25 +86,31 @@ export class Application extends Component {
       const modelName = this.props.params.model;
       if (utils.isEnum(modelName, service, importedServices)) {
         const enumModel = utils.getEnum(modelName, service, importedServices);
-        return enumModel ? (
-          <LoadingOverlay isLoaded={this.props.loaded}>
-            <Enum enumModel={enumModel} service={service} importedServices={importedServices} />
-          </LoadingOverlay>
-        ) : null;
+        return enumModel
+          ? <LoadingOverlay isLoaded={this.props.loaded}>
+              <Enum
+                enumModel={enumModel}
+                service={service}
+                importedServices={importedServices}
+              />
+            </LoadingOverlay>
+          : null;
       } else {
         const model = utils.getModel(modelName, service, importedServices);
-        return model ? (
-          <LoadingOverlay isLoaded={this.props.loaded}>
-            <Model model={model} service={service} importedServices={importedServices} showJsonDoc={true} />
-          </LoadingOverlay>
-        ) : null;
+        return model
+          ? <LoadingOverlay isLoaded={this.props.loaded}>
+              <Model
+                model={model}
+                service={service}
+                importedServices={importedServices}
+                showJsonDoc={true}
+              />
+            </LoadingOverlay>
+          : null;
       }
     } else {
       // Load Application Home
-      const {
-        applicationKey,
-        organizationKey,
-      } = this.props.params;
+      const { applicationKey, organizationKey } = this.props.params;
 
       return (
         <LoadingOverlay isLoaded={this.props.loaded}>
@@ -117,23 +125,16 @@ export class Application extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
-    loaded: state.application.loaded,
-    service: state.application.service,
-    importedServices: state.application.importedServices,
-  }
-);
+const mapStateToProps = state => ({
+  loaded: state.application.loaded,
+  service: state.application.service,
+  importedServices: state.application.importedServices,
+});
 
-const mapDispatchToProps = dispatch => (
-  { actions: bindActionCreators(allActions, dispatch) }
-);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(allActions, dispatch),
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Application);
+export default connect(mapStateToProps, mapDispatchToProps)(Application);
 
-export {
-  styles,
-};
+export { styles };

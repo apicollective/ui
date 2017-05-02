@@ -7,9 +7,10 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 
 const ROOT_PATH = path.resolve(__dirname, '..');
+const resolve = p => path.resolve(ROOT_PATH, p);
 
 const config = {
-  context: path.resolve(ROOT_PATH, 'src'),
+  context: resolve('src'),
 
   entry: ['babel-polyfill', './index.js'],
 
@@ -121,6 +122,10 @@ const config = {
         ],
       },
     ],
+  },
+
+  resolve: {
+    modules: [resolve('src'), resolve('node_modules')],
   },
 
   plugins: [

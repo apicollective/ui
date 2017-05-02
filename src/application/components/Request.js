@@ -1,31 +1,37 @@
 // @flow
 import React from 'react';
 
-import { cleanPath } from '../../utils';
-import JsonDoc from './JsonDoc/JsonDoc';
-import ParameterListGroup from '../components/ParameterListGroup';
+import { cleanPath } from 'utils';
+import JsonDoc from 'application/components/JsonDoc/JsonDoc';
+import ParameterListGroup from 'application/components/ParameterListGroup';
 
-import H2 from '../../components/H2';
-import type { Operation, Service } from '../../generated/version/ServiceType';
+import H2 from 'components/H2';
+import type { Operation, Service } from 'generated/version/ServiceType';
 
-import styles from './request.css';
+import styles from 'application/components/request.css';
 
-const Request = ({ operation, service, importedServices }: {
+const Request = ({
+  operation,
+  service,
+  importedServices,
+}: {
   operation: Operation,
   service: Service,
   importedServices: Service[],
 }) => {
   const responseParameters = () => {
     if (operation.parameters && !!operation.parameters.length) {
-      return (<div className={styles.container}>
-        <ParameterListGroup
-          parameters={operation.parameters}
-          title="Request Parameters"
-          service={service}
-          importedServices={importedServices}
-          parentModel={cleanPath(operation.path)}
-        />
-      </div>);
+      return (
+        <div className={styles.container}>
+          <ParameterListGroup
+            parameters={operation.parameters}
+            title="Request Parameters"
+            service={service}
+            importedServices={importedServices}
+            parentModel={cleanPath(operation.path)}
+          />
+        </div>
+      );
     } else return null;
   };
   const body = () => {
@@ -59,6 +65,4 @@ const Request = ({ operation, service, importedServices }: {
 
 export default Request;
 
-export {
-  styles,
-};
+export { styles };

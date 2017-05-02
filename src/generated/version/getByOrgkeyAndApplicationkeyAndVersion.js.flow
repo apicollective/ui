@@ -1,6 +1,6 @@
 // @flow
 
-import type { Service, Model, Field } from './ServiceType';
+import type { Service, Model, Field } from 'generated/version/ServiceType';
 
 declare export var actionTypes: {
   getByOrgkeyAndApplicationkeyAndVersion_get: string,

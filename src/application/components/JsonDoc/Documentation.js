@@ -2,28 +2,33 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
-import ParameterList from '../ParameterList';
-import * as utils from '../../../utils';
+import ParameterList from 'application/components/ParameterList';
+import * as utils from 'utils';
 
-import styles from './json-doc.css';
-import type { Service } from '../../../generated/version/ServiceType';
+import styles from 'application/components/JsonDoc/json-doc.css';
+import type { Service } from 'generated/version/ServiceType';
 
-const defaultView =
-  (<div className={styles.documentation}>
-    <span className={styles.defaultView}>&lt;-- Hover over JSON example for documentation</span>
-  </div>);
+const defaultView = (
+  <div className={styles.documentation}>
+    <span className={styles.defaultView}>
+      &lt;-- Hover over JSON example for documentation
+    </span>
+  </div>
+);
 
-type Props = {
+type Props = {|
   documentationFullType: string,
   service: Service,
   importedServices: Service[],
-};
+|};
 
 class Documentation extends Component {
   props: Props;
   state: {
     height: number,
   };
+
+  container: HTMLDivElement;
 
   constructor(props: Props) {
     super(props);
@@ -33,8 +38,6 @@ class Documentation extends Component {
   componentDidUpdate() {
     this.updateContainerHeight();
   }
-
-  container: HTMLDivElement;
 
   updateContainerHeight = (): void => {
     const container = this.container;
@@ -51,18 +54,30 @@ class Documentation extends Component {
     const { height } = this.state;
     if (!documentationFullType) return defaultView;
 
-    const modelName = documentationFullType.substring(0, documentationFullType.lastIndexOf('.'));
-    const fieldName = documentationFullType.substring(documentationFullType.lastIndexOf('.') + 1);
+    const modelName = documentationFullType.substring(
+      0,
+      documentationFullType.lastIndexOf('.')
+    );
+    const fieldName = documentationFullType.substring(
+      documentationFullType.lastIndexOf('.') + 1
+    );
     const model = utils.getModel(modelName, service, importedServices);
     const field = model ? model.fields.find(f => f.name === fieldName) : null;
 
     return (
       <div
-        ref={(el) => { this.container = el; }}
+        ref={el => {
+          this.container = el;
+        }}
         className={classnames(styles.documentation)}
         style={{ minHeight: `${height}px` }}
       >
-        <ParameterList {...field} service={service} importedServices={importedServices} parentModel={modelName} />
+        <ParameterList
+          {...field}
+          service={service}
+          importedServices={importedServices}
+          parentModel={modelName}
+        />
       </div>
     );
   }

@@ -1,15 +1,16 @@
 // This file is generated
 
-import * as getByOrgkeyAndApplicationkeyAndVersion from './getByOrgkeyAndApplicationkeyAndVersion';
+import * as getByOrgkeyAndApplicationkeyAndVersion
+  from 'generated/version/getByOrgkeyAndApplicationkeyAndVersion';
 
 const actionTypes = Object.assign(
   {},
-  getByOrgkeyAndApplicationkeyAndVersion.actionTypes,
+  getByOrgkeyAndApplicationkeyAndVersion.actionTypes
 );
 
 const actions = Object.assign(
   {},
-  getByOrgkeyAndApplicationkeyAndVersion.actions,
+  getByOrgkeyAndApplicationkeyAndVersion.actions
 );
 
 const sagas = {
@@ -17,8 +18,4 @@ const sagas = {
   getByOrgkeyAndApplicationkeyAndVersionLatestSaga: getByOrgkeyAndApplicationkeyAndVersion.takeLatestSaga,
 };
 
-export {
-  actionTypes,
-  actions,
-  sagas,
-};
+export { actionTypes, actions, sagas };

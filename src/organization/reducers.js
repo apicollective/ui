@@ -1,21 +1,21 @@
 // @flow
-import { actionTypes } from './sagas';
+import { actionTypes } from 'organization/sagas';
 
-import type { Application, Organization } from '../generated/version/ServiceType';
+import type { Application, Organization } from 'generated/version/ServiceType';
 
 export type OrgState = {
   loaded: boolean,
   organization?: Organization,
   applications: Application[],
-}
+};
 
 export type OrgAction = {
   type: string,
   payload: {
     organization: Organization,
     applications: Application[],
-  }
-}
+  },
+};
 
 const initialState = {
   loaded: false,
@@ -44,11 +44,8 @@ const organization = (state: OrgState = initialState, action: OrgAction) => {
   }
 };
 
-
 const reducers = {
   organization,
 };
 
-export {
-  reducers,
-};
+export { reducers };

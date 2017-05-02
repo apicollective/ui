@@ -3,44 +3,50 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { actions as orgActions } from '../generated/organization';
+import { actions as orgActions } from 'generated/organization';
 
-import H1 from '../components/H1';
-import LoadingOverlay from '../components/LoadingOverlay';
-import HomeCard from './HomeCard';
+import H1 from 'components/H1';
+import LoadingOverlay from 'components/LoadingOverlay';
+import HomeCard from 'home/HomeCard';
 
-import styles from './home.css';
+import styles from 'home/home.css';
 
-import type { State } from '../app/reducers';
-import type { Organization } from '../generated/version/ServiceType';
+import type { State } from 'app/reducers';
+import type { Organization } from 'generated/version/ServiceType';
 
 const allActions = Object.assign({}, orgActions);
 
-const Org = ({ organization }: {
+const Org = ({
+  organization,
+}: {
   organization: Organization,
-}) =>
+}) => (
   <HomeCard
     link={`org/${organization.key}`}
     name={organization.name}
     description={organization.description}
-  />;
+  />
+);
 
-const Organizations = ({ organizations }: {
+const Organizations = ({
+  organizations,
+}: {
   organizations: Organization[],
-}) =>
+}) => (
   <div>
     {organizations.map(organization => (
       <div key={organization.key} className={styles.container}>
         <Org key={organization.key} organization={organization} />
       </div>
-  ))}
-  </div>;
+    ))}
+  </div>
+);
 
 type Props = {
   loaded: boolean,
   actions: Object, // FIXME - types
   organizations: Organization[],
-}
+};
 class Home extends Component {
   props: Props;
 
@@ -67,15 +73,10 @@ class Home extends Component {
 
 const mapStateToProps = (state: State) => ({ ...state.app });
 
-const mapDispatchToProps = (dispatch): {[key: string]: Function} => (
-  { actions: bindActionCreators(allActions, dispatch) }
-);
+const mapDispatchToProps = (dispatch): { [key: string]: Function } => ({
+  actions: bindActionCreators(allActions, dispatch),
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
-export {
-  styles,
-};
+export { styles };

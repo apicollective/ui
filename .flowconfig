@@ -1,6 +1,6 @@
 # https://flowtype.org/docs/advanced-configuration.html
 [version]
-0.41.0
+0.45.0
 
 [ignore]
 .*/node_modules/jsverify/*
@@ -12,8 +12,14 @@
 
 [options]
 suppress_comment=\\(.\\|\n\\)*\\flow-disable-next-line
-module.name_mapper='.*\(.css\)' -> 'empty/object'
+module.name_mapper='^.*\.css$' -> 'css-module-flow'
+module.system.node.resolve_dirname=lib
+module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=node_modules
 module.use_strict=true
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+unsafe.enable_getters_and_setters=true
 
 [libs]
 /flow-typed/

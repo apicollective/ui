@@ -1,18 +1,18 @@
 // @flow
-import { actionTypes } from '../generated/version';
+import { actionTypes } from 'generated/version';
 
-import type { Service } from '../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-export type State = {
+export type State = {|
   loaded: boolean,
   service?: Service,
   importedServices: Service[],
-}
+|};
 
-type Action = {
+type Action = {|
   type: string,
   payload: any, // FIXME
-}
+|};
 
 const initialState: State = {
   loaded: false,
@@ -43,6 +43,4 @@ const reducers = {
   application,
 };
 
-export {
-  reducers,
-};
+export { reducers };

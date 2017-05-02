@@ -1,8 +1,8 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from '../app/rootReducer';
-import allSagas from '../app/allSagas';
+import rootReducer from 'app/rootReducer';
+import allSagas from 'app/allSagas';
 
 // for flowtype of module
 /* declare var module : {
@@ -13,10 +13,13 @@ import allSagas from '../app/allSagas';
  * */
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, compose(
-    applyMiddleware(sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : f => f,
-  ));
+  const store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(sagaMiddleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

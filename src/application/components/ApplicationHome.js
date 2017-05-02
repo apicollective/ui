@@ -1,17 +1,21 @@
 // @flow
 import React from 'react';
 
-import { onClickHref, cleanPath } from '../../utils';
+import { onClickHref, cleanPath } from 'utils';
 
-import H1 from '../../components/H1';
-import Markdown from '../../components/Markdown';
-import ResourceCard from '../components/ResourceCard';
+import H1 from 'components/H1';
+import Markdown from 'components/Markdown';
+import ResourceCard from 'application/components/ResourceCard';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './application-home.css';
+import styles from 'application/components/application-home.css';
 
-const ApplicationHome = ({ service, organizationKey, applicationKey }: {
+const ApplicationHome = ({
+  service,
+  organizationKey,
+  applicationKey,
+}: {
   service: Service,
   organizationKey: string,
   applicationKey: string,
@@ -23,21 +27,25 @@ const ApplicationHome = ({ service, organizationKey, applicationKey }: {
     <div className={styles.content}>
       <div className={styles.header}>
         <H1 className={styles.h1}>{service.name}</H1>
-        <Markdown source={service.description ? service.description : ''} className={styles.description} />
+        <Markdown
+          source={service.description ? service.description : ''}
+          className={styles.description}
+        />
       </div>
       <div>
-        {service.resources.map(resource => (
-          resource.operations.map(operation =>
+        {service.resources.map(resource =>
+          resource.operations.map(operation => (
             <ResourceCard
               key={operation.method + operation.path}
               method={operation.method}
               path={operation.path}
-              click={onClickHref(buildClickHref(resource.type, operation.method, operation.path))}
+              click={onClickHref(
+                buildClickHref(resource.type, operation.method, operation.path)
+              )}
               description={operation.description}
-            />,
-          )
-        ))
-        }
+            />
+          ))
+        )}
       </div>
     </div>
   );

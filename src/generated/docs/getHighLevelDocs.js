@@ -27,7 +27,9 @@ const actions = {
    * @param {long} limit - The number of records to return
    * @param {long} offset - Used to paginate. First page of results is 0.
    */
-  getHighLevelDocs_get: ({ orgKey, name, guid, key, has_version, limit, offset } = {}) => ({
+  getHighLevelDocs_get: (
+    { orgKey, name, guid, key, has_version, limit, offset } = {}
+  ) => ({
     type: actionTypes.getHighLevelDocs_get,
     payload: {
       orgKey,
@@ -71,11 +73,4 @@ function* takeLatestSaga() {
   yield* takeLatest(actionTypes.getHighLevelDocs_get, saga);
 }
 
-export {
-  actions,
-  actionTypes,
-  api,
-  saga,
-  takeEverySaga,
-  takeLatestSaga,
-};
+export { actions, actionTypes, api, saga, takeEverySaga, takeLatestSaga };
