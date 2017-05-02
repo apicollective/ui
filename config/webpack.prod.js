@@ -183,7 +183,9 @@ if (process.env.DEPLOY) {
         region: 'us-west-2',
       },
       s3UploadOptions: {
-        Bucket: 'apidoc.me',
+        Bucket: process.env.APIDOC_S3_BUCKET
+          ? process.env.APIDOC_S3_BUCKET
+          : 'apidoc.me',
       },
     })
   );
