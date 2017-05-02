@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
 
-import styles from 'components/Markdonw/markdown.css';
+import styles from 'components/Markdown/markdown.css';
 
 const Markdown = ({ source, className }) => (
   <div className={classnames(className, styles.container)}>

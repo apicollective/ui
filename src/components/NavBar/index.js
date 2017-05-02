@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import Button from 'Button';
+import Button from 'components/Button';
 import styles from 'components/NavBar/navbar.css';
 
 const githubLink = () => (
