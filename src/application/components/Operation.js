@@ -1,20 +1,20 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router';
-import Markdown from '../../components/Markdown';
-import Header from '../components/Header';
-import Request from '../components/Request';
-import Response from '../components/Response';
-import ResourceCard from '../components/ResourceCard';
-import H1 from '../../components/H1';
+import Markdown from 'components/Markdown';
+import Header from 'application/components/Header';
+import Request from 'application/components/Request';
+import Response from 'application/components/Response';
+import ResourceCard from 'application/components/ResourceCard';
+import H1 from 'components/H1';
 
 import type {
   Operation as OperationServiceType,
   Service,
   Resource as ResourceServiceType,
-} from '../../generated/version/ServiceType';
+} from 'generated/version/ServiceType';
 
-import styles from './operation.css';
+import styles from 'application/components/operation.css';
 
 const Operation = ({
   service,

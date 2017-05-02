@@ -3,18 +3,18 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import LoadingOverlay from '../../components/LoadingOverlay';
-import Operation from '../components/Operation';
-import ApplicationHome from '../components/ApplicationHome';
-import * as utils from '../../utils';
-import Model from './Model';
-import Enum from './Enum';
+import LoadingOverlay from 'components/LoadingOverlay';
+import Operation from 'application/components/Operation';
+import ApplicationHome from 'application/components/ApplicationHome';
+import * as utils from 'utils';
+import Model from 'application/components/Model';
+import Enum from 'application/components/Enum';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './application.css';
+import styles from 'application/components/application.css';
 
-import { actions as serviceActions } from '../../generated/version';
+import { actions as serviceActions } from 'generated/version';
 
 const allActions = Object.assign({}, serviceActions);
 

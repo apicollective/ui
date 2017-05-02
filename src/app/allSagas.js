@@ -1,10 +1,10 @@
 // @flow
-import { sagas as orgSagas } from '../generated/organization';
-import { sagas as specSagas } from '../generated/version';
+import { sagas as orgSagas } from 'generated/organization';
+import { sagas as specSagas } from 'generated/version';
 import {
   takeLatestSaga as documentationSaga,
-} from '../generated/documentation/getByRootUrlAndMarkdownPath';
-import { takeLatestSaga as organizationSaga } from '../organization/sagas';
+} from 'generated/documentation/getByRootUrlAndMarkdownPath';
+import { takeLatestSaga as organizationSaga } from 'organization/sagas';
 
 const allSagas = [].concat(
   orgSagas.getOrganizationsTakeLatestSaga,

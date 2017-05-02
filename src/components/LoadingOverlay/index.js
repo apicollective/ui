@@ -2,7 +2,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classnames from 'classnames';
 
-import styles from './loading-overlay.css';
+import styles from 'components/LoadingOverlay/loading-overlay.css';
 
 const LoadingOverlay = (
   {

@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
 
-import { onClickHref, cleanPath } from '../../utils';
+import { onClickHref, cleanPath } from 'utils';
 
-import H1 from '../../components/H1';
-import Markdown from '../../components/Markdown';
-import ResourceCard from '../components/ResourceCard';
+import H1 from 'components/H1';
+import Markdown from 'components/Markdown';
+import ResourceCard from 'application/components/ResourceCard';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './application-home.css';
+import styles from 'application/components/application-home.css';
 
 const ApplicationHome = ({
   service,

@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 
-import H2 from '../../../components/H2';
-import Markdown from '../../../components/Markdown';
+import H2 from 'components/H2';
+import Markdown from 'components/Markdown';
 
-import type { Service } from '../../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import * as utils from '../../../utils';
-import styles from './json-doc.css';
+import * as utils from 'utils';
+import styles from 'application/components/JsonDoc/json-doc.css';
 
 const ModelDescription = ({
   baseModel,

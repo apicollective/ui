@@ -1,7 +1,7 @@
 // @flow
-import { actionTypes } from '../generated/version';
+import { actionTypes } from 'generated/version';
 
-import type { Service } from '../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
 export type State = {|
   loaded: boolean,

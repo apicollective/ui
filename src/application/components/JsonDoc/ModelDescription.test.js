@@ -2,8 +2,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import ModelDescription from './ModelDescription';
-import Example from '../../../exampleService.json';
+import ModelDescription from 'application/components/JsonDoc/ModelDescription';
+import Example from 'exampleService.json';
 
 test('simple html', () => {
   const params = {

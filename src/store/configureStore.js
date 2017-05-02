@@ -1,8 +1,8 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from '../app/rootReducer';
-import allSagas from '../app/allSagas';
+import rootReducer from 'app/rootReducer';
+import allSagas from 'app/allSagas';
 
 // for flowtype of module
 /* declare var module : {

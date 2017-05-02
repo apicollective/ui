@@ -2,9 +2,9 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import Markdown from '../../components/Markdown';
+import Markdown from 'components/Markdown';
 
-import styles from './resource-card.css';
+import styles from 'application/components/resource-card.css';
 
 const ResourceCard = (
   {

@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const ROOT_PATH = path.resolve(__dirname, '..');
+const resolve = p => path.resolve(ROOT_PATH, p);
 
 module.exports = env => ({
-
-  context: path.resolve(ROOT_PATH, 'src'),
+  context: resolve('src'),
 
   entry: [
     'react-hot-loader/patch',
@@ -20,7 +20,7 @@ module.exports = env => ({
 
   output: {
     publicPath: '/',
-    path: path.resolve(ROOT_PATH, 'dist/dev'),
+    path: resolve('dist/dev'),
     filename: 'bundle.js',
   },
 
@@ -59,9 +59,7 @@ module.exports = env => ({
       },
       {
         test: /\.svg$/,
-        use: [
-          'svg-url-loader',
-        ],
+        use: ['svg-url-loader'],
       },
       {
         test: /\.png$/,
@@ -127,6 +125,10 @@ module.exports = env => ({
         ],
       },
     ],
+  },
+
+  resolve: {
+    modules: [resolve('src'), resolve('node_modules')],
   },
 
   plugins: [

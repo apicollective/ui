@@ -5,22 +5,22 @@ import { bindActionCreators } from 'redux';
 import sortBy from 'lodash/fp/sortBy';
 import snakeCase from 'lodash/fp/snakeCase';
 
-import NavBar from '../../components/NavBar';
-import SideBar from '../../components/SideBar';
-import Content from '../../components/Content';
-import { actions } from '../actions';
-import * as utils from '../../utils';
-import docs from '../../../documents.json';
+import NavBar from 'components/NavBar';
+import SideBar from 'components/SideBar';
+import Content from 'components/Content';
+import { actions } from 'app/actions';
+import * as utils from 'utils';
 
 import type {
   Application,
   Organization,
   Service,
   Resource,
-} from '../../generated/version/ServiceType';
-import type { State } from '../../app/reducers';
+} from 'generated/version/ServiceType';
+import type { State } from 'app/reducers';
 
-import styles from './app.css';
+import styles from 'app/components/app.css';
+import docs from '../../../documents.json';
 
 type Item = {
   name: string,

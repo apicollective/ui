@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
-import { simplifyName } from '../../utils';
+import { simplifyName } from 'utils';
 
-import styles from './sidebar.css';
+import styles from 'components/SideBar/sidebar.css';
 
 const SidebarIcon = ({ item }) => {
   const iconClasses = classnames(

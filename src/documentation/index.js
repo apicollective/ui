@@ -6,16 +6,16 @@ import { snakeCase } from 'lodash';
 
 import {
   actions as docActions,
-} from '../generated/documentation/getByRootUrlAndMarkdownPath';
+} from 'generated/documentation/getByRootUrlAndMarkdownPath';
 
-import H1 from '../components/H1';
-import LoadingOverlay from '../components/LoadingOverlay';
-import Markdown from '../components/Markdown';
+import H1 from 'components/H1';
+import LoadingOverlay from 'components/LoadingOverlay';
+import Markdown from 'components/Markdown';
 
-import styles from './documentation.css';
+import styles from 'documentation/documentation.css';
+
+import type { State as ApplicationState } from 'app/reducers';
 import docs from '../../documents.json';
-
-import type { State as ApplicationState } from '../app/reducers';
 
 const allActions = Object.assign({}, docActions);
 

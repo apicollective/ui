@@ -2,8 +2,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Element, { JField } from './Element';
-import Example from '../../../exampleService.json';
+import Element, { JField } from 'application/components/JsonDoc/Element';
+import Example from 'exampleService.json';
 
 test('Element Model', () => {
   const params = {

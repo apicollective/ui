@@ -5,7 +5,7 @@ import { takeEvery, takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import * as request from 'superagent';
 
-// import exampleService from '../../exampleService.json';
+// import exampleService from 'exampleService.json';
 
 function api({ orgKey, applicationKey, version } = {}) {
   return request.get(

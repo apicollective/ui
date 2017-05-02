@@ -1,8 +1,8 @@
 // @flow
-import { actions, actionTypes } from './actions';
-import { reducers } from './reducers';
+import { actions, actionTypes } from 'application/actions';
+import { reducers } from 'application/reducers';
 
-import Appln from './components/Application';
+import Appln from 'application/components/Application';
 
 const name = 'application';
 

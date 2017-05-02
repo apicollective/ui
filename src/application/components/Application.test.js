@@ -2,9 +2,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { Application } from './Application';
-import Example from '../../exampleService.json';
-import { actions as serviceActions } from '../../generated/version';
+import { Application } from 'application/components/Application';
+import Example from 'exampleService.json';
+import { actions as serviceActions } from 'generated/version';
 
 test('Application Home', () => {
   const params = {

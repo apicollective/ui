@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import styles from './content.css';
+import styles from 'components/Content/content.css';
 
 const Content = props => (
   <div className={styles.content}>

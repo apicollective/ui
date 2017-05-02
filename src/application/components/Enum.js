@@ -1,18 +1,15 @@
 // @flow
 import React from 'react';
 
-import H1 from '../../components/H1';
-import Markdown from '../../components/Markdown';
-import ParameterListGroup from './ParameterListGroup';
+import H1 from 'components/H1';
+import Markdown from 'components/Markdown';
+import ParameterListGroup from 'application/components/ParameterListGroup';
 
-import { simplifyName } from '../../utils';
+import { simplifyName } from 'utils';
 
-import type {
-  Service,
-  Enum as EnumType,
-} from '../../generated/version/ServiceType';
+import type { Service, Enum as EnumType } from 'generated/version/ServiceType';
 
-import styles from './enum.css';
+import styles from 'application/components/enum.css';
 
 const Enum = ({
   enumModel,

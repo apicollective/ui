@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
-import ParameterList from '../ParameterList';
-import * as utils from '../../../utils';
+import ParameterList from 'application/components/ParameterList';
+import * as utils from 'utils';
 
-import styles from './json-doc.css';
-import type { Service } from '../../../generated/version/ServiceType';
+import styles from 'application/components/JsonDoc/json-doc.css';
+import type { Service } from 'generated/version/ServiceType';
 
 const defaultView = (
   <div className={styles.documentation}>
@@ -28,6 +28,8 @@ class Documentation extends Component {
     height: number,
   };
 
+  container: HTMLDivElement;
+
   constructor(props: Props) {
     super(props);
     this.state = { height: 0 };
@@ -36,8 +38,6 @@ class Documentation extends Component {
   componentDidUpdate() {
     this.updateContainerHeight();
   }
-
-  container: HTMLDivElement;
 
   updateContainerHeight = (): void => {
     const container = this.container;

@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { actions as orgActions } from '../generated/organization';
+import { actions as orgActions } from 'generated/organization';
 
-import H1 from '../components/H1';
-import LoadingOverlay from '../components/LoadingOverlay';
-import HomeCard from './HomeCard';
+import H1 from 'components/H1';
+import LoadingOverlay from 'components/LoadingOverlay';
+import HomeCard from 'home/HomeCard';
 
-import styles from './home.css';
+import styles from 'home/home.css';
 
-import type { State } from '../app/reducers';
-import type { Organization } from '../generated/version/ServiceType';
+import type { State } from 'app/reducers';
+import type { Organization } from 'generated/version/ServiceType';
 
 const allActions = Object.assign({}, orgActions);
 

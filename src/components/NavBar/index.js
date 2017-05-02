@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import Button from '../Button';
-import styles from './navbar.css';
+import Button from 'Button';
+import styles from 'components/NavBar/navbar.css';
 
 const githubLink = () => (
   <a

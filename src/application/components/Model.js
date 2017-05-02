@@ -1,19 +1,19 @@
 // @flow
 import React from 'react';
 
-import H1 from '../../components/H1';
-import Markdown from '../../components/Markdown';
-import JsonDoc from './JsonDoc/JsonDoc';
-import ParameterListGroup from './ParameterListGroup';
+import H1 from 'components/H1';
+import Markdown from 'components/Markdown';
+import JsonDoc from 'application/components/JsonDoc/JsonDoc';
+import ParameterListGroup from 'application/components/ParameterListGroup';
 
-import { simplifyName } from '../../utils';
+import { simplifyName } from 'utils';
 
 import type {
   Service,
   Model as ModelType,
-} from '../../generated/version/ServiceType';
+} from 'generated/version/ServiceType';
 
-import styles from './model.css';
+import styles from 'application/components/model.css';
 
 const Model = ({
   model,

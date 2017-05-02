@@ -6,17 +6,13 @@ const CleanPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 
-
 const ROOT_PATH = path.resolve(__dirname, '..');
+const resolve = p => path.resolve(ROOT_PATH, p);
 
 const config = {
+  context: resolve('src'),
 
-  context: path.resolve(ROOT_PATH, 'src'),
-
-  entry: [
-    'babel-polyfill',
-    './index.js',
-  ],
+  entry: ['babel-polyfill', './index.js'],
 
   devtool: 'cheap-module-source-map',
 
@@ -60,9 +56,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        use: [
-          'svg-url-loader',
-        ],
+        use: ['svg-url-loader'],
       },
       {
         test: /\.png$/,
@@ -130,6 +124,10 @@ const config = {
     ],
   },
 
+  resolve: {
+    modules: [resolve('src'), resolve('node_modules')],
+  },
+
   plugins: [
     new CleanPlugin(['dist/prod'], {
       root: ROOT_PATH,
@@ -140,7 +138,11 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         TITLE: JSON.stringify(process.env.TITLE),
-        APIDOC_HOST: '"' + (process.env.APIDOC_HOST ? process.env.APIDOC_HOST : 'http://api.apidoc.me') + '"',
+        APIDOC_HOST: '"' +
+          (process.env.APIDOC_HOST
+            ? process.env.APIDOC_HOST
+            : 'http://api.apidoc.me') +
+          '"',
         /* APIDOC_HOST: '""',*/
       },
     }),
@@ -168,7 +170,6 @@ const config = {
       favicon: 'favicon.ico',
     }),
   ],
-
 };
 
 // Only deploy if required
@@ -188,4 +189,4 @@ if (process.env.DEPLOY) {
   );
 }
 
-module.exports = env => (config);
+module.exports = env => config;

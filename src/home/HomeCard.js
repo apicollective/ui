@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 
-import Markdown from '../components/Markdown';
-import { onClickHref } from '../utils';
+import Markdown from 'components/Markdown';
+import { onClickHref } from 'utils';
 
-import styles from './home-card.css';
+import styles from 'home/home-card.css';
 
 const HomeCard = (
   {

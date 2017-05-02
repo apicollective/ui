@@ -1,15 +1,11 @@
 // @flow
 import React from 'react';
 
-import * as utils from '../../../utils';
-import * as defaults from './defaults';
+import * as utils from 'utils';
+import * as defaults from 'application/components/JsonDoc/defaults';
 
-import styles from './json-doc.css';
-import type {
-  Service,
-  Model,
-  Field,
-} from '../../../generated/version/ServiceType';
+import styles from 'application/components/JsonDoc/json-doc.css';
+import type { Service, Model, Field } from 'generated/version/ServiceType';
 
 const numSpaces = 2;
 const spaces = (indent: number): string =>

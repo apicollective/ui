@@ -1,6 +1,6 @@
 // @flow
-import * as utils from '../../../utils';
-import type { Field } from '../../../generated/version/ServiceType';
+import * as utils from 'utils';
+import type { Field } from 'generated/version/ServiceType';
 
 const getFieldValue = (field: Field) => {
   const type = utils.getType(field.type);

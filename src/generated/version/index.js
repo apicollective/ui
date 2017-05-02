@@ -1,7 +1,7 @@
 // This file is generated
 
 import * as getByOrgkeyAndApplicationkeyAndVersion
-  from './getByOrgkeyAndApplicationkeyAndVersion';
+  from 'generated/version/getByOrgkeyAndApplicationkeyAndVersion';
 
 const actionTypes = Object.assign(
   {},

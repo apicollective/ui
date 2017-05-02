@@ -2,7 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import Markdown from '../../components/Markdown';
+import Markdown from 'components/Markdown';
 import {
   buildNavHref,
   getType,
@@ -10,11 +10,11 @@ import {
   isImportOrInService,
   onClickHref,
   simplifyName,
-} from '../../utils';
+} from 'utils';
 
-import type { Service } from '../../generated/version/ServiceType';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './parameter-list.css';
+import styles from 'application/components/parameter-list.css';
 
 const ParameterList = (
   {

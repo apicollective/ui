@@ -8,7 +8,7 @@ import type {
   Method,
   Model,
   Enum,
-} from './generated/version/ServiceType';
+} from 'generated/version/ServiceType';
 
 const cleanPath = (path: string) => path.replace(/\W/g, '');
 

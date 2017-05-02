@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
 
-import * as utils from '../../utils';
-import ParameterListGroup from '../components/ParameterListGroup';
+import * as utils from 'utils';
+import ParameterListGroup from 'application/components/ParameterListGroup';
 
-import type { Operation, Service } from '../../generated/version/ServiceType';
+import type { Operation, Service } from 'generated/version/ServiceType';
 
-import styles from './header.css';
+import styles from 'application/components/header.css';
 
 const Header = ({
   operation,

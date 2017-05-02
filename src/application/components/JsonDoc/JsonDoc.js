@@ -1,14 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 
-import Documentation from './Documentation';
-import ModelDescription from './ModelDescription';
-import Element from './Element';
+import Documentation from 'application/components/JsonDoc/Documentation';
+import ModelDescription from 'application/components/JsonDoc/ModelDescription';
+import Element from 'application/components/JsonDoc/Element';
 
-import * as utils from '../../../utils';
-import type { Service } from '../../../generated/version/ServiceType';
+import * as utils from 'utils';
+import type { Service } from 'generated/version/ServiceType';
 
-import styles from './json-doc.css';
+import styles from 'application/components/JsonDoc/json-doc.css';
 
 type Props = {|
   service: Service,
@@ -24,6 +24,8 @@ class JsonDoc extends Component {
   state: {
     documentationFullType: string,
   };
+
+  mouseOver: (event: Object) => void;
 
   constructor(props: Props) {
     super(props);
@@ -53,8 +55,6 @@ class JsonDoc extends Component {
       return null;
     }
   }
-
-  mouseOver: (event: Object) => void;
 
   getModelJson(
     baseModel: string,

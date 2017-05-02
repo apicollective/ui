@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
-import styles from './h2.css';
+import styles from 'components/H2/h2.css';
 
 const H2 = ({ className, children, click }) => (
   <h2

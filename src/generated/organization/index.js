@@ -1,6 +1,6 @@
 // This file is generated
 
-import * as getOrganizations from './getOrganizations';
+import * as getOrganizations from 'generated/organization/getOrganizations';
 
 const actionTypes = Object.assign({}, getOrganizations.actionTypes);
 

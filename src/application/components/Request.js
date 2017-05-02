@@ -1,14 +1,14 @@
 // @flow
 import React from 'react';
 
-import { cleanPath } from '../../utils';
-import JsonDoc from './JsonDoc/JsonDoc';
-import ParameterListGroup from '../components/ParameterListGroup';
+import { cleanPath } from 'utils';
+import JsonDoc from 'application/components/JsonDoc/JsonDoc';
+import ParameterListGroup from 'application/components/ParameterListGroup';
 
-import H2 from '../../components/H2';
-import type { Operation, Service } from '../../generated/version/ServiceType';
+import H2 from 'components/H2';
+import type { Operation, Service } from 'generated/version/ServiceType';
 
-import styles from './request.css';
+import styles from 'application/components/request.css';
 
 const Request = ({
   operation,

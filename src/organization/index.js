@@ -3,18 +3,18 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import H1 from '../components/H1';
-import LoadingOverlay from '../components/LoadingOverlay';
-import AppCard from './AppCard';
+import H1 from 'components/H1';
+import LoadingOverlay from 'components/LoadingOverlay';
+import AppCard from 'organization/AppCard';
 
-import styles from './organization.css';
-import { actions } from './sagas';
+import styles from 'organization/organization.css';
+import { actions } from 'organization/sagas';
 
-import type { State } from '../app/reducers';
+import type { State } from 'app/reducers';
 import type {
   Application,
   Organization as OrganizationType,
-} from '../generated/version/ServiceType';
+} from 'generated/version/ServiceType';
 
 const App = ({
   orgKey,

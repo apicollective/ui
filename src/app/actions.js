@@ -1,5 +1,5 @@
 // @flow
-import type { Model } from '../generated/version/ServiceType';
+import type { Model } from 'generated/version/ServiceType';
 
 const actionTypes = {
   updateCurrentPage: 'app/updateCurrentPage',

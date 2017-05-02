@@ -1,10 +1,7 @@
 // @flow
-import { actionTypes } from './sagas';
+import { actionTypes } from 'organization/sagas';
 
-import type {
-  Application,
-  Organization,
-} from '../generated/version/ServiceType';
+import type { Application, Organization } from 'generated/version/ServiceType';
 
 export type OrgState = {
   loaded: boolean,
