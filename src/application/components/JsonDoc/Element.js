@@ -105,19 +105,19 @@ const SingleLineField = ({
   onClick,
   isLast,
 }: {
-  label: string,
-  value: string,
-  fieldKey: string,
-  indent: number,
-  mouseOver: (event: SyntheticEvent) => void,
-  onClick: Function, // FIXME () => void,
-  isLast: boolean,
-}) => (
-  <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-    <span className={styles.name}>{spaces(indent)}"{label}":</span>
-    <span className={styles.value}> {value}{comma(isLast)}</span>
-  </FieldClickable>
-);
+    label: string,
+    value: string,
+    fieldKey: string,
+    indent: number,
+    mouseOver: (event: SyntheticEvent) => void,
+    onClick: Function, // FIXME () => void,
+    isLast: boolean,
+  }) => (
+    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
+      <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
+      <span className={styles.value}> {value}{comma(isLast)}</span>
+    </FieldClickable>
+  );
 
 const MultiLineField = (
   {
@@ -138,7 +138,7 @@ const MultiLineField = (
 ) => (
   <div>
     <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-      <span className={styles.name}>{spaces(indent)}"{label}":</span>
+      <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
     </FieldClickable>
     <ElementClickable
       fieldKey={fieldKey}
@@ -158,17 +158,17 @@ const SimpleElement = ({
   onClick,
   isLast,
 }: {
-  value: string,
-  fieldKey: string,
-  indent: number,
-  mouseOver: (event: SyntheticEvent) => void,
-  onClick: Function, // FIXME () => void
-  isLast: boolean,
-}) => (
-  <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-    <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
-  </FieldClickable>
-);
+    value: string,
+    fieldKey: string,
+    indent: number,
+    mouseOver: (event: SyntheticEvent) => void,
+    onClick: Function, // FIXME () => void
+    isLast: boolean,
+  }) => (
+    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
+      <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
+    </FieldClickable>
+  );
 
 const ArrayElement = ({
   fieldKey,
@@ -209,14 +209,14 @@ const ModelElement = ({
   importedServices,
   isLast,
 }: {
-  model: ?Model,
-  fieldKey: string,
-  indent: number,
-  mouseOver: (event: SyntheticEvent) => void,
-  service: Service,
-  importedServices: Service[],
-  isLast: boolean,
-}) => {
+    model: ?Model,
+    fieldKey: string,
+    indent: number,
+    mouseOver: (event: SyntheticEvent) => void,
+    service: Service,
+    importedServices: Service[],
+    isLast: boolean,
+  }) => {
   if (model !== null && model !== undefined) {
     const name = model.name;
     const length = model.fields.length;
@@ -258,14 +258,14 @@ export const JField = ({
   importedServices,
   isLast,
 }: {
-  field: Field,
-  fieldKey: string,
-  indent: number,
-  mouseOver: (event: SyntheticEvent) => void,
-  service: Service,
-  importedServices: Service[],
-  isLast: boolean,
-}) => {
+    field: Field,
+    fieldKey: string,
+    indent: number,
+    mouseOver: (event: SyntheticEvent) => void,
+    service: Service,
+    importedServices: Service[],
+    isLast: boolean,
+  }) => {
   const type = field.type;
 
   if (utils.isArray(type) || utils.isModel(type, service, importedServices)) {
@@ -322,15 +322,15 @@ const Element = ({
   importedServices,
   isLast,
 }: {
-  field?: Field,
-  type: string,
-  fieldKey: string,
-  indent: number,
-  mouseOver: (event: SyntheticEvent) => void,
-  service: Service,
-  importedServices: Service[],
-  isLast: boolean,
-}) => {
+    field?: Field,
+    type: string,
+    fieldKey: string,
+    indent: number,
+    mouseOver: (event: SyntheticEvent) => void,
+    service: Service,
+    importedServices: Service[],
+    isLast: boolean,
+  }) => {
   let element = null;
   const isArray = utils.isArray(type);
   if (utils.isModel(type, service, importedServices)) {
