@@ -49,7 +49,6 @@ const Model = ({
               service={service}
               importedServices={importedServices}
               includeModel={false}
-              modelNameClick={() => {}}
             />
           : null}
       </div>

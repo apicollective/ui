@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import * as utils from 'utils';
 import * as defaults from 'application/components/JsonDoc/defaults';
@@ -36,27 +37,25 @@ const comma = (isLast: boolean): string => (isLast ? '' : ',');
  It should look like 'test-jsondoc-spec-expected.js'.
 */
 
-const click = (fieldKey: string, service: Service) =>
-  utils.onClickHref(
-    utils.buildNavHref({
-      organization: service.organization.key,
-      application: service.application.key,
-      model: fieldKey.split('.')[0],
-      field: fieldKey,
-    })
-  );
+const click = (fieldKey: string, service: Service): string =>
+  utils.buildNavHref({
+    organization: service.organization.key,
+    application: service.application.key,
+    model: fieldKey.split('.')[0],
+    field: fieldKey,
+  });
 
 const FieldClickable = (
   {
     fieldKey,
     mouseOver,
-    onClick,
     children,
+    toHref,
   }: {
     fieldKey: string,
     mouseOver: (event: SyntheticEvent) => void,
-    onClick: () => void,
     children?: React$Element<*>,
+    toHref: string,
   } = {}
 ) => (
   <div
@@ -65,9 +64,9 @@ const FieldClickable = (
     data-fieldKey={fieldKey}
     onMouseOver={mouseOver}
   >
-    <a tabIndex={0} onClick={onClick}>
+    <Link tabIndex={0} to={toHref}>
       {children}
-    </a>
+    </Link>
   </div>
 );
 
@@ -75,12 +74,12 @@ const ElementClickable = (
   {
     fieldKey,
     mouseOver,
-    onClick,
+    toHref,
     children,
   }: {
     fieldKey: string,
     mouseOver: (event: SyntheticEvent) => void,
-    onClick: () => void,
+    toHref: string,
     children?: React$Element<*>,
   } = {}
 ) => (
@@ -90,9 +89,9 @@ const ElementClickable = (
     data-fieldKey={fieldKey}
     onMouseOver={mouseOver}
   >
-    <a tabIndex={0} onClick={onClick}>
+    <Link tabIndex={0} to={toHref}>
       {children}
-    </a>
+    </Link>
   </div>
 );
 
@@ -102,22 +101,22 @@ const SingleLineField = ({
   fieldKey,
   indent,
   mouseOver,
-  onClick,
+  toHref,
   isLast,
 }: {
-    label: string,
-    value: string,
-    fieldKey: string,
-    indent: number,
-    mouseOver: (event: SyntheticEvent) => void,
-    onClick: Function, // FIXME () => void,
-    isLast: boolean,
-  }) => (
-    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-      <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
-      <span className={styles.value}> {value}{comma(isLast)}</span>
-    </FieldClickable>
-  );
+  label: string,
+  value: string,
+  fieldKey: string,
+  indent: number,
+  mouseOver: (event: SyntheticEvent) => void,
+  toHref: string,
+  isLast: boolean,
+}) => (
+  <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} toHref={toHref}>
+    <span className={styles.name}>{spaces(indent)}"{label}":</span>
+    <span className={styles.value}> {value}{comma(isLast)}</span>
+  </FieldClickable>
+);
 
 const MultiLineField = (
   {
@@ -125,26 +124,22 @@ const MultiLineField = (
     fieldKey,
     indent,
     mouseOver,
-    onClick,
+    toHref,
     children,
   }: {
     label: string,
     fieldKey: string,
     indent: number,
     mouseOver: (event: SyntheticEvent) => void,
-    onClick: Function, // FIXME () => void,
+    toHref: string,
     children?: React$Element<*>,
   } = {}
 ) => (
   <div>
-    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-      <span className={styles.name}>{spaces(indent)}&quot;{label}&quot;:</span>
+    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} toHref={toHref}>
+      <span className={styles.name}>{spaces(indent)}"{label}":</span>
     </FieldClickable>
-    <ElementClickable
-      fieldKey={fieldKey}
-      mouseOver={mouseOver}
-      onClick={onClick}
-    >
+    <ElementClickable fieldKey={fieldKey} mouseOver={mouseOver} toHref={toHref}>
       {children}
     </ElementClickable>
   </div>
@@ -155,33 +150,33 @@ const SimpleElement = ({
   fieldKey,
   indent,
   mouseOver,
-  onClick,
+  toHref,
   isLast,
 }: {
-    value: string,
-    fieldKey: string,
-    indent: number,
-    mouseOver: (event: SyntheticEvent) => void,
-    onClick: Function, // FIXME () => void
-    isLast: boolean,
-  }) => (
-    <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} onClick={onClick}>
-      <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
-    </FieldClickable>
-  );
+  value: string,
+  fieldKey: string,
+  indent: number,
+  mouseOver: (event: SyntheticEvent) => void,
+  toHref: string,
+  isLast: boolean,
+}) => (
+  <FieldClickable fieldKey={fieldKey} mouseOver={mouseOver} toHref={toHref}>
+    <span className={styles.value}>{spaces(indent)}{value}</span>{comma(isLast)}
+  </FieldClickable>
+);
 
 const ArrayElement = ({
   fieldKey,
   indent,
   mouseOver,
-  onClick,
+  toHref,
   children,
   isLast,
 }: {
   fieldKey: string,
   indent: number,
   mouseOver: (event: SyntheticEvent) => void,
-  onClick: Function, // FIXME () => void,
+  toHref: string,
   children?: React$Element<*>,
   isLast: boolean,
 }) => {
@@ -209,14 +204,14 @@ const ModelElement = ({
   importedServices,
   isLast,
 }: {
-    model: ?Model,
-    fieldKey: string,
-    indent: number,
-    mouseOver: (event: SyntheticEvent) => void,
-    service: Service,
-    importedServices: Service[],
-    isLast: boolean,
-  }) => {
+  model: ?Model,
+  fieldKey: string,
+  indent: number,
+  mouseOver: (event: SyntheticEvent) => void,
+  service: Service,
+  importedServices: Service[],
+  isLast: boolean,
+}) => {
   if (model !== null && model !== undefined) {
     const name = model.name;
     const length = model.fields.length;
@@ -258,14 +253,14 @@ export const JField = ({
   importedServices,
   isLast,
 }: {
-    field: Field,
-    fieldKey: string,
-    indent: number,
-    mouseOver: (event: SyntheticEvent) => void,
-    service: Service,
-    importedServices: Service[],
-    isLast: boolean,
-  }) => {
+  field: Field,
+  fieldKey: string,
+  indent: number,
+  mouseOver: (event: SyntheticEvent) => void,
+  service: Service,
+  importedServices: Service[],
+  isLast: boolean,
+}) => {
   const type = field.type;
 
   if (utils.isArray(type) || utils.isModel(type, service, importedServices)) {
@@ -275,7 +270,7 @@ export const JField = ({
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, service)}
+        toHref={click(fieldKey, service)}
       >
         <Element
           field={field}
@@ -305,7 +300,7 @@ export const JField = ({
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, service)}
+        toHref={click(fieldKey, service)}
         isLast={isLast}
       />
     );
@@ -322,15 +317,15 @@ const Element = ({
   importedServices,
   isLast,
 }: {
-    field?: Field,
-    type: string,
-    fieldKey: string,
-    indent: number,
-    mouseOver: (event: SyntheticEvent) => void,
-    service: Service,
-    importedServices: Service[],
-    isLast: boolean,
-  }) => {
+  field?: Field,
+  type: string,
+  fieldKey: string,
+  indent: number,
+  mouseOver: (event: SyntheticEvent) => void,
+  service: Service,
+  importedServices: Service[],
+  isLast: boolean,
+}) => {
   let element = null;
   const isArray = utils.isArray(type);
   if (utils.isModel(type, service, importedServices)) {
@@ -341,7 +336,7 @@ const Element = ({
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, service)}
+        toHref={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
         isLast={isArray || isLast}
@@ -358,7 +353,7 @@ const Element = ({
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, service)}
+        toHref={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
         isLast={isArray || isLast}
@@ -372,7 +367,7 @@ const Element = ({
         fieldKey={fieldKey}
         indent={indent}
         mouseOver={mouseOver}
-        onClick={click(fieldKey, service)}
+        toHref={click(fieldKey, service)}
         isLast={isLast}
       >
         {element}

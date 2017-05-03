@@ -13,17 +13,17 @@ const ModelDescription = ({
   baseModel,
   service,
   importedServices,
-  modelNameClick,
+  toHref,
 }: {
   baseModel: string,
   service: Service,
   importedServices: Service[],
-  modelNameClick: (event: Object) => void,
+  toHref?: string,
 }) => {
   const type = utils.getType(baseModel);
   const model = utils.getModel(type, service, importedServices);
 
-  //   <H2 click={model ? this.props.modelNameClick : null} className={styles.modelName}>
+  //   <H2 toHref={model ? this.props.toHref : null} className={styles.modelName}>
   //   <H2 className={styles.modelName}>
   return (
     <div className={styles.modelDescription}>

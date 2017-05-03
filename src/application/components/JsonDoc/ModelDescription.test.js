@@ -10,7 +10,6 @@ test('simple html', () => {
     baseModel: 'base',
     service: Example,
     importedServices: [],
-    modelNameClick: () => {},
   };
 
   const component = renderer.create(<ModelDescription {...params} />);

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { onClickHref, buildNavHref, getType } from 'utils';
+import { buildNavHref, getType } from 'utils';
 
 import H2 from 'components/H2';
 import Markdown from 'components/Markdown';
@@ -39,13 +39,11 @@ const Response = ({
       return (
         <div className={styles.json}>
           <JsonDoc
-            modelNameClick={onClickHref(
-              buildNavHref({
-                organization: orgKey,
-                application: appKey,
-                model: getType(baseModel),
-              })
-            )}
+            toHref={buildNavHref({
+              organization: orgKey,
+              application: appKey,
+              model: getType(baseModel),
+            })}
             baseModel={baseModel}
             service={service}
             importedServices={importedServices}

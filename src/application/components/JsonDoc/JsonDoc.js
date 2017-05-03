@@ -15,7 +15,7 @@ type Props = {|
   importedServices: Service[],
   baseModel: string,
   includeModel?: boolean, // Include Model Documentation in JsonDoc
-  modelNameClick: (event: Event) => void,
+  toHref?: string,
   rawValue?: string,
 |};
 
@@ -102,7 +102,7 @@ class JsonDoc extends Component {
               baseModel={baseModel}
               service={service}
               importedServices={importedServices}
-              modelNameClick={this.props.modelNameClick}
+              toHref={this.props.toHref}
             />
           : null}
         <div className={styles.container}>

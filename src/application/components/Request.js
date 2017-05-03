@@ -47,7 +47,6 @@ const Request = ({
               service={service}
               importedServices={importedServices}
               includeModel={true}
-              modelNameClick={() => {}}
             />
           </div>
         </div>
