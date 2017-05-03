@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { simplifyName } from 'utils';
@@ -22,13 +23,13 @@ SidebarIcon.propTypes = {
 };
 
 const Item = ({ item }) => (
-  <div
-    onClick={item.onClick}
+  <NavLink
+    to={item.linkTo}
     className={classnames(styles.a, item.active ? styles.active : null)}
     {...item.data}
   >
     {item.path ? `${item.method} ${item.path}` : simplifyName(item.name)}
-  </div>
+  </NavLink>
 );
 
 Item.propTypes = {

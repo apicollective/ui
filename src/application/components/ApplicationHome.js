@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { onClickHref, cleanPath } from 'utils';
+import { cleanPath } from 'utils';
 
 import H1 from 'components/H1';
 import Markdown from 'components/Markdown';
@@ -39,8 +39,10 @@ const ApplicationHome = ({
               key={operation.method + operation.path}
               method={operation.method}
               path={operation.path}
-              click={onClickHref(
-                buildClickHref(resource.type, operation.method, operation.path)
+              toHref={buildClickHref(
+                resource.type,
+                operation.method,
+                operation.path
               )}
               description={operation.description}
             />

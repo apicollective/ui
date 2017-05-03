@@ -1,6 +1,4 @@
 // @flow
-import { browserHistory } from 'react-router';
-
 import type {
   Service,
   Operation,
@@ -11,12 +9,6 @@ import type {
 } from 'generated/version/ServiceType';
 
 const cleanPath = (path: string) => path.replace(/\W/g, '');
-
-const onClickHref = (href: string) => (event: Event) => {
-  browserHistory.push(href);
-  // Stop parent nav events to be publishes - jsondoc nesting
-  if (event.stopPropagation) event.stopPropagation();
-};
 
 const getType = (type: string): string => {
   /* const ex = /[\[]?([^\]]+)/i;*/
@@ -180,7 +172,6 @@ const buildNavHref = ({
 
 export {
   cleanPath,
-  onClickHref,
   getType,
   simplifyName,
   getModel,

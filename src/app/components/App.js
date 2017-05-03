@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import sortBy from 'lodash/fp/sortBy';
 import snakeCase from 'lodash/fp/snakeCase';
+import { Route } from 'react-router';
+
+import Home from 'home';
+import OrganizationComponent from 'organization';
+import { Appln } from 'application';
+import Documentation from 'documentation';
 
 import NavBar from 'components/NavBar';
 import SideBar from 'components/SideBar';
@@ -26,17 +32,16 @@ type Item = {
   name: string,
   active?: boolean,
   type?: string,
-  onClick?: (event: Event) => void,
+  toHref?: string,
   items?: Item[],
 };
 
 type Props = {|
-  children: React$Element<*>,
+  params: Object, // FIXME
   service: Service,
   organizations: Organization[],
   organization: Organization,
   applications: Application[],
-  params: Object, // FIXME
   importedServices: Service[],
 |};
 
@@ -62,15 +67,13 @@ class App extends Component {
       name: resource.type,
       items: resource.operations.map(operation => ({
         name: `${operation.method} ${operation.path}`,
-        onClick: utils.onClickHref(
-          utils.buildNavHref({
-            organization: params.organizationKey,
-            application: params.applicationKey,
-            resource: resource.type,
-            method: operation.method.toLowerCase(),
-            path: utils.cleanPath(operation.path),
-          })
-        ),
+        toHref: utils.buildNavHref({
+          organization: params.organizationKey,
+          application: params.applicationKey,
+          resource: resource.type,
+          method: operation.method.toLowerCase(),
+          path: utils.cleanPath(operation.path),
+        }),
         active: currentItem ===
           `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(operation.path)}`,
         type: 'resource',
@@ -89,13 +92,11 @@ class App extends Component {
   ): Item {
     return {
       name: `${model.name}`,
-      onClick: utils.onClickHref(
-        utils.buildNavHref({
-          organization: params.organizationKey,
-          application: params.applicationKey,
-          model: model.name,
-        })
-      ),
+      toHref: utils.buildNavHref({
+        organization: params.organizationKey,
+        application: params.applicationKey,
+        model: model.name,
+      }),
       active: currentItem === model.name,
       type,
     };
@@ -113,11 +114,9 @@ class App extends Component {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map(organization => ({
         name: organization.name,
-        onClick: utils.onClickHref(
-          utils.buildNavHref({
-            organization: organization.key,
-          })
-        ),
+        toHref: utils.buildNavHref({
+          organization: organization.key,
+        }),
       }));
       return [
         {
@@ -133,23 +132,19 @@ class App extends Component {
     } else if (params.organizationKey && !params.applicationKey) {
       const applicationsWithHref = applications.map(application => ({
         name: application.name,
-        onClick: utils.onClickHref(
-          utils.buildNavHref({
-            organization: params.organizationKey,
-            application: application.key,
-          })
-        ),
+        toHref: utils.buildNavHref({
+          organization: params.organizationKey,
+          application: application.key,
+        }),
       }));
       const orgDocsList = docs.organizations[params.organizationKey];
       const docsByOrg = (orgDocsList && orgDocsList.documents) || [];
       const docsWithHref = docsByOrg.map(doc => ({
         name: doc.name,
-        onClick: utils.onClickHref(
-          utils.buildNavHref({
-            organization: params.organizationKey,
-            documentation: snakeCase(doc.name),
-          })
-        ),
+        toHref: utils.buildNavHref({
+          organization: params.organizationKey,
+          documentation: snakeCase(doc.name),
+        }),
       }));
       const applicationSidebarGroup = [
         {
@@ -241,48 +236,40 @@ class App extends Component {
       params.organizationKey
         ? {
             name: params.organizationKey,
-            onClick: utils.onClickHref(
-              utils.buildNavHref({
-                organization: params.organizationKey,
-              })
-            ),
+            toHref: utils.buildNavHref({
+              organization: params.organizationKey,
+            }),
           }
         : [],
       params.applicationKey
         ? {
             name: params.applicationKey,
-            onClick: utils.onClickHref(
-              utils.buildNavHref({
-                organization: params.organizationKey,
-                application: params.applicationKey,
-              })
-            ),
+            toHref: utils.buildNavHref({
+              organization: params.organizationKey,
+              application: params.applicationKey,
+            }),
           }
         : [],
       params.resource
         ? {
             name: `${params.method.toUpperCase()} ${operationPath}`,
-            onClick: utils.onClickHref(
-              utils.buildNavHref({
-                organization: params.organizationKey,
-                application: params.applicationKey,
-                resource: params.resource,
-                method: params.method,
-                path: params.path,
-              })
-            ),
+            toHref: utils.buildNavHref({
+              organization: params.organizationKey,
+              application: params.applicationKey,
+              resource: params.resource,
+              method: params.method,
+              path: params.path,
+            }),
           }
         : [],
       params.model
         ? {
             name: `${params.model}`,
-            onClick: utils.onClickHref(
-              utils.buildNavHref({
-                organization: params.organizationKey,
-                application: params.applicationKey,
-                model: params.model,
-              })
-            ),
+            toHref: utils.buildNavHref({
+              organization: params.organizationKey,
+              application: params.applicationKey,
+              model: params.model,
+            }),
           }
         : []
     );
@@ -296,7 +283,6 @@ class App extends Component {
       organizations,
       organization,
       applications,
-      children,
     } = this.props;
 
     const title = process.env.TITLE ? process.env.TITLE : 'apidoc';
@@ -332,13 +318,33 @@ class App extends Component {
         <NavBar
           title={title}
           items={navBarItems}
-          homeOnClick={utils.onClickHref('/')}
+          toHref={'/'}
           removeGithubLink={removeGithubLink}
         />
         <div className={styles.main}>
           <SideBar sections={sideBarItems} />
           <Content>
-            {children}
+            <Route exact={true} path="/" component={Home} />
+            <Route
+              path="org/:organizationKey"
+              component={OrganizationComponent}
+            />
+            <Route
+              path="org/:organizationKey/app/:applicationKey"
+              component={Appln}
+            />
+            <Route
+              path="org/:organizationKey/doc/:documentationKey"
+              component={Documentation}
+            />
+            <Route
+              path="org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
+              component={Appln}
+            />
+            <Route
+              path="org/:organizationKey/app/:applicationKey/m/:model"
+              component={Appln}
+            />
           </Content>
         </div>
       </div>

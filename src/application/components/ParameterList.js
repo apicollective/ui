@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import Markdown from 'components/Markdown';
 import {
@@ -8,7 +9,6 @@ import {
   getType,
   isImport,
   isImportOrInService,
-  onClickHref,
   simplifyName,
 } from 'utils';
 
@@ -43,18 +43,16 @@ const ParameterList = (
   const modelType = isImport(possibleImportType, importedServices)
     ? possibleImportType
     : type;
-  const typeClickFn = isImportOrInService(
+  const typeToHrefFn = isImportOrInService(
     getType(modelType),
     service,
     importedServices
   )
-    ? onClickHref(
-        buildNavHref({
-          organization: service.organization.key,
-          application: service.application.key,
-          model: getType(modelType),
-        })
-      )
+    ? buildNavHref({
+        organization: service.organization.key,
+        application: service.application.key,
+        model: getType(modelType),
+      })
     : null;
 
   return (
@@ -66,16 +64,13 @@ const ParameterList = (
         {/* <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>
           {simplifyName(modelType)}
           </p> */}
-        <a
+        <Link
           tabIndex="0"
-          onClick={typeClickFn}
-          className={classnames(
-            styles.type,
-            typeClickFn ? styles.pointer : null
-          )}
+          toHref={typeToHrefFn}
+          className={classnames(styles.type)}
         >
           {simplifyName(modelType)}
-        </a>
+        </Link>
         {required ? <p className={styles.required}>required</p> : null}
       </div>
       <div className={styles.info}>

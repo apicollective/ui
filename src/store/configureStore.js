@@ -3,6 +3,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'app/rootReducer';
 import allSagas from 'app/allSagas';
+import { routerMiddleware } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 
 // for flowtype of module
 /* declare var module : {
@@ -11,12 +13,15 @@ import allSagas from 'app/allSagas';
  *   };
  * };
  * */
-const configureStore = () => {
+export const history = createHistory();
+
+export const configureStore = () => {
+  const historyMiddleware = routerMiddleware(history);
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(
     rootReducer,
     compose(
-      applyMiddleware(sagaMiddleware),
+      applyMiddleware(historyMiddleware, sagaMiddleware),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
@@ -34,5 +39,3 @@ const configureStore = () => {
 
   return store;
 };
-
-export default configureStore;
