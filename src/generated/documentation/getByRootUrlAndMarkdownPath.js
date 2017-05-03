@@ -47,7 +47,7 @@ function* saga(action) {
     const { text } = yield call(api, action.payload);
 
     const imagesRegex = /!\[(.*)]\(/gi;
-    const textWithImages = text.replace(imagesRegex, `![$1](${rootUrl}/`);
+    const textWithImages = text.replace(imagesRegex, `![$1](${rootUrl}`);
 
     yield put(actions.getByRootUrlAndMarkdownPath_success(textWithImages));
   } catch (error) {
