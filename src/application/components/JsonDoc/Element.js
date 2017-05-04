@@ -15,27 +15,27 @@ const spaces = (indent: number): string =>
 const comma = (isLast: boolean): string => (isLast ? '' : ',');
 
 /**
- JFields - the lines with "name: ..." eg:
+   JFields - the lines with "name: ..." eg:
    ...
    "name": "value",
    ...
    "name":
    ...
 
- Elements - the lines without labels - they just have values, eg array contents or a model. eg:
-    ...
-    [
-      "value",
-    ]
-    ...
-    {
-      "value",
-    }
-    ...
+   Elements - the lines without labels - they just have values, eg array contents or a model. eg:
+   ...
+   [
+   "value",
+   ]
+   ...
+   {
+   "value",
+   }
+   ...
 
- Load 'test-jsondoc-spec.json' into apidoc for testing all the permutations.
- It should look like 'test-jsondoc-spec-expected.js'.
-*/
+   Load 'test-jsondoc-spec.json' into apidoc for testing all the permutations.
+   It should look like 'test-jsondoc-spec-expected.js'.
+ */
 
 const click = (fieldKey: string, service: Service): string =>
   utils.buildNavHref({
@@ -86,7 +86,7 @@ const ElementClickable = (
   <div
     className={styles.element}
     href={`#${fieldKey}`}
-    data-fieldKey={fieldKey}
+    data-lieldKey={fieldKey}
     onMouseOver={mouseOver}
   >
     <Link tabIndex={0} to={toHref}>
