@@ -1,7 +1,17 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from 'components/Button';
 import styles from 'components/NavBar/navbar.css';
+
+export type NavItem = {
+  name: string,
+  active?: boolean,
+  type?: string,
+  toHref?: string,
+  items?: NavItem[],
+};
 
 const githubLink = () => (
   <a
@@ -25,26 +35,32 @@ const githubLink = () => (
   </a>
 );
 
-const NavBar = ({ title, items, homeOnClick, removeGithubLink }) => (
+const NavBar = ({
+  title,
+  items,
+  toHref,
+  removeGithubLink,
+}: {
+  title: string,
+  items: NavItem[],
+  toHref: string,
+  removeGithubLink: boolean,
+}) => (
   <div className={styles.navbar}>
-    <a className={styles.home} onClick={homeOnClick}>{title}</a>
+    <Link className={styles.home} to={toHref}>{title}</Link>
     <div className={styles.breadcrumbs}>
-      {items.map((item, id) => (
-        <Button key={id} className={styles.button} onClick={item.onClick}>
-          {item.name}
-        </Button>
-      ))}
+      {items.map(
+        (item, id) =>
+          (item.toHref
+            ? <Button key={id} className={styles.button} toHref={item.toHref}>
+                {item.name}
+              </Button>
+            : <div />)
+      )}
     </div>
     {removeGithubLink ? null : githubLink()}
   </div>
 );
-
-NavBar.propTypes = {
-  title: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
-  homeOnClick: PropTypes.func.isRequired,
-  removeGithubLink: PropTypes.bool.isRequired,
-};
 
 export default NavBar;
 

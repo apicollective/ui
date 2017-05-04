@@ -1,22 +1,25 @@
-import React, { PropTypes } from 'react';
+//@flow
+import React, { Children } from 'react';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
 import styles from 'components/H2/h2.css';
 
-const H2 = ({ className, children, click }) => (
-  <h2
-    onClick={click}
-    className={classnames(className, styles.h2, click ? styles.pointer : null)}
-  >
-    {children}
-  </h2>
+const H2 = ({
+  className,
+  children,
+  toHref,
+}: {
+  className?: string,
+  toHref?: string,
+  children?: Children,
+}) => (
+  <Link to={toHref}>
+    <h2 className={classnames(className, styles.h2)}>
+      {children}
+    </h2>
+  </Link>
 );
-
-H2.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  click: PropTypes.func,
-};
 
 export default H2;
 

@@ -1,25 +1,33 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React, { Children } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import styles from 'components/Button/button.css';
 import classnames from 'classnames';
 
-const Button = props => (
-  <div className={classnames(props.className, styles.button)}>
-    <button
-      className={classnames(props.classNameInner, styles.buttonInner)}
-      onClick={props.onClick}
+const Button = ({
+  className,
+  classNameInner,
+  toHref,
+  children,
+  target,
+}: {
+  className?: string,
+  classNameInner?: string,
+  toHref: string,
+  target?: any, //FIXME
+  children?: Children, //FIXME
+}) => (
+  <div className={classnames(className, styles.button)}>
+    <Link
+      className={classnames(classNameInner, styles.buttonInner)}
+      to={toHref}
     >
-      {props.children}
-    </button>
+      {children}
+    </Link>
   </div>
 );
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  classNameInner: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-  target: PropTypes.string,
-};
 
 export default Button;
 

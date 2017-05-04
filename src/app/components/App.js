@@ -24,17 +24,10 @@ import type {
   Resource,
 } from 'generated/version/ServiceType';
 import type { State } from 'app/reducers';
+import type { NavItem } from 'components/NavBar';
 
 import styles from 'app/components/app.css';
 import docs from '../../../documents.json';
-
-type Item = {
-  name: string,
-  active?: boolean,
-  type?: string,
-  toHref?: string,
-  items?: Item[],
-};
 
 type Props = {|
   params: Object, // FIXME
@@ -62,7 +55,7 @@ class App extends Component {
     params: Object,
     resource: Resource,
     currentItem: string
-  ): Item {
+  ): NavItem {
     return {
       name: resource.type,
       items: resource.operations.map(operation => ({
@@ -92,7 +85,7 @@ class App extends Component {
     model: Object,
     currentItem: string,
     type: string = 'model'
-  ): Item {
+  ): NavItem {
     return {
       name: `${model.name}`,
       toHref: utils.buildNavHref({
@@ -113,7 +106,7 @@ class App extends Component {
     organizations: Organization[],
     organizationObj: Organization,
     applications: Application[]
-  ): Item[] {
+  ): NavItem[] {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map(organization => ({
         name: organization.name,
@@ -214,11 +207,11 @@ class App extends Component {
         },
       ];
     }
-    return [{ name: 'Unknown', items: [{ name: 'Unknown', items: [] }] }];
+    return [];
   }
 
   // FIXME types
-  static createNavBarItems(params: Object, service: Service): Item[] {
+  static createNavBarItems(params: Object, service: Service): NavItem[] {
     // FIXME test
     if (!service || !service.apidoc) {
       return [];
