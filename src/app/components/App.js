@@ -277,13 +277,13 @@ class App extends Component {
 
   render() {
     const {
-      params,
       service,
       importedServices,
       organizations,
       organization,
       applications,
     } = this.props;
+    const params = this.props.params ? this.props.params : {};
 
     const title = process.env.TITLE ? process.env.TITLE : 'apidoc';
     let removeGithubLink = true;
