@@ -7,7 +7,7 @@
     "deploy": "DEPLOY=true webpack --env=prod",
     "start": "webpack-dev-server --env=dev --progress --colors --profile",
     "lint": "eslint src",
-    "format": "eslint src --fix",
+    "format": "prettier --single-quote --trailing-comma=es5 --write src/*.js src/**/*.js src/**/*.jsx",
     "lint:style": "stylelint \"src/**/*.css\"",
     "lint:style:ci": "stylelint \"src/**/*.css\"",
     "check": "yarn run test && yarn run flow && yarn run lint && yarn run lint:style",
