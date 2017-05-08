@@ -22,22 +22,26 @@ const ParameterList = (
     type,
     required,
     description,
+    minimum,
+    maximum,
     example,
     defaultValue,
     service,
     importedServices,
     parentModel,
   }: {
-    name: string,
-    type: string,
-    required: boolean,
-    description?: string,
-    example?: string,
-    defaultValue?: string,
-    service: Service,
-    importedServices: Service[],
-    parentModel: string,
-  } = {}
+      name: string,
+      type: string,
+      required: boolean,
+      minimum?: number,
+      maximum?: number,
+      description?: string,
+      example?: string,
+      defaultValue?: string,
+      service: Service,
+      importedServices: Service[],
+      parentModel: string,
+    } = {}
 ) => {
   const possibleImportType = `${parentModel.substring(0, parentModel.lastIndexOf('.'))}.${type}`;
   const modelType = isImport(possibleImportType, importedServices)
@@ -49,12 +53,12 @@ const ParameterList = (
     importedServices
   )
     ? onClickHref(
-        buildNavHref({
-          organization: service.organization.key,
-          application: service.application.key,
-          model: getType(modelType),
-        })
-      )
+      buildNavHref({
+        organization: service.organization.key,
+        application: service.application.key,
+        model: getType(modelType),
+      })
+    )
     : null;
 
   return (
@@ -82,15 +86,27 @@ const ParameterList = (
         {description
           ? <Markdown source={description} className={styles.description} />
           : <p className={styles.noContent}>No description</p>}
+        {minimum
+          ? <p className={styles.sample}>
+            <span className={styles.sampleTitle}>Minimum</span>{minimum}
+          </p>
+          : null
+        }
+        {maximum
+          ? <p className={styles.sample}>
+            <span className={styles.sampleTitle}>Maximum</span>{maximum}
+          </p>
+          : null
+        }
         {example
           ? <p className={styles.sample}>
-              <span className={styles.sampleTitle}>Example</span>{example}
-            </p>
+            <span className={styles.sampleTitle}>Example</span>{example}
+          </p>
           : null}
         {defaultValue
           ? <p className={styles.sample}>
-              <span className={styles.sampleTitle}>Default</span>{defaultValue}
-            </p>
+            <span className={styles.sampleTitle}>Default</span>{defaultValue}
+          </p>
           : null}
       </div>
     </div>
