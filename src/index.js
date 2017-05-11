@@ -1,23 +1,21 @@
 // @flow
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 
 import { App } from 'app';
-import { history, configureStore } from 'store/configureStore';
+import { configureStore } from 'store/configureStore';
 
 // Needed for React Developer Tools
 window.React = React;
 
-const store = configureStore();
+export const history = createHistory();
+const store = configureStore(history);
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
+    <App history={history} />
   </Provider>,
   document.getElementById('root')
 );

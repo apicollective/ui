@@ -10,37 +10,38 @@ import * as utils from 'utils';
 import Model from 'application/components/Model';
 import Enum from 'application/components/Enum';
 
+import { actions as serviceActions } from 'generated/version';
+
 import type { Service } from 'generated/version/ServiceType';
+import type { Match } from 'types';
 
 import styles from 'application/components/application.css';
 
-import { actions as serviceActions } from 'generated/version';
-
 const allActions = Object.assign({}, serviceActions);
 
-type Params = {
+type Params = {|
   model?: string,
   resource?: string,
   method: string,
   path: string,
   applicationKey: string,
   organizationKey: string,
-};
+|};
 
-type Props = {
+type Props = {|
   actions: Object, // FIXME
-  params: Params, // FIXME
+  match: Match<Params>,
   loaded: boolean,
   service: Service,
   importedServices: Service[],
-};
+|};
 
 export class Application extends Component {
   props: Props;
 
   componentDidMount() {
-    const orgKey = this.props.params.organizationKey;
-    const applicationKey = this.props.params.applicationKey;
+    const orgKey = this.props.match.params.organizationKey;
+    const applicationKey = this.props.match.params.applicationKey;
     this.props.actions.getByOrgkeyAndApplicationkeyAndVersion_get({
       orgKey,
       applicationKey,
@@ -54,7 +55,7 @@ export class Application extends Component {
     if (!service) {
       return <LoadingOverlay isLoaded={this.props.loaded} />;
     }
-    if (this.props.params.resource) {
+    if (this.props.match.params.resource) {
       // Load Operation
       const {
         method,
@@ -62,7 +63,7 @@ export class Application extends Component {
         resource: resourceType,
         applicationKey,
         organizationKey,
-      } = this.props.params;
+      } = this.props.match.params;
 
       const operation = utils.getOperation(resourceType, method, path, service);
       const resource = utils.getResource(resourceType, service);
@@ -81,9 +82,9 @@ export class Application extends Component {
           />
         </LoadingOverlay>
       );
-    } else if (this.props.params.model) {
+    } else if (this.props.match.params.model) {
       // Load Model
-      const modelName = this.props.params.model;
+      const modelName = this.props.match.params.model;
       if (utils.isEnum(modelName, service, importedServices)) {
         const enumModel = utils.getEnum(modelName, service, importedServices);
         return enumModel
@@ -110,7 +111,7 @@ export class Application extends Component {
       }
     } else {
       // Load Application Home
-      const { applicationKey, organizationKey } = this.props.params;
+      const { applicationKey, organizationKey } = this.props.match.params;
 
       return (
         <LoadingOverlay isLoaded={this.props.loaded}>

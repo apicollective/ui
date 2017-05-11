@@ -55,8 +55,6 @@ const getModelImport = (name: string, importedServices: Service[]): ?Model => {
   return service ? findByName(name, service.models) : null;
 };
 
-/* eslint-disable no-use-before-define */
-
 const getEnum = (
   name: string,
   service: Service,
@@ -98,8 +96,6 @@ const isImport = (type: string, importedServices: Service[]): boolean =>
       .map(importValue => isInService(type, importValue))
       .find(b => b === true)
   );
-
-/* eslint-enable no-use-before-define */
 
 const isImportOrInService = (
   type: string,

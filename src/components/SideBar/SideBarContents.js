@@ -1,26 +1,11 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 
-import { simplifyName } from 'utils';
-import type { NavItem } from 'components/NavBar';
+import type { NavItem } from 'nav/NavItem';
 
 import styles from 'components/SideBar/sidebar.css';
-
-/* const SidebarIcon = ({ item }: { item: NavItem }) => {
- *   const iconClasses = classnames(
- *     item.type ? styles[item.type.toLowerCase()] : null,
- *     styles.icon
-   *     item.method ? styles[item.method.toLowerCase()] : null
-   *   );
-*
-*   const markup = item.method ? item.method : item.type[0];
-  *   const markup = item.type ? item.type[0] : null;
-  *
-  *   return <div className={iconClasses}>{markup}</div>;
-* };
-* */
 
 const Item = ({ item }: { item: NavItem }) => (
   <NavLink
@@ -53,7 +38,7 @@ const Section = ({ section }: { section: NavItem }) => (
   </div>
 );
 
-const SideBar = ({ sections }: { sections: NavItem[] }) => (
+const SideBarContents = ({ sections }: { sections: NavItem[] }) => (
   <div className={styles.sidebar}>
     <div className={styles.sidebarInner}>
       {sections.map((section, id) => (
@@ -63,6 +48,4 @@ const SideBar = ({ sections }: { sections: NavItem[] }) => (
   </div>
 );
 
-export default SideBar;
-
-export { styles };
+export default SideBarContents;

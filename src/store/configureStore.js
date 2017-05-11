@@ -4,7 +4,6 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'app/rootReducer';
 import allSagas from 'app/allSagas';
 import { routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 
 // for flowtype of module
 /* declare var module : {
@@ -13,9 +12,8 @@ import createHistory from 'history/createBrowserHistory';
  *   };
  * };
  * */
-export const history = createHistory();
 
-export const configureStore = () => {
+export const configureStore = (history: string) => {
   const historyMiddleware = routerMiddleware(history);
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(

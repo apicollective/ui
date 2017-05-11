@@ -22,7 +22,7 @@ const Org = ({
   organization: Organization,
 }) => (
   <HomeCard
-    link={`org/${organization.key}`}
+    link={`/org/${organization.key}`}
     name={organization.name}
     description={organization.description}
   />
@@ -42,11 +42,11 @@ const Organizations = ({
   </div>
 );
 
-type Props = {
+type Props = {|
   loaded: boolean,
   actions: Object, // FIXME - types
   organizations: Organization[],
-};
+|};
 class Home extends Component {
   props: Props;
 

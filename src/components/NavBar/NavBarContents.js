@@ -4,14 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Button from 'components/Button';
 import styles from 'components/NavBar/navbar.css';
-
-export type NavItem = {
-  name: string,
-  active?: boolean,
-  type?: string,
-  toHref?: string,
-  items?: NavItem[],
-};
+import type { NavItem } from 'nav/NavItem';
 
 const githubLink = () => (
   <a
@@ -35,7 +28,7 @@ const githubLink = () => (
   </a>
 );
 
-const NavBar = ({
+const NavBarContents = ({
   title,
   items,
   toHref,
@@ -62,6 +55,6 @@ const NavBar = ({
   </div>
 );
 
-export default NavBar;
+export default NavBarContents;
 
 export { styles };
