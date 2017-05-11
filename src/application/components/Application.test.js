@@ -9,13 +9,15 @@ import { actions as serviceActions } from 'generated/version';
 test('Application Home', () => {
   const params = {
     actions: serviceActions,
-    params: {
-      model: undefined,
-      resource: undefined,
-      method: '',
-      path: '',
-      applicationKey: '',
-      organizationKey: '',
+    match: {
+      params: {
+        model: undefined,
+        resource: undefined,
+        method: '',
+        path: '',
+        applicationKey: '',
+        organizationKey: '',
+      },
     },
     loaded: true,
     service: Example,

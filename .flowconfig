@@ -1,6 +1,4 @@
 # https://flowtype.org/docs/advanced-configuration.html
-[version]
-
 [ignore]
 .*/node_modules/jsverify/*
 .*/node_modules/fbjs/*
@@ -10,9 +8,10 @@
 .*/node_modules/flow-coverage-report/*
 
 [options]
+# FIXME - should turn on flow type for all files
+# all=true
 suppress_comment=\\(.\\|\n\\)*\\flow-disable-next-line
 module.name_mapper='^.*\.css$' -> 'css-module-flow'
-module.system.node.resolve_dirname=lib
 module.system.node.resolve_dirname=src
 module.system.node.resolve_dirname=node_modules
 module.use_strict=true
