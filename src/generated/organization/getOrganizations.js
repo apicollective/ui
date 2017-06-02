@@ -1,4 +1,3 @@
-// @flow
 // This file is generated
 /* eslint-disable max-len */
 

@@ -23,7 +23,7 @@ const App = (props: Props) => (
     <div>
       <NavBar />
       <div className={styles.main}>
-        <SideBar />
+        <SideBar history={props.history} />
         <Content>
           <Switch>
             <Route
