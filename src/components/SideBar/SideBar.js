@@ -1,9 +1,11 @@
 // @flow
 import React from 'react';
 import SideBarContents from 'components/SideBar/SideBarContents';
+import { Route, Switch } from 'react-router-dom';
 import snakeCase from 'lodash/fp/snakeCase';
 import { connect } from 'react-redux';
 import * as utils from 'utils';
+import { ConnectedRouter } from 'react-router-redux';
 
 import type {
   Application,
@@ -13,13 +15,7 @@ import type {
   Enum,
   Resource,
 } from 'generated/version/ServiceType';
-import type {
-  ParamsApp,
-  ParamsResource,
-  ParamsModel,
-  Props,
-  PropsOrg,
-} from 'params';
+import type { ParamsApp, ParamsResource, ParamsModel, Props } from 'params';
 import type { NavItem } from 'nav/NavItem';
 import type { State } from 'app/reducers';
 
@@ -209,16 +205,27 @@ const createResourceItem = (
   }),
 });
 
-const SideBar = (props: Props) => (
-  <SideBarContents sections={getItems(props)} />
+const SideBar = () => (
+  <Switch>
+    <Route
+      path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
+      component={SideBarContents}
+    />
+    <Route
+      path="/org/:organizationKey/app/:applicationKey/m/:model"
+      component={SideBarContents}
+    />
+    <Route
+      path="/org/:organizationKey/app/:applicationKey"
+      component={SideBarContents}
+    />
+    {/* <Route
+    path="/org/:organizationKey/doc/:documentationKey"
+    component={Documentation}
+    /> */}
+    <Route path="/org/:organizationKey" component={SideBarContents} />
+    <Route component={SideBarContents} />
+  </Switch>
 );
 
-const mapStateToProps = (state: State) => ({
-  service: state.application.service,
-  organizations: state.app.organizations,
-  organization: state.organization.organization,
-  applications: state.organization.applications,
-  importedServices: state.application.importedServices,
-});
-
-export default connect(mapStateToProps)(SideBar);
+export default SideBar;

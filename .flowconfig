@@ -6,6 +6,7 @@
 .*/node_modules/systemjs-builder/*
 .*/node_modules/stylelint/*
 .*/node_modules/flow-coverage-report/*
+.*/node_modules/eslint-plugin-jsx-a11y/*
 
 [options]
 # FIXME - should turn on flow type for all files
