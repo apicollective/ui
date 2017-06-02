@@ -1,6 +1,17 @@
 // @flow
-import type { Match } from 'types';
-import type { Organization, Service } from 'generated/version/ServiceType';
+import type {
+  Application,
+  Organization,
+  Service,
+} from 'generated/version/ServiceType';
+
+// Extend React Router for Params match
+export type Match<T> = {|
+  params: T,
+  isExact: boolean,
+  path: string,
+  url: string,
+|};
 
 export type ParamsHome = {||};
 
@@ -46,7 +57,7 @@ export type PropsHome = {|
 
 export type PropsOrg = {|
   match: Match<ParamsOrg>,
-  /* organizationKey: string,*/
+  applications: Application[],
 |};
 
 export type PropsApp = {|

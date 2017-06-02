@@ -5,6 +5,6 @@
 // For hot module loading - configureStore
 declare var module: {
   hot: {
-    accept(path: ?string) : void;
+    accept(path: ?string, callback:() => void) : void;
   }
 };

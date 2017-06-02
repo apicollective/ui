@@ -13,7 +13,13 @@ import type {
   Enum,
   Resource,
 } from 'generated/version/ServiceType';
-import type { ParamsApp, ParamsResource, ParamsModel, Props } from 'params';
+import type {
+  ParamsApp,
+  ParamsResource,
+  ParamsModel,
+  Props,
+  PropsOrg,
+} from 'params';
 import type { NavItem } from 'nav/NavItem';
 import type { State } from 'app/reducers';
 
@@ -33,7 +39,7 @@ const getItems = (props: Props): NavItem[] => {
         props.service,
         props.match.url
       );
-    } else {
+    } else if (props.applications) {
       // PropsOrg
       return orgItems(
         props.match.organizationKey,

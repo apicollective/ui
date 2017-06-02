@@ -13,7 +13,7 @@ import Enum from 'application/components/Enum';
 import { actions as serviceActions } from 'generated/version';
 
 import type { Service } from 'generated/version/ServiceType';
-import type { Match } from 'types';
+import type { Match } from 'params';
 
 import styles from 'application/components/application.css';
 
