@@ -26,29 +26,32 @@ const App = (props: Props) =>
         <SideBar />
         <Content>
           <Switch>
-            <Route exact={true} path="/" component={Home} />={true}
+            <Route
+              extact={true}
+              path="/org/:organizationKey/app/:applicationKey"
+              component={Appln}
+            />
+            <Route
+              extact={true}
+              path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
+              component={Appln}
+            />
+            <Route
+              extact={true}
+              path="/org/:organizationKey/app/:applicationKey/m/:model"
+              component={Appln}
+            />
+            <Route
+              extact={true}
+              path="/org/:organizationKey/doc/:documentationKey"
+              component={Documentation}
+            />
             <Route
               extact={true}
               path="/org/:organizationKey"
               component={OrganizationComponent}
             />
-            <Route
-              exact={true}
-              path="/org/:organizationKey/app/:applicationKey"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/app/:applicationKey/m/:model"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/doc/:documentationKey"
-              component={Documentation}
-            />
+            <Route component={Home} />
           </Switch>
         </Content>
       </div>
