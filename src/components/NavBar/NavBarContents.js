@@ -1,10 +1,40 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Button from 'components/Button';
 import styles from 'components/NavBar/navbar.css';
+import * as utils from 'utils';
+
 import type { NavItem } from 'nav/NavItem';
+import type { Props } from 'params';
+import type { State } from 'app/reducers';
+
+const NavBarContents = (props: Props) => {
+  const title = process.env.TITLE ? process.env.TITLE : 'apidoc';
+  let removeGithubLink = true;
+  if (typeof process.env.TITLE === 'undefined' || !process.env.TITLE) {
+    removeGithubLink = false;
+  }
+  const items = getItems(props);
+  return (
+    <div className={styles.navbar}>
+      <Link className={styles.home} to={'/'}>{title}</Link>
+      <div className={styles.breadcrumbs}>
+        {items.map(
+          (item, id) =>
+            (item.toHref
+              ? <Button key={id} className={styles.button} toHref={item.toHref}>
+                  {item.name}
+                </Button>
+              : <div />)
+        )}
+      </div>
+      {removeGithubLink ? null : githubLink()}
+    </div>
+  );
+};
 
 const githubLink = () => (
   <a
@@ -28,33 +58,69 @@ const githubLink = () => (
   </a>
 );
 
-const NavBarContents = ({
-  title,
-  items,
-  toHref,
-  removeGithubLink,
-}: {
-  title: string,
-  items: NavItem[],
-  toHref: string,
-  removeGithubLink: boolean,
-}) => (
-  <div className={styles.navbar}>
-    <Link className={styles.home} to={toHref}>{title}</Link>
-    <div className={styles.breadcrumbs}>
-      {items.map(
-        (item, id) =>
-          (item.toHref
-            ? <Button key={id} className={styles.button} toHref={item.toHref}>
-                {item.name}
-              </Button>
-            : <div />)
-      )}
-    </div>
-    {removeGithubLink ? null : githubLink()}
-  </div>
-);
+const getItems = (props: Props): NavItem[] => {
+  // FIXME test
+  if (!props.match || !props.service || !props.service.apidoc) {
+    return [];
+  }
+  // FIXME test
+  let operationPath = '';
+  const params = props.match.params;
+  if (params.resource) {
+    const op = utils.getOperation(
+      params.resource,
+      params.method,
+      params.path,
+      props.service
+    );
+    operationPath = op.path;
+  }
 
-export default NavBarContents;
+  return [].concat(
+    params.organizationKey
+      ? {
+          name: params.organizationKey,
+          toHref: utils.buildNavHref({
+            organization: params.organizationKey,
+          }),
+        }
+      : [],
+    params.applicationKey
+      ? {
+          name: params.applicationKey,
+          toHref: utils.buildNavHref({
+            organization: params.organizationKey,
+            application: params.applicationKey,
+          }),
+        }
+      : [],
+    params.resource
+      ? {
+          name: `${params.method.toUpperCase()} ${operationPath}`,
+          toHref: utils.buildNavHref({
+            organization: params.organizationKey,
+            application: params.applicationKey,
+            resource: params.resource,
+            method: params.method,
+            path: params.path,
+          }),
+        }
+      : [],
+    params.model
+      ? {
+          name: `${params.model}`,
+          toHref: utils.buildNavHref({
+            organization: params.organizationKey,
+            application: params.applicationKey,
+            model: params.model,
+          }),
+        }
+      : []
+  );
+};
 
-export { styles };
+const mapStateToProps = (state: State) => ({
+  service: state.application.service,
+});
+
+export default connect(mapStateToProps)(NavBarContents);
