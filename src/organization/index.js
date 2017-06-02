@@ -10,7 +10,7 @@ import AppCard from 'organization/AppCard';
 import styles from 'organization/organization.css';
 import { actions } from 'organization/sagas';
 
-import type { Match } from 'types';
+import type { Match } from 'params';
 import type { State } from 'app/reducers';
 import type {
   Application,
@@ -50,6 +50,7 @@ const Applications = ({
 
 type Params = {|
   name: string,
+  organizationKey: string,
 |};
 
 type Props = {|
