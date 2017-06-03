@@ -71,6 +71,8 @@ const Operation = ({
     </div>
     <div className={styles.request}>
       <Request
+        appKey={applicationKey}
+        orgKey={organizationKey}
         key={`${method}${resource.type}${path}-request`}
         operation={operation}
         service={service}
