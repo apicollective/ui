@@ -56,7 +56,6 @@ export class Application extends Component {
       return <LoadingOverlay isLoaded={this.props.loaded} />;
     }
     if (this.props.match.params.resource) {
-      console.log('yyyyyyyyyy');
       // Load Operation
       const {
         method,
