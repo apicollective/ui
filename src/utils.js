@@ -27,9 +27,9 @@ const simplifyName = (name: string): string => {
   const joined = splitName
     .map(
       word =>
-        word.search('v[0-9]+') > -1
+        (word.search('v[0-9]+') > -1
           ? word
-          : word.substring(0, word.search('[A-Za-z]') + 1)
+          : word.substring(0, word.search('[A-Za-z]') + 1))
     )
     .join('.');
   return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
@@ -62,18 +62,18 @@ const getEnum = (
   service: Service,
   importedServices: Service[]
 ): ?Enum =>
-  importedServices && isImport(name, importedServices)
+  (importedServices && isImport(name, importedServices)
     ? getEnumImport(name, importedServices)
-    : findByName(name, service.enums);
+    : findByName(name, service.enums));
 
 const getModel = (
   name: string,
   service: Service,
   importedServices: Service[]
 ): ?Model =>
-  importedServices && isImport(name, importedServices)
+  (importedServices && isImport(name, importedServices)
     ? getModelImport(name, importedServices)
-    : findByName(name, service.models);
+    : findByName(name, service.models));
 
 const isEnum = (
   type: string,
@@ -171,13 +171,14 @@ const buildNavHref = ({
 declare type LinkProps = {
   to?: string,
   tabIndex?: number,
+  className?: string,
   children?: React$Element<*>,
 };
 
 export const Link = (props: LinkProps) =>
   (props.to
     ? <ReactLink {...props}>{props.children}</ReactLink>
-    : <div>{props.children}</div>);
+    : <div className={props.className}>{props.children}</div>);
 
 export {
   cleanPath,

@@ -26,7 +26,7 @@ const NavBarContents = (props: Props) => {
           (item, id) =>
             (item.toHref
               ? <Button key={id} className={styles.button} toHref={item.toHref}>
-                  {item.name}
+                  {item.name} aa
                 </Button>
               : <div />)
         )}
