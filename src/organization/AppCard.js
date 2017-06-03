@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils';
 
 import Markdown from 'components/Markdown';
 

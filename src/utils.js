@@ -1,4 +1,6 @@
 // @flow
+import React from 'react';
+import { Link as ReactLink } from 'react-router-dom';
 import type {
   Service,
   Operation,
@@ -165,6 +167,17 @@ const buildNavHref = ({
       field ? `#${field}` : null
     )
     .join('');
+
+declare type LinkProps = {
+  to?: string,
+  tabIndex: number,
+  children?: React$Element<*>,
+};
+
+export const Link = (props: LinkProps) =>
+  (props.to
+    ? <ReactLink {...props}>{props.children}</ReactLink>
+    : <div>{props.children}</div>);
 
 export {
   cleanPath,

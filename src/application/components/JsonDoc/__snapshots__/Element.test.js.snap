@@ -8,6 +8,7 @@ exports[`Element Array 1`] = `
   onMouseOver={[Function]}
 >
   <a
+    href="/org/bryzek/app/apidoc-generator/m/key#key"
     onClick={[Function]}
     tabIndex={0}
   >
@@ -30,6 +31,7 @@ exports[`Element Field Model 1`] = `
   onMouseOver={[Function]}
 >
   <a
+    href="/org/bryzek/app/apidoc-generator/m/key#key"
     onClick={[Function]}
     tabIndex={0}
   >
@@ -52,6 +54,7 @@ exports[`Element Field Value string 1`] = `
   onMouseOver={[Function]}
 >
   <a
+    href="/org/bryzek/app/apidoc-generator/m/key#key"
     onClick={[Function]}
     tabIndex={0}
   >
@@ -76,6 +79,7 @@ exports[`Element Model 1`] = `
     onMouseOver={[Function]}
   >
     <a
+      href="/org/bryzek/app/apidoc-generator/m/error#error.code"
       onClick={[Function]}
       tabIndex={0}
     >
@@ -103,6 +107,7 @@ exports[`Element Model 1`] = `
     onMouseOver={[Function]}
   >
     <a
+      href="/org/bryzek/app/apidoc-generator/m/error#error.message"
       onClick={[Function]}
       tabIndex={0}
     >
@@ -136,6 +141,7 @@ exports[`JField model 1`] = `
     onMouseOver={[Function]}
   >
     <a
+      href="/org/bryzek/app/apidoc-generator/m/key#key"
       onClick={[Function]}
       tabIndex={0}
     >
@@ -151,11 +157,12 @@ exports[`JField model 1`] = `
   </div>
   <div
     className="element"
-    data-fieldKey="key"
+    data-lieldKey="key"
     href="#key"
     onMouseOver={[Function]}
   >
     <a
+      href="/org/bryzek/app/apidoc-generator/m/key#key"
       onClick={[Function]}
       tabIndex={0}
     >
@@ -168,6 +175,7 @@ exports[`JField model 1`] = `
           onMouseOver={[Function]}
         >
           <a
+            href="/org/bryzek/app/apidoc-generator/m/error#error.code"
             onClick={[Function]}
             tabIndex={0}
           >
@@ -195,6 +203,7 @@ exports[`JField model 1`] = `
           onMouseOver={[Function]}
         >
           <a
+            href="/org/bryzek/app/apidoc-generator/m/error#error.message"
             onClick={[Function]}
             tabIndex={0}
           >
@@ -230,6 +239,7 @@ exports[`JField value 1`] = `
   onMouseOver={[Function]}
 >
   <a
+    href="/org/bryzek/app/apidoc-generator/m/key#key"
     onClick={[Function]}
     tabIndex={0}
   >

@@ -27,27 +27,22 @@ const App = (props: Props) => (
         <Content>
           <Switch>
             <Route
-              extact={true}
-              path="/org/:organizationKey/app/:applicationKey"
-              component={Appln}
-            />
-            <Route
-              extact={true}
               path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
               component={Appln}
             />
             <Route
-              extact={true}
               path="/org/:organizationKey/app/:applicationKey/m/:model"
               component={Appln}
             />
             <Route
-              extact={true}
+              path="/org/:organizationKey/app/:applicationKey"
+              component={Appln}
+            />
+            <Route
               path="/org/:organizationKey/doc/:documentationKey"
               component={Documentation}
             />
             <Route
-              extact={true}
               path="/org/:organizationKey"
               component={OrganizationComponent}
             />

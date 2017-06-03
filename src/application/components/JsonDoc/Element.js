@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import { Link } from 'utils';
 import * as utils from 'utils';
 import * as defaults from 'application/components/JsonDoc/defaults';
 
