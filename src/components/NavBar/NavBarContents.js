@@ -26,7 +26,7 @@ const NavBarContents = (props: Props) => {
           (item, id) =>
             (item.toHref
               ? <Button key={id} className={styles.button} toHref={item.toHref}>
-                  {item.name} aa
+                  {item.name}
                 </Button>
               : <div />)
         )}
@@ -60,13 +60,13 @@ const githubLink = () => (
 
 const getItems = (props: Props): NavItem[] => {
   // FIXME test
-  if (!props.match || !props.service || !props.service.apidoc) {
+  if (!props.match || !props.match.params) {
     return [];
   }
   // FIXME test
   let operationPath = '';
   const params = props.match.params;
-  if (params.resource) {
+  if (params.resource && props.service) {
     const op = utils.getOperation(
       params.resource,
       params.method,
