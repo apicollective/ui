@@ -22,6 +22,8 @@ const ParameterList = (
     type,
     required,
     description,
+    minimum,
+    maximum,
     example,
     defaultValue,
     service,
@@ -31,6 +33,8 @@ const ParameterList = (
     name: string,
     type: string,
     required: boolean,
+    minimum?: number,
+    maximum?: number,
     description?: string,
     example?: string,
     defaultValue?: string,
@@ -62,8 +66,8 @@ const ParameterList = (
           {name}
         </a>
         {/* <p onClick={typeClickFn} className={classnames(styles.type, typeClickFn ? styles.pointer : null)}>
-          {simplifyName(modelType)}
-          </p> */}
+            {simplifyName(modelType)}
+            </p> */}
         <Link
           tabIndex={0}
           toHref={typeToHrefFn}
@@ -77,6 +81,16 @@ const ParameterList = (
         {description
           ? <Markdown source={description} className={styles.description} />
           : <p className={styles.noContent}>No description</p>}
+        {minimum
+          ? <p className={styles.sample}>
+              <span className={styles.sampleTitle}>Minimum</span>{minimum}
+            </p>
+          : null}
+        {maximum
+          ? <p className={styles.sample}>
+              <span className={styles.sampleTitle}>Maximum</span>{maximum}
+            </p>
+          : null}
         {example
           ? <p className={styles.sample}>
               <span className={styles.sampleTitle}>Example</span>{example}

@@ -16,11 +16,7 @@ import type { Organization } from 'generated/version/ServiceType';
 
 const allActions = Object.assign({}, orgActions);
 
-const Org = ({
-  organization,
-}: {
-  organization: Organization,
-}) => (
+const Org = ({ organization }: { organization: Organization }) => (
   <HomeCard
     link={`/org/${organization.key}`}
     name={organization.name}
