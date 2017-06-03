@@ -170,7 +170,7 @@ const buildNavHref = ({
 
 declare type LinkProps = {
   to?: string,
-  tabIndex: number,
+  tabIndex?: number,
   children?: React$Element<*>,
 };
 

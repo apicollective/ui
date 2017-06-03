@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'utils';
 
 import Markdown from 'components/Markdown';
 import {
@@ -10,6 +9,7 @@ import {
   isImport,
   isImportOrInService,
   simplifyName,
+  Link,
 } from 'utils';
 
 import type { Service } from 'generated/version/ServiceType';
@@ -72,7 +72,7 @@ const ParameterList = (
             {simplifyName(modelType)}
             </p> */}
         <Link
-          tabIndex="0"
+          tabIndex={0}
           toHref={typeToHrefFn}
           className={classnames(styles.type)}
         >

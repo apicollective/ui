@@ -1,8 +1,16 @@
 // @flow
 import React from 'react';
 
-import { Link } from 'utils';
-import * as utils from 'utils';
+import {
+  buildNavHref,
+  isArray,
+  getEnum,
+  getModel,
+  isEnum,
+  isModel,
+  Link,
+} from 'utils';
+
 import * as defaults from 'application/components/JsonDoc/defaults';
 
 import styles from 'application/components/JsonDoc/json-doc.css';
@@ -38,7 +46,7 @@ const comma = (isLast: boolean): string => (isLast ? '' : ',');
  */
 
 const click = (fieldKey: string, service: Service): string =>
-  utils.buildNavHref({
+  buildNavHref({
     organization: service.organization.key,
     application: service.application.key,
     model: fieldKey.split('.')[0],
@@ -263,7 +271,7 @@ export const JField = ({
 }) => {
   const type = field.type;
 
-  if (utils.isArray(type) || utils.isModel(type, service, importedServices)) {
+  if (isArray(type) || isModel(type, service, importedServices)) {
     return (
       <MultiLineField
         label={field.name}
@@ -287,8 +295,8 @@ export const JField = ({
   } else {
     // Standard Value or Enum
     let value = null;
-    if (utils.isEnum(type, service, importedServices)) {
-      const enumModel = utils.getEnum(type, service, importedServices);
+    if (isEnum(type, service, importedServices)) {
+      const enumModel = getEnum(type, service, importedServices);
       value = enumModel ? `"${enumModel.values[0].name}"` : '';
     } else {
       value = defaults.getFieldValue(field);
@@ -327,9 +335,8 @@ const Element = ({
   isLast: boolean,
 }) => {
   let element = null;
-  const isArray = utils.isArray(type);
-  if (utils.isModel(type, service, importedServices)) {
-    const model = utils.getModel(type, service, importedServices);
+  if (isModel(type, service, importedServices)) {
+    const model = getModel(type, service, importedServices);
     element = (
       <ModelElement
         model={model}
@@ -339,7 +346,7 @@ const Element = ({
         toHref={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
-        isLast={isArray || isLast}
+        isLast={isArray(type) || isLast}
       />
     );
   } else {
@@ -356,12 +363,12 @@ const Element = ({
         toHref={click(fieldKey, service)}
         service={service}
         importedServices={importedServices}
-        isLast={isArray || isLast}
+        isLast={isArray(type) || isLast}
       />
     );
   }
 
-  if (isArray) {
+  if (isArray(type)) {
     return (
       <ArrayElement
         fieldKey={fieldKey}

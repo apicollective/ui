@@ -18,7 +18,7 @@ const AppCard = (
   } = {}
 ) => (
   <div className={styles.container}>
-    <Link tabIndex="0" to={link}>
+    <Link tabIndex={0} to={link}>
       <p className={styles.name}>{name}</p>
       <div className={styles.description}>
         {description
