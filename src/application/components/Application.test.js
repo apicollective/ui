@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router';
 
 import { Application } from 'application/components/Application';
 import Example from 'exampleService.json';
@@ -27,7 +28,11 @@ test('Application Home', () => {
     importedServices: [],
   };
 
-  const component = renderer.create(<Application {...params} />);
+  const component = renderer.create(
+    <MemoryRouter>
+      <Application {...params} />
+    </MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();

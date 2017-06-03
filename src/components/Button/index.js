@@ -1,7 +1,7 @@
 // @flow
 import React, { Children } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'utils';
 
 import styles from 'components/Button/button.css';
 import classnames from 'classnames';

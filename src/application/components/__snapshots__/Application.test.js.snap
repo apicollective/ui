@@ -28,11 +28,12 @@ exports[`Application Home 1`] = `
       </div>
       <div>
         <div
-          className="container isClick"
+          className="container href"
         >
           <a
+            href="/org//app//r/generator/m/get/p/generators"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             <div
               className="flex"
@@ -70,11 +71,12 @@ exports[`Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick"
+          className="container href"
         >
           <a
+            href="/org//app//r/generator/m/get/p/generatorskey"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             <div
               className="flex"
@@ -112,11 +114,12 @@ exports[`Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick"
+          className="container href"
         >
           <a
+            href="/org//app//r/healthcheck/m/get/p/_internal_healthcheck"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             <div
               className="flex"
@@ -143,11 +146,12 @@ exports[`Application Home 1`] = `
           </a>
         </div>
         <div
-          className="container isClick"
+          className="container href"
         >
           <a
+            href="/org//app//r/invocation/m/post/p/invocationskey"
             onClick={[Function]}
-            tabIndex="0"
+            tabIndex={0}
           >
             <div
               className="flex"

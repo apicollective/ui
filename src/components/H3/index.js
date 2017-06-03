@@ -1,6 +1,6 @@
 //@flow
 import React, { Children } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils';
 import classnames from 'classnames';
 
 import styles from 'components/H3/h3.css';

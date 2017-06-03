@@ -23,11 +23,9 @@ const ModelDescription = ({
   const type = utils.getType(baseModel);
   const model = utils.getModel(type, service, importedServices);
 
-  //   <H2 toHref={model ? this.props.toHref : null} className={styles.modelName}>
-  //   <H2 className={styles.modelName}>
   return (
     <div className={styles.modelDescription}>
-      <H2 className={styles.modelName}>
+      <H2 className={styles.modelName} toHref={toHref}>
         {utils.simplifyName(baseModel)}
       </H2>
       {model && model.description
