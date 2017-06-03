@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { cleanPath } from 'utils';
+import { buildNavHref, getType, cleanPath } from 'utils';
 import JsonDoc from 'application/components/JsonDoc/JsonDoc';
 import ParameterListGroup from 'application/components/ParameterListGroup';
 
@@ -14,10 +14,14 @@ const Request = ({
   operation,
   service,
   importedServices,
+  orgKey,
+  appKey,
 }: {
   operation: Operation,
   service: Service,
   importedServices: Service[],
+  orgKey: string,
+  appKey: string,
 }) => {
   const responseParameters = () => {
     if (operation.parameters && !!operation.parameters.length) {
@@ -43,11 +47,15 @@ const Request = ({
           <div className={styles.json}>
             <JsonDoc
               key={`${operation.body.type}-requestbody`}
+              toHref={buildNavHref({
+                organization: orgKey,
+                application: appKey,
+                model: getType(baseModel),
+              })}
               baseModel={baseModel}
               service={service}
               importedServices={importedServices}
               includeModel={true}
-              modelNameClick={() => {}}
             />
           </div>
         </div>

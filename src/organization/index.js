@@ -10,6 +10,7 @@ import AppCard from 'organization/AppCard';
 import styles from 'organization/organization.css';
 import { actions } from 'organization/sagas';
 
+import type { Match } from 'params';
 import type { State } from 'app/reducers';
 import type {
   Application,
@@ -47,19 +48,24 @@ const Applications = ({
   </div>
 );
 
-type Props = {
+type Params = {|
+  name: string,
+  organizationKey: string,
+|};
+
+type Props = {|
   loaded: boolean,
-  params: Object, // FIXME
+  match: Match<Params>,
   actions: Object, // FIXME
   organization?: OrganizationType,
   applications: any, // FIXME PropTypes.array.isRequired,
-};
+|};
 
 class Organization extends Component {
   props: Props;
 
   componentDidMount() {
-    const orgKey = this.props.params.organizationKey;
+    const orgKey = this.props.match.params.organizationKey;
     this.props.actions.getOrganizationDetails_get({ orgKey });
   }
 
@@ -74,7 +80,7 @@ class Organization extends Component {
           </div>
           <div className={styles.container}>
             <Applications
-              orgKey={this.props.params.organizationKey}
+              orgKey={this.props.match.params.organizationKey}
               applications={this.props.applications}
             />
           </div>

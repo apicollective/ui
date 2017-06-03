@@ -12,11 +12,11 @@
   color: white;
   line-height: 32px;
   font-size: 14px;
-  padding: 0 12px;
+  font-family: var(--font-secondary);
+  padding: 7px 12px;
   border-radius: var(--border-radius);
   text-decoration: none;
   transition: all 0.3s;
-  cursor: pointer;
 
   &:not(.disabled):hover {
     background: var(--color-primary-dark);

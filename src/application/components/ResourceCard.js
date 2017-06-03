@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'utils';
 
 import Markdown from 'components/Markdown';
 
@@ -10,14 +11,14 @@ const ResourceCard = (
   {
     method,
     path,
-    click,
+    toHref,
     description,
-  }: {
+  }: {|
     method: string,
     path: string,
-    click?: Function,
+    toHref?: string,
     description?: string,
-  } = {}
+  |} = {}
 ) => {
   const methodClasses = classnames(
     styles.method,
@@ -26,7 +27,7 @@ const ResourceCard = (
   );
   const containerClasses = classnames(
     styles.container,
-    click ? styles.isClick : null
+    toHref ? styles.href : null
   );
   const pathClasses = classnames(
     styles.path,
@@ -35,7 +36,7 @@ const ResourceCard = (
 
   return (
     <div className={containerClasses}>
-      <a tabIndex="0" onClick={click}>
+      <Link tabIndex={0} to={toHref}>
         <div className={styles.flex}>
           <div className={styles.left}>
             <div className={methodClasses}>
@@ -49,7 +50,7 @@ const ResourceCard = (
         {description
           ? <Markdown source={description} className={styles.description} />
           : null}
-      </a>
+      </Link>
     </div>
   );
 };

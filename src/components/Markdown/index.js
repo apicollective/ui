@@ -1,19 +1,21 @@
-import React, { PropTypes } from 'react';
+//@flow
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import classnames from 'classnames';
 
 import styles from 'components/Markdown/markdown.css';
 
-const Markdown = ({ source, className }) => (
+const Markdown = ({
+  source,
+  className,
+}: {
+  source: string,
+  className?: string,
+}) => (
   <div className={classnames(className, styles.container)}>
     <ReactMarkdown source={source} className={styles.markdown} />
   </div>
 );
-
-Markdown.propTypes = {
-  source: PropTypes.string.isRequired,
-  className: PropTypes.string,
-};
 
 export default Markdown;
 

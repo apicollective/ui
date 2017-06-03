@@ -1,6 +1,6 @@
 // @flow
-import { browserHistory } from 'react-router';
-
+import React from 'react';
+import { Link as ReactLink } from 'react-router-dom';
 import type {
   Service,
   Operation,
@@ -11,12 +11,6 @@ import type {
 } from 'generated/version/ServiceType';
 
 const cleanPath = (path: string) => path.replace(/\W/g, '');
-
-const onClickHref = (href: string) => (event: Event) => {
-  browserHistory.push(href);
-  // Stop parent nav events to be publishes - jsondoc nesting
-  if (event.stopPropagation) event.stopPropagation();
-};
 
 const getType = (type: string): string => {
   /* const ex = /[\[]?([^\]]+)/i;*/
@@ -33,9 +27,9 @@ const simplifyName = (name: string): string => {
   const joined = splitName
     .map(
       word =>
-        word.search('v[0-9]+') > -1
+        (word.search('v[0-9]+') > -1
           ? word
-          : word.substring(0, word.search('[A-Za-z]') + 1)
+          : word.substring(0, word.search('[A-Za-z]') + 1))
     )
     .join('.');
   return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
@@ -63,25 +57,23 @@ const getModelImport = (name: string, importedServices: Service[]): ?Model => {
   return service ? findByName(name, service.models) : null;
 };
 
-/* eslint-disable no-use-before-define */
-
 const getEnum = (
   name: string,
   service: Service,
   importedServices: Service[]
 ): ?Enum =>
-  importedServices && isImport(name, importedServices)
+  (importedServices && isImport(name, importedServices)
     ? getEnumImport(name, importedServices)
-    : findByName(name, service.enums);
+    : findByName(name, service.enums));
 
 const getModel = (
   name: string,
   service: Service,
   importedServices: Service[]
 ): ?Model =>
-  importedServices && isImport(name, importedServices)
+  (importedServices && isImport(name, importedServices)
     ? getModelImport(name, importedServices)
-    : findByName(name, service.models);
+    : findByName(name, service.models));
 
 const isEnum = (
   type: string,
@@ -106,8 +98,6 @@ const isImport = (type: string, importedServices: Service[]): boolean =>
       .map(importValue => isInService(type, importValue))
       .find(b => b === true)
   );
-
-/* eslint-enable no-use-before-define */
 
 const isImportOrInService = (
   type: string,
@@ -178,9 +168,20 @@ const buildNavHref = ({
     )
     .join('');
 
+declare type LinkProps = {
+  to?: string,
+  tabIndex?: number,
+  className?: string,
+  children?: React$Element<*>,
+};
+
+export const Link = (props: LinkProps) =>
+  (props.to
+    ? <ReactLink {...props}>{props.children}</ReactLink>
+    : <div className={props.className}>{props.children}</div>);
+
 export {
   cleanPath,
-  onClickHref,
   getType,
   simplifyName,
   getModel,

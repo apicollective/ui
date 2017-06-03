@@ -6,7 +6,6 @@ exports[`simple html 1`] = `
 >
   <h2
     className="modelName h2"
-    onClick={undefined}
   >
     base
   </h2>

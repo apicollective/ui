@@ -12,6 +12,8 @@
   "plugins": ["react", "flowtype"],
   "parser": "babel-eslint",
   "rules": {
+    "react/no-unescaped-entities": "off",
+    "no-use-before-define": "off",
     "no-confusing-arrow": "off",
     "no-else-return": "off",
     "no-underscore-dangle": "off",

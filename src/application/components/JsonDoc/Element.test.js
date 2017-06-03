@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router';
 
 import Element, { JField } from 'application/components/JsonDoc/Element';
 import Example from 'exampleService.json';
@@ -17,7 +18,9 @@ test('Element Model', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<Element {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><Element {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -38,7 +41,9 @@ test('Element Field Model', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<Element {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><Element {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -59,7 +64,9 @@ test('Element Field Value string', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<Element {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><Element {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -77,7 +84,9 @@ test('Element Array', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<Element {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><Element {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -97,7 +106,9 @@ test('JField value', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<JField {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><JField {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
@@ -117,7 +128,9 @@ test('JField model', () => {
     isLast: false,
   };
 
-  const component = renderer.create(<JField {...params} />);
+  const component = renderer.create(
+    <MemoryRouter><JField {...params} /></MemoryRouter>
+  );
 
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
