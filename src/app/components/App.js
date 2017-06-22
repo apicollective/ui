@@ -11,11 +11,12 @@ import Documentation from 'documentation';
 import NavBar from 'components/NavBar/NavBar';
 import SideBar from 'components/SideBar/SideBar';
 import Content from 'components/Content';
+import Login from 'login/Login';
 
 import styles from 'app/components/app.css';
 
 type Props = {|
-  history: string,
+  history: string, // FIXME - type
 |};
 
 const App = (props: Props) =>
@@ -46,6 +47,7 @@ const App = (props: Props) =>
               path="/org/:organizationKey"
               component={OrganizationComponent}
             />
+            <Route path="/login" component={Login} />
             <Route component={Home} />
           </Switch>
         </Content>

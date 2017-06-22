@@ -36,6 +36,15 @@
   color: white;
 }
 
+.githubSvg {
+  fill: #343434;
+  color: #FFF;
+  position: absolute;
+  top: 0;
+  border: 0;
+  right: 0;
+}
+
 .button {
   display: inline-block;
   line-height: 40px;
@@ -47,4 +56,3 @@
     position: relative 0 auto auto -10px;
   }
 }
-
