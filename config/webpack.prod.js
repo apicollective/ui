@@ -141,7 +141,7 @@ const config = {
         APIDOC_HOST: '"' +
           (process.env.APIDOC_HOST
             ? process.env.APIDOC_HOST
-            : 'http://api.apidoc.me') +
+            : 'https://api.apibuilder.io') +
           '"',
         /* APIDOC_HOST: '""',*/
       },
