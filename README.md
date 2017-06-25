@@ -21,23 +21,30 @@ UI Dev
     yarn install
     yarn start
     http://localhost:8080/
-    
+
     yarn test
     yarn flow
-    
+
 Before a Pull Request
 
     yarn run check
-    
+
 App
 
     yarn start
-    
+
 ## Deploy
 Deploy will build and push to S3. You need to have ~/.aws/credentials setup with access to the S3 bucket for this
 
     yarn deploy
-    
+
+### Travis Settings
+When changes are merged to master travis will automatically perform a build, if the build is successful it will be deployed immediately.
+
+To update the aws keys:
+
+    travis encrypt AWS_ACCESS_KEY_ID='access key' AWS_SECRET_ACCESS_KEY='secret key' --add env
+
 ## Build Settings
 
 APIDOC_HOST
