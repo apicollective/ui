@@ -181,12 +181,12 @@ if (process.env.DEPLOY) {
       s3Options: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        region: 'us-west-2',
+        region: 'us-east-1',
       },
       s3UploadOptions: {
         Bucket: process.env.APIDOC_S3_BUCKET
           ? process.env.APIDOC_S3_BUCKET
-          : 'apidoc.me',
+          : 'ui-www.apibuilder.io',
       },
     })
   );

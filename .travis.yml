@@ -1,13 +1,21 @@
----
 language: node_js
 
 node_js:
-  - "7"
+- '7'
 
 script:
-  - yarn run check
+- yarn run check
 
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
+
+env:
+  secure: alhI0CyGHOGrt2Ay8A+HgN/pM/WY17HeqQi0g/uQ6cirpjYTogyInoNVtZJ1reiBbfaZir9j9aZLESOPIoiMwNJrCVkMUx5wzs26YVXRFkV+mjafFJKCVAi31bAWI1jfjHZG1oHQTp83zB5wUl2NHxoM0FQIouTAgG3viN5Yd4lkwn9FndxeyZ9I5K1xy7CUnPk1/gHSobE/jP/Up39mN2ZaFG5Ip2SnCktkB4nQD1pKRwOtbC8oR+OmoiimtJLd5baaA1s2PWsCeemOKZK8zTubpb5YnVeDVKJpo0JXZbfV4gQp3hmqfcc6iR79h4YjY0sRh4iKL3djI17qyKSK143ZUo0Pn7ETDLTFkf2X1TJe39H2BfGo5kTNuGVdccix/bGsiV2abunyuRPoNOptm8d9QxQjQ9lQw0PDrAJWG7qRsreBxCnqpO8+R7eEd6XjeQPw1jlZ2OUZq3e0w2giFKLIOUPGJ+FavaEw2ypPJolnLibsVmLkToL4F8+hoKDpanDX9Galx4jDKNwzs02oTjrBHo1gleiEXb8jQDd7NHkmp0mK4Ug8YY4Ht7NgvxFo5n+vhK9unBwRVHPyWilfG4usOBkmnU4LXtAUMnGlct7nMuyHFAF7ETfNyy21dB1FWruo9lhWTYdTnG6k9RvQpgE1g1qi1JeUF1gGIwUU5C0=
+
+deploy:
+  provider: script
+  script: yarn run deploy
+  on:
+    branch: master
