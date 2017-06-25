@@ -71,8 +71,11 @@ class App extends Component {
             path: utils.cleanPath(operation.path),
           })
         ),
-        active: currentItem ===
-          `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(operation.path)}`,
+        active:
+          currentItem ===
+            `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(
+              operation.path
+            )}`,
         type: 'resource',
         method: operation.method,
         path: operation.path,
@@ -299,7 +302,7 @@ class App extends Component {
       children,
     } = this.props;
 
-    const title = process.env.TITLE ? process.env.TITLE : 'apidoc';
+    const title = process.env.TITLE ? process.env.TITLE : 'API Builder';
     let removeGithubLink = true;
     if (typeof process.env.TITLE === 'undefined' || !process.env.TITLE) {
       removeGithubLink = false;

@@ -138,11 +138,12 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         TITLE: JSON.stringify(process.env.TITLE),
-        APIDOC_HOST: '"' +
-          (process.env.APIDOC_HOST
-            ? process.env.APIDOC_HOST
-            : 'http://api.apidoc.me') +
-          '"',
+        APIDOC_HOST:
+          '"' +
+            (process.env.APIDOC_HOST
+              ? process.env.APIDOC_HOST
+              : 'http://api.apibuilder.io') +
+            '"',
         /* APIDOC_HOST: '""',*/
       },
     }),
