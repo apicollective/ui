@@ -1,11 +1,11 @@
 export const service = {
-  name: 'apidoc generator',
+  name: 'apibuilder generator',
   description: 'This is an api',
   organization: {
-    key: 'bryzek',
+    key: 'uicollective',
   },
   application: {
-    key: 'apidoc-generator',
+    key: 'apibuilder-generator',
   },
   resources: [
     {
