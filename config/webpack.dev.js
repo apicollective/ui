@@ -160,7 +160,7 @@ module.exports = env => ({
     proxy: {
       '/api': {
         changeOrigin: true,
-        target: 'http://api.apidoc.me',
+        target: 'http://api.apibuilder.io',
         pathRewrite: { '^/api': '' },
       },
     },

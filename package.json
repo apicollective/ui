@@ -1,7 +1,7 @@
 {
-  "name": "apidoc-ui",
+  "name": "apibuilder.io-ui",
   "version": "0.2.0",
-  "description": "Apidoc UI",
+  "description": "API Builder UI",
   "scripts": {
     "build": "webpack --env=prod --progress --profile --colors",
     "deploy": "DEPLOY=true webpack --env=prod",
@@ -23,7 +23,9 @@
   },
   "keywords": [
     "movio",
-    "apidoc"
+    "apidoc",
+    "apibuilder",
+    "api"
   ],
   "contributors": [
     {

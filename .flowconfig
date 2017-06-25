@@ -1,6 +1,5 @@
 # https://flowtype.org/docs/advanced-configuration.html
 [version]
-0.45.0
 
 [ignore]
 .*/node_modules/jsverify/*
