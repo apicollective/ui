@@ -11,7 +11,6 @@ import type { State } from 'login/reducers';
 
 export type Session = {|
   id: string,
-  expires_at: Date,
 |};
 
 type Props = {|
@@ -32,12 +31,12 @@ type Props = {|
  */
 
 const Login = (props: Props) => {
-  if (!props.loggingIn) {
-    return LoggingIn;
+  if (props.loggingIn) {
+    return LoggingIn();
   }
 
   // If we have a valid JWT redirect to /
-  if (props.session) {
+  if (props.session && props.session.id) {
     // TODO - valide JWT
     return <Redirect push={true} to="/" />;
   }
@@ -47,19 +46,19 @@ const Login = (props: Props) => {
     const query = queryString.parse(props.location.search);
     if (query.code && props.actions) {
       props.actions.login(query.code);
-      return <div>loading</div>;
+      return LoggingIn();
     }
   }
 
   // Not logged in
-  return LoginPlease;
+  return LoginPlease();
 };
 
-const LoginPlease = () => <div>Login Failed</div>;
+const LoginPlease = () => <div>Login Please</div>;
 
 const LoggingIn = () => <div>Logging In</div>;
 
-const mapStateToProps = (state: State): Props => ({
+const mapStateToProps = (state: State) => ({
   loggingIn: state.loggingIn,
   session: state.session,
 });

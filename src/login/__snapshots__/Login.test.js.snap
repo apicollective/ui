@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login Loading 1`] = `
+exports[`Login Please 1`] = `
 <div>
-  yep
+  Login Please
+</div>
+`;
+
+exports[`Validate github token with backend successfully 1`] = `
+<div>
+  Logging In
 </div>
 `;

@@ -53,6 +53,7 @@
     "css-loader": "^0.28.4",
     "cssnano": "^3.9.1",
     "empty": "^0.10.1",
+    "enzyme": "^2.9.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-prettier": "^2.1.1",

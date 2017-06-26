@@ -5,14 +5,6 @@ import rootReducer from 'app/rootReducer';
 import allSagas from 'app/allSagas';
 import { routerMiddleware } from 'react-router-redux';
 
-// for flowtype of module
-/* declare var module : {
- *   hot : {
- *     accept(path:string, callback:() => void): void;
- *   };
- * };
- * */
-
 export const configureStore = (history: string) => {
   const historyMiddleware = routerMiddleware(history);
   const sagaMiddleware = createSagaMiddleware();

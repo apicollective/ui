@@ -6,6 +6,7 @@ import { reducers as appReducers } from 'app/reducers';
 import { reducers as applicationReducers } from 'application/reducers';
 import { reducers as organizationReducers } from 'organization/reducers';
 import { reducers as documentationReducers } from 'documentation/reducers';
+import { reducers as loginReducers } from 'login/reducers';
 
 const routing = { routing: routerReducer };
 const allReducers = Object.assign(
@@ -14,7 +15,8 @@ const allReducers = Object.assign(
   appReducers,
   applicationReducers,
   organizationReducers,
-  documentationReducers
+  documentationReducers,
+  loginReducers
 );
 
 export default combineReducers(allReducers);
