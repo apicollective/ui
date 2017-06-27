@@ -24,32 +24,37 @@ const NavBarContents = (props: Props) => {
       <div className={styles.breadcrumbs}>
         {items.map(
           (item, id) =>
-            (item.toHref
+            item.toHref
               ? <Button key={id} className={styles.button} toHref={item.toHref}>
                   {item.name}
                 </Button>
-              : <div />)
+              : <div />
         )}
       </div>
-      <Link to={getGithubLoginUrl()}>Login/Register</Link>
+      {removeGithubLink ? null : githubLoginLink()}
       {removeGithubLink ? null : githubLink()}
     </div>
   );
 };
 
-const getGithubLoginUrl = () => {
-  const clientId = 'bc31dd90a21ff5e1e135'; // FIXME config
-  /* const redirectUrl = ('http://apidoc.movio.co/login'); // FIXME config*/
-  const redirectUrl = 'http://localhost:8080/login'; // FIXME config
-  const base = 'http://github.com/login/oauth/authorize';
-  const scope = 'user:email';
+const githubLoginLink = () => {
+  if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_REDIRECT_URL) {
+    const clientId = process.env.GITHUB_CLIENT_ID;
+    const redirectUrl = process.env.GITHUB_REDIRECT_URL;
+    const base = 'http://github.com/login/oauth/authorize';
+    const scope = 'user:email';
 
-  return encodeURI(
-    `${base}?client_id=${clientId}&scope=${scope}&redirect_url=${redirectUrl}`
-  );
+    const url = encodeURI(
+      `${base}?client_id=${clientId}&scope=${scope}&redirect_url=${redirectUrl}`
+    );
+
+    return <Link to={url}>Login/Register</Link>;
+  } else {
+    return <div />;
+  }
 };
 
-const githubLink = () => (
+const githubLink = () =>
   <a
     href="https://github.com/movio/apidoc-ui"
     className="githubCorner"
@@ -74,8 +79,7 @@ const githubLink = () => (
         className="octoBody"
       />
     </svg>
-  </a>
-);
+  </a>;
 
 const getItems = (props: Props): NavItem[] => {
   // FIXME test

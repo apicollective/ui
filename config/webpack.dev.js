@@ -145,6 +145,12 @@ module.exports = env => ({
       'process.env': {
         APIDOC_HOST: '"/api"',
         TITLE: JSON.stringify(process.env.TITLE),
+        GITHUB_CLIENT_ID: '"' + process.env.GITHUB_CLIENT_ID
+          ? process.env.GITHUB_CLIENT_ID
+          : 'bc31dd90a21ff5e1e13' + '"',
+        GITHUB_REDIRECT_URL: '"' + process.env.GITHUB_REDIRECT_URL
+          ? process.env.GITHUB_REDIRECT_URL
+          : 'https://ui.apibuilder.io/login' + '"',
       },
     }),
   ],

@@ -142,9 +142,14 @@ const config = {
           '"' +
             (process.env.APIDOC_HOST
               ? process.env.APIDOC_HOST
-              : 'http://api.apibuilder.io') +
+              : 'https://api.apibuilder.io') +
             '"',
-        /* APIDOC_HOST: '""',*/
+        GITHUB_CLIENT_ID: '"' + process.env.GITHUB_CLIENT_ID
+          ? process.env.GITHUB_CLIENT_ID
+          : 'bc31dd90a21ff5e1e13' + '"',
+        GITHUB_REDIRECT_URL: '"' + process.env.GITHUB_REDIRECT_URL
+          ? process.env.GITHUB_REDIRECT_URL
+          : 'https://ui.apibuilder.io/login' + '"',
       },
     }),
     new ExtractTextPlugin('styles.[contenthash].css'),

@@ -17,33 +17,42 @@ A fresh UI built using React + Redux for https://github.com/mbryzek/apidoc
 
 UI Dev
 
+```shell
+yarn install
+yarn start
+http://localhost:8080/
 
-    yarn install
-    yarn start
-    http://localhost:8080/
-
-    yarn test
-    yarn flow
+yarn test
+yarn flow
+```
 
 Before a Pull Request
 
-    yarn run check
+```shell
+yarn run check
+```
 
 App
 
-    yarn start
+```shell
+yarn start
+```
 
 ## Deploy
 Deploy will build and push to S3. You need to have ~/.aws/credentials setup with access to the S3 bucket for this
 
-    yarn deploy
+```shell
+yarn deploy
+```
 
 ### Travis Settings
 When changes are merged to master travis will automatically perform a build, if the build is successful it will be deployed immediately.
 
 To update the aws keys:
 
-    travis encrypt AWS_ACCESS_KEY_ID='access key' AWS_SECRET_ACCESS_KEY='secret key' --add env
+```shell
+travis encrypt AWS_ACCESS_KEY_ID='access key' AWS_SECRET_ACCESS_KEY='secret key' --add env
+```
 
 ## Build Settings
 
@@ -60,7 +69,14 @@ TITLE
 - The default title is APIDOC, this can be customized for a deployment
 - If specified this removes the github icon and link
 
+GITHUB_CLIENT_ID
+- the client ID issued by github for auth - defaults so apibuilder's client ID.
+
+GITHUB_REDIRECT_URL
+- the URL to redirect back to after github authorization - defaults to https://ui.apibuilder.io/login
 
 Example:
 
-    > APIDOC_HOST='/my-api' PREFIX='/assets' TITLE='My Company' yarn build
+```shell
+APIDOC_HOST='/my-api' PREFIX='/assets' TITLE='My Company' GITHUB_REDIRECT_URL='http://localhost:8080/login' yarn build
+```
