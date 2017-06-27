@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 
@@ -15,7 +16,9 @@ const store = configureStore(history);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App history={history} />
+    <ConnectedRouter history={history}>
+      <App history={history} />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

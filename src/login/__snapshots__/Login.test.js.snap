@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login Please 1`] = `
+exports[`Display "Please Login" if not logged in when on /login 1`] = `
 <div>
   Login Please
 </div>
 `;
 
-exports[`Validate github token with backend successfully 1`] = `
+exports[`Validate github token with backend successfully and update the store 1`] = `
 <div>
   Logging In
 </div>

@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from 'home';
@@ -20,39 +19,37 @@ type Props = {|
 |};
 
 const App = (props: Props) =>
-  <ConnectedRouter history={props.history}>
-    <div>
-      <NavBar />
-      <div className={styles.main}>
-        <SideBar history={props.history} />
-        <Content>
-          <Switch>
-            <Route
-              path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/app/:applicationKey/m/:model"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/app/:applicationKey"
-              component={Appln}
-            />
-            <Route
-              path="/org/:organizationKey/doc/:documentationKey"
-              component={Documentation}
-            />
-            <Route
-              path="/org/:organizationKey"
-              component={OrganizationComponent}
-            />
-            <Route path="/login" component={Login} />
-            <Route component={Home} />
-          </Switch>
-        </Content>
-      </div>
+  <div>
+    <NavBar />
+    <div className={styles.main}>
+      <SideBar history={props.history} />
+      <Content>
+        <Switch>
+          <Route
+            path="/org/:organizationKey/app/:applicationKey/r/:resource/m/:method/p/:path"
+            component={Appln}
+          />
+          <Route
+            path="/org/:organizationKey/app/:applicationKey/m/:model"
+            component={Appln}
+          />
+          <Route
+            path="/org/:organizationKey/app/:applicationKey"
+            component={Appln}
+          />
+          <Route
+            path="/org/:organizationKey/doc/:documentationKey"
+            component={Documentation}
+          />
+          <Route
+            path="/org/:organizationKey"
+            component={OrganizationComponent}
+          />
+          <Route path="/login" component={Login} />
+          <Route component={Home} />
+        </Switch>
+      </Content>
     </div>
-  </ConnectedRouter>;
+  </div>;
 
 export default App;
