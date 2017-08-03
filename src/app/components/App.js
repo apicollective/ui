@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import sortBy from 'lodash/fp/sortBy';
-import snakeCase from 'lodash/fp/snakeCase';
 
 import NavBar from 'components/NavBar';
 import SideBar from 'components/SideBar';
 import Content from 'components/Content';
-import { actions } from 'app/actions';
+import { actions } from 'organization/sagas';
 import * as utils from 'utils';
 
 import type {
@@ -28,6 +27,7 @@ type Item = {
   type?: string,
   onClick?: (event: Event) => void,
   items?: Item[],
+  orderIndex?: number,
 };
 
 type Props = {|
@@ -37,6 +37,7 @@ type Props = {|
   organization: Organization,
   applications: Application[],
   params: Object, // FIXME
+  actions: Object,
   importedServices: Service[],
 |};
 
@@ -56,7 +57,7 @@ class App extends Component {
   static createResourceItem(
     params: Object,
     resource: Resource,
-    currentItem: string
+    currentItem: string,
   ): Item {
     return {
       name: resource.type,
@@ -69,13 +70,13 @@ class App extends Component {
             resource: resource.type,
             method: operation.method.toLowerCase(),
             path: utils.cleanPath(operation.path),
-          })
+          }),
         ),
         active:
           currentItem ===
-            `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(
-              operation.path
-            )}`,
+          `${resource.type}${operation.method.toLowerCase()}${utils.cleanPath(
+            operation.path,
+          )}`,
         type: 'resource',
         method: operation.method,
         path: operation.path,
@@ -88,7 +89,7 @@ class App extends Component {
     params: Object,
     model: Object,
     currentItem: string,
-    type: string = 'model'
+    type: string = 'model',
   ): Item {
     return {
       name: `${model.name}`,
@@ -97,7 +98,7 @@ class App extends Component {
           organization: params.organizationKey,
           application: params.applicationKey,
           model: model.name,
-        })
+        }),
       ),
       active: currentItem === model.name,
       type,
@@ -111,7 +112,7 @@ class App extends Component {
     importedServices: Service[],
     organizations: Organization[],
     organizationObj: Organization,
-    applications: Application[]
+    applications: Application[],
   ): Item[] {
     if (!params.organizationKey) {
       const organizationsWithHref = organizations.map(organization => ({
@@ -119,7 +120,7 @@ class App extends Component {
         onClick: utils.onClickHref(
           utils.buildNavHref({
             organization: organization.key,
-          })
+          }),
         ),
       }));
       return [
@@ -140,18 +141,19 @@ class App extends Component {
           utils.buildNavHref({
             organization: params.organizationKey,
             application: application.key,
-          })
+          }),
         ),
       }));
       const orgDocsList = docs.organizations[params.organizationKey];
       const docsByOrg = (orgDocsList && orgDocsList.documents) || [];
-      const docsWithHref = docsByOrg.map(doc => ({
+      const docsWithHref = docsByOrg.map((doc, index) => ({
         name: doc.name,
+        orderIndex: index,
         onClick: utils.onClickHref(
           utils.buildNavHref({
             organization: params.organizationKey,
-            documentation: snakeCase(doc.name),
-          })
+            documentation: doc.slug,
+          }),
         ),
       }));
       const applicationSidebarGroup = [
@@ -178,7 +180,7 @@ class App extends Component {
                 ],
               },
             ]
-          : []
+          : [],
       );
     } else if (
       params.organizationKey &&
@@ -199,7 +201,7 @@ class App extends Component {
         {
           name: 'Resources',
           items: allResources.map(resource =>
-            App.createResourceItem(params, resource, currentItem)
+            App.createResourceItem(params, resource, currentItem),
           ),
         },
         {
@@ -211,8 +213,8 @@ class App extends Component {
                 .map(model => App.createModelItem(params, model, currentItem))
                 .concat(
                   allEnums.map(enumValue =>
-                    App.createModelItem(params, enumValue, currentItem, 'enum')
-                  )
+                    App.createModelItem(params, enumValue, currentItem, 'enum'),
+                  ),
                 ),
             },
           ],
@@ -235,7 +237,7 @@ class App extends Component {
         params.resource,
         params.method,
         params.path,
-        service
+        service,
       );
       operationPath = op.path;
     }
@@ -247,7 +249,7 @@ class App extends Component {
             onClick: utils.onClickHref(
               utils.buildNavHref({
                 organization: params.organizationKey,
-              })
+              }),
             ),
           }
         : [],
@@ -258,7 +260,7 @@ class App extends Component {
               utils.buildNavHref({
                 organization: params.organizationKey,
                 application: params.applicationKey,
-              })
+              }),
             ),
           }
         : [],
@@ -272,7 +274,7 @@ class App extends Component {
                 resource: params.resource,
                 method: params.method,
                 path: params.path,
-              })
+              }),
             ),
           }
         : [],
@@ -284,13 +286,18 @@ class App extends Component {
                 organization: params.organizationKey,
                 application: params.applicationKey,
                 model: params.model,
-              })
+              }),
             ),
           }
-        : []
+        : [],
     );
   }
-
+  componentDidMount() {
+    const orgKey = this.props.params.organizationKey;
+    if (orgKey) {
+      this.props.actions.getOrganizationDetails_get({ orgKey });
+    }
+  }
   render() {
     const {
       params,
@@ -314,13 +321,19 @@ class App extends Component {
       importedServices,
       organizations,
       organization,
-      applications
+      applications,
     ).map(sideBarItem => {
       if (sideBarItem.items) {
         sideBarItem.items.map(items =>
           Object.assign(items, {
-            items: sortBy(item => item.name, items.items),
-          })
+            items: sortBy(
+              item =>
+                !!item.orderIndex || item.orderIndex === 0
+                  ? item.orderIndex
+                  : item.name,
+              items.items,
+            ),
+          }),
         );
       }
       return Object.assign(sideBarItem, {

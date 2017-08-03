@@ -38,7 +38,9 @@ const simplifyName = (name: string): string => {
           : word.substring(0, word.search('[A-Za-z]') + 1)
     )
     .join('.');
-  return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[splitName.length - 1]}`;
+  return `${joined.substring(0, joined.lastIndexOf('.') - 1)}${splitName[
+    splitName.length - 1
+  ]}`;
 };
 
 interface Named {

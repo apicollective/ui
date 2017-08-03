@@ -10,7 +10,7 @@
     "format": "prettier --single-quote --trailing-comma=es5 --write src/*.js src/**/*.js src/**/*.jsx",
     "lint:style": "stylelint \"src/**/*.css\"",
     "lint:style:ci": "stylelint \"src/**/*.css\"",
-    "check": "yarn run test && yarn run flow && yarn run lint && yarn run lint:style",
+    "check": "yarn run format && yarn run test && yarn run flow && yarn run lint && yarn run lint:style",
     "flow:cover": "flow coverage --color",
     "flow:coverage": "flow-coverage-report -i 'src/**/*.js' -x 'src/**/*.test.js' -x 'src/generated/**/*' -t text",
     "test": "jest --config=jest.config.json",

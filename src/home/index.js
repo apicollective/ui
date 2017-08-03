@@ -16,27 +16,21 @@ import type { Organization } from 'generated/version/ServiceType';
 
 const allActions = Object.assign({}, orgActions);
 
-const Org = ({ organization }: { organization: Organization }) => (
+const Org = ({ organization }: { organization: Organization }) =>
   <HomeCard
     link={`org/${organization.key}`}
     name={organization.name}
     description={organization.description}
-  />
-);
+  />;
 
-const Organizations = ({
-  organizations,
-}: {
-  organizations: Organization[],
-}) => (
+const Organizations = ({ organizations }: { organizations: Organization[] }) =>
   <div>
-    {organizations.map(organization => (
+    {organizations.map(organization =>
       <div key={organization.key} className={styles.container}>
         <Org key={organization.key} organization={organization} />
       </div>
-    ))}
-  </div>
-);
+    )}
+  </div>;
 
 type Props = {
   loaded: boolean,

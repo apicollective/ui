@@ -22,13 +22,12 @@ const App = ({
 }: {
   orgKey: string,
   application: Application,
-}) => (
+}) =>
   <AppCard
     name={application.name}
     description={application.description}
     link={`/org/${orgKey}/app/${application.key}`}
-  />
-);
+  />;
 
 // Roll into Org FIXME
 const Applications = ({
@@ -37,15 +36,14 @@ const Applications = ({
 }: {
   orgKey: string,
   applications: Application[],
-}) => (
+}) =>
   <div>
-    {applications.map(application => (
+    {applications.map(application =>
       <div key={application.name} className={styles.container}>
         <App key={application.name} orgKey={orgKey} application={application} />
       </div>
-    ))}
-  </div>
-);
+    )}
+  </div>;
 
 type Props = {
   loaded: boolean,
