@@ -1,7 +1,5 @@
 // @flow
-import {
-  actionTypes,
-} from 'generated/documentation/getByRootUrlAndMarkdownPath';
+import { actionTypes } from 'generated/documentation/getByRootUrlAndMarkdownPath';
 
 export type State = {
   loaded: boolean,

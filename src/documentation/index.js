@@ -2,11 +2,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { snakeCase } from 'lodash';
 
-import {
-  actions as docActions,
-} from 'generated/documentation/getByRootUrlAndMarkdownPath';
+import { actions as docActions } from 'generated/documentation/getByRootUrlAndMarkdownPath';
 
 import H1 from 'components/H1';
 import LoadingOverlay from 'components/LoadingOverlay';
@@ -29,11 +26,11 @@ type Props = {|
 class Documentation extends Component {
   props: Props;
 
-  componentDidMount() {
+  componentWillMount() {
     const document = docs.organizations[
       this.props.params.organizationKey
     ].documents.filter(
-      doc => snakeCase(doc.name) === this.props.params.documentationKey
+      doc => doc.slug === this.props.params.documentationKey
     )[0];
     this.props.actions.getByRootUrlAndMarkdownPath_get({
       rootUrl: document.rootUrl,
@@ -41,17 +38,35 @@ class Documentation extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.params.documentationKey !== nextProps.params.documentationKey
+    ) {
+      const document = docs.organizations[
+        nextProps.params.organizationKey
+      ].documents.filter(
+        doc => doc.slug === nextProps.params.documentationKey
+      )[0];
+      this.props.actions.getByRootUrlAndMarkdownPath_get({
+        rootUrl: document.rootUrl,
+        markdownPath: document.markdownPath,
+      });
+    }
+  }
+
   render() {
     const document = docs.organizations[
       this.props.params.organizationKey
     ].documents.filter(
-      doc => snakeCase(doc.name) === this.props.params.documentationKey
+      doc => doc.slug === this.props.params.documentationKey
     )[0];
     return (
       <LoadingOverlay isLoaded={this.props.loaded}>
         <div className={styles.content}>
           <div className={styles.container}>
-            <H1 className={styles.h1}>{document.name}</H1>
+            <H1 className={styles.h1}>
+              {document.name}
+            </H1>
             <Markdown
               source={this.props.markdown}
               className={styles.markdown}
